@@ -35,7 +35,9 @@ dependencies {
 
     // Example library: Guava. Add what you need (and remove Guava if you don't use it)
     // implementation("com.google.guava:guava:28.1-jre")
-
+    
+    implementation("de.siegmar:fastcsv:2.2.1")
+    
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
     for (platform in supportedPlatforms) {
@@ -57,5 +59,6 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("it.unibo.samplejavafx.App")
+     mainClass.set("globaloutbreak.GlobalOutbreakApp")
+    //mainClass.set("it.unibo.samplejavafx.mvcexample.DrawNumberApp")
 }
