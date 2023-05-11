@@ -5,28 +5,11 @@ import globaloutbreak.model.api.MutationFactory;
 
 public class MutationFactoryImpl implements MutationFactory{
 
-    public MutationFactoryImpl(){
-
-    }
     
+       
     @Override
-    public Mutation createMutation() {
-                
-        return new Mutation() {
-
-            @Override
-            public int getCost() {
-                int a =0;
-                return a;
-            }
-
-            @Override
-            public int getIncrement() {
-                int a =0;
-                return a;
-            }
-            
-        };
+    public Mutation createMutation(final int cost, final String name, final int increase, final TypeMutation type, final String description) { 
+        return new MutationImpl(cost,name,increase,type,description);
     }
     
 }

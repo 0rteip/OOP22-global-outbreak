@@ -1,11 +1,22 @@
 package globaloutbreak.model.api;
 
+import globaloutbreak.model.impl.TypeMutation;
+
 /**
- * 
+ * Interface of mutation factory
  * 
  */
 
 public interface MutationFactory {
-    
-    Mutation createMutation();
+    /**
+     * ctreate mutation by data
+     * 
+     * @param cost cost of the mutation
+     * @param name name of the mutation
+     * @param increase increas of the mutation parameter
+     * @param type type of the mutation
+     * @param description description of the mutation
+     * @return mutation
+     */
+    Mutation createMutation(final int cost, final String name, final int increase, final TypeMutation type,final String description);
 }
