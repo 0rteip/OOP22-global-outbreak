@@ -1,26 +1,30 @@
 package globaloutbreak;
 
+import globaloutbreak.controller.api.MenuController;
+import globaloutbreak.controller.impl.MenuControllerImpl;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 // import globaloutbreak.controller.api.Controller;
 
 /**
- * Applpication.
+ * Application.
  */
-public final class GlobalOutbreakApp {
 
-    private GlobalOutbreakApp() {
-    }
+public class GlobalOutbreakApp extends Application {
 
     /**
-     * App entry point.
      * 
-     * @param args
-     *             ignored
      */
-
-    public static void main(final String[] args) {
-        // final Controller controller = ControllerImpl;
-        // controller.startGame();
-        // System.out.println("fine");
+    @Override
+    public final void start(Stage primaryStage) throws Exception {
+        final MenuController menuController = new MenuControllerImpl(primaryStage);
+        menuController.loadScreen("layouts/MenuGui.fxml");
+        primaryStage.setTitle("Global Outbreak");
+        primaryStage.show();
     }
 
+    public static void main(final String[] args) {
+        launch(args);
+    }
 }
