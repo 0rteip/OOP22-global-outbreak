@@ -1,6 +1,6 @@
 package globaloutbreak.model.impl;
 
-import globaloutbreak.model.api.DataComparator;
+import globaloutbreak.model.api.DataAnalyzer;
 
 import java.io.IOException;
 
@@ -16,23 +16,24 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.slf4j.LoggerFactory;
+
 import de.siegmar.fastcsv.reader.CsvReader;
 
 /**
- * 
+ * A DataAnalyzer based on the mainly cause of death.
  */
-public final class DeathDataMessageComparator implements DataComparator<String, Integer> {
+public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
 
     private Optional<Map<String, Integer>> causeOfDeahs = Optional.empty();
 
     /**
-     * A comparator based on the mainly cause of death.
+     * Create an analyzer based on data from deaths.csv
      */
-    public DeathDataMessageComparator() {
+    public DeathNumberAnalyzer() {
         readCsv(Path.of("src", "main", "resources", "diseases", "deaths.csv"));
     }
 
-    @SuppressWarnings("PMD.SystemPrintln")
     private void readCsv(final Path pt) {
 
         try (CsvReader csvReader = CsvReader.builder().build(pt, StandardCharsets.UTF_8)) {
@@ -46,39 +47,31 @@ public final class DeathDataMessageComparator implements DataComparator<String, 
             IntStream.range(0, l.get(0).size())
                     .forEach(i -> cause.put(l.get(0).get(i), Integer.parseInt(l.get(1).get(i))));
 
-            this.causeOfDeahs = Optional.of(cause.entrySet()
-                    .stream()
-                    .sorted(Map.Entry.comparingByValue())
+            this.causeOfDeahs = Optional.of(cause.entrySet().stream()
                     .collect(Collectors.toMap(
-                            Map.Entry::getKey,
-                            Map.Entry::getValue,
+                            Entry::getKey,
+                            Entry::getValue,
                             (oldV, newV) -> oldV, LinkedHashMap::new)));
 
         } catch (IOException e) {
-            System.out.println(e);
+            LoggerFactory.getLogger(getClass()).warn("Error trying to read deaths.csv", e);
         }
     }
 
     @Override
-    @SuppressWarnings("PMD.SystemPrintln")
-    public void update(final Integer data) {
+    public void analyze(final Integer data) {
         this.causeOfDeahs.ifPresent(e -> e.entrySet().stream()
                 .filter(el -> el.getValue() < data)
                 .findFirst()
                 .ifPresent(el -> {
                     action(el);
-                    removeEntry(el);
+                    this.causeOfDeahs.get().remove(el.getKey());
                 }));
     }
 
-    @Override
     @SuppressWarnings("PMD.SystemPrintln")
-    public void action(final Entry<String, Integer> entry) {
-        System.out.println(entry);
+    private void action(final Entry<String, Integer> entry) {
+        System.out.println("New statics show that " + "'malattia'" + " Killed more than " + entry.getValue()
+                + " people world wide - more than '" + entry.getKey() + "'");
     }
-
-    private void removeEntry(final Entry<String, Integer> entry) {
-        this.causeOfDeahs.get().remove(entry.getKey());
-    }
-
 }

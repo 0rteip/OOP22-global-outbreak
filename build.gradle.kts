@@ -37,6 +37,7 @@ dependencies {
     // implementation("com.google.guava:guava:28.1-jre")
     
     implementation("de.siegmar:fastcsv:2.2.1")
+    implementation("ch.qos.logback:logback-classic:1.4.7")
     
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
