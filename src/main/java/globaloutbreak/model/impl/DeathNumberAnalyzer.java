@@ -1,12 +1,10 @@
 package globaloutbreak.model.impl;
 
-import globaloutbreak.model.api.DataAnalyzer;
-
+import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,35 +14,35 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.siegmar.fastcsv.reader.CsvReader;
+import globaloutbreak.model.api.DataAnalyzer;
 
 /**
  * A DataAnalyzer based on the mainly cause of death.
  */
 public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
 
+    private static String filePath = "diseases/deaths.csv";
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Optional<Map<String, Integer>> causeOfDeahs = Optional.empty();
 
     /**
-     * Create an analyzer based on data from deaths.csv
+     * Create an analyzer based on data from deaths.csv.
      */
     public DeathNumberAnalyzer() {
-        readCsv(Path.of("src", "main", "resources", "diseases", "deaths.csv"));
+        readCsv(filePath);
     }
 
-    private void readCsv(final Path pt) {
-
-        try (CsvReader csvReader = CsvReader.builder().build(pt, StandardCharsets.UTF_8)) {
-
+    private void readCsv(final String confFile) {
+        try (var dataFile = new BufferedReader(
+                new InputStreamReader(ClassLoader.getSystemResourceAsStream(confFile), StandardCharsets.UTF_8))) {
+            final List<List<String>> l = dataFile.lines().map(line -> Arrays.asList(line.split(","))).toList();
             final Map<String, Integer> cause = new HashMap<>();
 
-            final List<List<String>> l = csvReader.stream()
-                    .map(el -> el.getFields())
-                    .toList();
-
-            IntStream.range(0, l.get(0).size())
+            IntStream.range(0, l.get(0).size() - 1)
                     .forEach(i -> cause.put(l.get(0).get(i), Integer.parseInt(l.get(1).get(i))));
 
             this.causeOfDeahs = Optional.of(cause.entrySet().stream()
@@ -52,9 +50,10 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
                             Entry::getKey,
                             Entry::getValue,
                             (oldV, newV) -> oldV, LinkedHashMap::new)));
-
         } catch (IOException e) {
-            LoggerFactory.getLogger(getClass()).warn("Error trying to read deaths.csv", e);
+            this.logger.warn("Error trying to read {}", filePath, e);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            this.logger.warn("Configuration file {} is malformed", filePath, e);
         }
     }
 
