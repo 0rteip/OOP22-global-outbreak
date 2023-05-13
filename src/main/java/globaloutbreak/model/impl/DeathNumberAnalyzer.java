@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,11 +29,18 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Optional<Map<String, Integer>> causeOfDeahs = Optional.empty();
+    private final BiConsumer<String, Integer> action;
 
     /**
      * Create an analyzer based on data from deaths.csv.
+     * 
+     * @param action
+     *               The action to be performed when a Value passed to the
+     *               {@code analyze} method is the lowest, not yet used, number of
+     *               death
      */
-    public DeathNumberAnalyzer() {
+    public DeathNumberAnalyzer(final BiConsumer<String, Integer> action) {
+        this.action = action;
         readCsv(filePath);
     }
 
@@ -42,7 +50,7 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
             final List<List<String>> l = dataFile.lines().map(line -> Arrays.asList(line.split(","))).toList();
             final Map<String, Integer> cause = new HashMap<>();
 
-            IntStream.range(0, l.get(0).size() - 1)
+            IntStream.range(0, l.get(0).size())
                     .forEach(i -> cause.put(l.get(0).get(i), Integer.parseInt(l.get(1).get(i))));
 
             this.causeOfDeahs = Optional.of(cause.entrySet().stream()
@@ -60,17 +68,15 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
     @Override
     public void analyze(final Integer data) {
         this.causeOfDeahs.ifPresent(e -> e.entrySet().stream()
-                .filter(el -> el.getValue() < data)
+                .filter(el -> el.getValue() <= data)
                 .findFirst()
                 .ifPresent(el -> {
-                    action(el);
+                    performAction(el, this.action);
                     this.causeOfDeahs.get().remove(el.getKey());
                 }));
     }
 
-    @SuppressWarnings("PMD.SystemPrintln")
-    private void action(final Entry<String, Integer> entry) {
-        System.out.println("New statics show that " + "'malattia'" + " Killed more than " + entry.getValue()
-                + " people world wide - more than '" + entry.getKey() + "'");
+    private void performAction(final Entry<String, Integer> entry, final BiConsumer<String, Integer> c) {
+        c.accept(entry.getKey(), entry.getValue());
     }
 }
