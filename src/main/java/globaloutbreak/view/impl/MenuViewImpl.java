@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Class that manage button handlers.
  */
@@ -31,6 +34,8 @@ public class MenuViewImpl implements MenuView {
 
     private SceneManager sceneManager;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /**
      * Go to choose disease name Gui.
      */
@@ -42,7 +47,7 @@ public class MenuViewImpl implements MenuView {
                 sceneManager.loadScreen("scelta nome");
             }
         } catch (IOException e) {
-            System.out.println("Error");
+            this.logger.warn("Error trying to load scene", e);
         }
     }
 
@@ -59,7 +64,7 @@ public class MenuViewImpl implements MenuView {
                 sceneManager.loadScreen("tutorial");
             }
         } catch (IOException e) {
-            System.out.println("Error");
+            this.logger.warn("Error trying to load scene", e);
         }
     }
 
@@ -104,12 +109,12 @@ public class MenuViewImpl implements MenuView {
     @Override
     public void setController(final SceneManager sceneManager) {
         if (sceneManager == null) {
-            throw new IllegalArgumentException("MenuController cannot be null");
+            this.logger.warn("sceneManager cannot be null");
         }
         if (sceneManager instanceof SceneManagerImpl) {
             this.sceneManager = (SceneManagerImpl) sceneManager;
         } else {
-            throw new IllegalArgumentException("MenuController must implement MenuView");
+            this.logger.warn("sceneManager must implemenet SceneManager");
         }
     }
 }

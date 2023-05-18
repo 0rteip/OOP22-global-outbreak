@@ -27,7 +27,6 @@ public final class SceneManagerImpl implements SceneManager {
     /**
      * Constructor that load menu scenes.
      * 
-     * @param stage
      * @throws IOException
      */
     public SceneManagerImpl(final Stage stage) throws IOException {
