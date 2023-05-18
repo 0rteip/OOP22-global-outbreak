@@ -1,7 +1,7 @@
 package globaloutbreak;
 
-import globaloutbreak.controller.api.MenuController;
-import globaloutbreak.controller.impl.MenuControllerImpl;
+import globaloutbreak.view.api.SceneManager;
+import globaloutbreak.view.impl.SceneManagerImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,17 +14,23 @@ import javafx.stage.Stage;
 public class GlobalOutbreakApp extends Application {
 
     /**
-     * 
+     * Set controller and load scene.
      */
     @Override
-    public final void start(Stage primaryStage) throws Exception {
-        final MenuController menuController = new MenuControllerImpl(primaryStage);
-        menuController.loadScreen("layouts/MenuGui.fxml");
-        primaryStage.setTitle("Global Outbreak");
-        primaryStage.show();
+    public final void start(final Stage primaryStage) throws Exception {
+
+        final SceneManager sceneManager = new SceneManagerImpl(primaryStage);
+        sceneManager.loadScreen("menu iniziale");
+
     }
 
+    /**
+     * Main.
+     * 
+     * @param args
+     */
     public static void main(final String[] args) {
         launch(args);
     }
+
 }

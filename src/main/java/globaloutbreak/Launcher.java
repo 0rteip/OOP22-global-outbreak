@@ -6,7 +6,8 @@ package globaloutbreak;
 public final class Launcher {
 
     private Launcher() {
-    };
+
+    }
 
     /**
      * 
@@ -15,5 +16,4 @@ public final class Launcher {
     public static void main(final String[] args) {
         GlobalOutbreakApp.main(args);
     }
-
 }
