@@ -19,8 +19,8 @@ public class GlobalOutbreakApp extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
 
-        final SceneManager sceneManager = new SceneManagerImpl(primaryStage);
-        sceneManager.loadScreen("menu iniziale");
+        final SceneManager sceneManager = new SceneManagerImpl();
+        sceneManager.loadScreen("menu iniziale", primaryStage);
 
     }
 

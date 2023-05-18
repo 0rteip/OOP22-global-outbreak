@@ -59,6 +59,6 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-     mainClass.set("globaloutbreak.GlobalOutbreakApp")
+     mainClass.set("globaloutbreak.Launcher")
     //mainClass.set("it.unibo.samplejavafx.mvcexample.DrawNumberApp")
 }

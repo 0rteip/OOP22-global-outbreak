@@ -22,17 +22,13 @@ public final class SceneManagerImpl implements SceneManager {
 
     private final Stack<Scene> history = new Stack<>();
     private final Map<String, Pair<FXMLLoader, Parent>> sceneMap;
-    private final Stage stage;
 
     /**
      * Constructor that load menu scenes.
      * 
      * @throws IOException
      */
-    public SceneManagerImpl(final Stage stage) throws IOException {
-        this.stage = stage;
-        this.stage.setResizable(false);
-        this.stage.setTitle("Global Outbreak");
+    public SceneManagerImpl() throws IOException {
 
         sceneMap = new HashMap<>();
         sceneMap.put("menu iniziale", loadScene("layouts/MenuGui.fxml"));
@@ -48,7 +44,7 @@ public final class SceneManagerImpl implements SceneManager {
      * @param name the name of fxml file
      */
     @Override
-    public void loadScreen(final String name) {
+    public void loadScreen(final String name, final Stage stage) {
         final Parent parent = sceneMap.get(name).getValue();
         final Scene scene = parent.getScene() != null ? parent.getScene()
                 : new Scene(parent, WIDTHSCREEN, HEIGHTSCREEN);
@@ -65,7 +61,7 @@ public final class SceneManagerImpl implements SceneManager {
      * Set the previous scene.
      */
     @Override
-    public void goBack() {
+    public void goBack(final Stage stage) {
         if (!history.isEmpty()) {
             stage.setScene(history.pop());
         }
