@@ -1,22 +1,22 @@
 [
     {
-        "Priority": "None",
-        "Description": "No disease detected",
+        "Priority": "0",
+        "Description": "None",
         "Resources_perc":0
     },
     {
-        "Priority": "Low",
-        "Description": "Disease detected",
+        "Priority": "1",
+        "Description": "Low",
         "Resources_perc":0.33
     },
     {
-        "Priority": "Medium",
-        "Description": "Commitment to research",
+        "Priority": "2",
+        "Description": "Medium",
         "Resources_perc":0.66
     },
     {
-        "Priority": "High",
-        "Description": "Use of all available resources",
+        "Priority": "3",
+        "Description": "High",
         "Resources_perc":1
     }
 ]
