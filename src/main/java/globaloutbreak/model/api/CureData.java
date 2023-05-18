@@ -1,0 +1,41 @@
+package globaloutbreak.model.api;
+
+import java.util.List;
+
+/**
+ * A set of usefull Data about the cure status.
+ */
+public interface CureData {
+
+    /**
+     * Returns the progress of the cure.
+     * 
+     * @return
+     *         progress
+     */
+    Integer getProgress();
+
+    /**
+     * Returns the remaing days before the cure is completed.
+     * 
+     * @return
+     *         days
+     */
+    Integer getRemainingDays();
+
+    /**
+     * Returns the {@code Region} with the major contribution to the cure.
+     * 
+     * @return
+     *         regions
+     */
+    List<Region> getMajorContributors();
+
+    /**
+     * Returns the {@link Priority}.
+     * 
+     * @return
+     *         {@code Priority}
+     */
+    Priority gePriority();
+}
