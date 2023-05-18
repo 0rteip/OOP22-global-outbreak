@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox styleClass="vbox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="globaloutbreak.view.impl.MenuViewImpl" stylesheets="css/menu-style.css">
+fx:controller="globaloutbreak.view.impl.StartSceneViewImpl" stylesheets="css/menu-style.css">
 	<children>
 	   <Button fx:id="newGameButton" onMouseClicked="#chooseDiseaseName" text="Nuova Partita">
          <font>

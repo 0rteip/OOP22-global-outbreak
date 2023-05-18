@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Stack;
 
 import globaloutbreak.view.api.SceneManager;
-import globaloutbreak.view.api.MenuView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,7 +71,18 @@ public final class SceneManagerImpl implements SceneManager {
      */
     private void setManager() {
         this.sceneMap.values().stream()
-                .map(Pair::getKey).forEach(loader -> ((MenuView) loader.getController()).setController(this));
+                .map(Pair::getKey)
+                .map(FXMLLoader::getController)
+                .forEach(controller -> {
+                    if (controller instanceof StartSceneViewImpl) {
+                        ((StartSceneViewImpl) controller).setController(this);
+                    } else if (controller instanceof TutorialSceneViewImpl) {
+                        ((TutorialSceneViewImpl) controller).setController(this);
+                    } else if (controller instanceof NameSceneViewImpl) {
+                        ((NameSceneViewImpl) controller).setController(this);
+                    }
+                    // Aggiungi altri controlli per le altre classi figlie
+                });
     }
 
     private Pair<FXMLLoader, Parent> loadScene(final String fxmlPath) throws IOException {

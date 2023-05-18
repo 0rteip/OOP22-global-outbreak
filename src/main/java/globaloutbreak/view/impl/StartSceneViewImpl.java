@@ -2,22 +2,20 @@ package globaloutbreak.view.impl;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+
 import globaloutbreak.view.api.SceneManager;
-import globaloutbreak.view.api.MenuView;
+import globaloutbreak.view.api.SceneView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class that manage button handlers.
  */
-public class MenuViewImpl implements MenuView {
+public class StartSceneViewImpl extends SceneView {
 
     @FXML
     private Button newGameButton;
@@ -28,25 +26,25 @@ public class MenuViewImpl implements MenuView {
     @FXML
     private Button exitButton;
 
-    @FXML
-    private Button backButton;
-
-    @FXML
-    private Button submitButton;
-
-    private SceneManager sceneManager;
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private Stage stage;
+    private SceneManager sceneManager;
+    private Logger logger;
+
+    /**
+     * Initialize logger.
+     */
+    public final void initialize() {
+        this.logger = getLogger();
+    }
 
     /**
      * Go to choose disease name Gui.
+     * 
+     * @param evt
      */
     @FXML
-    @Override
     public final void chooseDiseaseName(final MouseEvent evt) {
-        if (this.stage == null) {
+        if (evt.getSource() instanceof Button && this.stage == null) {
             this.stage = this.getStage(evt);
         }
         try {
@@ -64,10 +62,9 @@ public class MenuViewImpl implements MenuView {
      * @param evt event handler
      */
     @FXML
-    @Override
     public final void openTutorial(final MouseEvent evt) {
-        if (this.stage == null) {
-            this.stage = this.getStage(evt);
+        if (evt.getSource() instanceof Button && this.stage == null) {
+            this.stage = getStage(evt);
         }
         try {
             if (this.sceneManager != null) {
@@ -80,42 +77,16 @@ public class MenuViewImpl implements MenuView {
 
     /**
      * Quit game.
+     * 
+     * @param evt
      */
     @FXML
-    @Override
     public final void quitGame(final MouseEvent evt) {
         Platform.exit();
     }
 
     /**
-     * Go to the previous scene.
-     * 
-     * @param evt event handler
-     */
-    @FXML
-    @Override
-    public final void backScene(final MouseEvent evt) {
-        if (this.stage == null) {
-            this.stage = this.getStage(evt);
-        }
-        if (this.sceneManager != null) {
-            sceneManager.goBack(stage);
-        }
-    }
-
-    /**
-     * Start the game.
-     * 
-     * @param evt event handler
-     */
-    @FXML
-    @Override
-    public final void startGame(final MouseEvent evt) {
-
-    }
-
-    /**
-     * Set the scene Manager.
+     * Set controller.
      * 
      * @param sceneManager
      */
@@ -130,17 +101,4 @@ public class MenuViewImpl implements MenuView {
             this.logger.warn("sceneManager must implemenet SceneManager");
         }
     }
-
-    private Stage getStage(final MouseEvent evt) {
-        if (evt.getSource() instanceof Button) {
-            final Button source = (Button) evt.getSource();
-            final Window window = source.getScene().getWindow();
-
-            if (window instanceof Stage) {
-                return (Stage) window;
-            }
-        }
-        return null;
-    }
-
 }
