@@ -1,22 +1,22 @@
 [
     {
-        "Priority": "0",
-        "Description": "None",
-        "Resources_perc":0
+        "priority": 0,
+        "description": "None",
+        "resourcesPercentage":0.0
     },
     {
-        "Priority": "1",
-        "Description": "Low",
-        "Resources_perc":0.33
+        "priority": 1,
+        "description": "Low",
+        "resourcesPercentage":0.33
     },
     {
-        "Priority": "2",
-        "Description": "Medium",
-        "Resources_perc":0.66
+        "priority": 2,
+        "description": "Medium",
+        "resourcesPercentage":0.66
     },
     {
-        "Priority": "3",
-        "Description": "High",
-        "Resources_perc":1
+        "priority": 3,
+        "description": "High",
+        "resourcesPercentage":1.0
     }
 ]
