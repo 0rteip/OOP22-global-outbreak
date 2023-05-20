@@ -19,17 +19,17 @@ public class CurePriority implements Priority {
 
     @Override
     public Integer getPriority() {
-        return priority;
+        return this.priority;
     }
 
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     @Override
     public float getResourcesPercentage() {
-        return resourcesPercentage;
+        return this.resourcesPercentage;
     }
 
     @Override
