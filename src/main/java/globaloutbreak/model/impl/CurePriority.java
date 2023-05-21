@@ -9,16 +9,16 @@ public class CurePriority implements Priority {
 
     private final int priority;
     private final String description;
-    private final Float resourcesPercentage;
+    private final float resourcesPercentage;
 
-    private CurePriority(final int priority, final String description, final Float resourcesPercentage) {
+    private CurePriority(final int priority, final String description, final float resourcesPercentage) {
         this.priority = priority;
         this.description = description;
         this.resourcesPercentage = resourcesPercentage;
     }
 
     @Override
-    public Integer getPriority() {
+    public int getPriority() {
         return this.priority;
     }
 
@@ -46,15 +46,17 @@ public class CurePriority implements Priority {
      * builder
      * 
      * - priority class has two parameters that can be easily confused, in a call to
-     * its constructur, {@code Integer} abd {@code Float} could be used both as
-     * {@code Integer}.
+     * its constructur, {@code int} abd {@code float} could be used both as
+     * {@code int}.
      * 
      */
     public static class Builder {
 
-        private int priority;
+        private final static int PRIORITY = 0;
+
+        private int priority = PRIORITY;
         private String description;
-        private Float resourcesPercentage;
+        private float resourcesPercentage;
         private int nextPriority = 0;
 
         /**
@@ -79,7 +81,7 @@ public class CurePriority implements Priority {
          * @param resourcesPercentage the resourcesPercentage
          * @return this builder, for method chaining
          */
-        public Builder setResourcesPercentage(final Float resourcesPercentage) {
+        public Builder setResourcesPercentage(final float resourcesPercentage) {
             this.resourcesPercentage = resourcesPercentage;
             return this;
         }
@@ -88,9 +90,6 @@ public class CurePriority implements Priority {
          * @return a priority
          */
         public final Priority build() {
-            if (this.description.isBlank()) {
-                throw new IllegalArgumentException("Description can't be blank");
-            }
             if (this.priority != this.nextPriority) {
                 throw new IllegalStateException("Incorrect state");
             }

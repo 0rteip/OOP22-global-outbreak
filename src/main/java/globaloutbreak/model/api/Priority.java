@@ -12,7 +12,7 @@ public interface Priority {
      * @return
      *         priority
      */
-    Integer getPriority();
+    int getPriority();
 
     /**
      * Return the description of the priority.
