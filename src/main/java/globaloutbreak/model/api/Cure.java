@@ -14,7 +14,7 @@ public interface Cure {
     CureData getGlobalStatus();
 
     /**
-     * How research founds are allocated.
+     * How daily research funds are allocated.
      */
     void research();
 
@@ -25,5 +25,27 @@ public interface Cure {
      *         {@code True} if completed
      */
     boolean isCompleted();
+
+    /**
+     * Affects the research for a cure by a {@code changeFactor}
+     * 
+     * @param changeFactor
+     *                     influence factor
+     */
+    void increaseResearchDifficulty(float changeFactor);
+
+    /**
+     * Affects the progress done by a {@code changeFactor}
+     * 
+     * @param changeFactor
+     *                     influence factor
+     */
+    void reduceResearchProgress(float changeFactor);
+
+
+    /**
+     * @return true if the Cure is consistent
+     */
+    boolean isConsistent();
 
 }
