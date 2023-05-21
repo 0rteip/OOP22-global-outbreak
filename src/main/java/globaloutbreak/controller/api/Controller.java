@@ -1,7 +1,5 @@
 package globaloutbreak.controller.api;
 
-import java.util.List;
-
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
@@ -42,10 +40,8 @@ public interface Controller {
      * 
      * @param mutation
      *                 mutation selected
-     * @return
-     *         {@code True} if is active, {@code False} otherwise
      */
-    boolean selectedMutation(Mutation mutation);
+    void selectedMutation(Mutation mutation);
 
     /**
      * Update DNA points, cure status, general info.
@@ -62,22 +58,6 @@ public interface Controller {
      *                message to display
      */
     void displayMessage(Message message);
-
-    /**
-     * List of all the possible Diseases.
-     * 
-     * @return
-     *         list of Diseases
-     */
-    List<Disease> getDiseases();
-
-    /**
-     * Get rilevant data on the global situations.
-     * 
-     * @return
-     *         global data
-     */
-    List<Integer> getGlobalData();
 
     /**
      * Start a Voyage.
