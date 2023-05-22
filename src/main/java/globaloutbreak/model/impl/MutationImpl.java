@@ -25,48 +25,48 @@ public class MutationImpl implements Mutation{
 
     @Override
     public int getCost() {
-        return cost;
+        return this.cost;
     }
 
     @Override
     public int getIncrease() {
-       return increase;
+       return this.increase;
     }
 
     @Override
     public String getName() {
-       return name;
+       return this.name;
     }
 
     @Override
     public TypeMutation getType() {
-      return type;
+      return this.type;
     }
 
     @Override
     public String getDescription() {
-       return description;
+       return this.description;
     }
 
     @Override
     public void increase() {
-       switch(type){
+       switch(this.type){
         case TRASMISSION: 
-            //funzione T
+            //function increase trasmission
             break;
         case SYMPTOMS: 
-            //funzione S
+            //function increase symptoms
             break;
         case HEATRESISTANCE: 
-            //funzione CAL
+            //function increase heatresistence
             break;
         case COLDRESISTANCE: 
-            //funzione FRED
+            //function increase coldresistence
             break;
         case DRUGRESISTANCE: 
-            //funzione FARM
+            //function increase drugresistence
             break;
-        default:
+        default://exception
        }
 
     }
