@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 
 import globaloutbreak.view.api.SceneManager;
-import globaloutbreak.view.api.SceneView;
+import globaloutbreak.view.api.AbstractSceneView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * Class that manage button handlers.
  */
-public class StartSceneViewImpl extends SceneView {
+public class StartSceneViewImpl extends AbstractSceneView {
 
     @FXML
     private Button newGameButton;
@@ -52,7 +52,7 @@ public class StartSceneViewImpl extends SceneView {
                 sceneManager.loadScreen("scelta nome", stage);
             }
         } catch (IOException e) {
-            this.logger.warn("Error trying to load scene", e);
+            this.logger.error("Error trying to load scene", e);
         }
     }
 
@@ -82,7 +82,9 @@ public class StartSceneViewImpl extends SceneView {
      */
     @FXML
     public final void quitGame(final MouseEvent evt) {
-        Platform.exit();
+        Platform.runLater(() -> {
+            Platform.exit();
+        });
     }
 
     /**
@@ -91,14 +93,16 @@ public class StartSceneViewImpl extends SceneView {
      * @param sceneManager
      */
     @Override
-    public void setController(final SceneManager sceneManager) {
+    public void setManager(final SceneManager sceneManager) {
         if (sceneManager == null) {
-            this.logger.warn("sceneManager cannot be null");
+            this.logger.error("sceneManager cannot be null");
+            throw new IllegalStateException("SceneManager is null. Cannot change scene.");
         }
         if (sceneManager instanceof SceneManagerImpl) {
             this.sceneManager = (SceneManagerImpl) sceneManager;
         } else {
-            this.logger.warn("sceneManager must implemenet SceneManager");
+            this.logger.error("sceneManager must implemenet SceneManager");
+            throw new IllegalStateException("sceneManager must implemenet SceneManager.");
         }
     }
 }

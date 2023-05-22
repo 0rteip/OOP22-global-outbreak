@@ -5,8 +5,6 @@ import globaloutbreak.view.impl.SceneManagerImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// import globaloutbreak.controller.api.Controller;
-
 /**
  * Application.
  */
@@ -32,5 +30,4 @@ public class GlobalOutbreakApp extends Application {
     public static void main(final String[] args) {
         launch(args);
     }
-
 }
