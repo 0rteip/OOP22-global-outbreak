@@ -1,0 +1,10 @@
+[
+    {"nome" : "Canada", "colore" : -62442, "porti" : 1, "aereoporti" : 1, "confini" : ["Stati Uniti"]} , 
+    {"nome" : "Stati Uniti", "colore" : -16773410, "porti" : 1, "aereoporti" : 1, "confini" : ["Canada", "Messico"]} , 
+    {"nome" : "Centroamerica", "colore" : -15437568, "porti" : 1, "confini" : ["Messico", "Colombia"]} , 
+    {"nome" : "Caraibi", "colore" : -16714822, "porti" : 1} , 
+    {"nome" : "Colombia", "colore" : -1959392, "confini" : ["Perù", "Brasile"] } , 
+    {"nome" : "Brasile", "colore" : -9755096, "porti" : 1, "aereoporti" : 1, "confini" : ["Colombia", "Perù", "Bolivia", "Argentina"]} , 
+    {"nome" : "Perù", "colore" : -6750202, "confini" : ["Colombia","Brasile", "Bolivia"]} 
+    
+]
