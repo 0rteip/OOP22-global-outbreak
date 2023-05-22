@@ -13,7 +13,7 @@ public interface CureData {
      * @return
      *         progress
      */
-    Integer getProgress();
+    int getProgress();
 
     /**
      * Returns the remaing days before the cure is completed.
@@ -21,7 +21,7 @@ public interface CureData {
      * @return
      *         days
      */
-    Integer getRemainingDays();
+    int getRemainingDays();
 
     /**
      * Returns the {@code Region} with the major contribution to the cure.

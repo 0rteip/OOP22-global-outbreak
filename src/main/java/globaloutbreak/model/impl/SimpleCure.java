@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +23,8 @@ public class SimpleCure implements Cure {
     private final int numberOfMajorContributors;
     private final Map<Region, Float> contributions;
     private final float researchersEfficiency;
+    private int daysBeforeStartResearch;
+    private final float detectionRate;
     private final List<Priority> priorities;
     private float necessaryBudget;
     private float researchBudget;
@@ -31,9 +32,11 @@ public class SimpleCure implements Cure {
     private boolean isStarted;
     private boolean isComplete;
 
-    private SimpleCure(float dailyBudget, int numberOfMajorContributors, Map<Region, Float> contributions,
-            float researchersEfficiency, List<Priority> priorities, float necessaryBudget, float researchBudget,
-            int currentPriority) {
+    private SimpleCure(final float dailyBudget, final int numberOfMajorContributors,
+            final Map<Region, Float> contributions,
+            final float researchersEfficiency, final List<Priority> priorities, final float necessaryBudget,
+            final float researchBudget,
+            final int currentPriority, final int daysBeforeStartResearch, final float detectionRate) {
         this.dailyBudget = dailyBudget;
         this.numberOfMajorContributors = numberOfMajorContributors;
         this.contributions = contributions;
@@ -42,6 +45,8 @@ public class SimpleCure implements Cure {
         this.necessaryBudget = necessaryBudget;
         this.researchBudget = researchBudget;
         this.currentPriority = currentPriority;
+        this.daysBeforeStartResearch = daysBeforeStartResearch;
+        this.detectionRate = detectionRate;
         this.isStarted = false;
         this.isComplete = false;
     }
@@ -89,6 +94,25 @@ public class SimpleCure implements Cure {
                     .filter(el -> el.getKey().hasStartedResearch())
                     .forEach(el -> this.contributions.compute(el.getKey(),
                             (key, val) -> val + this.dailyRegionContribution(key)));
+            this.researchBudget = this.contributions.entrySet().stream()
+                    .map(el -> el.getValue())
+                    .reduce(Float.valueOf(0), (e0, e1) -> e0 + e1);
+        } else {
+            // se uno stato ha individuato la malattia e sono passati
+            // 'daysBeforeStartResearch' giorni comincia a sviluppare la cura
+            if (numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch-- == 0) {
+                System.out.println("Starting cure");
+                increasePriority();
+                this.isStarted = true;
+                this.contributions.entrySet().stream()
+                        .filter(el -> el.getKey().getStatus() == "Discovered")
+                        .forEach(el -> el.getKey().setStatus("Started"));
+            } else {
+                this.contributions.entrySet().stream()
+                        .filter(el -> Float.valueOf(el.getKey().getDeath())
+                                / el.getKey().getTotalPopulation() > this.detectionRate)
+                        .forEach(el -> el.getKey().setStatus("Discovered"));
+            }
         }
 
         if (cureProgress() >= 100) {
@@ -151,7 +175,7 @@ public class SimpleCure implements Cure {
     }
 
     private int cureProgress() {
-        final int progress = Math.round(researchBudget / necessaryBudget * 100);
+        final int progress = Math.round(this.researchBudget / this.necessaryBudget * 100);
         if (progress >= 100) {
             this.researchBudget = this.necessaryBudget;
             return 100;
@@ -159,12 +183,24 @@ public class SimpleCure implements Cure {
         return progress;
     }
 
-    private boolean checkIfPositive(float number, String name) {
+    private boolean checkIfPositive(final float number, final String name) {
         if (number < 0) {
             logger.warn("Value {} can't be negative", name);
             return false;
         }
         return true;
+    }
+
+    private int numberOfRegionsTahtDiscoveredDisease() {
+        return this.contributions.entrySet().stream()
+                .filter(el -> el.getKey().getStatus() == "Discovered")
+                .toList().size();
+    }
+
+    private void increasePriority() {
+        this.priorities.stream()
+                .filter(el -> el.getPriority() == this.currentPriority + 1)
+                .findAny().ifPresent(el -> this.currentPriority = el.getPriority());
     }
 
     /**
@@ -190,6 +226,8 @@ public class SimpleCure implements Cure {
         private static final float NECESSARY_BUDGET = 25_000_000;
         private static final float RESEARCH_BUDGET = 0;
         private static final int CURRENT_PRIORITY = 0;
+        private static final int DAYS_BEFORE_START_RESEARCH = 10;
+        private static final float DETECTION_RATE = 0.2f;
 
         private float dailyBudget = DAILY_BUDGET;
         private int numberOfMajorContributors = NUMBER_OF_MAJOR_CONTRIBUTORS;
@@ -197,6 +235,8 @@ public class SimpleCure implements Cure {
         private float necessaryBudget = NECESSARY_BUDGET;
         private float researchBudget = RESEARCH_BUDGET;
         private int currentPriority = CURRENT_PRIORITY;
+        private int daysBeforeStartResearch = DAYS_BEFORE_START_RESEARCH;
+        private float detectionRate = DETECTION_RATE;
         private final List<Priority> priorities;
         private final Map<Region, Float> contributions = new HashMap<>();
         private boolean consumed;
@@ -274,6 +314,24 @@ public class SimpleCure implements Cure {
         }
 
         /**
+         * @param daysBeforeStartResearch days between discovery and research
+         * @return this builder, for method chaining
+         */
+        public Builder setDaysBeforeStartResearch(final int daysBeforeStartResearch) {
+            this.daysBeforeStartResearch = daysBeforeStartResearch;
+            return this;
+        }
+
+        /**
+         * @param detectionRate with what percentage of deaths are diseases detected
+         * @return this builder, for method chaining
+         */
+        public Builder setDetectionRate(final float detectionRate) {
+            this.detectionRate = detectionRate;
+            return this;
+        }
+
+        /**
          * @return a SimpleCure
          */
         public final SimpleCure build() {
@@ -284,8 +342,17 @@ public class SimpleCure implements Cure {
 
             return new SimpleCure(dailyBudget, numberOfMajorContributors, contributions,
                     researchersEfficiency,
-                    priorities, necessaryBudget, researchBudget, currentPriority);
+                    priorities, necessaryBudget, researchBudget, currentPriority, daysBeforeStartResearch,
+                    detectionRate);
         }
+    }
 
+    @Override
+    public String toString() {
+        return "SimpleCure [dailyBudget=" + dailyBudget + ", numberOfMajorContributors=" + numberOfMajorContributors
+                + ", contributions=" + contributions + ", researchersEfficiency=" + researchersEfficiency
+                + ", priorities=" + priorities + ", necessaryBudget=" + necessaryBudget + ", researchBudget="
+                + researchBudget + ", currentPriority=" + currentPriority + ", isStarted=" + isStarted + ", isComplete="
+                + isComplete + "]";
     }
 }
