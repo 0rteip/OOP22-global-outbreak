@@ -5,18 +5,18 @@ import globaloutbreak.model.api.DiseaseFactory;
 
 public class DiseaseFactoryImpl implements DiseaseFactory {
 
-    private double infectivity;
-    private double lethality;
-    private double airTransmission;
-    private double landTransmission;
-    private double seaTransmission;
-    private double hotTransmission;
-    private double coldTransmission;
-    private double cureResistance;
+    private float infectivity;
+    private float lethality;
+    private float airTransmission;
+    private float landTransmission;
+    private float seaTransmission;
+    private float hotTransmission;
+    private float coldTransmission;
+    private float cureResistance;
 
-    public DiseaseFactoryImpl(final double infectivity, final double lethality, final double airTransmission,
-            final double seaTransmission, final double landTransmission,
-            final double hotTransmission, final double coldTransmission, final double cureResistance) {
+    public DiseaseFactoryImpl(final float infectivity, final float lethality, final float airTransmission,
+            final float seaTransmission, final float landTransmission,
+            final float hotTransmission, final float coldTransmission, final float cureResistance) {
         this.infectivity = infectivity;
         this.lethality = lethality;
         this.airTransmission = airTransmission;
@@ -32,42 +32,42 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
         return new Disease() {
 
             @Override
-            public double getInfectivity() {
+            public float getInfectivity() {
                 return infectivity;
             }
 
             @Override
-            public double getLethality() {
+            public float getLethality() {
                 return lethality;
             }
 
             @Override
-            public double getAirTransmission() {
+            public float getAirTransmission() {
                 return airTransmission;
             }
 
             @Override
-            public double getSeaTransmission() {
+            public float getSeaTransmission() {
                 return seaTransmission;
             }
 
             @Override
-            public double getLandTransmission() {
+            public float getLandTransmission() {
                 return landTransmission;
             }
 
             @Override
-            public double getColdTransmission() {
+            public float getColdTransmission() {
                 return coldTransmission;
             }
 
             @Override
-            public double getHotTransmission() {
+            public float getHotTransmission() {
                 return hotTransmission;
             }
 
             @Override
-            public double getCureResistance() {
+            public float getCureResistance() {
                 return cureResistance;
             }
 

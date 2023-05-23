@@ -4,21 +4,21 @@ package globaloutbreak.model.api;
  * 
  */
 public interface Disease {
-    double getInfectivity();
+    float getInfectivity();
 
-    double getLethality();
+    float getLethality();
 
-    double getAirTransmission();
+    float getAirTransmission();
 
-    double getSeaTransmission();
+    float getSeaTransmission();
 
-    double getLandTransmission();
+    float getLandTransmission();
 
-    double getColdTransmission();
+    float getColdTransmission();
 
-    double getHotTransmission();
+    float getHotTransmission();
 
-    double getCureResistance();
+    float getCureResistance();
 
     void setInfectivity();
 
