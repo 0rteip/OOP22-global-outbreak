@@ -1,17 +1,19 @@
 package globaloutbreak.controller.impl;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.List;
 
 import globaloutbreak.controller.api.MutationController;
+import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.api.MutationFactory;
+//import globaloutbreak.model.api.MutationFactory;
 import globaloutbreak.model.impl.MutationData;
 import globaloutbreak.model.impl.MutationFactoryImpl;
 
 public class MutationControllerImpl implements MutationController{
 
     private MutationData mutationData;
+    private Disease disease;
 
     public MutationControllerImpl(){
 
@@ -46,6 +48,21 @@ public class MutationControllerImpl implements MutationController{
         }
     }
 
+    @Override
+    public List<Mutation> getMutation() {
+        //aggiornare la view
+        return mutationData.getMutations();
+    }
+
+
+    @Override
+    public void increment(Mutation mutation) {
+        mutation.increase(disease);
+    }
+
+
+
+  
 
 
 

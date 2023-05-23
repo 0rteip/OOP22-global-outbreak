@@ -1,5 +1,6 @@
 package globaloutbreak.model.impl;
 
+import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Mutation;
 
 public class MutationImpl implements Mutation{
@@ -49,7 +50,7 @@ public class MutationImpl implements Mutation{
     }
 
     @Override
-    public void increase() {
+    public void increase(Disease disease) {
        switch(this.type){
         case TRASMISSION: 
             //function increase trasmission
