@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,28 +18,26 @@ import globaloutbreak.model.api.Region;
 /**
  * SimpleCure is a basic implementation of {@link Cure}.
  */
-public class SimpleCure implements Cure {
+public final class SimpleCure implements Cure {
 
-    private final static Logger logger = LoggerFactory.getLogger(SimpleCure.class);
+    private final Logger logger = LoggerFactory.getLogger(SimpleCure.class);
 
+    private final Map<Region, Float> contributions;
+    private final List<Priority> priorities;
+    private final float researchersEfficiency;
     private final float dailyBudget;
     private final int numberOfMajorContributors;
-    private final Map<Region, Float> contributions;
-    private final float researchersEfficiency;
-    private int daysBeforeStartResearch;
-    private final float detectionRate;
-    private final List<Priority> priorities;
     private float necessaryBudget;
     private float researchBudget;
+    private int daysBeforeStartResearch;
     private int currentPriority;
     private boolean isStarted;
     private boolean isComplete;
 
     private SimpleCure(final float dailyBudget, final int numberOfMajorContributors,
-            final Map<Region, Float> contributions,
-            final float researchersEfficiency, final List<Priority> priorities, final float necessaryBudget,
-            final float researchBudget,
-            final int currentPriority, final int daysBeforeStartResearch, final float detectionRate) {
+            final Map<Region, Float> contributions, final float researchersEfficiency, final List<Priority> priorities,
+            final float necessaryBudget, final float researchBudget, final int currentPriority,
+            final int daysBeforeStartResearch) {
         this.dailyBudget = dailyBudget;
         this.numberOfMajorContributors = numberOfMajorContributors;
         this.contributions = contributions;
@@ -46,7 +47,6 @@ public class SimpleCure implements Cure {
         this.researchBudget = researchBudget;
         this.currentPriority = currentPriority;
         this.daysBeforeStartResearch = daysBeforeStartResearch;
-        this.detectionRate = detectionRate;
         this.isStarted = false;
         this.isComplete = false;
     }
@@ -62,7 +62,11 @@ public class SimpleCure implements Cure {
 
             @Override
             public int getRemainingDays() {
-                return 0;
+                final float dailyInvestment = contributions.entrySet().stream()
+                        .filter(el -> el.getKey().hasStartedResearch())
+                        .map(el -> dailyRegionContribution(el.getKey()))
+                        .reduce(0f, (f0, f1) -> f0 + f1);
+                return dailyInvestment != 0 ? Math.round((necessaryBudget - researchBudget) / dailyInvestment) : -1;
             }
 
             @Override
@@ -90,28 +94,32 @@ public class SimpleCure implements Cure {
     @Override
     public void research() {
         if (this.isStarted) {
+            // if the research has started every region contributes to the research
             this.contributions.entrySet().stream()
                     .filter(el -> el.getKey().hasStartedResearch())
-                    .forEach(el -> this.contributions.compute(el.getKey(),
+                    .forEach(el -> this.contributions.compute(
+                            el.getKey(),
                             (key, val) -> val + this.dailyRegionContribution(key)));
-            this.researchBudget = this.contributions.entrySet().stream()
-                    .map(el -> el.getValue())
-                    .reduce(Float.valueOf(0), (e0, e1) -> e0 + e1);
+            this.updateResearchBudget();
+            if (this.highMortalityRateRegions().count() > 0) {
+                this.increasePriority();
+            }
         } else {
-            // se uno stato ha individuato la malattia e sono passati
-            // 'daysBeforeStartResearch' giorni comincia a sviluppare la cura
-            if (numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch-- == 0) {
-                System.out.println("Starting cure");
-                increasePriority();
+            // if a region has discovered the disease and after the
+            // 'daysBeforeStartResearch', each Region starts looking for a cure
+            if (this.numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch == 0) {
                 this.isStarted = true;
+                this.increasePriority();
                 this.contributions.entrySet().stream()
-                        .filter(el -> el.getKey().getStatus() == "Discovered")
-                        .forEach(el -> el.getKey().setStatus("Started"));
+                        .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
+                        .forEach(el -> el.getKey().setStatus(RegionCureStatus.STARTED));
             } else {
-                this.contributions.entrySet().stream()
-                        .filter(el -> Float.valueOf(el.getKey().getDeath())
-                                / el.getKey().getTotalPopulation() > this.detectionRate)
-                        .forEach(el -> el.getKey().setStatus("Discovered"));
+                // if the region's entire population dies in one day, the other regions don't
+                // care
+                this.daysBeforeStartResearch--;
+                this.highMortalityRateRegions()
+                        .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
+                        .forEach(el -> el.getKey().setStatus(RegionCureStatus.DISCOVERED));
             }
         }
 
@@ -146,8 +154,7 @@ public class SimpleCure implements Cure {
             return false;
         }
         if (this.priorities.stream()
-                .filter(el -> el.getPriority() == this.currentPriority)
-                .toList().size() != 1) {
+                .filter(el -> el.getPriority() == this.currentPriority).count() != 1) {
             logger.warn("Invalid current prioriry: current priority '{}' is not found in the priorities '{}'",
                     this.currentPriority, this.priorities);
             return false;
@@ -158,20 +165,20 @@ public class SimpleCure implements Cure {
             return false;
         }
 
-        return checkIfPositive(this.dailyBudget, "dailyBudget") &&
-                checkIfPositive(this.numberOfMajorContributors, "numberOfMajorContributors") &&
-                checkIfPositive(this.researchersEfficiency, "researchersEfficiency") &&
-                checkIfPositive(this.necessaryBudget, "necessaryBudget") &&
-                checkIfPositive(this.researchBudget, "researchBudget") &&
-                checkIfPositive(this.currentPriority, "currentPriority");
+        return this.checkIfPositive(this.dailyBudget, "dailyBudget")
+                && this.checkIfPositive(this.numberOfMajorContributors, "numberOfMajorContributors")
+                && this.checkIfPositive(this.researchersEfficiency, "researchersEfficiency")
+                && this.checkIfPositive(this.necessaryBudget, "necessaryBudget")
+                && this.checkIfPositive(this.researchBudget, "researchBudget")
+                && this.checkIfPositive(this.currentPriority, "currentPriority");
     }
 
     private float dailyRegionContribution(final Region region) {
-        return (1 - Float.valueOf(region.getDeath()) / region.getTotalPopulation()) *
-                region.getFacilities() *
-                this.researchersEfficiency *
-                this.priorities.get(this.currentPriority).getResourcesPercentage() *
-                this.dailyBudget;
+        return (1 - Float.valueOf(region.getDeath()) / region.getTotalPopulation())
+                * region.getFacilities()
+                * this.researchersEfficiency
+                * this.priorities.get(this.currentPriority).getResourcesPercentage()
+                * this.dailyBudget;
     }
 
     private int cureProgress() {
@@ -192,15 +199,28 @@ public class SimpleCure implements Cure {
     }
 
     private int numberOfRegionsTahtDiscoveredDisease() {
-        return this.contributions.entrySet().stream()
-                .filter(el -> el.getKey().getStatus() == "Discovered")
-                .toList().size();
+        return Math.toIntExact(this.contributions.entrySet().stream()
+                .filter(el -> el.getKey().getStatus() == RegionCureStatus.DISCOVERED)
+                .count());
     }
 
     private void increasePriority() {
         this.priorities.stream()
                 .filter(el -> el.getPriority() == this.currentPriority + 1)
                 .findAny().ifPresent(el -> this.currentPriority = el.getPriority());
+    }
+
+    private void updateResearchBudget() {
+        this.researchBudget = this.contributions.entrySet().stream()
+                .map(el -> el.getValue())
+                .reduce(Float.valueOf(0), (f0, f1) -> f0 + f1);
+    }
+
+    private Stream<Entry<Region, Float>> highMortalityRateRegions() {
+        return this.contributions.entrySet().stream()
+                .filter(el -> Float.valueOf(el.getKey().getDeath())
+                        / el.getKey().getTotalPopulation() > this.priorities.get(this.currentPriority)
+                                .getDetectionRate());
     }
 
     /**
@@ -227,7 +247,6 @@ public class SimpleCure implements Cure {
         private static final float RESEARCH_BUDGET = 0;
         private static final int CURRENT_PRIORITY = 0;
         private static final int DAYS_BEFORE_START_RESEARCH = 10;
-        private static final float DETECTION_RATE = 0.2f;
 
         private float dailyBudget = DAILY_BUDGET;
         private int numberOfMajorContributors = NUMBER_OF_MAJOR_CONTRIBUTORS;
@@ -236,7 +255,6 @@ public class SimpleCure implements Cure {
         private float researchBudget = RESEARCH_BUDGET;
         private int currentPriority = CURRENT_PRIORITY;
         private int daysBeforeStartResearch = DAYS_BEFORE_START_RESEARCH;
-        private float detectionRate = DETECTION_RATE;
         private final List<Priority> priorities;
         private final Map<Region, Float> contributions = new HashMap<>();
         private boolean consumed;
@@ -252,10 +270,10 @@ public class SimpleCure implements Cure {
          *                   Priority types
          */
         public Builder(final List<Region> regions, final List<Priority> priorities) {
-            if (regions.size() != 0) {
+            if (!regions.isEmpty()) {
                 regions.forEach(el -> this.contributions.put(el, 0f));
             }
-            this.priorities = priorities;
+            this.priorities = new ArrayList<>(priorities);
         }
 
         /**
@@ -323,15 +341,6 @@ public class SimpleCure implements Cure {
         }
 
         /**
-         * @param detectionRate with what percentage of deaths are diseases detected
-         * @return this builder, for method chaining
-         */
-        public Builder setDetectionRate(final float detectionRate) {
-            this.detectionRate = detectionRate;
-            return this;
-        }
-
-        /**
          * @return a SimpleCure
          */
         public final SimpleCure build() {
@@ -340,19 +349,8 @@ public class SimpleCure implements Cure {
             }
             consumed = true;
 
-            return new SimpleCure(dailyBudget, numberOfMajorContributors, contributions,
-                    researchersEfficiency,
-                    priorities, necessaryBudget, researchBudget, currentPriority, daysBeforeStartResearch,
-                    detectionRate);
+            return new SimpleCure(dailyBudget, numberOfMajorContributors, contributions, researchersEfficiency,
+                    priorities, necessaryBudget, researchBudget, currentPriority, daysBeforeStartResearch);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "SimpleCure [dailyBudget=" + dailyBudget + ", numberOfMajorContributors=" + numberOfMajorContributors
-                + ", contributions=" + contributions + ", researchersEfficiency=" + researchersEfficiency
-                + ", priorities=" + priorities + ", necessaryBudget=" + necessaryBudget + ", researchBudget="
-                + researchBudget + ", currentPriority=" + currentPriority + ", isStarted=" + isStarted + ", isComplete="
-                + isComplete + "]";
     }
 }

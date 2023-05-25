@@ -27,7 +27,7 @@ public interface Cure {
     boolean isCompleted();
 
     /**
-     * Affects the research for a cure by a {@code changeFactor}
+     * Affects the research for a cure by a {@code changeFactor}.
      * 
      * @param changeFactor
      *                     influence factor
@@ -35,13 +35,12 @@ public interface Cure {
     void increaseResearchDifficulty(float changeFactor);
 
     /**
-     * Affects the progress done by a {@code changeFactor}
+     * Affects the progress done by a {@code changeFactor}.
      * 
      * @param changeFactor
      *                     influence factor
      */
     void reduceResearchProgress(float changeFactor);
-
 
     /**
      * @return true if the Cure is consistent
