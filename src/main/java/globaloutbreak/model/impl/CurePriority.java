@@ -5,16 +5,19 @@ import globaloutbreak.model.api.Priority;
 /**
  * Possible priority status of the cure.
  */
-public class CurePriority implements Priority {
+public final class CurePriority implements Priority {
 
     private final int priority;
     private final String description;
     private final float resourcesPercentage;
+    private final float detectionRate;
 
-    private CurePriority(final int priority, final String description, final float resourcesPercentage) {
+    private CurePriority(final int priority, final String description, final float resourcesPercentage,
+            final float detectionRate) {
         this.priority = priority;
         this.description = description;
         this.resourcesPercentage = resourcesPercentage;
+        this.detectionRate = detectionRate;
     }
 
     @Override
@@ -30,6 +33,11 @@ public class CurePriority implements Priority {
     @Override
     public float getResourcesPercentage() {
         return this.resourcesPercentage;
+    }
+
+    @Override
+    public float getDetectionRate() {
+        return this.detectionRate;
     }
 
     @Override
@@ -50,14 +58,19 @@ public class CurePriority implements Priority {
      * {@code int}.
      * 
      */
+    @SuppressWarnings("PMD.LinguisticNaming")
     public static class Builder {
 
-        private final static int PRIORITY = 0;
+        private static final int PRIORITY = 0;
+        private static final String DESCRIPTION = "None";
+        private static final float RESOURCES_PERCENTAGE = 0;
+        private static final float DETECTION_RATE = 0.2f;
 
         private int priority = PRIORITY;
-        private String description;
-        private float resourcesPercentage;
-        private int nextPriority = 0;
+        private String description = DESCRIPTION;
+        private float resourcesPercentage = RESOURCES_PERCENTAGE;
+        private int nextPriority = PRIORITY;
+        private float detectionRate = DETECTION_RATE;
 
         /**
          * @param priority the priority
@@ -87,6 +100,15 @@ public class CurePriority implements Priority {
         }
 
         /**
+         * @param detectionRate the detectionRate
+         * @return this builder, for method chaining
+         */
+        public Builder setDetectionRate(final float detectionRate) {
+            this.detectionRate = detectionRate;
+            return this;
+        }
+
+        /**
          * @return a priority
          */
         public final Priority build() {
@@ -94,7 +116,7 @@ public class CurePriority implements Priority {
                 throw new IllegalStateException("Incorrect state");
             }
             this.nextPriority++;
-            return new CurePriority(priority, description, resourcesPercentage);
+            return new CurePriority(priority, description, resourcesPercentage, detectionRate);
         }
     }
 }

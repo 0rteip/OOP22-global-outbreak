@@ -15,7 +15,7 @@ public interface Priority {
     int getPriority();
 
     /**
-     * Return the description of the priority.
+     * Returns the description of the priority.
      * 
      * @return
      *         description
@@ -23,11 +23,19 @@ public interface Priority {
     String getDescription();
 
     /**
-     * Return the percentage of the used resources per Priority.
+     * Returns the percentage of the used resources per Priority.
      * 
      * @return
      *         resources perventage
      */
     float getResourcesPercentage();
+
+    /**
+     * Returns the maximum detection rate value per priority.
+     * 
+     * @return
+     *         detection rate
+     */
+    float getDetectionRate();
 
 }
