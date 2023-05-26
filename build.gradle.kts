@@ -37,7 +37,7 @@ dependencies {
     // implementation("com.google.guava:guava:28.1-jre")
     
     implementation("ch.qos.logback:logback-classic:1.4.7")
-    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
     
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
