@@ -63,7 +63,7 @@ public final class SimpleCure implements Cure {
             @Override
             public int getRemainingDays() {
                 final float dailyInvestment = contributions.entrySet().stream()
-                        .filter(el -> el.getKey().hasStartedResearch())
+                        .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.STARTED)
                         .map(el -> dailyRegionContribution(el.getKey()))
                         .reduce(0f, (f0, f1) -> f0 + f1);
                 return dailyInvestment != 0 ? Math.round((necessaryBudget - researchBudget) / dailyInvestment) : -1;
@@ -96,7 +96,7 @@ public final class SimpleCure implements Cure {
         if (this.isStarted) {
             // if the research has started every region contributes to the research
             this.contributions.entrySet().stream()
-                    .filter(el -> el.getKey().hasStartedResearch())
+                    .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.STARTED)
                     .forEach(el -> this.contributions.compute(
                             el.getKey(),
                             (key, val) -> val + this.dailyRegionContribution(key)));
@@ -112,14 +112,14 @@ public final class SimpleCure implements Cure {
                 this.increasePriority();
                 this.contributions.entrySet().stream()
                         .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
-                        .forEach(el -> el.getKey().setStatus(RegionCureStatus.STARTED));
+                        .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
             } else {
                 // if the region's entire population dies in one day, the other regions don't
                 // care
                 this.daysBeforeStartResearch--;
                 this.highMortalityRateRegions()
                         .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
-                        .forEach(el -> el.getKey().setStatus(RegionCureStatus.DISCOVERED));
+                        .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
             }
         }
 
@@ -200,7 +200,7 @@ public final class SimpleCure implements Cure {
 
     private int numberOfRegionsTahtDiscoveredDisease() {
         return Math.toIntExact(this.contributions.entrySet().stream()
-                .filter(el -> el.getKey().getStatus() == RegionCureStatus.DISCOVERED)
+                .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.DISCOVERED)
                 .count());
     }
 
