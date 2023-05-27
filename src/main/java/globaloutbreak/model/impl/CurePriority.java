@@ -113,7 +113,7 @@ public final class CurePriority implements Priority {
          */
         public final Priority build() {
             if (this.priority != this.nextPriority) {
-                throw new IllegalStateException("Incorrect state");
+                throw new IllegalStateException("Incorrect priority");
             }
             this.nextPriority++;
             return new CurePriority(priority, description, resourcesPercentage, detectionRate);
