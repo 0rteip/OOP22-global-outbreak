@@ -170,7 +170,8 @@ public final class SimpleCure implements Cure {
                 && this.checkIfPositive(this.researchersEfficiency, "researchersEfficiency")
                 && this.checkIfPositive(this.necessaryBudget, "necessaryBudget")
                 && this.checkIfPositive(this.researchBudget, "researchBudget")
-                && this.checkIfPositive(this.currentPriority, "currentPriority");
+                && this.checkIfPositive(this.currentPriority, "currentPriority")
+                && this.checkIfPositive(this.daysBeforeStartResearch, "daysBeforeStartResearch");
     }
 
     private float dailyRegionContribution(final Region region) {
