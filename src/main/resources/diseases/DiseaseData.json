@@ -1,0 +1,46 @@
+[
+    {
+        "name": "infectivity",
+        "value": 0.5
+    },
+    {
+        "name": "lethality",
+        "value": 0.5
+    },
+    {
+        "name": "airTransmission",
+        "value": 0.5
+    },
+    {
+        "name": "seaTransmission",
+        "value": 0.5
+    },
+    {
+        "name": "landTransmission",
+        "value": 0.5
+    },
+    {
+        "name": "heatTransmission",
+        "value": 0.5
+    },
+    {
+        "name": "coldTransmission",
+        "value": 0.5
+    },
+    {
+        "name": "cureResistance",
+        "value": 0.5
+    },
+    {
+        "name": "humidityResistance",
+        "value": 0.5
+    },
+    {
+        "name": "aridityResistance",
+        "value": 0.5
+    },
+    {
+        "name": "povertyTransmission",
+        "value": 0.5
+    }
+]

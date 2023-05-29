@@ -1,42 +1,173 @@
 package globaloutbreak.model.api;
 
+import java.util.List;
+
 /**
- * 
+ * Interface of disease.
  */
 public interface Disease {
+
+    /**
+     * 
+     * @return
+     *         disease name
+     */
+    String getname();
+
+    /**
+     * 
+     * @return
+     *         disease infectivity
+     */
     float getInfectivity();
 
+    /**
+     * 
+     * @return
+     *         disease lethality
+     */
     float getLethality();
 
+    /**
+     * 
+     * @return
+     *         disease air transmission
+     */
     float getAirTransmission();
 
+    /**
+     * 
+     * @return
+     *         disease sea transmission
+     */
     float getSeaTransmission();
 
+    /**
+     * 
+     * @return
+     *         disease land transmission
+     */
     float getLandTransmission();
 
+    /**
+     * 
+     * @return
+     *         disease cold transmission
+     */
     float getColdTransmission();
 
-    float getHotTransmission();
+    /**
+     * 
+     * @return
+     *         disease heat transmission
+     */
+    float getHeatTransmission();
 
+    /**
+     * 
+     * @return
+     *         disease cold transmission
+     */
+    float getAridityResistance();
+
+    /**
+     * 
+     * @return
+     *         disease humidity resistance
+     */
+    float getHumidityResistance();
+
+    /**
+     * 
+     * @return
+     *         disease cure resistance
+     */
     float getCureResistance();
 
-    void setInfectivity();
+    /**
+     * 
+     * @return
+     *         disease poverty transmission
+     */
+    float getPovertyTransmission();
 
-    void setLethality();
+    /**
+     * 
+     * @param infectivity
+     */
+    void setInfectivity(float infectivity);
 
-    void setAirTransmission();
+    /**
+     * 
+     * @param lethality
+     */
+    void setLethality(float lethality);
 
-    void setSeaTransmission();
+    /**
+     * 
+     * @param airTransmission
+     */
+    void setAirTransmission(float airTransmission);
 
-    void setLandTransmission();
+    /**
+     * 
+     * @param seaTransmission
+     */
+    void setSeaTransmission(float seaTransmission);
 
-    void setHotTransmission();
+    /**
+     * 
+     * @param landTransmission
+     */
+    void setLandTransmission(float landTransmission);
 
-    void setColdTransmission();
+    /**
+     * 
+     * @param heatTransmission
+     */
+    void setHeatTransmission(float heatTransmission);
 
-    void setCureResistance();
+    /**
+     * 
+     * @param coldTransmission
+     */
+    void setColdTransmission(float coldTransmission);
 
-    void infect();
+    /**
+     * 
+     * @param aridityResistance
+     */
+    void setAridityResistance(float aridityResistance);
 
-    void kill();
+    /**
+     * 
+     * @param humidityResistance
+     */
+    void setHumidityResistance(float humidityResistance);
+
+    /**
+     * 
+     * @param cureResistance
+     */
+    void setCureResistance(float cureResistance);
+
+    /**
+     * 
+     * @param povertyTransmission
+     */
+    void setPovertyTransmission(float povertyTransmission);
+
+    /**
+     * infect region population.
+     * 
+     * @param regionList
+     */
+    void infectRegions(List<Region> regionList);
+
+    /**
+     * kill region population.
+     * 
+     * @param regionList
+     */
+    void killPeopleRegions(List<Region> regionList);
 }

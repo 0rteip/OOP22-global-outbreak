@@ -6,9 +6,11 @@ package globaloutbreak.model.api;
 public interface DiseaseFactory {
 
     /**
+     * @param name
+     * 
      * @return
      *         The Virus
      */
-    Disease createDisease();
+    Disease createDisease(String name);
 
 }
