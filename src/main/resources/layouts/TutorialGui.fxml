@@ -13,7 +13,7 @@
 <?import javafx.scene.image.Image?>
 
 <VBox styleClass="vbox-name" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="globaloutbreak.view.impl.TutorialSceneViewImpl" stylesheets="css/menu-style.css">
+fx:controller="globaloutbreak.view.scenecontroller.TutorialController" stylesheets="css/menu-style.css">
 	<children>
         <HBox styleClass="hbox-title" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <Button fx:id="backButton" onMouseClicked="#backScene" text="">

@@ -1,0 +1,8 @@
+<VBox styleClass="vbox-name" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="globaloutbreak.view.scenecontroller.ChooseDiseaseController" stylesheets="css/menu-style.css">
+	<children>
+        <HBox styleClass="hbox-diseases" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+            
+        </HBox>
+	</children>
+</VBox>

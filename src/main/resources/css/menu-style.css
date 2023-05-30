@@ -1,6 +1,6 @@
 .vbox{
     -fx-background-image: url("../images/global-outbreak-menu.jpg");
-    -fx-background-size: cover;
+    -fx-background-size: 100% 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-spacing: 20px;
