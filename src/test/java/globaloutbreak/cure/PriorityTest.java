@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import globaloutbreak.model.api.Priority;
-import globaloutbreak.model.impl.CurePriority;
+import globaloutbreak.model.priority.CurePriority;
+import globaloutbreak.model.priority.Priority;
 
 class PriorityTest {
 

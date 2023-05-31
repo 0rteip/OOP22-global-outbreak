@@ -1,4 +1,4 @@
-package globaloutbreak.model.api;
+package globaloutbreak.model.cure.prioriry;
 
 /**
  * Possible priority status of the cure.

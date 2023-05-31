@@ -1,4 +1,4 @@
-package globaloutbreak.model.api;
+package globaloutbreak.model.cure;
 
 /**
  * Interface for a Cure.

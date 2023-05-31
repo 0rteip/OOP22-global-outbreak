@@ -1,4 +1,4 @@
-package globaloutbreak.model.impl;
+package globaloutbreak.model.cure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +10,8 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.model.api.Cure;
-import globaloutbreak.model.api.CureData;
-import globaloutbreak.model.api.Priority;
 import globaloutbreak.model.api.Region;
+import globaloutbreak.model.cure.prioriry.Priority;
 
 /**
  * SimpleCure is a basic implementation of {@link Cure}.

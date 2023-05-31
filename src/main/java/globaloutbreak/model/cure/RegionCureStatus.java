@@ -1,7 +1,7 @@
-package globaloutbreak.model.impl;
+package globaloutbreak.model.cure;
 
 /**
- * Possible status of the {@link globaloutbreak.model.api.Cure} for single
+ * Possible status of the {@link globaloutbreak.model.cure.Cure} for single
  * {@link globaloutbreak.model.api.Region}.
  */
 public enum RegionCureStatus {

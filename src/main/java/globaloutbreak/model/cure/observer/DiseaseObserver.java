@@ -1,9 +1,9 @@
-package globaloutbreak.model.impl;
+package globaloutbreak.model.cure.observer;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import globaloutbreak.model.api.Cure;
+import globaloutbreak.model.cure.Cure;
 
 /**
  * An observer which notify the {@link Cure} if {@link globaloutbreak.model.api.Disease} mutations

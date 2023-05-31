@@ -13,9 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import globaloutbreak.model.api.Cure;
-import globaloutbreak.model.api.Priority;
 import globaloutbreak.model.api.Region;
-import globaloutbreak.model.impl.CurePriority;
+import globaloutbreak.model.priority.Priority;
+import globaloutbreak.model.priority.CurePriority;
 import globaloutbreak.model.impl.RegionCureStatus;
 import globaloutbreak.model.impl.SimpleCure;
 
