@@ -12,12 +12,12 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import globaloutbreak.model.api.Cure;
 import globaloutbreak.model.api.Region;
-import globaloutbreak.model.priority.Priority;
-import globaloutbreak.model.priority.CurePriority;
-import globaloutbreak.model.impl.RegionCureStatus;
-import globaloutbreak.model.impl.SimpleCure;
+import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.cure.RegionCureStatus;
+import globaloutbreak.model.cure.SimpleCure;
+import globaloutbreak.model.cure.prioriry.CurePriority;
+import globaloutbreak.model.cure.prioriry.Priority;
 
 public class SimpleCureTest {
 
