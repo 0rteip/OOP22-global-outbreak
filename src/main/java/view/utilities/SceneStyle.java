@@ -6,7 +6,7 @@ public enum SceneStyle {
     /**
      * map scene.
      */
-    // CHOOSEDISEASE("Choose Disease", "layouts/ChooseDisease.fxml"),
+    CHOOSEDISEASE("Choose Disease", "layouts/ChooseDisease.fxml"),
     /**
      * Settings scene.
      */

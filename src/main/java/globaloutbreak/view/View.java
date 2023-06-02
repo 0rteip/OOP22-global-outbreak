@@ -1,10 +1,13 @@
 package globaloutbreak.view;
 
+import java.util.List;
+
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.view.scenemanager.SceneManager;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import settings.WindowSettings;
 
@@ -59,10 +62,24 @@ public interface View {
     Controller getController();
 
     /**
-     * Returns the {@link SceneAdministrator}.
+     * Returns the {@link SceneManager}.
      * 
      * @return
-     *         SceneAdministrator
+     *         SceneManager
      */
     SceneManager getSceneManager();
+
+    /**
+     * 
+     * @return
+     *         List<Button> diseasesButtons
+     */
+    List<Button> getDiseasesButtons();
+
+    /**
+     * 
+     * @param diseasesNames
+     *                      the list of diseases names
+     */
+    void setDiseasesNames(List<String> diseasesNames);
 }

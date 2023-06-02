@@ -1,5 +1,7 @@
 package globaloutbreak;
 
+import diseasesreader.DiseasesReader;
+import diseasesreader.DiseasesReaderImpl;
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.controller.impl.ControllerImpl;
 import globaloutbreak.view.View;
@@ -26,6 +28,8 @@ public class GlobalOutbreakApp extends Application {
         final View view = new ViewImpl();
         final Controller controller = new ControllerImpl(view);
         controller.startGame(primaryStage);
+        DiseasesReader reder = new DiseasesReaderImpl();
+        System.out.println(reder.getDiseases());
 
     }
 

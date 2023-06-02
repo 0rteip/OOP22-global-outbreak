@@ -1,11 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
-import java.io.IOException;
-
-import java.util.Stack;
-
 import globaloutbreak.view.View;
-import globaloutbreak.view.scenecontroller.AbstractSceneController;
 import globaloutbreak.view.sceneloader.SceneLoader;
 import globaloutbreak.view.sceneloader.SceneLoaderImpl;
 import javafx.stage.Stage;
@@ -21,32 +16,44 @@ public final class SceneManagerImpl implements SceneManager {
     /**
      * Constructor that load menu scenes.
      * 
-     * @param viewImpl
+     * @param view
      * 
-     * @throws IOException
      */
-    public SceneManagerImpl(View view) {
+    public SceneManagerImpl(final View view) {
         this.sceneLoader = new SceneLoaderImpl(view);
     }
 
     /**
-     * Load and set a scene.
+     * Load the main Scene.
      * 
-     * @param name the name of fxml file
+     * @param stage
+     *              the current stage
      */
     @Override
     public void openInitialMenu(final Stage stage) {
         this.openScene(SceneStyle.INITIALMENU, stage);
     }
 
+    /**
+     * Load the tutorial Scene.
+     * 
+     * @param stage
+     *              the current stage
+     */
     @Override
     public void openTutorial(final Stage stage) {
         this.openScene(SceneStyle.TUTORIAL, stage);
     }
 
+    /**
+     * Load the main Scene.
+     * 
+     * @param stage
+     *              the current Stage
+     */
     @Override
     public void openDiseaseChoice(final Stage stage) {
-        // this.openScene(SceneStyle.CHOOSEDISEASE, stage);
+        this.openScene(SceneStyle.CHOOSEDISEASE, stage);
     }
 
     @Override
@@ -56,6 +63,9 @@ public final class SceneManagerImpl implements SceneManager {
 
     /**
      * Set the previous scene.
+     * 
+     * @param stage
+     *              the current stage
      */
     @Override
     public void openBackScene(final Stage stage) {
@@ -63,9 +73,22 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     /**
-     * Set SceneManager to scene controllers.
+     * Open the scene selected.
+     * 
+     * @param sceneStyle
+     *                   the scene to be loaded.
+     * @param stage
+     *                   the current stage
      */
     private void openScene(final SceneStyle sceneStyle, final Stage stage) {
         this.sceneLoader.loadScene(sceneStyle, stage);
+    }
+
+    /**
+     * @return
+     *         the scene loader.
+     */
+    public SceneLoader getSceneLoader() {
+        return this.sceneLoader;
     }
 }

@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import javafx.util.Pair;
 import globaloutbreak.view.View;
 import globaloutbreak.view.scenecontroller.SceneController;
+import globaloutbreak.view.scenecontroller.SettingsInitializer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,10 +33,11 @@ public class SceneLoaderImpl implements SceneLoader {
      */
     public SceneLoaderImpl(final View view) {
         this.view = view;
-
-        this.loadFiles();
     }
 
+    /**
+     * Load a scene into Stage.
+     */
     @Override
     public final void loadScene(final SceneStyle sceneStyle, final Stage stage) {
 
@@ -46,7 +48,6 @@ public class SceneLoaderImpl implements SceneLoader {
                 : new Scene(root, (double) this.view.getWindowSettings().getDefWindowWidth(),
                         (double) this.view.getWindowSettings().getDefWindowHeight());
 
-        // Set the current size in settings.
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.view.getWindowSettings().setWidth(newVal.intValue());
         });
@@ -67,18 +68,24 @@ public class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
 
+        initializeScene(controller, sceneStyle);
+
         if (!stage.isShowing()) {
             stage.show();
         }
     }
 
-    private void loadFiles() {
+    /**
+     * Save scenes on sceneMap.
+     */
+    public void loadFiles() {
         Stream.of(SceneStyle.values())
                 .forEach(scene -> {
                     try {
                         sceneMap.put(scene.getTitle(), this.loadScenes(scene.getFxmlFile()));
+                        System.out.println(scene);
                     } catch (IOException e) {
-
+                        System.out.println("Failed");
                     }
                 });
     }
@@ -96,10 +103,41 @@ public class SceneLoaderImpl implements SceneLoader {
         return new Pair<>(loader, parent);
     }
 
+    /**
+     * Load the prec Scene.
+     */
     @Override
     public void loadBackScene(final Stage stage) {
         if (!history.isEmpty()) {
             stage.setScene(history.pop());
+        }
+    }
+
+    /**
+     * return
+     * {@link SceneController}.
+     */
+    @Override
+    public SceneController getController(final SceneStyle name) {
+        return this.sceneMap.get(name.getTitle()).getKey().getController();
+    }
+
+    /**
+     * Initialize scene settings.
+     * 
+     * @param controller
+     *                   the {@link SceneController}
+     * @param sceneStyle
+     *                   the current {@link SceneStyle}
+     */
+    private void initializeScene(final SceneController controller, final SceneStyle sceneStyle) {
+        switch (sceneStyle) {
+            case CHOOSEDISEASE:
+                final SettingsInitializer settingsController = (SettingsInitializer) controller;
+                settingsController.initializeSettings();
+                break;
+            default:
+                break;
         }
     }
 }

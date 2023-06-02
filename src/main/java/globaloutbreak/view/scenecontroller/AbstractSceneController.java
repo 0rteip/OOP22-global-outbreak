@@ -32,16 +32,25 @@ public class AbstractSceneController implements SceneController {
         this.sceneManager = sceneManager;
     }
 
+    /**
+     * return the scene manager.
+     */
     @Override
     public final SceneManager getSceneManager() {
         return this.sceneManager;
     }
 
+    /**
+     * set View.
+     */
     @Override
     public final void setView(final View view) {
         this.view = view;
     }
 
+    /**
+     * return View.
+     */
     @Override
     public final View getView() {
         return this.view;

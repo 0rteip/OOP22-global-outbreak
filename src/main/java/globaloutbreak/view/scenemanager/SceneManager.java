@@ -1,5 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
+import globaloutbreak.view.sceneloader.SceneLoader;
 import javafx.stage.Stage;
 
 /**
@@ -7,13 +8,45 @@ import javafx.stage.Stage;
  */
 public interface SceneManager {
 
-    public void openInitialMenu(final Stage stage);
+    /**
+     * 
+     * @param stage
+     *              the current stage.
+     */
+    public void openInitialMenu(Stage stage);
 
-    public void openTutorial(final Stage stage);
+    /**
+     * 
+     * @param stage
+     *              the current stage.
+     */
+    public void openTutorial(Stage stage);
 
-    public void openDiseaseChoice(final Stage stage);
+    /**
+     * 
+     * @param stage
+     *              the current stage.
+     */
+    public void openDiseaseChoice(Stage stage);
 
-    public void openDiseaseName(final Stage stage);
+    /**
+     * 
+     * @param stage
+     *              the current stage.
+     */
+    public void openDiseaseName(Stage stage);
 
-    public void openBackScene(final Stage stage);
+    /**
+     * 
+     * @param stage
+     *              the current stage.
+     */
+    public void openBackScene(Stage stage);
+
+    /**
+     * 
+     * @return
+     *         the {@link SceneLoader}.
+     */
+    public SceneLoader getSceneLoader();
 }

@@ -15,6 +15,8 @@ public interface Controller {
 
     /**
      * Start a game, create model and view.
+     * 
+     * @param stage
      */
     void startGame(Stage stage);
 
@@ -72,4 +74,9 @@ public interface Controller {
      * Quits from application.
      */
     void quit();
+
+    /**
+     * Read diseas names.
+     */
+    void readDiseasesNames();
 }

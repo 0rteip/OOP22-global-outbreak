@@ -10,13 +10,13 @@ public interface SceneController {
 
     /**
      * @param sceneAdministrator
-     *                           the {@link SceneAdministrator} to use
+     *                           the {@link SceneManager} to use
      */
     void setSceneManager(SceneManager sceneAdministrator);
 
     /**
      * @return
-     *         the {@link SceneAdministrator}
+     *         the {@link SceneManager}
      */
     SceneManager getSceneManager();
 
@@ -28,7 +28,7 @@ public interface SceneController {
 
     /**
      * @return
-     *         the view
+     *         the {@link View}
      */
     View getView();
 }

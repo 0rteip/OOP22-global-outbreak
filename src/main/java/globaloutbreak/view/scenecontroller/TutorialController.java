@@ -26,8 +26,6 @@ public class TutorialController extends AbstractSceneController {
     private Button submitButton;
 
     private Stage stage;
-    private SceneManager sceneManager;
-    private Logger logger;
 
     /**
      * Initialize logger.

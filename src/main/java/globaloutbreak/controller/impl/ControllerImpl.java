@@ -1,5 +1,7 @@
 package globaloutbreak.controller.impl;
 
+import diseasesreader.DiseasesReader;
+import diseasesreader.DiseasesReaderImpl;
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
@@ -21,52 +23,56 @@ public class ControllerImpl implements Controller {
     /**
      * Create a controller.
      * 
-     * @param model
-     *              model of application
      * @param view
-     *              view of application
+     *             view of application
      */
     public ControllerImpl(final View view) {
         this.view = view;
     }
 
+    /**
+     * Start game.
+     */
     @Override
     public void startGame(final Stage stage) {
         this.view.start(this, stage);
     }
 
+    /**
+     * Create disease.
+     */
     @Override
-    public void choosenDisease(Disease disease, String name) {
+    public void choosenDisease(final Disease disease, final String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'choosenDisease'");
     }
 
     @Override
-    public void selectedRegion(Region region) {
+    public void selectedRegion(final Region region) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedRegion'");
     }
 
     @Override
-    public void selectedMutation(Mutation mutation) {
+    public void selectedMutation(final Mutation mutation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
     }
 
     @Override
-    public void updateInfo(Infodata info) {
+    public void updateInfo(final Infodata info) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
     }
 
     @Override
-    public void displayMessage(Message message) {
+    public void displayMessage(final Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayMessage'");
     }
 
     @Override
-    public void startVoyage(Voyage voyage) {
+    public void startVoyage(final Voyage voyage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'startVoyage'");
     }
@@ -76,71 +82,13 @@ public class ControllerImpl implements Controller {
         Platform.exit();
     }
 
-    // private class SimulationLoop extends Thread {
-    // private static final int UPDATES_IN_A_DAY = 10;
-    // private volatile boolean running;
-    // private final DayCicle dayCicle = new DayCicleImpl(UPDATES_IN_A_DAY);
-    // private final Object mutex = new Object();
+    /**
+     * Read diseases names from file.
+     */
+    @Override
+    public void readDiseasesNames() {
+        DiseasesReader reader = new DiseasesReaderImpl();
 
-    // SimulationLoop() {
-    // this.setDaemon(true);
-    // this.running = true;
-    // }
-
-    // @Override
-    // public void run() {
-    // while (this.running && !ControllerImpl.this.model.isSimulationOver()) {
-    // final long startTime = System.currentTimeMillis();
-    // this.update();
-    // this.render();
-    // final int elapsedTime = (int) (System.currentTimeMillis() - startTime);
-    // this.waitForNextFrame(ControllerImpl.this.gameSpeed.getDuration(),
-    // elapsedTime);
-    // synchronized (this.mutex) {
-    // try {
-    // if (!this.running) {
-    // this.mutex.wait();
-    // }
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    // }
-
-    // private void update() {
-    // ControllerImpl.this.update(dayCicle);
-    // if (ControllerImpl.this.model.isSimulationOver()) {
-    // ControllerImpl.this.view.setSimulationOver();
-    // }
-    // }
-
-    // private void render() {
-    // ControllerImpl.this.view.render(ControllerImpl.this.model.getFoods(),
-    // ControllerImpl.this.model.getOrganisms());
-    // }
-
-    // private void waitForNextFrame(final DayDuration dayDuration, final int
-    // elapsed) {
-    // final int timeUntilNextLoop = dayDuration.getDuration() * 1000 /
-    // UPDATES_IN_A_DAY - elapsed;
-    // // the sleep time cannot be < 0, this would cause an exception
-    // if (timeUntilNextLoop > 0) {
-    // try {
-    // Thread.sleep(timeUntilNextLoop);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }this.view.start(this);
-    // }
-    // }
-
-    // public void startStop() {
-    // this.running = !this.running;
-    // synchronized (this.mutex) {
-    // if (this.running) {
-    // this.mutex.notifyAll();
-    // }
-    // }
-    // }
-    // }
+        this.view.setDiseasesNames(reader.getDiseases());
+    }
 }
