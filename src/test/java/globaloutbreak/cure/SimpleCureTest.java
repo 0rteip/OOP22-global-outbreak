@@ -1,6 +1,8 @@
 package globaloutbreak.cure;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,16 +21,23 @@ import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
 
-public class SimpleCureTest {
+/**
+ * Test for SimpleCure.
+ */
+final class SimpleCureTest {
 
-    SimpleCure.Builder cureBuilder;
+    private SimpleCure.Builder cureBuilder;
 
+    /**
+     * Initialize before tests.
+     */
     @BeforeEach
     public void init() {
         final int numberOfRegions = 10;
+        final float resPerc = 0.3f;
         final List<Priority> prios = new ArrayList<>();
         prios.add(new CurePriority.Builder()
-                .setResourcesPercentage(0.3f)
+                .setResourcesPercentage(resPerc)
                 .build());
         final List<Region> regions = getRegions(numberOfRegions);
         this.cureBuilder = new SimpleCure.Builder(regions, prios);
@@ -58,13 +67,13 @@ public class SimpleCureTest {
                 .build();
 
         assertTrue(cure.getGlobalStatus().getMajorContributors().isEmpty());
-        assertTrue(cure.getGlobalStatus().getRemainingDays() == -1);
+        assertEquals(-1, cure.getGlobalStatus().getRemainingDays());
 
         IntStream.range(0, daysBeforeStartResearch + 1).forEach(w -> {
             cure.research();
         });
-        assertTrue(cure.getGlobalStatus().getMajorContributors().size() == numberOfMajorContributors);
-        assertTrue(cure.getGlobalStatus().getRemainingDays() != -1);
+        assertEquals(numberOfMajorContributors, cure.getGlobalStatus().getMajorContributors().size());
+        assertNotEquals(-1, cure.getGlobalStatus().getRemainingDays());
     }
 
     /**

@@ -9,8 +9,14 @@ import org.junit.jupiter.api.Test;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
 
-class PriorityTest {
+/**
+ * Test for Priority.
+ */
+final class PriorityTest {
 
+    /**
+     * Test if Priority BUilder work correctly.
+     */
     @Test
     void testPriorityBuilder() {
         final int priority = 0;
@@ -30,6 +36,9 @@ class PriorityTest {
         assertEquals(resourcesPercentage, prio.getResourcesPercentage());
     }
 
+    /**
+     * Test if the priority are build in the correct order.
+     */
     @Test
     void testOrderedPriority() {
         final int priority = 0;
