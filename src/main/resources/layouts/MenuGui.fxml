@@ -8,7 +8,7 @@
 <VBox styleClass="vbox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
 fx:controller="globaloutbreak.view.scenecontroller.MainController" stylesheets="css/menu-style.css">
 	<children>
-	   <Button fx:id="newGameButton" onMouseClicked="#chooseDiseaseName" text="Nuova Partita">
+	   <Button fx:id="newGameButton" onMouseClicked="#chooseDisease" text="Nuova Partita">
          <font>
             <Font size="16.0" />
          </font></Button>

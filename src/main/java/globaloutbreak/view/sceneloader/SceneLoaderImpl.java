@@ -85,9 +85,10 @@ public class SceneLoaderImpl implements SceneLoader {
                         sceneMap.put(scene.getTitle(), this.loadScenes(scene.getFxmlFile()));
                         System.out.println(scene);
                     } catch (IOException e) {
-                        System.out.println("Failed");
+                        System.out.println("Failed" + e);
                     }
                 });
+        System.out.println(sceneMap);
     }
 
     /**
@@ -100,6 +101,9 @@ public class SceneLoaderImpl implements SceneLoader {
     private Pair<FXMLLoader, Parent> loadScenes(final String fxmlPath) throws IOException {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(fxmlPath));
         final Parent parent = loader.load();
+        System.out.println(fxmlPath);
+        System.out.println(loader);
+        System.out.println(parent);
         return new Pair<>(loader, parent);
     }
 
