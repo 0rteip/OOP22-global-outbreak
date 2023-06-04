@@ -1,46 +1,16 @@
 [
     {
-        "name": "infectivity",
-        "value": 0.5
-    },
-    {
-        "name": "lethality",
-        "value": 0.5
-    },
-    {
-        "name": "airTransmission",
-        "value": 0.5
-    },
-    {
-        "name": "seaTransmission",
-        "value": 0.5
-    },
-    {
-        "name": "landTransmission",
-        "value": 0.5
-    },
-    {
-        "name": "heatTransmission",
-        "value": 0.5
-    },
-    {
-        "name": "coldTransmission",
-        "value": 0.5
-    },
-    {
-        "name": "cureResistance",
-        "value": 0.5
-    },
-    {
-        "name": "humidityResistance",
-        "value": 0.5
-    },
-    {
-        "name": "aridityResistance",
-        "value": 0.5
-    },
-    {
-        "name": "povertyTransmission",
-        "value": 0.5
+        "type": "Batteri",
+        "lethality": 0.1,
+        "infectivity": 0.1,
+        "airInfectivity": 0.3,
+        "seaInfectivity": 0.1,
+        "landInfectivity": 0.2,
+        "heatInfectivity": 0.1,
+        "coldInfectivity": 0.1,
+        "aridityInfectivity": 0.1,
+        "humidityInfectivity": 0.1,
+        "cureResistance": 0.2,
+        "povertyInfectivity": 0.1
     }
 ]
