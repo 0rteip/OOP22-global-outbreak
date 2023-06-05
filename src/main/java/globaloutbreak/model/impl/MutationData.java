@@ -12,6 +12,7 @@ public class MutationData {
 
     public MutationData( MutationFactoryImpl mutationFactory){
         this.mutationFactory = mutationFactory;
+        mutations = new ArrayList<>();
     }
 
     /**
@@ -20,17 +21,14 @@ public class MutationData {
      * @return list of mutations
      */
     public List<Mutation> getMutations() {
-        return mutations;//copia difensiva a mettere
+        ArrayList<Mutation> defensiveCopy = new ArrayList<>(mutations);
+        return defensiveCopy;
     }
     
 
-   public void loadMutationFromJson(String filePath){
-
-    mutations = new ArrayList<>();
-
-    //leggo il json con un ciclo
+   public void loadMutationFromJson(final int cost, final String name, final int increase, final TypeMutation type, final String description){
     //istanzio e aggiungo alla lista
-    Mutation mutation=mutationFactory.createMutation(0, "", 0, null, "");
+    Mutation mutation=mutationFactory.createMutation(cost, name, increase, type, description);
     mutations.add(mutation);
    }
 

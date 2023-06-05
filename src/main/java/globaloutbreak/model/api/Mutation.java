@@ -49,4 +49,9 @@ public interface Mutation {
      */
     void increase (Disease disease);
 
+    /**
+     * decrease the parameter
+     * 
+     */
+    void decrease (Disease disease);
 }
