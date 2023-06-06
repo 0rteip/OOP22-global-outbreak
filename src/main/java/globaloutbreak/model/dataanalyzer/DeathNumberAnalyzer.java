@@ -1,4 +1,4 @@
-package globaloutbreak.model.impl;
+package globaloutbreak.model.dataanalyzer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +17,6 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import globaloutbreak.model.api.DataAnalyzer;
 
 /**
  * A DataAnalyzer based on the mainly cause of death.

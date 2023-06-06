@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.dataanalyzer;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.model.api.DataAnalyzer;
-import globaloutbreak.model.impl.DeathNumberAnalyzer;
+import globaloutbreak.model.dataanalyzer.DataAnalyzer;
+import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 
 class DataAnalyzerTest {
 
@@ -38,6 +38,7 @@ class DataAnalyzerTest {
         final DataAnalyzer<Integer> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Integer>() {
             @Override
             public void accept(final String key, final Integer value) {
+                System.out.println(key + " " +value);
                 results.add(value);
             }
         });

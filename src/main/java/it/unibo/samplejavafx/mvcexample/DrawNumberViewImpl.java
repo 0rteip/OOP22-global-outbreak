@@ -33,6 +33,7 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
     /**
      * Initialises a view implementation for a drawnumber game.
+     * 
      * @param model
      * @param initialBounds
      */
@@ -64,18 +65,17 @@ public final class DrawNumberViewImpl implements DrawNumberView {
 
         final Label stateMessage = new Label();
         stateMessage.textProperty().bind(new SimpleStringProperty("Min=")
-            .concat(model.minProperty())
-            .concat("; Max=")
-            .concat(model.maxProperty())
-            .concat("\nMaxAttempts=")
-            .concat(model.attemptsProperty())
-            .concat("; Remaining attempts=")
-            .concat(model.remainingAttemptsProperty())
-            .concat("\nLast guess:")
-            .concat(model.lastGuessProperty())
-            .concat("; Last outcome:")
-            .concat(model.lastGuessResult())
-        );
+                .concat(model.minProperty())
+                .concat("; Max=")
+                .concat(model.maxProperty())
+                .concat("\nMaxAttempts=")
+                .concat(model.attemptsProperty())
+                .concat("; Remaining attempts=")
+                .concat(model.remainingAttemptsProperty())
+                .concat("\nLast guess:")
+                .concat(model.lastGuessProperty())
+                .concat("; Last outcome:")
+                .concat(model.lastGuessResult()));
 
         vbox.getChildren().addAll(playControlsLayout, gameControlsLayout, stateMessage);
 

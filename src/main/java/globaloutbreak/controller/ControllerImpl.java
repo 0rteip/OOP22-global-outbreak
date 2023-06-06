@@ -10,7 +10,8 @@ import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Message;
+import globaloutbreak.model.message.Message;
+import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;
@@ -157,7 +158,14 @@ public final class ControllerImpl implements Controller {
 
         private void render() {
             System.out.println("view: " + view + "\ngames: " + settings.getGameSpeed());
+            view.displayMessage(new Message() {
 
+                @Override
+                public MessageType getType() {
+                    return MessageType.CURE;
+                }
+                
+            });
             // System.out.println("reder");
             // System.out.println(LocalTime.now());
 

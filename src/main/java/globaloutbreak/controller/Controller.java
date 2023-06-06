@@ -2,7 +2,7 @@ package globaloutbreak.controller;
 
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Message;
+import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;

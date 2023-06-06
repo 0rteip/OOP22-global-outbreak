@@ -1,6 +1,11 @@
-package globaloutbreak.model.api;
+package globaloutbreak.model;
 
 import java.util.List;
+
+import globaloutbreak.model.api.Disease;
+import globaloutbreak.model.api.Infodata;
+import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.api.Region;
 
 /**
  * Model for GlobalOutbreak app.
@@ -33,7 +38,7 @@ public interface Model {
      * @return
      *         {@code True} if is active, {@code False} otherwise
      */
-    boolean selectedMutation(String mutation);
+    boolean selectedMutation(Mutation mutation);
 
     /**
      * List of all the possible Regions.
@@ -68,5 +73,13 @@ public interface Model {
      *         global data
      */
     List<Integer> getGlobalData();
+
+    /**
+     * Returns {@code True} if game is over.
+     * 
+     * @return
+     *         gameOver
+     */
+    boolean isGameOver();
 
 }
