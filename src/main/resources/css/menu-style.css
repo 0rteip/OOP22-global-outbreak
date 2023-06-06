@@ -1,0 +1,80 @@
+.vbox{
+    -fx-background-image: url("../images/global-outbreak-menu.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-spacing: 20px;
+    -fx-padding: 0 0 20px 0;
+    -fx-alignment: center;
+}
+
+#newGameButton, #tutorialButton, #quitButton {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-text-fill: #960018;
+    -fx-background-color: #F6F6F6;
+    -fx-font-size: 20px;
+    -fx-margin-bottom: 20px;
+    -fx-font-weight: bold;
+}
+
+#newGamebutton {
+    -fx-margin-bottom: 0;
+}
+
+#backButton{
+    -fx-background-image: url("../images/left-arrow.jpg");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-layout-x: 20;
+    -fx-layout-y: 20;
+}
+.hbox-title { 
+    -fx-padding: 20px;
+    -fx-spacing: 210;
+}
+.text-title, .tutorial-title{
+    -fx-font-size: 25px;
+    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.tutorial-text{
+    -fx-font-size: 17px;
+    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+.vbox-name{
+    -fx-background-image: url("../images/global-outbreak-menu.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+.hbox-input{
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 50 0
+}
+#submitButton{
+    -fx-background-image: url("../images/right-arrow.png");
+    -fx-background-size: 150px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+}
+#nameTextField{
+    -fx-background-color: rgba(0,0,0,0.7);
+    -fx-text-inner-color: rgb(255, 255, 255);
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-pref-height: 25px;
+}
+#boxImage image{
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "priority": 0,
+        "description": "None",
+        "resourcesPercentage": 0.0,
+        "detectionRate": 0.2
+    },
+    {
+        "priority": 1,
+        "description": "Low",
+        "resourcesPercentage": 0.33,
+        "detectionRate": 0.4
+    },
+    {
+        "priority": 2,
+        "description": "Medium",
+        "resourcesPercentage": 0.66,
+        "detectionRate": 0.6
+    },
+    {
+        "priority": 3,
+        "description": "High",
+        "resourcesPercentage": 1.0,
+        "detectionRate": 0.8
+    }
+]

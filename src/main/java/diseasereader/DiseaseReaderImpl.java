@@ -46,7 +46,7 @@ public class DiseaseReaderImpl implements DiseaseReader {
 
                     switch (value.getKey()) {
                         case "type":
-                            diseaseData.setType(value.getValue().toString());
+                            diseaseData.setType(value.getValue().textValue());
                             break;
                         case "infectivity":
                             diseaseData.setInfectivity(value.getValue().floatValue());

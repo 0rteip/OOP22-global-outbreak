@@ -1,37 +1,36 @@
 package globaloutbreak;
 
-import java.io.IOException;
-
-import globaloutbreak.controller.api.DiseaseController;
-import globaloutbreak.controller.impl.DiseaseControllerImpl;
-import globaloutbreak.model.api.Disease;
-
-// import globaloutbreak.controller.api.Controller;
+import globaloutbreak.controller.api.Controller;
+import globaloutbreak.controller.impl.ControllerImpl;
+import globaloutbreak.view.View;
+import globaloutbreak.view.ViewImpl;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
- * Applpication.
+ * Application.
  */
-public final class GlobalOutbreakApp {
 
-    private GlobalOutbreakApp() {
+public class GlobalOutbreakApp extends Application {
+
+    /**
+     * Set controller and load scene.
+     */
+    @Override
+    public final void start(final Stage primaryStage) throws Exception {
+
+        final View view = new ViewImpl();
+        final Controller controller = new ControllerImpl(view);
+        controller.startGame(primaryStage);
+
     }
 
     /**
-     * App entry point.
+     * Main.
      * 
      * @param args
-     *             ignored
      */
-
     public static void main(final String[] args) {
-        final DiseaseController controller = new DiseaseControllerImpl();
-        try {
-            controller.readFile("diseases/DiseaseData.json");
-            Disease disease = controller.createDisease("name");
-        } catch (IOException e) {
-            System.out.println("Not working");
-        }
-        // System.out.println("fine");
+        launch(args);
     }
-
 }

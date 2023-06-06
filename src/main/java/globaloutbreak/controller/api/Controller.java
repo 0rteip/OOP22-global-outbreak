@@ -1,13 +1,11 @@
 package globaloutbreak.controller.api;
 
-import java.util.List;
-
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;
+import javafx.stage.Stage;
 
 /**
  * Controller interface.
@@ -16,19 +14,28 @@ public interface Controller {
 
     /**
      * Start a game, create model and view.
+     * 
+     * @param stage
      */
-    void startGame();
+    void startGame(Stage stage);
 
     /**
-     * Choosen disease type and name.
+     * Choosen disease type.
      * 
-     * @param disease
+     * 
+     * @param type
      *                disease's type
+     */
+    void choosenDisease(String type);
+
+    /**
+     * Choosen disease name.
+     * 
+     * 
      * @param name
      *                disease's name
      */
-    void choosenDisease(Disease disease, String name);
-
+    void choosenDiseaseName(String name);
     /**
      * Pass the selected region.
      * 
@@ -42,10 +49,8 @@ public interface Controller {
      * 
      * @param mutation
      *                 mutation selected
-     * @return
-     *         {@code True} if is active, {@code False} otherwise
      */
-    boolean selectedMutation(Mutation mutation);
+    void selectedMutation(Mutation mutation);
 
     /**
      * Update DNA points, cure status, general info.
@@ -64,22 +69,6 @@ public interface Controller {
     void displayMessage(Message message);
 
     /**
-     * List of all the possible Diseases.
-     * 
-     * @return
-     *         list of Diseases
-     */
-    List<Disease> getDiseases();
-
-    /**
-     * Get rilevant data on the global situations.
-     * 
-     * @return
-     *         global data
-     */
-    List<Integer> getGlobalData();
-
-    /**
      * Start a Voyage.
      * 
      * @param voyage
@@ -91,4 +80,9 @@ public interface Controller {
      * Quits from application.
      */
     void quit();
+
+    /**
+     * Read diseas names.
+     */
+    void readDiseasesNames();
 }
