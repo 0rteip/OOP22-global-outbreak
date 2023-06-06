@@ -1,11 +1,11 @@
 package globaloutbreak.controller.api;
 
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;
+import javafx.stage.Stage;
 
 /**
  * Controller interface.
@@ -14,19 +14,28 @@ public interface Controller {
 
     /**
      * Start a game, create model and view.
+     * 
+     * @param stage
      */
-    void startGame();
+    void startGame(Stage stage);
 
     /**
-     * Choosen disease type and name.
+     * Choosen disease type.
      * 
-     * @param disease
+     * 
+     * @param type
      *                disease's type
+     */
+    void choosenDisease(String type);
+
+    /**
+     * Choosen disease name.
+     * 
+     * 
      * @param name
      *                disease's name
      */
-    void choosenDisease(Disease disease, String name);
-
+    void choosenDiseaseName(String name);
     /**
      * Pass the selected region.
      * 
@@ -71,4 +80,9 @@ public interface Controller {
      * Quits from application.
      */
     void quit();
+
+    /**
+     * Read diseas names.
+     */
+    void readDiseasesNames();
 }
