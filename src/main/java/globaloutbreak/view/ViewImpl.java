@@ -7,6 +7,7 @@ import globaloutbreak.controller.api.Controller;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.scene.control.Button;
@@ -14,11 +15,14 @@ import javafx.stage.Stage;
 import settings.WindowSettings;
 import settings.WindowSettingsImpl;
 
+/**
+ * Class ViewImpl.
+ */
 public class ViewImpl implements View {
 
     private final WindowSettings settings = new WindowSettingsImpl();
     private final SceneManager manager;
-    private List<Button> diseasesButtons = new ArrayList<Button>();
+    private final List<Button> diseasesButtons = new ArrayList<>();
     private Controller controller;
 
     /**
@@ -97,6 +101,7 @@ public class ViewImpl implements View {
      * @return
      *         a list with diseases buttons.
      */
+    @Override
     public List<Button> getDiseasesButtons() {
         return List.copyOf(diseasesButtons);
     }
@@ -105,8 +110,17 @@ public class ViewImpl implements View {
      * @param diseasesNames
      *                      a list of diseases names.
      */
-    public void setDiseasesNames(List<String> diseasesNames) {
-        diseasesNames.stream().forEach(name -> diseasesButtons.add(new Button(name)));
+    @Override
+    public void setDiseasesData(final List<DiseaseData> diseasesNames) {
+        diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public void choosenDisease(final String type) {
+        this.getController().choosenDisease(type);
     }
 
 }

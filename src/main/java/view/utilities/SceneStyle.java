@@ -1,18 +1,24 @@
 package view.utilities;
 
+/**
+ * Enumeration of scenes.
+ */
 public enum SceneStyle {
 
+    /**
+     * Initial menu scene.
+     */
     INITIALMENU("Initial Menu", "layouts/MenuGui.fxml"),
     /**
-     * map scene.
+     * Choose disease scene.
      */
     CHOOSEDISEASE("Choose Disease", "layouts/ChooseDisease.fxml"),
     /**
-     * Settings scene.
+     * Choose disease name scene.
      */
     DISEASENAME("Choose disease name", "layouts/DiseaseNameGui.fxml"),
     /**
-     * Settings scene.
+     * Tutorial scene.
      */
     TUTORIAL("Tutorial", "layouts/TutorialGui.fxml");
 

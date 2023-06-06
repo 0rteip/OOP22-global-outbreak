@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.util.Pair;
 import globaloutbreak.view.View;
 import globaloutbreak.view.scenecontroller.SceneController;
@@ -21,6 +24,7 @@ import view.utilities.SceneStyle;
  */
 public class SceneLoaderImpl implements SceneLoader {
 
+    private final Logger logger = LoggerFactory.getLogger(SceneLoaderImpl.class);
     private final Map<String, Pair<FXMLLoader, Parent>> sceneMap = new HashMap<>();
     private final Stack<Scene> history = new Stack<>();
     private final View view;
@@ -42,7 +46,6 @@ public class SceneLoaderImpl implements SceneLoader {
     public final void loadScene(final SceneStyle sceneStyle, final Stage stage) {
 
         this.history.push(stage.getScene());
-
         final Parent root = sceneMap.get(sceneStyle.getTitle()).getValue();
         final Scene scene = root.getScene() != null ? root.getScene()
                 : new Scene(root, (double) this.view.getWindowSettings().getDefWindowWidth(),
@@ -78,17 +81,16 @@ public class SceneLoaderImpl implements SceneLoader {
     /**
      * Save scenes on sceneMap.
      */
+    @Override
     public void loadFiles() {
         Stream.of(SceneStyle.values())
                 .forEach(scene -> {
                     try {
                         sceneMap.put(scene.getTitle(), this.loadScenes(scene.getFxmlFile()));
-                        System.out.println(scene);
                     } catch (IOException e) {
-                        System.out.println("Failed" + e);
+                        logger.warn("Failed to load the scene: {}", scene);
                     }
                 });
-        System.out.println(sceneMap);
     }
 
     /**
@@ -101,9 +103,6 @@ public class SceneLoaderImpl implements SceneLoader {
     private Pair<FXMLLoader, Parent> loadScenes(final String fxmlPath) throws IOException {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(fxmlPath));
         final Parent parent = loader.load();
-        System.out.println(fxmlPath);
-        System.out.println(loader);
-        System.out.println(parent);
         return new Pair<>(loader, parent);
     }
 

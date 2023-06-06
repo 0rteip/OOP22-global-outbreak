@@ -1,6 +1,5 @@
 package globaloutbreak.controller.api;
 
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
@@ -23,12 +22,11 @@ public interface Controller {
     /**
      * Choosen disease type and name.
      * 
-     * @param disease
+     * 
+     * @param type
      *                disease's type
-     * @param name
-     *                disease's name
      */
-    void choosenDisease(Disease disease, String name);
+    void choosenDisease(String type);
 
     /**
      * Pass the selected region.

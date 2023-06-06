@@ -88,6 +88,7 @@ public final class SceneManagerImpl implements SceneManager {
      * @return
      *         the scene loader.
      */
+    @Override
     public SceneLoader getSceneLoader() {
         return this.sceneLoader;
     }

@@ -6,9 +6,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 /**
- * Implementation of {@link WindowSettings}
+ * Implementation of {@link WindowSettings}.
  */
-public class WindowSettingsImpl implements WindowSettings {
+public final class WindowSettingsImpl implements WindowSettings {
 
     private static final int DEFWIDTH = 950;
     private static final int DEFHEIGHT = 500;
@@ -17,7 +17,7 @@ public class WindowSettingsImpl implements WindowSettings {
 
     /**
      * Creates a {@link WindowSettings} Implementation with a default screen
-     * resolution
+     * resolution.
      */
     public WindowSettingsImpl() {
         final int selectedWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -25,42 +25,36 @@ public class WindowSettingsImpl implements WindowSettings {
         this.selectedRes = MutablePair.of(selectedWidth, selectedHeight);
     }
 
+    /**
+     * return.
+     */
     @Override
     public int getWindowWidth() {
-        System.out.println(this);
         return this.selectedRes.getKey().intValue();
     }
 
     @Override
     public int getWindowHeight() {
-        System.out.println(this);
         return this.selectedRes.getValue().intValue();
     }
 
     @Override
-    public int getDefWindowWidth() {
-        System.out.println(this);
-
+    public int getDefWindowWidth() { 
         return this.defRes.getKey().intValue();
     }
 
     @Override
     public int getDefWindowHeight() {
-        System.out.println(this);
-
         return this.defRes.getValue().intValue();
     }
 
     @Override
     public void setWidth(final int width) {
-        System.out.println(this);
-
         this.selectedRes.setLeft(width);
     }
 
     @Override
     public void setHeight(final int height) {
-        System.out.println(this);
         this.selectedRes.setRight(height);
     }
 

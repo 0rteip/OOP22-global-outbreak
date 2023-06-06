@@ -1,5 +1,8 @@
 package settings;
 
+/**
+ * Interface that manage window settings.
+ */
 public interface WindowSettings {
     /**
      * @return the window width

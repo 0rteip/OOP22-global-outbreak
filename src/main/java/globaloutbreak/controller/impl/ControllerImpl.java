@@ -1,9 +1,8 @@
 package globaloutbreak.controller.impl;
 
-import diseasesreader.DiseasesReader;
-import diseasesreader.DiseasesReaderImpl;
+import diseasereader.DiseaseReader;
+import diseasereader.DiseaseReaderImpl;
 import globaloutbreak.controller.api.Controller;
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * Controller implementation.
  */
-public class ControllerImpl implements Controller {
+public final class ControllerImpl implements Controller {
 
     private final View view;
 
@@ -42,9 +41,9 @@ public class ControllerImpl implements Controller {
      * Create disease.
      */
     @Override
-    public void choosenDisease(final Disease disease, final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choosenDisease'");
+    public void choosenDisease(final String type) {
+        //DiseaseController diseaseController = new DiseaseControllerImpl();
+        //diseaseController.createDisease(type);
     }
 
     @Override
@@ -87,8 +86,8 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void readDiseasesNames() {
-        DiseasesReader reader = new DiseasesReaderImpl();
+        final DiseaseReader reader = new DiseaseReaderImpl();
 
-        this.view.setDiseasesNames(reader.getDiseases());
+        this.view.setDiseasesData(reader.getDiseases());
     }
 }

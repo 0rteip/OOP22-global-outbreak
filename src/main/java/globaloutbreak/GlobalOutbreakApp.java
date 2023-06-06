@@ -1,7 +1,5 @@
 package globaloutbreak;
 
-import diseasesreader.DiseasesReader;
-import diseasesreader.DiseasesReaderImpl;
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.controller.impl.ControllerImpl;
 import globaloutbreak.view.View;

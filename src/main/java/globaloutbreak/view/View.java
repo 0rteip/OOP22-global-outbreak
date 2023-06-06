@@ -6,6 +6,7 @@ import globaloutbreak.controller.api.Controller;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -18,6 +19,10 @@ public interface View {
 
     /**
      * Start the view.
+     * 
+     * @param controller
+     * 
+     * @param stage
      */
     void start(Controller controller, Stage stage);
 
@@ -81,5 +86,11 @@ public interface View {
      * @param diseasesNames
      *                      the list of diseases names
      */
-    void setDiseasesNames(List<String> diseasesNames);
+    void setDiseasesData(List<DiseaseData> diseasesNames);
+
+    /**
+     * 
+     * @param type
+     */
+    void choosenDisease(String type);
 }

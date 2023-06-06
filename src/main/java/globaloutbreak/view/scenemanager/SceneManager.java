@@ -13,40 +13,40 @@ public interface SceneManager {
      * @param stage
      *              the current stage.
      */
-    public void openInitialMenu(Stage stage);
+    void openInitialMenu(Stage stage);
 
     /**
      * 
      * @param stage
      *              the current stage.
      */
-    public void openTutorial(Stage stage);
+    void openTutorial(Stage stage);
 
     /**
      * 
      * @param stage
      *              the current stage.
      */
-    public void openDiseaseChoice(Stage stage);
+    void openDiseaseChoice(Stage stage);
 
     /**
      * 
      * @param stage
      *              the current stage.
      */
-    public void openDiseaseName(Stage stage);
+    void openDiseaseName(Stage stage);
 
     /**
      * 
      * @param stage
      *              the current stage.
      */
-    public void openBackScene(Stage stage);
+    void openBackScene(Stage stage);
 
     /**
      * 
      * @return
      *         the {@link SceneLoader}.
      */
-    public SceneLoader getSceneLoader();
+    SceneLoader getSceneLoader();
 }

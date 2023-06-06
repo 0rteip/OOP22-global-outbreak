@@ -1,8 +1,5 @@
 package globaloutbreak.view.scenecontroller;
 
-import org.slf4j.Logger;
-
-import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;

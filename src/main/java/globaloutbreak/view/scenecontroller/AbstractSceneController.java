@@ -28,7 +28,7 @@ public class AbstractSceneController implements SceneController {
      * @param sceneManager
      */
     @Override
-    public final void setSceneManager(SceneManager sceneManager) {
+    public final void setSceneManager(final SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
 
