@@ -2,6 +2,7 @@ package globaloutbreak.view.scenecontroller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
  */
 public class DiseaseNameController extends AbstractSceneController {
 
+    @FXML
+    private TextField nameTextField;
     @FXML
     private Button submitButton;
 
@@ -41,7 +44,7 @@ public class DiseaseNameController extends AbstractSceneController {
      */
     @FXML
     public final void startGame(final MouseEvent evt) {
-
+        this.getView().choosenNameDisease(nameTextField.getText());
     }
 
 }

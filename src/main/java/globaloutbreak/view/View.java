@@ -93,4 +93,10 @@ public interface View {
      * @param type
      */
     void choosenDisease(String type);
+
+    /**
+     * 
+     * @param name
+     */
+    void choosenNameDisease(String name);
 }

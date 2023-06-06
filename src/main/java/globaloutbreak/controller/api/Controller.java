@@ -20,7 +20,7 @@ public interface Controller {
     void startGame(Stage stage);
 
     /**
-     * Choosen disease type and name.
+     * Choosen disease type.
      * 
      * 
      * @param type
@@ -28,6 +28,14 @@ public interface Controller {
      */
     void choosenDisease(String type);
 
+    /**
+     * Choosen disease name.
+     * 
+     * 
+     * @param name
+     *                disease's name
+     */
+    void choosenDiseaseName(String name);
     /**
      * Pass the selected region.
      * 

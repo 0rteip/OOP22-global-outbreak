@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public final class ControllerImpl implements Controller {
 
     private final View view;
-
+    //private final DiseaseController diseaseController;
     /**
      * Create a controller.
      * 
@@ -27,6 +27,7 @@ public final class ControllerImpl implements Controller {
      */
     public ControllerImpl(final View view) {
         this.view = view;
+        //this.diseaseController = new DiseaseControllerImpl();
     }
 
     /**
@@ -42,8 +43,12 @@ public final class ControllerImpl implements Controller {
      */
     @Override
     public void choosenDisease(final String type) {
-        //DiseaseController diseaseController = new DiseaseControllerImpl();
-        //diseaseController.createDisease(type);
+        //this.diseaseController.createDisease(type);
+    }
+
+    @Override
+    public void choosenDiseaseName(final String name) {
+        //this.diseaseController.setDiseaseName(name);
     }
 
     @Override

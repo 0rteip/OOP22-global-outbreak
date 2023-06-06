@@ -18,7 +18,7 @@ import settings.WindowSettingsImpl;
 /**
  * Class ViewImpl.
  */
-public class ViewImpl implements View {
+public final class ViewImpl implements View {
 
     private final WindowSettings settings = new WindowSettingsImpl();
     private final SceneManager manager;
@@ -121,6 +121,12 @@ public class ViewImpl implements View {
     @Override
     public void choosenDisease(final String type) {
         this.getController().choosenDisease(type);
+    }
+
+
+    @Override
+    public void choosenNameDisease(final String name) {
+        this.getController().choosenDiseaseName(name);
     }
 
 }
