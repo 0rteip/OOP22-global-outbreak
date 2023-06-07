@@ -19,7 +19,7 @@ public class DiseaseDataList {
     }
 
     /**
-     * save all Diseasedata here.
+     * save all DiseaseData here.
      * 
      * @param disease
      *                List of DiseaseData

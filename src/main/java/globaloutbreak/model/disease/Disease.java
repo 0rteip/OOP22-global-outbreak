@@ -1,6 +1,6 @@
 package globaloutbreak.model.disease;
 
-import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import globaloutbreak.model.api.Region;
@@ -102,6 +102,14 @@ public interface Disease {
     float getPovertyInfectivity();
 
     /**
+     * Set the Disease name.
+     * 
+     * @param name
+     *         disease name
+     */
+    void setName(String name);
+
+    /**
      * 
      * @param infectivity
      */
@@ -182,10 +190,20 @@ public interface Disease {
     void killPeopleRegions(List<Region> regionList);
 
     /**
+     * Initialize Observers.
+     * 
      * @param name
-     * @param subscriber
-     *                   a new observer
+     * 
+     * @param listener
      * 
      */
-    void addObserver(String name, PropertyChangeSupport subscriber);
+    void initializeObserver(String name, PropertyChangeListener listener);
+
+    /**
+     * 
+     * @return
+     *         all Disease data as String.
+     */
+    @Override
+    String toString();
 }

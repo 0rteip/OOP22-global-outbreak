@@ -1,8 +1,9 @@
 package globaloutbreak.controller.disease;
 
-import java.io.IOException;
+import java.util.List;
 
 import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.disease.DiseaseData;
 
 /**
  * Manage Disease data.
@@ -10,21 +11,28 @@ import globaloutbreak.model.disease.Disease;
 public interface DiseaseController {
 
     /**
+     *  read all Disease data from file.
      * 
-     * read all Disease data from file.
-     * 
-     * @param diseaseFilePath
-     * 
-     * @throws IOException
+     * @param diseaseList
+     * a list of all Disease data.
      */
-    void readFile(String diseaseFilePath) throws IOException;
+    void readFile(List<DiseaseData> diseaseList);
 
     /**
-     * @param name
+     * Create a new Disease.
+     * 
      * @param type
+     *         Disease type.
      * 
      * @return
      *         Disease
      */
-    Disease createDisease(String name, String type);
+    Disease createDisease(String type);
+
+    /**
+     * Set Disease name.
+     * 
+     * @param name
+     */
+    void setDiseaseName(String name);
 }

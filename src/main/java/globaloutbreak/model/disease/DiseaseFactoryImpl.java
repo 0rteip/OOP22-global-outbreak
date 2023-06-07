@@ -1,9 +1,8 @@
 package globaloutbreak.model.disease;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
     /**
      * Method to create new Disease.
      * 
-     * @param diseaseName
      * @param diseaseType
      * @param diseaseInfectivity
      * @param diseaseLethality
@@ -38,27 +36,16 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
      *         new {@link Disease}
      */
     @Override
-    public Disease createDisease(final String diseaseName, final String diseaseType, final float diseaseInfectivity,
+    public Disease createDisease(final String diseaseType, final float diseaseInfectivity,
             final float diseaseLethality, final float diseaseAirInfectivity,
             final float diseaseSeaInfectivity, final float diseaseLandInfectivity,
             final float diseaseHeatInfectivity, final float diseaseColdInfectivity, final float diseaseCureResistance,
             final float diseaseHumidityInfectivity, final float diseaseAridityInfectivity,
             final float diseasePovertyInfectivity) {
 
-        if (this.checkIfValid(diseaseInfectivity, "Infectivity") && this.checkIfValid(diseaseLethality, "Lethality")
-                && this.checkIfValid(diseaseAirInfectivity, "AirInfectivity")
-                && this.checkIfValid(diseaseSeaInfectivity, "SeaInfectivity")
-                && this.checkIfValid(diseaseLandInfectivity, "LandInfectivity")
-                && this.checkIfValid(diseaseHeatInfectivity, "HeatInfectivity")
-                && this.checkIfValid(diseaseColdInfectivity, "ColdInfectivity")
-                && this.checkIfValid(diseaseHumidityInfectivity, "HumidityInfectivity")
-                && this.checkIfValid(diseaseAridityInfectivity, "AridityInfectivity")
-                && this.checkIfValid(diseasePovertyInfectivity, "PovertyInfectivity")
-                && this.checkIfValid(diseaseCureResistance, "CureResistance")) {
-
             return new Disease() {
 
-                private String name = diseaseName;
+                private String name;
                 private String type = diseaseType;
                 private float infectivity = diseaseInfectivity;
                 private float lethality = diseaseLethality;
@@ -71,7 +58,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                 private float humidityInfectivity = diseaseHumidityInfectivity;
                 private float aridityInfectivity = diseaseAridityInfectivity;
                 private float povertyInfectivity = diseasePovertyInfectivity;
-                private Map<String, PropertyChangeSupport> observers = new HashMap<>();
+                private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
                 /**
                  * @return
@@ -190,12 +177,17 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     return this.povertyInfectivity;
                 }
 
+                @Override
+                public void setName(final String diseaseName) {
+                    this.name = diseaseName;
+                }
+
                 /**
                  * increase or decrease infectivity.
                  */
                 @Override
                 public void updateInfectivity(final float infectivity) {
-                    if (checkIfValid(this.infectivity + infectivity, diseaseName)) {
+                    if (checkParameterUpdate(this.infectivity + infectivity, "infectivity")) {
                         this.infectivity += infectivity;
                     }
                 }
@@ -300,12 +292,32 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     }
                 }
 
+                @Override
+                public String toString() {
+                    return "Disease[Name: " + this.getName() + ", Type: " + this.getType() + ", Infectivity: "
+                            + this.getInfectivity() + ", Lethality: " + this.getLethality()
+                            + ", diseaseAirInfectivity: " + this.getAirInfectivity() + " , diseaseSeaInfectivity: "
+                            + this.getSeaInfectivity() + ", diseaseLandInfectivity: " + this.getLandInfectivity()
+                            + ", diseaseHeatInfectivity: " + this.getHeatInfectivity() + ", diseaseColdInfectivity: "
+                            + this.getColdInfectivity() + ", diseaseCureResistance: " + this.getCureResistance()
+                            + ", diseaseHumidityInfectivity: " + this.getHumidityInfectivity()
+                            + ", diseaseAridityInfectivity: " + this.getAridityInfectivity()
+                            + ", diseasePovertyInfectivity: " + this.getPovertyInfectivity() + "]";
+                }
+
                 /**
                  * Add a new observer to class.
                  */
                 @Override
-                public void addObserver(final String name, final PropertyChangeSupport subscriber) {
-                    observers.put(name, subscriber);
+                public void initializeObserver(final String name, final PropertyChangeListener listener) {
+                    switch (name) {
+                        case "infodata":
+                            infodataSupport.addPropertyChangeListener(listener);
+                            break;
+                        default:
+                            logger.warn("ProeprtyChangeSupport for the name {} not found.", name);
+                            break;
+                    }
                 }
 
                 /**
@@ -333,35 +345,43 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                 public void infectRegions(final List<Region> regionList) {
                     regionList.stream()
                             .filter(region -> region.getNumInfected() > 0)
-                            .forEach(region -> region.incOrDecNuminfected(calculateNewInfected(region.getPopTot(),
-                                    region.getNumInfected(), region.getUrban(), region.getPoor())));
+                            .forEach(region -> region.incOrDecNuminfected(this.calculateNewInfected(region.getPopTot(),
+                                    region.getNumInfected(), region.getUrban(), region.getPoor(),
+                                    region.getClimateImpl().getArid(), region.getClimateImpl().getCold(),
+                                    region.getClimateImpl().getHot(), region.getClimateImpl().getHumid())));
                 }
 
                 /**
-                 * calculate number of new infected.
+                 * Calculate the new infected.
                  * 
                  * @param population
                  * @param currentInfected
                  * @param urban
                  * @param poor
+                 * @param arid
+                 * @param cold
+                 * @param hot
+                 * @param humid
+                 * @return
+                 * the number of infected to add.
                  */
-                private int calculateNewInfected(final int population, final int currentInfected, final int urban,
-                        final int poor) {
+                private int calculateNewInfected(final int population, final int currentInfected, final float urban,
+                        final float poor, final float arid, final float cold, final float hot, final float humid) {
                     if (this.checkIfPositive(population, "population")
                             && this.checkIfPositive(currentInfected, "currentInfected")
                             && this.checkIfPositive(urban, "urban") && this.checkIfPositive(poor, "poor")) {
-
                         return (int) Math.round(population * ((float) currentInfected / population)
-                                * this.calculateInfectivity(urban, poor));
+                                * this.calculateInfectivity(urban, hot, cold, humid, arid, poor));
                     }
                     logger.error("The number of population, currentInfected, urban, poor must be at least");
                     return 0;
                 }
 
-                private float calculateInfectivity(final int urban, final int poor) {
-                    return (this.infectivity + this.landInfectivity * urban
-                            + this.povertyInfectivity * poor)
-                            / 100;
+                private float calculateInfectivity(final float urban, final float poor, final float hot,
+                        final float cold, final float humidity, final float aridity) {
+                    return this.infectivity * urban + this.heatInfectivity * hot + this.coldInfectivity * cold
+                            + this.humidityInfectivity * humidity + this.aridityInfectivity * aridity
+                            + this.povertyInfectivity * poor;
                 }
 
                 /**
@@ -385,8 +405,8 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  * @return
                  *         true if number is positive, false otherwise
                  */
-                private boolean checkIfPositive(final int number, final String name) {
-                    if (number < 1) {
+                private boolean checkIfPositive(final float number, final String name) {
+                    if (number < 0) {
                         logger.warn("Value {} can't be negative", name);
                         return false;
                     }
@@ -408,26 +428,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     }
                     return true;
                 }
-
             };
-        } else {
-            logger.error("Errore nella creazione di Disease: I parametri di Disease devono essere compresi tra 0 e 1");
-            throw new IllegalArgumentException("I parametri di Disease devono essere compresi tra 0 e 1");
-        }
-    }
-
-    /**
-     * 
-     * @param number
-     * @param name
-     * @return
-     *         true if number is between 0 and 1, false otherwise
-     */
-    private boolean checkIfValid(final float number, final String name) {
-        if (number < 0 || number > 1) {
-            logger.warn("Value {} must be between 0 and 1", name);
-            return false;
-        }
-        return true;
     }
 }

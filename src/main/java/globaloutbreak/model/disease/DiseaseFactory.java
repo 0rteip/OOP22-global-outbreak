@@ -7,7 +7,6 @@ public interface DiseaseFactory {
 
     /**
      * 
-     * @param name
      * @param type
      * @param infectivity
      * @param lethality
@@ -24,7 +23,7 @@ public interface DiseaseFactory {
      * @return
      *         new Disease
      */
-    Disease createDisease(String name, String type, float infectivity, float lethality, float airTransmission,
+    Disease createDisease(String type, float infectivity, float lethality, float airTransmission,
             float seaTransmission, float landTransmission,
             float heatTransmission, float coldTransmission, float cureResistance,
             float humidityResistance, float aridityResistance, float povertyTransmission);

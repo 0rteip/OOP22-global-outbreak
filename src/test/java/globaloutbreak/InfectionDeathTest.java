@@ -8,40 +8,34 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import org.slf4j.Logger;
+
+import globaloutbreak.model.api.ClimateImpl;
 import globaloutbreak.model.api.Region;
+import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.disease.DiseaseFactory;
 import globaloutbreak.model.disease.DiseaseFactoryImpl;
 
 class InfectionDeathTest {
 
-    private static final int EXPECTED_INFECTS1 = 60_500;
-    private static final int EXPECTED_INFECTS2 = 0;
-    private static final int EXPECTED_DEATHS1 = 6_050;
-    private static final int EXPECTED_DEATHS2 = 0;
-    private static final int EXPECTED_INFECTS3 = 54_450;
-    private static final int EXPECTED_INFECTS4 = 0;
+    private static final int INITIAL_INFECTS = 55_000;
+    private static final int INITIAL_DEATHS = 5_000;
+    private static final int EXPECTED_INFECTS1 = 80_850;
+    private static final int EXPECTED_DEATHS1 = 13_085;
+    private static final int EXPECTED_INFECTS3 = 72_765;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static class RegionImpl implements Region {
+    private final Region region = new Region() {
 
-        private Integer numInfected;
-        private final Integer totPop;
-        private Integer deaths;
-        private final Integer urban;
-        private final Integer poor;
-
-        RegionImpl(final int numInfected, final int totPop, final int deaths, final int urban, final int poor) {
-            this.numInfected = numInfected;
-            this.totPop = totPop;
-            this.deaths = deaths;
-            this.urban = urban;
-            this.poor = poor;
-        }
+        static final int POPULATION = 1_000_000;
+        static final float POOR = 0.2f;
+        static final float URBAN = 0.4f;
+        private int infected = INITIAL_INFECTS;
+        private int deaths = INITIAL_DEATHS;
 
         @Override
         public int getNumInfected() {
-            return this.numInfected;
+            return this.infected;
         }
 
         @Override
@@ -51,30 +45,85 @@ class InfectionDeathTest {
 
         @Override
         public int getPopTot() {
-            return this.totPop;
+            return POPULATION;
         }
 
         @Override
-        public Integer getUrban() {
-            return this.urban;
+        public float getUrban() {
+            return URBAN;
         }
 
         @Override
         public void incOrDecNuminfected(final int calculateNewInfected) {
-            this.numInfected += calculateNewInfected;
+            this.infected += calculateNewInfected;
         }
 
         @Override
-        public Integer getPoor() {
-            return this.poor;
+        public float getPoor() {
+            return POOR;
         }
 
         @Override
-        public Integer getDeaths() {
+        public int getDeath() {
             return this.deaths;
         }
 
-    }
+        @Override
+        public RegionCureStatus getCureStatus() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getCureStatus'");
+        }
+
+        @Override
+        public int getTotalPopulation() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getTotalPopulation'");
+        }
+
+        @Override
+        public void setCureStatus(final RegionCureStatus started) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'setCureStatus'");
+        }
+
+        @Override
+        public int getFacilities() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getFacilities'");
+        }
+
+        @Override
+        public ClimateImpl getClimateImpl() {
+            return new ClimateImpl() {
+
+                static final float HOT = 0.1f;
+                static final float COLD = 0.2f;
+                static final float ARID = 0.6f;
+                static final float HUMID = 0.1f;
+
+                @Override
+                public float getHot() {
+                    return HOT;
+                }
+
+                @Override
+                public float getCold() {
+                    return COLD;
+                }
+
+                @Override
+                public float getArid() {
+                    return ARID;
+                }
+
+                @Override
+                public float getHumid() {
+                    return HUMID;
+                }
+
+            };
+        }
+    };
 
     /**
      * Test if the methods infectRegions and killPeopleRegions from Disease class
@@ -83,26 +132,19 @@ class InfectionDeathTest {
     @Test
     void testKillPeople() {
         final DiseaseFactory diseaseFactory = new DiseaseFactoryImpl();
-        final Disease disease = diseaseFactory.createDisease("Influenza", "Virus", 0.5f, 0.1f, 0.3f, 0.2f,
+        final Disease disease = diseaseFactory.createDisease("Virus", 0.5f, 0.1f, 0.3f, 0.2f,
                 0.1f, 0.2f, 0.1f, 0.2f, 0.3f, 0.1f, 0.2f);
 
         final List<Region> regionList = new ArrayList<>();
-        final Region region1 = new RegionImpl(55_000, 1_000_000, 0, 85, 5);
-        final Region region2 = new RegionImpl(0, 500_000, 0, 30, 90);
 
-        regionList.add(region1);
-        regionList.add(region2);
-
+        regionList.add(region);
         disease.infectRegions(regionList);
 
-        Assertions.assertEquals(EXPECTED_INFECTS1, region1.getNumInfected());
-        Assertions.assertEquals(EXPECTED_INFECTS2, region2.getNumInfected());
+        Assertions.assertEquals(EXPECTED_INFECTS1, region.getNumInfected());
         disease.killPeopleRegions(regionList);
 
-        Assertions.assertEquals(EXPECTED_DEATHS1, region1.getDeaths());
-        Assertions.assertEquals(EXPECTED_DEATHS2, region2.getDeaths());
-        Assertions.assertEquals(EXPECTED_INFECTS3, region1.getNumInfected());
-        Assertions.assertEquals(EXPECTED_INFECTS4, region2.getNumInfected());
+        Assertions.assertEquals(EXPECTED_DEATHS1, region.getDeath());
+        Assertions.assertEquals(EXPECTED_INFECTS3, region.getNumInfected());
         logger.info("KillTest gone well");
     }
 }
