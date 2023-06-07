@@ -7,8 +7,11 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Voyage;
-import globaloutbreak.settings.windowsettings.WindowSettings;
-import globaloutbreak.view.scenefactory.SceneAdministrator;
+import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.view.scenemanager.SceneManager;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import settings.WindowSettings;
 
 /**
  * interface View.
@@ -24,12 +27,13 @@ public interface View extends Cloneable {
     View clone();
 
     /**
-     * Start the View.
+     * Start the view.
      * 
      * @param controller
-     *                   controller
+     * 
+     * @param stage
      */
-    void start(Controller controller);
+    void start(Controller controller, Stage stage);
 
     /**
      * Update visual info.
@@ -64,12 +68,12 @@ public interface View extends Cloneable {
     WindowSettings getWindowSettings();
 
     /**
-     * Returns the {@link SceneAdministrator}.
+     * Returns the {@link SceneManager}.
      * 
      * @return
-     *         SceneAdministrator
+     *         SceneManager
      */
-    SceneAdministrator getSceneAdministrator();
+    SceneManager getSceneManager();
 
     /**
      * Returns True if game is running.
@@ -108,4 +112,39 @@ public interface View extends Cloneable {
      */
     void setGameSpeed(GameSpeed gameSpeed);
 
+    /**
+     * 
+     * @return
+     *         List<Button> diseasesButtons
+     */
+    List<Button> getDiseasesButtons();
+
+    /**
+     * 
+     * @param diseasesNames
+     *                      the list of diseases names
+     */
+    void setDiseasesData(List<DiseaseData> diseasesNames);
+
+    /**
+     * 
+     * @param type
+     */
+    void choosenDisease(String type);
+
+    /**
+     * 
+     * @param name
+     */
+    void choosenNameDisease(String name);
+
+    /**
+     * Read disease.
+     */
+    void readDiseasesNames();
+
+    /**
+     * Quit Application.
+     */
+    void quit();
 }

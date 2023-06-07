@@ -14,7 +14,8 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
+
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;

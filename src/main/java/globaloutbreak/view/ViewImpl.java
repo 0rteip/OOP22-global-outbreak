@@ -1,5 +1,6 @@
 package globaloutbreak.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,37 +11,37 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Voyage;
-import globaloutbreak.settings.windowsettings.WindowSettings;
-import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
-import globaloutbreak.view.scenefactory.SceneAdministrator;
-import globaloutbreak.view.scenefactory.SceneAdministratorImpl;
+import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.view.scenemanager.SceneManager;
+import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import settings.WindowSettings;
+import settings.WindowSettingsImpl;
 
 /**
- * Implementation of View.
+ * Class ViewImpl.
  */
 public final class ViewImpl implements View {
 
-    // private final Stage stage;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final WindowSettings settings = new WindowSettingsImpl();
-    private final SceneAdministrator administrator;
+    private final SceneManager manager;
+    private final List<Button> diseasesButtons = new ArrayList<>();
     private Controller controller;
 
     /**
-     * Creates a view.
-     * 
-     * @param primaryStage controller
+     * Creates a VIewImpl.
      */
-    public ViewImpl(final Stage primaryStage) {
-        this.administrator = new SceneAdministratorImpl(primaryStage, this);
+    public ViewImpl() {
+        this.manager = new SceneManagerImpl(this);
     }
 
     @Override
-    public void start(final Controller controller) {
+    public void start(final Controller controller, final Stage stage) {
         this.controller = controller;
-        this.administrator.openMapScene();
+        this.manager.openInitialMenu(stage);
     }
 
     @Override
@@ -51,7 +52,7 @@ public final class ViewImpl implements View {
 
     @Override
     public void displayMessage(final Message message) {
-        Platform.runLater(() -> this.administrator.openMessage(message));
+        Platform.runLater(() -> this.manager.openMessage(message));
         this.controller.startStop();
     }
 
@@ -67,8 +68,28 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public SceneAdministrator getSceneAdministrator() {
-        return this.administrator;
+    public SceneManager getSceneManager() {
+        return this.manager;
+    }
+
+    @Override
+    public List<Button> getDiseasesButtons() {
+        return List.copyOf(diseasesButtons);
+    }
+
+    @Override
+    public void setDiseasesData(final List<DiseaseData> diseasesNames) {
+        diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
+    }
+
+    @Override
+    public void choosenDisease(final String type) {
+        this.controller.createDisease(type);
+    }
+
+    @Override
+    public void choosenNameDisease(final String name) {
+        this.controller.choosenDiseaseName(name);
     }
 
     @Override
@@ -105,4 +126,15 @@ public final class ViewImpl implements View {
             return this;
         }
     }
+
+    @Override
+    public void readDiseasesNames() {
+        this.controller.readDiseasesNames();
+    }
+
+    @Override
+    public void quit() {
+        this.controller.quit();
+    }
+
 }

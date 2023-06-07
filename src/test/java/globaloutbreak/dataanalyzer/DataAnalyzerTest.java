@@ -38,7 +38,6 @@ class DataAnalyzerTest {
         final DataAnalyzer<Integer> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Integer>() {
             @Override
             public void accept(final String key, final Integer value) {
-                System.out.println(key + " " +value);
                 results.add(value);
             }
         });

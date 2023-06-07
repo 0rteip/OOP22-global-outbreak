@@ -1,36 +1,59 @@
 package globaloutbreak.view.scenecontroller;
 
-import java.util.Optional;
-
-import globaloutbreak.model.message.Message;
-import globaloutbreak.view.messagedialog.MessageDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
- * Main page controller.
+ * Class that manage button handlers.
  */
-public final class MainController extends AbstractSceneController {
+public class MainController extends AbstractSceneController {
 
     @FXML
-    private Button settingsButton;
+    private Button newGameButton;
 
     @FXML
-    private Button stopButton;
+    private Button tutorialButton;
 
     @FXML
-    private void openSettings() {
-        if (this.getSceneAdministrator().getView().isGameRunning()) {
-            this.getSceneAdministrator().getView().startStop();
+    private Button exitButton;
+
+    private Stage stage;
+
+    /**
+     * Go to choose disease name Gui.
+     * 
+     * @param evt
+     */
+    @FXML
+    public final void chooseDisease(final MouseEvent evt) {
+        if (evt.getSource() instanceof Button && this.stage == null) {
+            this.stage = this.getStage(evt);
         }
-        this.getSceneAdministrator().openSettingsScene();
+        this.getSceneManager().openDiseaseChoice(stage);
     }
 
+    /**
+     * Go to tutorial Gui.
+     * 
+     * @param evt event handler
+     */
     @FXML
-    private void startStop() {
-        
+    public final void openTutorial(final MouseEvent evt) {
+        if (evt.getSource() instanceof Button && this.stage == null) {
+            this.stage = getStage(evt);
+        }
+        this.getSceneManager().openTutorial(stage);
+    }
 
-        this.getSceneAdministrator().getView().startStop();
+    /**
+     * Quit game.
+     * 
+     * @param evt
+     */
+    @FXML
+    public final void quitGame(final MouseEvent evt) {
+        this.getView().quit();
     }
 }

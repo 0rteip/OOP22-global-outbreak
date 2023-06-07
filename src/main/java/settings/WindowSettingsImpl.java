@@ -1,4 +1,4 @@
-package globaloutbreak.settings.windowsettings;
+package settings;
 
 import java.awt.Toolkit;
 
@@ -10,13 +10,14 @@ import org.apache.commons.lang3.tuple.MutablePair;
  */
 public final class WindowSettingsImpl implements WindowSettings {
 
-    private static final int DEFWIDTH = 800;
-    private static final int DEFHEIGHT = 600;
+    private static final int DEFWIDTH = 950;
+    private static final int DEFHEIGHT = 500;
     private final MutablePair<Integer, Integer> selectedRes;
     private final ImmutablePair<Integer, Integer> defRes = ImmutablePair.of(DEFWIDTH, DEFHEIGHT);
 
     /**
-     * Creates a {@link WindowSettings} Implementation with a default screen resolution.
+     * Creates a {@link WindowSettings} Implementation with a default screen
+     * resolution.
      */
     public WindowSettingsImpl() {
         final int selectedWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -35,7 +36,7 @@ public final class WindowSettingsImpl implements WindowSettings {
     }
 
     @Override
-    public int getDefWindowWidth() {
+    public int getDefWindowWidth() { 
         return this.defRes.getKey().intValue();
     }
 
@@ -58,4 +59,5 @@ public final class WindowSettingsImpl implements WindowSettings {
     public String toString() {
         return "WindowSettingsImpl [selectedRes=" + selectedRes + ", defRes=" + defRes + "]";
     }
+
 }

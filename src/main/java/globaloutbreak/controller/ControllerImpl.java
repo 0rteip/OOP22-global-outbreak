@@ -5,6 +5,8 @@ package globaloutbreak.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.diseasereader.DiseaseReader;
+import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
@@ -13,7 +15,8 @@ import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
+
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
@@ -164,7 +167,7 @@ public final class ControllerImpl implements Controller {
                 public MessageType getType() {
                     return MessageType.CURE;
                 }
-                
+
             });
             // System.out.println("reder");
             // System.out.println(LocalTime.now());
@@ -195,5 +198,22 @@ public final class ControllerImpl implements Controller {
             }
         }
 
+    }
+
+    @Override
+    public void choosenDiseaseName(final String name) {
+        System.out.println("Disease: " + name);
+    }
+
+    @Override
+    public void createDisease(final String type) {
+        System.out.println("Disease: " + type);
+
+    }
+
+    @Override
+    public void readDiseasesNames() {
+        final DiseaseReader reader = new DiseaseReaderImpl();
+        this.view.setDiseasesData(reader.getDiseases());
     }
 }

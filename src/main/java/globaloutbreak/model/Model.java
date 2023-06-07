@@ -5,7 +5,7 @@ import java.util.List;
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
 
 /**
  * Model for GlobalOutbreak app.

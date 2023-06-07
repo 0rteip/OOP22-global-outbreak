@@ -16,7 +16,8 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
+
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;
@@ -26,7 +27,7 @@ import globaloutbreak.model.cure.prioriry.Priority;
 // import globaloutbreak.controller.api.Controller;
 
 /**
- * Applpication.
+ * Application.
  */
 @SuppressWarnings("PMD.SystemPrintln")
 public final class GlobalOutbreakApp {
@@ -35,10 +36,9 @@ public final class GlobalOutbreakApp {
     }
 
     /**
-     * App entry point.
+     * Main.
      * 
      * @param args
-     *             ignored
      */
     public static void main(final String[] args) {
         // final Controller controller = ControllerImpl;

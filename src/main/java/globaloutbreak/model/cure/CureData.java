@@ -2,7 +2,8 @@ package globaloutbreak.model.cure;
 
 import java.util.List;
 
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
+
 import globaloutbreak.model.cure.prioriry.Priority;
 
 /**

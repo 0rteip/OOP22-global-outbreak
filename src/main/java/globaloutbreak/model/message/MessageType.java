@@ -17,9 +17,9 @@ public enum MessageType {
      */
     CATASTROPHE("Catastrophe");
 
-    final String title;
+    private final String title;
 
-    private MessageType(final String title) {
+    MessageType(final String title) {
         this.title = title;
     }
 
