@@ -2,13 +2,33 @@ package globaloutbreak.model.mutation;
 
 import java.util.Set;
 
+/**
+ * interface of muatation  manager.
+ */
 public interface MutationManager {
-    
-    public void addToActivate(String mutationName);
 
-    public void removeToActivate(String mutationName);
+    /**
+     * add mutation to active.
+     * @param mutationName the name of the mutation
+     */
+    void addToActivate(String mutationName);
 
-    public boolean isActivate(String MutationName);
+    /**
+     * remuve mutation to active.
+     * @param mutationName name of the mutation
+     */
+    void removeToActivate(String mutationName);
 
-    public Set<String> getActivateMutation();
+    /**
+     * check if is active.
+     * @param mutationName the name og the mutation
+     * @return true or false
+     */
+    boolean isActivate(String mutationName);
+
+    /**
+     * recive the active mutation.
+     * @return list of active mutation
+     */
+    Set<String> getActivateMutation();
 }

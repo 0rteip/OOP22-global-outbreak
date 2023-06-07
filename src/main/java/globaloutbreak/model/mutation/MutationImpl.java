@@ -1,8 +1,10 @@
 package globaloutbreak.model.mutation;
 
 import globaloutbreak.model.api.Disease;
-
-public class MutationImpl implements Mutation{
+/**
+ * class mutation impl.
+ */
+public final class MutationImpl implements Mutation { 
 
     private String name;
 
@@ -14,7 +16,16 @@ public class MutationImpl implements Mutation{
 
     private String description;
 
-    public MutationImpl (final int cost, final String name, final int increase, final TypeMutation type, final String description ){
+    /**
+     * constructor.
+     * @param cost cost of the mutation
+     * @param name name of the mutation
+     * @param increase increase of the mutation
+     * @param type type of the mutation
+     * @param description description of the mutation
+     */
+    public MutationImpl(final int cost, final String name, final int increase, final TypeMutation type, 
+                        final String description) {
         this.cost = cost;
         this.name = name;
         this.increase = increase;
@@ -49,15 +60,15 @@ public class MutationImpl implements Mutation{
     }
 
     @Override
-    public void increase(Disease disease) {
-        selectType(disease,Operation.ADD);
+    public void increase(final Disease disease) {
+        selectType(disease, Operation.ADD);
     }
-    public void decrease(Disease disease) {
-        selectType(disease,Operation.SUBTRACT);
-
+    @Override
+    public void decrease(final Disease disease) {
+        selectType(disease, Operation.SUBTRACT);
     }
-    private void selectType(Disease disease, Operation op){
-        switch(this.type){
+    private void selectType(final Disease disease, final Operation op) {
+        switch (this.type) {
             case TRASMISSION: 
                 //function increase trasmission
                 break;
@@ -80,13 +91,10 @@ public class MutationImpl implements Mutation{
     private enum Operation {
         ADD("+"),
         SUBTRACT("-");
-    
         private final String symbol;
-            
-        Operation(String symbol) {
+        Operation(final String symbol) {
             this.symbol = symbol;
         }
-    
         public String getSymbol() {
             return symbol;
         }

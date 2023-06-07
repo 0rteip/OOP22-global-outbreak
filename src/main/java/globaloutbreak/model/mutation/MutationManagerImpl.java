@@ -3,34 +3,37 @@ package globaloutbreak.model.mutation;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MutationManagerImpl implements MutationManager {
+/**
+ * class mutation manager impl.
+ */
+public final class MutationManagerImpl implements MutationManager {
 
-    private Set<String> activateMutation;
+    private final Set<String> activateMutation;
 
-    public MutationManagerImpl(){
+    /**
+     * constructor.
+     */
+    public MutationManagerImpl() {
        activateMutation = new HashSet<>();
     }
 
     @Override
-    public void addToActivate(String mutationName) {
+    public void addToActivate(final String mutationName) {
         activateMutation.add(mutationName);
     }
 
     @Override
-    public void removeToActivate(String mutationName) {
+    public void removeToActivate(final String mutationName) {
         activateMutation.remove(mutationName);
     }
 
     @Override
-    public boolean isActivate(String MutationName) {
-       return activateMutation.contains(MutationName);
+    public boolean isActivate(final String mutationName) {
+       return activateMutation.contains(mutationName);
     }
 
     @Override
     public Set<String> getActivateMutation() {
-        HashSet<String> defensiveCopy = new HashSet<>(activateMutation);
-
-      return defensiveCopy;
+      return new HashSet<>(activateMutation);
     }
-    
 }

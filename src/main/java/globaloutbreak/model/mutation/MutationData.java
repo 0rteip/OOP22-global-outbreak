@@ -1,33 +1,45 @@
 package globaloutbreak.model.mutation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * class miutation data.
+ */
 public class MutationData {
-    
-    private List<Mutation> mutations;
-    private MutationFactoryImpl mutationFactory;
+    private final List<Mutation> mutations;
+    private final MutationFactoryImpl mutationFactory;
 
-    public MutationData( MutationFactoryImpl mutationFactory){
+    /**
+     * constructor.
+     * @param mutationFactory
+     */
+    public MutationData(final MutationFactoryImpl mutationFactory) {
         this.mutationFactory = mutationFactory;
         mutations = new ArrayList<>();
     }
 
     /**
-     * get the mutatuions list
+     * get the mutatuions list.
      * 
      * @return list of mutations
      */
     public List<Mutation> getMutations() {
-        ArrayList<Mutation> defensiveCopy = new ArrayList<>(mutations);
-       
-        return defensiveCopy;
+        return new ArrayList<>(mutations);
     }
-    
 
-   public void loadMutationFromJson(final int cost, final String name, final int increase, final TypeMutation type, final String description){
+    /**
+     * load mutation from json.
+     * @param cost cost description of the mutation
+     * @param name name description of the mutation
+     * @param increase invrease description of the mutation
+     * @param type type description of the mutation
+     * @param description description of the mutation
+     */
+   public void loadMutationFromJson(final int cost, final String name, final int increase, final TypeMutation type, 
+                    final String description) {
     //istanzio e aggiungo alla lista
-    Mutation mutation=mutationFactory.createMutation(cost, name, increase, type, description);
+    final Mutation mutation = mutationFactory.createMutation(cost, name, increase, type, description);
     mutations.add(mutation);
    }
-
 }

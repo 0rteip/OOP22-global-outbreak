@@ -1,13 +1,12 @@
 package globaloutbreak.model.mutation;
 
 /**
- * Interface of mutation factory
+ * Interface of mutation factory.
  * 
  */
-
 public interface MutationFactory {
     /**
-     * ctreate mutation by data
+     * ctreate mutation by data.
      * 
      * @param cost cost of the mutation
      * @param name name of the mutation
@@ -16,5 +15,5 @@ public interface MutationFactory {
      * @param description description of the mutation
      * @return mutation
      */
-    Mutation createMutation(final int cost, final String name, final int increase, final TypeMutation type,final String description);
+    Mutation createMutation(int cost, String name, int increase, TypeMutation type, String description);
 }
