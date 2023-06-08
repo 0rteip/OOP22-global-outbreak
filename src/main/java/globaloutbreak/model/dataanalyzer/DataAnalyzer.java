@@ -1,4 +1,4 @@
-package globaloutbreak.model.api;
+package globaloutbreak.model.dataanalyzer;
 
 /**
  * Data analyzer for values of type {@code T}.

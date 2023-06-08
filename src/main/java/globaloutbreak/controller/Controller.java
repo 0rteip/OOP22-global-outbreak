@@ -1,4 +1,4 @@
-package globaloutbreak.controller.api;
+package globaloutbreak.controller;
 
 
 import globaloutbreak.model.api.Infodata;

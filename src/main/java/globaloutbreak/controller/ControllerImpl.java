@@ -1,8 +1,7 @@
-package globaloutbreak.controller.impl;
+package globaloutbreak.controller;
 
 import diseasereader.DiseaseReader;
 import diseasereader.DiseaseReaderImpl;
-import globaloutbreak.controller.api.Controller;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
 import globaloutbreak.model.Model;

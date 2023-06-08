@@ -1,7 +1,7 @@
 package globaloutbreak;
 
-import globaloutbreak.controller.api.Controller;
-import globaloutbreak.controller.impl.ControllerImpl;
+import globaloutbreak.controller.Controller;
+import globaloutbreak.controller.ControllerImpl;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.view.View;

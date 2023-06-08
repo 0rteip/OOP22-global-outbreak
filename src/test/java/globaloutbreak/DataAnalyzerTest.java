@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.model.api.DataAnalyzer;
-import globaloutbreak.model.impl.DeathNumberAnalyzer;
+import globaloutbreak.model.dataanalyzer.DataAnalyzer;
+import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 
 class DataAnalyzerTest {
 

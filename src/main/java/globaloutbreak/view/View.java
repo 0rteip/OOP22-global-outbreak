@@ -2,7 +2,7 @@ package globaloutbreak.view;
 
 import java.util.List;
 
-import globaloutbreak.controller.api.Controller;
+import globaloutbreak.controller.Controller;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 
