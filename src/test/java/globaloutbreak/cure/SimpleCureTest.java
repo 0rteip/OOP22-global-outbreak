@@ -148,6 +148,9 @@ final class SimpleCureTest {
     private List<Region> getRegions(final int numberOfRegions) {
         final List<Region> r = new ArrayList<>();
 
+        final String logString = "Unused method called";
+        final String errString = "Uninplemented method";
+
         IntStream.range(1, numberOfRegions).forEach(c -> {
             final Region reg = new Region() {
 
@@ -183,65 +186,65 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void incDeathPeople(int dead) {
+                public void incDeathPeople(final int dead) {
                 }
 
                 @Override
-                public void incOrDecInfectedPeople(int infected) {
+                public void incOrDecInfectedPeople(final int infected) {
                 }
 
                 @Override
                 public int calcPercInfected() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getNumInfected() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getNumCared() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public String getName() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public float getUrban() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public float getPoor() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getColor() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public ClimateInt getClimate() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public List<TransmissionMeansImpl> getTrasmissionMeans() {
-                    logger.warn("Unused method called");
-                    throw new UnsupportedOperationException("Uninplemented method");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
             };

@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.layout.Region;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
@@ -36,6 +37,12 @@ public final class SceneLoaderImpl implements SceneLoader {
      * @param view
      *             view
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of the View to let the SceneController to access to the View"
+    )
+    // @formatter:on
     public SceneLoaderImpl(final View view) {
         this.view = view;
     }
@@ -114,7 +121,7 @@ public final class SceneLoaderImpl implements SceneLoader {
     }
 
     @Override
-    public void openDialog(Stage stage, Message message) {
+    public void openDialog(final Stage stage, final Message message) {
         MessageDialog.showMessageDialog(stage, message, this.view);
     }
 }

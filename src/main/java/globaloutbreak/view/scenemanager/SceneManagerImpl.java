@@ -1,5 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
 import globaloutbreak.view.sceneloader.SceneLoader;
@@ -22,6 +23,12 @@ public final class SceneManagerImpl implements SceneManager {
      * @param view
      * 
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of The Stage the open the Scene in the correct way"
+    )
+    // @formatter:on
     public SceneManagerImpl(final Stage stage, final View view) {
         this.stage = stage;
         this.sceneLoader = new SceneLoaderImpl(view);
@@ -67,7 +74,7 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     @Override
-    public void openMessage(Message message) {
+    public void openMessage(final Message message) {
         this.sceneLoader.openDialog(this.stage, message);
     }
 }

@@ -80,7 +80,7 @@ public interface View {
     void startStop();
 
     /**
-     * Returns the GameSettings
+     * Returns the GameSettings.
      * 
      * @return
      *         {@link GameSettingsGetter}
