@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Polygon?>
+<?import java.lang.Double?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<VBox styleClass="vbox-name" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="globaloutbreak.view.scenecontroller.MutationController" stylesheets="css/menu-style.css">
+	<children>
+        
+        <Button fx:id="backButton" onMouseClicked="#backScene" text="">
+        </Button>
+        <Text text="Seleziona il potenziamento" />
+        <Text text="**---**" /> 
+
+        <GridPane>
+            <!-- Definisci le righe e le colonne del GridPane -->
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+
+            <!-- Contenuto a sinistra -->
+            <ScrollPane>
+                <content>
+                    <!-- Contenuto del GridPane con scorrimento -->
+                    <!-- Puoi aggiungere qui i tuoi bottoni o elementi desiderati -->
+                    <GridPane fx:id="buttonGridPane">  
+                    </GridPane>                     
+                </content>
+            </ScrollPane>
+
+            <!-- Contenuto a destra -->
+            <Label fx:id="descriptionLabel" text="Descrizione" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <GridPane fx:id="buttonGridPanell" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+             </GridPane>
+        </GridPane>
+
+	</children>
+</VBox>
