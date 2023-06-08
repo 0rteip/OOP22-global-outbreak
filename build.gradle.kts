@@ -35,7 +35,7 @@ dependencies {
 
     // Example library: Guava. Add what you need (and remove Guava if you don't use it)
     // implementation("com.google.guava:guava:28.1-jre")
-
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
     for (platform in supportedPlatforms) {
