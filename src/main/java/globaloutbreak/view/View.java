@@ -10,7 +10,6 @@ import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import settings.WindowSettings;
 
 /**
@@ -30,10 +29,9 @@ public interface View extends Cloneable {
      * Start the view.
      * 
      * @param controller
-     * 
-     * @param stage
+     *                   controller
      */
-    void start(Controller controller, Stage stage);
+    void start(Controller controller);
 
     /**
      * Update visual info.

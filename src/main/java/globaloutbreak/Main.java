@@ -21,8 +21,8 @@ public class Main extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        final View view = new ViewImpl();
+        final View view = new ViewImpl(primaryStage);
         final Controller controller = new ControllerImpl(view);
-        view.start(controller, primaryStage);
+        view.start(controller);
     }
 }

@@ -13,7 +13,7 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.view.scenemanager.SceneManager;
-import globaloutbreak.view.scenemanager.SceneManagerImpl;
+import globaloutbreak.view.scenemanager.SceneManagerImpl2;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -33,15 +33,18 @@ public final class ViewImpl implements View {
 
     /**
      * Creates a VIewImpl.
+     * 
+     * @param stage
+     *              stage
      */
-    public ViewImpl() {
-        this.manager = new SceneManagerImpl(this);
+    public ViewImpl(final Stage stage) {
+        this.manager = new SceneManagerImpl2(stage, this);
     }
 
     @Override
-    public void start(final Controller controller, final Stage stage) {
+    public void start(final Controller controller) {
         this.controller = controller;
-        this.manager.openInitialMenu(stage);
+        this.manager.openInitialMenu();
     }
 
     @Override
