@@ -30,6 +30,7 @@ public class ChooseDiseaseController extends AbstractSceneController implements 
      */
     @Override
     public void initializeScene() {
+        
         if (chooseDiseaseHbox.getChildren().isEmpty()) {
             chooseDiseaseVbox.setSpacing(SMALL_SPACING);
             chooseDiseaseHbox.setAlignment(Pos.CENTER);
