@@ -56,6 +56,11 @@ public final class SceneManagerImpl implements SceneManager {
         this.openScene(SceneStyle.DISEASENAME);
     }
 
+    @Override
+    public void openMutationScene() {
+        this.openScene(SceneStyle.MUTATION);
+    }
+
     /**
      * Set the previous scene.
      */
