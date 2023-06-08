@@ -14,7 +14,7 @@ import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
-import globaloutbreak.view.scenemanager.SceneManagerImpl2;
+import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -39,7 +39,7 @@ public final class ViewImpl implements View {
      *              stage
      */
     public ViewImpl(final Stage stage) {
-        this.manager = new SceneManagerImpl2(stage, this);
+        this.manager = new SceneManagerImpl(stage, this);
     }
 
     // @formatter:off
