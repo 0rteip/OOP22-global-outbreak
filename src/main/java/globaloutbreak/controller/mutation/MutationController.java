@@ -7,11 +7,6 @@ import globaloutbreak.model.mutation.Mutation;
  */
 public interface MutationController {
 
-    /**
-     * load mutation.
-     * @param path name of the mutation
-     */
-    void loadMutationFromFile(String path);
 
     /**
      * Dysplay the name.
@@ -23,13 +18,13 @@ public interface MutationController {
      * Display the description.
      * 
      */
-    void displayMutationsDesc();
+    void displayMutationsDesc(String name);
 
     /**
      * do the increment of the mutation.
      * 
      * @param mutation mutation
      */
-    void update(Mutation mutation);
+    void update(String name);
 
 }

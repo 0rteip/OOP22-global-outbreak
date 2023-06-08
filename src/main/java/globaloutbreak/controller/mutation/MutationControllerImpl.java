@@ -1,13 +1,21 @@
 package globaloutbreak.controller.mutation;
 
+import java.util.ArrayList;
 //import java.io.IOException;
 import java.util.List;
-import globaloutbreak.model.api.Disease;
+import java.util.Optional;
+
+import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.mutation.MutationFactoryImpl;
 import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.mutation.MutationData;
 import globaloutbreak.model.mutation.MutationManager;
 import globaloutbreak.model.mutation.MutationManagerImpl;
+import globaloutbreak.mutationreader.MutationReader;
+import globaloutbreak.mutationreader.MutationReaderImpl;
+import globaloutbreak.view.View;
+import globaloutbreak.view.scenecontroller.MutationViewController;
 
 /**
  * class Mutation controller impl.
@@ -15,65 +23,62 @@ import globaloutbreak.model.mutation.MutationManagerImpl;
 public final class MutationControllerImpl implements MutationController {
 
     private final MutationData mutationData;
-    private final Disease disease;
     private final MutationManager mutationManager;
-
+    private final MutationReader mutationReader;
+    private final MutationViewController mutationViewController; 
+    private final View view;
     /**
      * constructor.
      * 
      * @param disease disease
      */
-    public MutationControllerImpl(final Disease disease) {
-        this.disease = disease;
+    public MutationControllerImpl(View view) {
         final MutationFactoryImpl factory = new MutationFactoryImpl();
         this.mutationData = new MutationData(factory);
         this.mutationManager = new MutationManagerImpl();
+        this.mutationReader = new MutationReaderImpl(this.mutationData);
+        this.mutationViewController = new MutationViewController();
+        this.view = view;
+        mutationReader.readMutation();
     }
 
-    @Override
-    public void loadMutationFromFile(final String name) {
-        //-chiamata qwuando si avvia
-        //leggo dati completi da file
-            try {
-                //leggo file e chiamo la load
-                mutationData.loadMutationFromJson(0, "", 0, null, "");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
 
     @Override
     public void displayMutationsName() {
-        //aggiornare la view quando uno schiaccia per aprire menu pot
         final List<Mutation> mutations = mutationData.getMutations();
-           for (final Mutation mutation : mutations) {
-                    //System.out.println(mutation.getName());
-                    //view.set qualcosa lista nomi
-                }
-        mutationData.getMutations();
+        List<String> list = new ArrayList<>();
+        for (final Mutation mutation : mutations) {
+                list.add(mutation.getName());
+        }
+        view.setMutationsName(list);
     }
 
     @Override
-    public void displayMutationsDesc() {
-        //aggiornare la view quando uno schiaccia un pot menu pot
+    public void displayMutationsDesc(String name) {
         final List<Mutation> mutations = mutationData.getMutations();
-           for (final Mutation mutation : mutations) {
-                    //System.out.println(mutation.getDescription());
-                    //view.set qualcosa lista descriz
-                    //view set bottone con potenzia o no
-                }
-        mutationData.getMutations();
+        for (final Mutation mutation : mutations) {
+            if(mutation.getName().equals(name) ){
+                 view.setMutationsDesc(mutation.getDescription(), mutationManager.isActivate(name));
+            }
+        }
     }
 
     @Override
-    public void update(final Mutation mutation) {
+    public void update(String name) {
         //chiamata da view per eseguire il pot 
-        if (mutationManager.isActivate(mutation.getName())) {
-            mutationManager.removeToActivate(mutation.getName());
-            mutation.decrease(disease);
+        final List<Mutation> mutations = mutationData.getMutations();
+        System.out.println(mutations);
+        final Mutation mutationData = mutations.stream()
+        .filter(mutation -> mutation.getName().equals(name))
+        .findFirst().orElse(null);
+        System.out.println(name);
+        System.out.println(mutationData);
+        if (mutationManager.isActivate(name)) {
+            mutationManager.removeToActivate(name);
+            mutationData.decrease(null);////disease
         } else {
-            mutationManager.addToActivate(mutation.getName());
-            mutation.increase(disease);
+            mutationManager.addToActivate(name);
+            mutationData.decrease(null);
         }
     }
 }
