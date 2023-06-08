@@ -57,7 +57,7 @@ public final class GameSpeedReaderImpl implements GameSpeedReader {
                 speeds.add(gameSpeeBuilder.build());
             });
         } catch (IOException e) {
-            logger.warn("Unable to read {}:", speeds, e);
+            logger.warn("Unable to read {}:", FILE_PATH, e);
         }
     }
 
