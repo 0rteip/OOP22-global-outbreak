@@ -1,7 +1,8 @@
-package globaloutbreak.model.api;
+package globaloutbreak.model;
 
 import java.util.List;
 
+import globaloutbreak.model.api.Region;
 import globaloutbreak.model.disease.Disease;
 
 /**
@@ -10,14 +11,12 @@ import globaloutbreak.model.disease.Disease;
 public interface Model {
 
     /**
-     * Choosen disease type and name.
+     * Choosen disease.
      * 
      * @param disease
-     *                disease's type
-     * @param name
-     *                disease's name
+     *                disease
      */
-    void chosenDisease(Disease disease, String name);
+    void setDisease(Disease disease);
 
     /**
      * Move focus on the selected Region.
@@ -49,9 +48,9 @@ public interface Model {
      * List of all the possible Diseases.
      * 
      * @return
-     *         list of Diseases
+     *         Disease
      */
-    List<Disease> getDiseases();
+    Disease getDisease();
 
     /**
      * Get the InfoData contains the info on the current

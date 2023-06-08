@@ -1,8 +1,5 @@
 package globaloutbreak.model.disease;
 
-/**
- * Class to save all Disease data.
- */
 public class DiseaseData {
     private String type;
     private float infectivity;

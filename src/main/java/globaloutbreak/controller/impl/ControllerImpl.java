@@ -5,6 +5,7 @@ import diseasereader.DiseaseReaderImpl;
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
+import globaloutbreak.model.Model;
 import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.model.api.Infodata;
 //import globaloutbreak.model.api.Infodata;
@@ -23,6 +24,7 @@ public final class ControllerImpl implements Controller {
 
     private final View view;
     private final DiseaseController diseaseController;
+    private Model model;
     private final MutationControllerImpl mutationcControllerImpl;
 
     /**
@@ -31,8 +33,9 @@ public final class ControllerImpl implements Controller {
      * @param view
      *             view of application
      */
-    public ControllerImpl(final View view) {
+    public ControllerImpl(final View view, final Model model) {
         this.view = view;
+        this.model = model;
         this.diseaseController = new DiseaseControllerImpl();
         this.mutationcControllerImpl = new MutationControllerImpl();
     }
@@ -45,6 +48,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.diseaseController.createDisease(type);
+        this.model.setDisease(this.diseaseController.getDisease());
     }
 
     @Override
