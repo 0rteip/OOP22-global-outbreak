@@ -106,6 +106,10 @@ public final class SceneLoaderImpl implements SceneLoader {
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
                 break;
+            case GENERALGRAPHS:
+            final SceneInitializer sceneInitController2 = (SceneInitializer) controller;
+            sceneInitController2.initializeScene();
+            break;
             default:
                 break;
         }

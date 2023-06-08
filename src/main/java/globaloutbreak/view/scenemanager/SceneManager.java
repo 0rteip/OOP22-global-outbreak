@@ -30,6 +30,11 @@ public interface SceneManager {
     /**
      * 
      */
+    void openGraphScene();
+    
+    /**
+     * 
+     */
     void openBackScene();
 
     /**

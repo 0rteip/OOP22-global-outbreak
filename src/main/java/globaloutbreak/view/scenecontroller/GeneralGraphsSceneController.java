@@ -5,11 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 
-public class GeneralGraphsSceneController {
+public class GeneralGraphsSceneController extends AbstractSceneController implements SceneInitializer {
     @FXML
     private PieChart pieChart;
 
-    public void initialize() {
+    @Override
+    public void initializeScene() {
+
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Morti", 0),
                 new PieChart.Data("Infetti", 0),

@@ -6,6 +6,10 @@ package view.utilities;
 public enum SceneStyle {
 
     /**
+     * General graphs scene.
+     */
+    GENERALGRAPHS("General Graphs", "layouts/generalGraphs.fxml"),
+    /**
      * Initial menu scene.
      */
     INITIALMENU("Initial Menu", "layouts/MenuGui.fxml"),
@@ -21,6 +25,7 @@ public enum SceneStyle {
      * Tutorial scene.
      */
     TUTORIAL("Tutorial", "layouts/TutorialGui.fxml");
+    
 
     private final String fxmlFile;
     private final String title;
