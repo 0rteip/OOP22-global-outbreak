@@ -1,0 +1,18 @@
+[
+    {
+        "type" : "areoporto",
+        "passengers" : 600,
+        "num" : 4
+    }, 
+    {
+        "type" : "porto",
+        "passengers" : 300,
+        "num" : 4
+    }, 
+    {
+        "type" : "terra",
+        "passengers" : 500,
+        "num" : 4
+    }
+
+]
