@@ -1,6 +1,6 @@
 package globaloutbreak.model.mutation;
 
-import globaloutbreak.model.api.Disease;
+import globaloutbreak.model.disease.Disease;
 /**
  * class mutation impl.
  */
@@ -10,7 +10,7 @@ public final class MutationImpl implements Mutation {
 
     private int cost;
 
-    private int increase;
+    private float increase;
 
     private TypeMutation type;
 
@@ -24,7 +24,7 @@ public final class MutationImpl implements Mutation {
      * @param type type of the mutation
      * @param description description of the mutation
      */
-    public MutationImpl(final int cost, final String name, final int increase, final TypeMutation type, 
+    public MutationImpl(final int cost, final String name, final float increase, final TypeMutation type, 
                         final String description) {
         this.cost = cost;
         this.name = name;
@@ -40,7 +40,7 @@ public final class MutationImpl implements Mutation {
     }
 
     @Override
-    public int getIncrease() {
+    public float getIncrease() {
         return this.increase;
     }
 
@@ -71,6 +71,7 @@ public final class MutationImpl implements Mutation {
         switch (this.type) {
             case TRASMISSION: 
                 //function increase trasmission
+                //disease.updateTrasmission(this.increase)
                 break;
             case SYMPTOMS: 
                 //function increase symptoms

@@ -328,7 +328,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                 @Override
                 public void killPeopleRegions(final List<Region> regionList) {
 
-                    regionList.stream()
+                   regionList.stream()
                             .filter(region -> region.getNumInfected() > 0)
                             .forEach(region -> {
                                 region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
@@ -349,7 +349,8 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                                     region.getNumInfected(), region.getUrban(), region.getPoor(),
                                     region.getClimateImpl().getArid(), region.getClimateImpl().getCold(),
                                     region.getClimateImpl().getHot(), region.getClimateImpl().getHumid())));
-                }
+                
+                                }
 
                 /**
                  * Calculate the new infected.

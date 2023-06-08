@@ -15,5 +15,5 @@ public interface MutationFactory {
      * @param description description of the mutation
      * @return mutation
      */
-    Mutation createMutation(int cost, String name, int increase, TypeMutation type, String description);
+    Mutation createMutation(int cost, String name, float increase, TypeMutation type, String description);
 }

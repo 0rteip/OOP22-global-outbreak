@@ -2,6 +2,7 @@ package globaloutbreak.model;
 
 import java.util.List;
 
+import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.disease.Disease;
 

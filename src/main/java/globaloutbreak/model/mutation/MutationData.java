@@ -36,9 +36,8 @@ public class MutationData {
      * @param type type description of the mutation
      * @param description description of the mutation
      */
-   public void loadMutationFromJson(final int cost, final String name, final int increase, final TypeMutation type, 
+   public void loadMutationFromJson(final int cost, final String name, final float increase, final TypeMutation type, 
                     final String description) {
-    //istanzio e aggiungo alla lista
     final Mutation mutation = mutationFactory.createMutation(cost, name, increase, type, description);
     mutations.add(mutation);
    }

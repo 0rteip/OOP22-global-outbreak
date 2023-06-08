@@ -1,6 +1,6 @@
 package globaloutbreak.model.mutation;
 
-import globaloutbreak.model.api.Disease;
+import globaloutbreak.model.disease.Disease;
 
 /**
  * interface mutation.
@@ -19,7 +19,7 @@ public interface Mutation {
      * 
      * @return mutation increment
      */
-    int getIncrease();
+    float getIncrease();
 
     /**
      * Gets the name of the mutation.
