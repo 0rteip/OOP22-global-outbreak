@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import globaloutbreak.controller.newsobserver.NewsObserver;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
@@ -49,6 +50,7 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final View view) {
         // System.out.println("Velocità: " + settings.getGameSpeed());
         this.model = new ModelImpl();
+        this.model.addNesListener(new NewsObserver(this));
         this.view = view;
     }
 

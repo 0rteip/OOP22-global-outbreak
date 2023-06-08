@@ -1,5 +1,6 @@
 package globaloutbreak.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -152,4 +153,12 @@ public interface Model {
      *         gameOver
      */
     boolean isGameOver();
+
+    /**
+     * Add a listener for the News.
+     * 
+     * @param listener
+     *                 listener
+     */
+    void addNesListener(PropertyChangeListener listener);
 }

@@ -3,19 +3,25 @@ package globaloutbreak.model;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.dataanalyzer.DataAnalyzer;
+import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.message.Message;
+import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.RegionImpl;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.VoyageImpl;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 
 /**
@@ -24,11 +30,41 @@ import java.util.LinkedList;
 public final class ModelImpl implements Model {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Disease disease;
     private final List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
     private Voyage voyage;
     private Optional<Cure> cure = Optional.empty();
     private final List<Event> events = new LinkedList<>();
+    private final DataAnalyzer<Integer> deathAnalyzer;
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private Optional<Message> newsMessage = Optional.empty();
+
+    /**
+     * Creates a model.
+     */
+    public ModelImpl() {
+        this.deathAnalyzer = new DeathNumberAnalyzer((key, value) -> {
+            final Message message = new Message() {
+                @Override
+                public MessageType getType() {
+                    return MessageType.NEWS;
+                }
+
+                @Override
+                public String toString() {
+                    return disease.getName() + " killed more than: " + key + "\nMore than " + value + " people.";
+                }
+            };
+            pcs.firePropertyChange(MessageType.NEWS.getTitle(), newsMessage, message);
+            newsMessage = Optional.of(message);
+        });
+    }
+
+    @Override
+    public void addNesListener(final PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
 
     @Override
     public void addRegion(final Integer ppTot, final String name,
