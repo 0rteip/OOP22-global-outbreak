@@ -42,13 +42,12 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void choosenDisease(final String type) {
-        this.diseaseController.createDisease(type);
-        //this.model.setDisease(this.diseaseController.getDisease());
+        this.model.setDisease(this.diseaseController.createDisease(type));
     }
 
     @Override
     public void choosenDiseaseName(final String name) {
-        this.diseaseController.setDiseaseName(name);
+        this.model.setDiseaseName(name);
     }
 
     @Override

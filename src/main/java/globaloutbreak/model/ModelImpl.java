@@ -20,6 +20,7 @@ public final class ModelImpl implements Model {
     private Optional<Region> selectedRegion;
     private Voyage voyage;
     private List<Event> events;
+    private Disease disease;
     /**
      * Constructor.
      */
@@ -50,6 +51,16 @@ public final class ModelImpl implements Model {
     public boolean selectedMutation(final String mutation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
+    }
+
+    @Override
+    public void setDisease(final Disease disease){
+        this.disease = disease;
+    }
+
+    @Override
+    public void setDiseaseName(final String name){
+        this.disease.setName(name);
     }
 
     @Override

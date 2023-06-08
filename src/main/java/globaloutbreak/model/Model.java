@@ -51,6 +51,15 @@ public interface Model {
     void chosenDisease(Disease disease, String name);
 
     /**
+     * @param disease
+     */
+    void setDisease(Disease disease);
+    /**
+     * 
+     * @param name
+     */
+    void setDiseaseName(String name);
+    /**
      * Move focus on the selected Region.
      * 
      * @param region

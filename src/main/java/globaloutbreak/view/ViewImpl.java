@@ -101,6 +101,7 @@ public final class ViewImpl implements View {
      */
     @Override
     public List<Button> getDiseasesButtons() {
+        this.controller.readDiseasesNames();
         return List.copyOf(diseasesButtons);
     }
 

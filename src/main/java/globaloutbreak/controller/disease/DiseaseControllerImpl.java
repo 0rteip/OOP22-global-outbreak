@@ -20,7 +20,6 @@ public final class DiseaseControllerImpl implements DiseaseController {
 
     private final DiseaseDataList diseaseList = new DiseaseDataList();
     private final Logger logger = LoggerFactory.getLogger(DiseaseReaderImpl.class);
-    private Disease disease;
 
     @Override
     public void readFile(final List<DiseaseData> diseaseList) {
@@ -44,27 +43,16 @@ public final class DiseaseControllerImpl implements DiseaseController {
             && this.checkIfValid(diseaseData.getAridityInfectivity(), "AridityInfectivity")
             && this.checkIfValid(diseaseData.getPovertyInfectivity(), "PovertyInfectivity")
             && this.checkIfValid(diseaseData.getCureResistance(), "CureResistance")) {
-            this.disease = diseaseFactory.createDisease(diseaseData.getType(), diseaseData.getInfectivity(),
+            return diseaseFactory.createDisease(diseaseData.getType(), diseaseData.getInfectivity(),
                     diseaseData.getLethality(), diseaseData.getAirInfectivity(), diseaseData.getSeaInfectivity(),
                     diseaseData.getLandInfectivity(), diseaseData.getHeatInfectivity(),
                     diseaseData.getColdInfectivity(),
                     diseaseData.getCureResistance(), diseaseData.getHumidityInfectivity(),
                     diseaseData.getAridityInfectivity(), diseaseData.getPovertyInfectivity());
-            return this.disease;
         } else {
             this.logger.error("No disease dound of the type passed as argument ({})" + type);
             throw new NoSuchElementException("No disease found of the type: " + type);
         }
-    }
-
-    @Override
-    public void setDiseaseName(final String name) {
-        this.disease.setName(name);
-    }
-
-    @Override
-    public Disease getDisease(){
-        return this.disease;
     }
 
     private boolean checkIfValid(final float value, final String name) {
