@@ -1,6 +1,5 @@
 package globaloutbreak.controller;
 
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Mutation;
@@ -14,16 +13,6 @@ import globaloutbreak.gamespeed.GameSpeed;
  * Controller interface.
  */
 public interface Controller {
-
-    /**
-     * Choosen disease type and name.
-     * 
-     * @param disease
-     *                disease's type
-     * @param name
-     *                disease's name
-     */
-    void choosenDisease(Disease disease, String name);
 
     /**
      * Pass the selected region.

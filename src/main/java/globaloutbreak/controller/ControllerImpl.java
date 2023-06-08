@@ -10,7 +10,6 @@ import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
@@ -38,18 +37,13 @@ public final class ControllerImpl implements Controller {
     /**
      * Create a controller.
      * 
-     * @param view View
+     * @param view
+     *             View
      */
     public ControllerImpl(final View view) {
         // System.out.println("Velocità: " + settings.getGameSpeed());
         this.model = new ModelImpl();
-        this.view = view.clone();
-    }
-
-    @Override
-    public void choosenDisease(final Disease disease, final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choosenDisease'");
+        this.view = view;
     }
 
     @Override
@@ -113,6 +107,34 @@ public final class ControllerImpl implements Controller {
     @Override
     public GameSettingsGetter getSettings() {
         return this.settings.clone();
+    }
+
+    @Override
+    public void choosenDiseaseName(final String name) {
+        System.out.println("Disease: " + name);
+        this.view.displayMessage(new Message() {
+
+            @Override
+            public MessageType getType() {
+                return MessageType.NEWS;
+            }
+
+            @Override
+            public String toString() {
+                return "Create " + name;
+            }
+        });
+    }
+
+    @Override
+    public void createDisease(final String type) {
+        System.out.println("Disease: " + type);
+    }
+
+    @Override
+    public void readDiseasesNames() {
+        final DiseaseReader reader = new DiseaseReaderImpl();
+        this.view.setDiseasesData(reader.getDiseases());
     }
 
     @Override
@@ -198,22 +220,5 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-    }
-
-    @Override
-    public void choosenDiseaseName(final String name) {
-        System.out.println("Disease: " + name);
-    }
-
-    @Override
-    public void createDisease(final String type) {
-        System.out.println("Disease: " + type);
-
-    }
-
-    @Override
-    public void readDiseasesNames() {
-        final DiseaseReader reader = new DiseaseReaderImpl();
-        this.view.setDiseasesData(reader.getDiseases());
     }
 }
