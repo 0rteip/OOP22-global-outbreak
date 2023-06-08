@@ -17,6 +17,7 @@ fx:controller="globaloutbreak.view.scenecontroller.MainController" stylesheets="
             <Font size="16.0" />
          </font></Button>
          <Button fx:id="quitButton" onMouseClicked="#quitGame" text="Esci">
+         
          <font>
             <Font size="16.0" />
          </font></Button>

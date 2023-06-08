@@ -14,5 +14,21 @@
         "type": "TRASMISSION", 
         "description":"desc2"
         
+    },
+    {
+        "cost":4, 
+        "name":"prova2", 
+        "increase":0.2, 
+        "type": "TRASMISSION", 
+        "description":"desc2"
+        
+    },
+    {
+        "cost":4, 
+        "name":"prova3", 
+        "increase":0.2, 
+        "type": "TRASMISSION", 
+        "description":"desc2"
+        
     }
 ]
