@@ -28,13 +28,12 @@ public final class SettingsController extends AbstractSceneController implements
     private void exitSettings() {
         this.getSceneManager().openBackScene();
         this.getView().startStop();
-
     }
 
     @FXML
     private void saveSettings() {
         this.pcs.firePropertyChange("gameSpeed",
-                this.getView().getGameSpeed(),
+                this.getView().getGameSettings().getGameSpeed(),
                 this.gameSpeedComboBox.getSelectionModel().getSelectedItem());
         this.exitSettings();
     }
@@ -42,9 +41,9 @@ public final class SettingsController extends AbstractSceneController implements
     @Override
     public void initializeScene() {
         if (this.gameSpeedComboBox.getItems().isEmpty()) {
-            this.gameSpeedComboBox.getItems().addAll(this.getView().getGameSpeeds());
+            this.gameSpeedComboBox.getItems().addAll(this.getView().getGameSettings().getGameSpeeds());
             this.gameSpeedComboBox.getSelectionModel()
-                    .select(this.getView().getGameSpeed());
+                    .select(this.getView().getGameSettings().getGameSpeed());
             this.pcs.addPropertyChangeListener(new GameSpeedObserver(this.getView()));
         }
     }

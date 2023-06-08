@@ -7,6 +7,7 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
@@ -79,20 +80,12 @@ public interface View {
     void startStop();
 
     /**
-     * Returns the current gameSpeed.
+     * Returns the GameSettings
      * 
      * @return
-     *         GameSpeed
+     *         {@link GameSettingsGetter}
      */
-    GameSpeed getGameSpeed();
-
-    /**
-     * Returns the GameSpeed s.
-     * 
-     * @return
-     *         List of gameSPeed
-     */
-    List<GameSpeed> getGameSpeeds();
+    GameSettingsGetter getGameSettings();
 
     /**
      * Set the current GameSpeed.

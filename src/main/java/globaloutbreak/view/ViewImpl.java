@@ -11,6 +11,7 @@ import globaloutbreak.controller.Controller;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
@@ -124,13 +125,8 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public GameSpeed getGameSpeed() {
-        return this.controller.getSettings().getGameSpeed();
-    }
-
-    @Override
-    public List<GameSpeed> getGameSpeeds() {
-        return this.controller.getSettings().getGameSpeeds();
+    public GameSettingsGetter getGameSettings() {
+        return this.controller.getSettings();
     }
 
     @Override
