@@ -5,21 +5,18 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Controller Choose Disease scene.
  */
-public final class ChooseDiseaseController extends AbstractSceneController implements SettingsInitializer {
+public final class ChooseDiseaseController extends AbstractSceneController implements SceneInitializer {
 
     private static final int SMALL_SPACING = 50;
     private static final int BIG_SPACING = 100;
 
     private String selectedType;
-    private Stage stage;
 
     private boolean consumed;
 
@@ -47,9 +44,9 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
                         + "-fx-text-fill: white;"
                         + "-fx-font-size: 18px;"
                         + "-fx-font-weight: bold;");
-                button.setOnMouseClicked(event -> {
+                button.setOnMouseClicked(e -> {
                     this.selectedType = button.getText();
-                    this.changeScene(event);
+                    this.changeScene();
                 });
             });
             chooseDiseaseHbox.getChildren().addAll(diseasesNames);
@@ -63,9 +60,8 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
      * @param evt
      */
     @FXML
-    public void backScene(final MouseEvent evt) {
-        this.stage = this.stage == null ? this.getStage(evt) : this.stage;
-        this.getSceneManager().openBackScene(stage);
+    public void backScene() {
+        this.getSceneManager().openBackScene();
     }
 
     /**
@@ -73,9 +69,8 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
      * 
      * @param evt
      */
-    private void changeScene(final MouseEvent evt) {
-        this.stage = this.stage == null ? this.getStage(evt) : this.stage;
+    private void changeScene() {
         this.getView().choosenDisease(this.selectedType);
-        this.getSceneManager().openDiseaseName(stage);
+        this.getSceneManager().openDiseaseName();
     }
 }

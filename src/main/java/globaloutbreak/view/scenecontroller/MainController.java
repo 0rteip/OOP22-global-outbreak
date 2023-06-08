@@ -2,8 +2,6 @@ package globaloutbreak.view.scenecontroller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * Class that manage button handlers.
@@ -19,19 +17,14 @@ public class MainController extends AbstractSceneController {
     @FXML
     private Button exitButton;
 
-    private Stage stage;
-
     /**
      * Go to choose disease name Gui.
      * 
      * @param evt
      */
     @FXML
-    public final void chooseDisease(final MouseEvent evt) {
-        if (evt.getSource() instanceof Button && this.stage == null) {
-            this.stage = this.getStage(evt);
-        }
-        this.getSceneManager().openDiseaseChoice(stage);
+    public final void chooseDisease() {
+        this.getSceneManager().openDiseaseChoice();
     }
 
     /**
@@ -40,11 +33,8 @@ public class MainController extends AbstractSceneController {
      * @param evt event handler
      */
     @FXML
-    public final void openTutorial(final MouseEvent evt) {
-        if (evt.getSource() instanceof Button && this.stage == null) {
-            this.stage = getStage(evt);
-        }
-        this.getSceneManager().openTutorial(stage);
+    public final void openTutorial() {
+        this.getSceneManager().openTutorial();
     }
 
     /**
@@ -53,7 +43,7 @@ public class MainController extends AbstractSceneController {
      * @param evt
      */
     @FXML
-    public final void quitGame(final MouseEvent evt) {
+    public final void quitGame() {
         this.getView().quit();
     }
 }

@@ -8,9 +8,11 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
+import globaloutbreak.view.messagedialog.MessageDialog;
 import globaloutbreak.view.scenecontroller.SceneController;
-import globaloutbreak.view.scenecontroller.SettingsInitializer;
+import globaloutbreak.view.scenecontroller.SceneInitializer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
@@ -39,7 +41,7 @@ public final class SceneLoaderImpl2 implements SceneLoader {
     }
 
     @Override
-    public final void loadScene(final SceneStyle sceneStyle, final Stage stage) {
+    public void loadScene(final SceneStyle sceneStyle, final Stage stage) {
         try {
             final Region root;
             final Scene scene;
@@ -95,15 +97,19 @@ public final class SceneLoaderImpl2 implements SceneLoader {
     @Override
     public void loadBackScene(final Stage stage) {
         this.lastScene.ifPresent(sS -> this.loadScene(sS, stage));
+    }
 
+    @Override
+    public void openDialog(final Stage stage, final Message message) {
+        MessageDialog.showMessageDialog(stage, message, this.view);
     }
 
     private void initializeScene(final SceneController controller, final SceneStyle sceneStyle) {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE:
-                final SettingsInitializer settingsController = (SettingsInitializer) controller;
+            case CHOOSEDISEASE, SETTINGS:
+                final SceneInitializer settingsController = (SceneInitializer) controller;
                 settingsController.initializeSettings();
                 break;
             default:
@@ -114,13 +120,6 @@ public final class SceneLoaderImpl2 implements SceneLoader {
     // SceneStyle sceneStyle) {
     // controller.setSceneAdministrator(this.view.getSceneAdministrator());
     // controller.setView(this.view);
-
-    @Override
-    public SceneController getController(final SceneStyle sceneStyle) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getController'");
-    }
-
     // switch (sceneType) {
     // case SIMULATION:
     // final SimulationInitializer simulationController = (SimulationInitializer)

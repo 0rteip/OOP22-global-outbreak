@@ -4,8 +4,6 @@ import java.beans.PropertyChangeSupport;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.gamespeed.GameSpeedObserver;
 import javafx.scene.control.Button;
@@ -13,7 +11,7 @@ import javafx.scene.control.Button;
 /**
  * Scene for settings.
  */
-public final class SettingsController extends AbstractSceneController implements SettingsInitializer {
+public final class SettingsController extends AbstractSceneController implements SceneInitializer {
 
     @FXML
     private ComboBox<GameSpeed> gameSpeedComboBox;
@@ -24,23 +22,21 @@ public final class SettingsController extends AbstractSceneController implements
     @FXML
     private Button cancelButton;
 
-    private Stage stage;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     @FXML
-    private void exitSettings(final MouseEvent event) {
-        stage = stage == null ? this.getStage(event) : stage;
-        this.getSceneManager().openBackScene(stage);
+    private void exitSettings() {
+        this.getSceneManager().openBackScene();
         this.getView().startStop();
 
     }
 
     @FXML
-    private void saveSettings(final MouseEvent event) {
+    private void saveSettings() {
         this.pcs.firePropertyChange("gameSpeed",
                 this.getView().getGameSpeed(),
                 this.gameSpeedComboBox.getSelectionModel().getSelectedItem());
-        this.exitSettings(event);
+        this.exitSettings();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package globaloutbreak.view.messagedialog;
 
 import globaloutbreak.model.message.Message;
+import globaloutbreak.view.View;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,18 +20,23 @@ public final class MessageDialog {
      * Create a MessageDialog.
      * 
      * @param owner
-     *              stageOwner
+     *                stageOwner
      * @param message
      *                Message
+     * @param view
+     *                view
      */
-    public static void showMessageDialog(final Stage owner, final Message message) {
+    public static void showMessageDialog(final Stage owner, final Message message, final View view) {
         final Stage s = new Stage();
         s.initOwner(owner);
         s.initModality(Modality.APPLICATION_MODAL);
 
         final Label label = new Label(message.toString());
         final Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> s.close());
+        closeButton.setOnAction(e -> {
+            s.close();
+            view.startStop();
+        });
 
         final VBox root = new VBox();
         root.getChildren().addAll(label, closeButton);
@@ -39,40 +45,4 @@ public final class MessageDialog {
         s.setTitle(message.getType().getTitle());
         s.show();
     }
-
-    // /**
-    //  * 
-    //  * @param owner
-    //  * @param title
-    //  * @param text
-    //  * @param future
-    //  * @return
-    //  */
-    // public static CompletableFuture<Boolean> showConfirmDialog(
-    //     final Stage owner, final String title, final String text, final CompletableFuture<Boolean> future) {
-    //     final Stage s = new Stage();
-    //     s.initOwner(owner);
-    //     s.initModality(Modality.APPLICATION_MODAL);
-
-    //     final Label label = new Label(text);
-    //     final Button confirmButton = new Button("Confirm");
-    //     final Button closeButton = new Button("Close");
-    //     confirmButton.setOnAction(e -> {
-    //         future.complete(true);
-    //         s.close();
-    //     });
-    //     closeButton.setOnAction(e -> {
-    //         future.complete(false);
-    //         s.close();
-    //     });
-
-    //     final VBox root = new VBox();
-    //     root.getChildren().addAll(label, confirmButton, closeButton);
-    //     final Scene scene = new Scene(root);
-    //     s.setScene(scene);
-    //     s.setTitle(title);
-    //     s.show();
-
-    //     return future;
-    // }
 }
