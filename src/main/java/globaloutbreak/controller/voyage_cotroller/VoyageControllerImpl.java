@@ -11,20 +11,20 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import globaloutbreak.model.api.Model;
+import globaloutbreak.model.Model;
 import globaloutbreak.model.pair.Pair;
 
 /**
  * 
  */
-public final class VoyageControllerIml implements VoyageController {
+public final class VoyageControllerImpl implements VoyageController {
     private final Model model;
     /**
      * Construct.
      * @param model
      * @throws IOException
      */
-    public VoyageControllerIml(final Model model) throws IOException {
+    public VoyageControllerImpl(final Model model) throws IOException {
         this.model = model;
         ObjectMapper map = new ObjectMapper();
         JsonNode node = map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("region/ConfigMeans.json"), 
