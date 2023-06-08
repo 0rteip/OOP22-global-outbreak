@@ -3,18 +3,16 @@ package globaloutbreak.view.sceneloader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javafx.util.Pair;
+import javafx.scene.layout.Region;
 import globaloutbreak.view.View;
 import globaloutbreak.view.scenecontroller.SceneController;
-import globaloutbreak.view.scenecontroller.SettingsInitializer;
+import globaloutbreak.view.scenecontroller.SceneInitializer;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.utilities.SceneStyle;
@@ -22,12 +20,13 @@ import view.utilities.SceneStyle;
 /**
  * Implementation of {@link SceneLoader}.
  */
-public class SceneLoaderImpl implements SceneLoader {
+public final class SceneLoaderImpl implements SceneLoader {
 
-    private final Logger logger = LoggerFactory.getLogger(SceneLoaderImpl.class);
-    private final Map<String, Pair<FXMLLoader, Parent>> sceneMap = new HashMap<>();
-    private final Stack<Scene> history = new Stack<>();
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private FXMLLoader loader;
     private final View view;
+    private final Map<SceneStyle, Scene> sceneLoaded = new HashMap<>();
+    private Optional<SceneStyle> lastScene = Optional.empty();
 
     /**
      * Create a SceneLoader with an associated view.
@@ -39,105 +38,73 @@ public class SceneLoaderImpl implements SceneLoader {
         this.view = view;
     }
 
-    /**
-     * Load a scene into Stage.
-     */
     @Override
-    public final void loadScene(final SceneStyle sceneStyle, final Stage stage) {
+    public void loadScene(final SceneStyle sceneStyle, final Stage stage) {
+        try {
+            final Region root;
+            final Scene scene;
 
-        this.history.push(stage.getScene());
-        final Parent root = sceneMap.get(sceneStyle.getTitle()).getValue();
-        final Scene scene = root.getScene() != null ? root.getScene()
-                : new Scene(root, (double) this.view.getWindowSettings().getDefWindowWidth(),
+            // If the scene is already in cache, set the cached scene.
+            if (this.sceneLoaded.containsKey(sceneStyle)) {
+                scene = this.sceneLoaded.get(sceneStyle);
+                this.loader = (FXMLLoader) scene.getUserData();
+            } else {
+                // If the scene isn't in the cache, then create a new one, with the current
+                // root.
+                this.loader = new FXMLLoader();
+                this.loader.setLocation(ClassLoader.getSystemResource(sceneStyle.getFxmlFile()));
+                root = this.loader.load();
+                scene = new Scene(root, (double) this.view.getWindowSettings().getDefWindowWidth(),
                         (double) this.view.getWindowSettings().getDefWindowHeight());
+                scene.setUserData(this.loader);
+                // scene.getStylesheets().add(ClassLoader.getSystemResource(sceneStyle.getCssFile()).toExternalForm());
+                this.sceneLoaded.put(sceneStyle, scene);
+            }
 
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.view.getWindowSettings().setWidth(newVal.intValue());
-        });
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.view.getWindowSettings().setHeight(newVal.intValue());
-        });
+            // Set the current size in settings.
+            stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                this.view.getWindowSettings().setWidth(newVal.intValue());
+            });
+            stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                this.view.getWindowSettings().setHeight(newVal.intValue());
+            });
 
-        stage.setTitle(sceneStyle.getTitle());
-        stage.setResizable(true);
-        stage.setScene(scene);
-        stage.setMinWidth(this.view.getWindowSettings().getDefWindowWidth());
-        stage.setMinHeight(this.view.getWindowSettings().getDefWindowHeight());
-        stage.setHeight(this.view.getWindowSettings().getDefWindowHeight());
-        stage.setWidth(this.view.getWindowSettings().getDefWindowWidth());
+            stage.setTitle(sceneStyle.getTitle());
+            stage.setResizable(true);
+            stage.setScene(scene);
+            stage.setMinWidth(this.view.getWindowSettings().getDefWindowWidth());
+            stage.setMinHeight(this.view.getWindowSettings().getDefWindowHeight());
+            stage.setHeight(this.view.getWindowSettings().getDefWindowHeight());
+            stage.setWidth(this.view.getWindowSettings().getDefWindowWidth());
 
-        final SceneController controller = (SceneController) sceneMap.get(sceneStyle.getTitle()).getKey()
-                .getController();
-        controller.setSceneManager(this.view.getSceneManager());
-        controller.setView(this.view);
+            final SceneController controller = (SceneController) loader.getController();
+            this.initializeScene(controller, sceneStyle);
 
-        initializeScene(controller, sceneStyle);
+            if (this.lastScene.isEmpty()) {
+                this.lastScene = Optional.of(sceneStyle);
+            }
 
-        if (!stage.isShowing()) {
-            stage.show();
+            if (!stage.isShowing()) {
+                stage.show();
+            }
+        } catch (IOException e) {
+            logger.warn("Error while loading {}", sceneStyle.getFxmlFile(), e);
         }
     }
 
-    /**
-     * Save scenes on sceneMap.
-     */
-    @Override
-    public void loadFiles() {
-        Stream.of(SceneStyle.values())
-                .forEach(scene -> {
-                    try {
-                        sceneMap.put(scene.getTitle(), this.loadScenes(scene.getFxmlFile()));
-                    } catch (IOException e) {
-                        logger.warn("Failed to load the scene: {}", scene);
-                    }
-                });
-    }
-
-    /**
-     * Load all scenes and return Pair<FXMLLoader, Parent>.
-     * 
-     * @param fxmlPath
-     * @return a new Pair<FXMLLoader, Parent> representing the loaded scene.
-     * @throws IOException
-     */
-    private Pair<FXMLLoader, Parent> loadScenes(final String fxmlPath) throws IOException {
-        final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(fxmlPath));
-        final Parent parent = loader.load();
-        return new Pair<>(loader, parent);
-    }
-
-    /**
-     * Load the prec Scene.
-     */
     @Override
     public void loadBackScene(final Stage stage) {
-        if (!history.isEmpty()) {
-            stage.setScene(history.pop());
-        }
+        this.lastScene.ifPresent(sS -> this.loadScene(sS, stage));
+
     }
 
-    /**
-     * return
-     * {@link SceneController}.
-     */
-    @Override
-    public SceneController getController(final SceneStyle name) {
-        return this.sceneMap.get(name.getTitle()).getKey().getController();
-    }
-
-    /**
-     * Initialize scene settings.
-     * 
-     * @param controller
-     *                   the {@link SceneController}
-     * @param sceneStyle
-     *                   the current {@link SceneStyle}
-     */
     private void initializeScene(final SceneController controller, final SceneStyle sceneStyle) {
+        controller.setSceneManager(this.view.getSceneManager());
+        controller.setView(this.view);
         switch (sceneStyle) {
             case CHOOSEDISEASE:
-                final SettingsInitializer settingsController = (SettingsInitializer) controller;
-                settingsController.initializeSettings();
+                final SceneInitializer sceneInitController = (SceneInitializer) controller;
+                sceneInitController.initializeScene();
                 break;
             default:
                 break;

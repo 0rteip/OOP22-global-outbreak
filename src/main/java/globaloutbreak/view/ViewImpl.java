@@ -26,23 +26,20 @@ public final class ViewImpl implements View {
     private Controller controller;
 
     /**
-     * 
+     * @param stage
      */
-    public ViewImpl() {
-        this.manager = new SceneManagerImpl(this);
+    public ViewImpl(final Stage stage) {
+        this.manager = new SceneManagerImpl(stage, this);
     }
 
     /**
      * @param controller
      *                   the current controller.
-     * @param stage
-     *                   the current stage.
      */
     @Override
-    public void start(final Controller controller, final Stage stage) {
+    public void start(final Controller controller) {
         this.controller = controller;
-        this.manager.getSceneLoader().loadFiles();
-        this.manager.openInitialMenu(stage);
+        this.manager.openInitialMenu();
     }
 
     /**
@@ -122,7 +119,6 @@ public final class ViewImpl implements View {
     public void choosenDisease(final String type) {
         this.getController().choosenDisease(type);
     }
-
 
     @Override
     public void choosenNameDisease(final String name) {
