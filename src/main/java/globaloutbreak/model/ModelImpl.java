@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Model;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
