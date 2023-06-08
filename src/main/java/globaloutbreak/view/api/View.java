@@ -2,7 +2,7 @@ package globaloutbreak.view.api;
 
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
-import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.voyage.Voyage;
 
 /**
  * interface View.
