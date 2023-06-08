@@ -37,7 +37,7 @@ public final class ControllerImpl implements Controller {
         this.view = view;
         this.model = model;
         this.diseaseController = new DiseaseControllerImpl();
-        this.mutationcControllerImpl = new MutationControllerImpl();
+        this.mutationcControllerImpl = new MutationControllerImpl(view);
     }
 
     @Override
@@ -86,6 +86,20 @@ public final class ControllerImpl implements Controller {
         final DiseaseReader reader = new DiseaseReaderImpl();
         this.view.setDiseasesData(reader.getDiseases());
         this.diseaseController.readFile(reader.getDiseases());
+    }
+
+    @Override
+    public void displayMutation(){
+        this.mutationcControllerImpl.displayMutationsName();
+      
+    }
+    @Override
+    public void update(String name){
+        this.mutationcControllerImpl.update(name);
+    }
+    @Override
+    public void displayMutationDesc(String name){
+        this.mutationcControllerImpl.displayMutationsDesc(name);
     }
 
     @Override

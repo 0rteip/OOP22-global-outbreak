@@ -2,9 +2,10 @@ package globaloutbreak.controller.api;
 
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
-import globaloutbreak.model.api.Mutation;
+//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.mutation.Mutation;
 
 /**
  * Controller interface.
@@ -83,4 +84,18 @@ public interface Controller {
      * Read diseases names.
      */
     void readDiseasesNames();
-}
+
+    /**
+     * Display mutation names.
+     */
+    void displayMutation();
+    /**
+     * Display mutation desc.
+     */
+    void displayMutationDesc(String name);
+  /**
+     * update mutation increment.
+ * @param name
+     */
+    void update(String name);
+} 
