@@ -1,8 +1,6 @@
 package globaloutbreak.controller.api;
 
-import java.util.List;
 
-import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
@@ -20,14 +18,22 @@ public interface Controller {
     void startGame();
 
     /**
-     * Choosen disease type and name.
+     * Choosen disease type.
      * 
-     * @param disease
-     *                disease's type
-     * @param name
-     *                disease's name
+     * 
+     * @param type
+     *             disease's type
      */
-    void choosenDisease(Disease disease, String name);
+    void choosenDisease(String type);
+
+    /**
+     * Choosen disease name.
+     * 
+     * 
+     * @param name
+     *             disease's name
+     */
+    void choosenDiseaseName(String name);
 
     /**
      * Pass the selected region.
@@ -42,10 +48,8 @@ public interface Controller {
      * 
      * @param mutation
      *                 mutation selected
-     * @return
-     *         {@code True} if is active, {@code False} otherwise
      */
-    boolean selectedMutation(Mutation mutation);
+    void selectedMutation(Mutation mutation);
 
     /**
      * Update DNA points, cure status, general info.
@@ -64,22 +68,6 @@ public interface Controller {
     void displayMessage(Message message);
 
     /**
-     * List of all the possible Diseases.
-     * 
-     * @return
-     *         list of Diseases
-     */
-    List<Disease> getDiseases();
-
-    /**
-     * Get rilevant data on the global situations.
-     * 
-     * @return
-     *         global data
-     */
-    List<Integer> getGlobalData();
-
-    /**
      * Start a Voyage.
      * 
      * @param voyage
@@ -91,4 +79,9 @@ public interface Controller {
      * Quits from application.
      */
     void quit();
+
+    /**
+     * Read diseases names.
+     */
+    void readDiseasesNames();
 }

@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 /**
  * Implementation of Region.
  */
 public final class RegionImpl implements Region {
-    private Integer numInfected = 0;
-    private Integer numDead = 0;
-    private Integer numCared = 0;
+    private int numInfected = 0;
+    private int numDead = 0;
+    private int numCared = 0;
     private final Integer popTot;
     private final String name;
     private final float urban;
@@ -20,6 +21,7 @@ public final class RegionImpl implements Region {
     private final Integer facilities;
     private final Integer color;
     private final ClimateInt climate;
+    private RegionCureStatus status = RegionCureStatus.NONE;
     //private State statusCure;
     private List<TransmissionMeansImpl> trasmissionMeans;
 
@@ -46,9 +48,9 @@ public final class RegionImpl implements Region {
      *              percentage of humidity
      * 
      */
-    public RegionImpl(final Integer popTot, final String name, final Map<String,Pair<Integer, Optional<List<String>>>> reachableRegion, 
+    public RegionImpl(final int popTot, final String name, final Map<String,Pair<Integer, Optional<List<String>>>> reachableRegion, 
         final float urban, final float poor, 
-        final Integer color, final Integer facilities, final float hot, final float humid) {
+        final int color, final int facilities, final float hot, final float humid) {
         this.popTot = popTot;
         this.name = name;
         this.urban = urban;
@@ -76,32 +78,32 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void incDeathPeople(final Integer dead) {
+    public void incDeathPeople(final int dead) {
         this.numDead += dead;
     }
 
     @Override
-    public void incOrDecInfectedPeople(final Integer infected) {
+    public void incOrDecInfectedPeople(final int infected) {
         this.numInfected += infected;
     }
 
     @Override
-    public Integer calcPercInfected() {
+    public int calcPercInfected() {
         return (numInfected * 100) / popTot;
     }
 
     @Override
-    public Integer getNumInfected() {
+    public int getNumInfected() {
         return numInfected;
     }
 
     @Override
-    public Integer getNumDead() {
+    public int getNumDeath() {
         return numDead;
     }
 
     @Override
-    public Integer getNumCared() {
+    public int getNumCared() {
         return numCared;
     }
 
@@ -116,7 +118,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public Integer getPopTot() {
+    public int getPopTot() {
         return popTot;
     }
 
@@ -126,7 +128,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public Integer getFacilities() {
+    public int getFacilities() {
         return facilities;
     }
 
@@ -136,13 +138,25 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public Integer getColor() {
+    public int getColor() {
         return color;
     }
 
     @Override
     public ClimateInt getClimate() {
         return this.climate;
+    }
+
+
+    @Override
+    public RegionCureStatus getCureStatus() {
+        return this.status;
+    }
+
+
+    @Override
+    public void setCureStatus(RegionCureStatus status) {
+        this.status = status;
     }
 
 }

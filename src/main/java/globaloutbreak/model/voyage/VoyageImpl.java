@@ -36,8 +36,7 @@ public final class VoyageImpl implements Voyage {
                 Pair<Integer, Integer> partDest = extractRegion(newRegions);
                 int prob = newRegions
                         .stream()
-                        .filter( k -> k.getColor()
-                                .equals(partDest.getX()))
+                        .filter( k -> k.getColor() == partDest.getX())
                         .toList()
                         .get(0).calcPercInfected();
                 oneMeans.put(numInfected(prob, size.getY()), partDest);

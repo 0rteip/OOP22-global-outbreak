@@ -35,7 +35,11 @@ dependencies {
 
     // Example library: Guava. Add what you need (and remove Guava if you don't use it)
     // implementation("com.google.guava:guava:28.1-jre")
+    
+    implementation("ch.qos.logback:logback-classic:1.4.7")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
+        implementation("org.apache.commons:commons-lang3:3.6")
+    
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
     for (platform in supportedPlatforms) {
@@ -57,5 +61,6 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("it.unibo.samplejavafx.App")
+     mainClass.set("globaloutbreak.Launcher")
+    //mainClass.set("it.unibo.samplejavafx.mvcexample.DrawNumberApp")
 }

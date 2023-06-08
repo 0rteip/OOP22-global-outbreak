@@ -2,6 +2,8 @@ package globaloutbreak.model.region;
 
 import java.util.List;
 
+import globaloutbreak.model.cure.RegionCureStatus;
+
 /**
  * Interface of RegionImpl.
  */
@@ -13,7 +15,7 @@ public interface Region {
      * @param dead the number of new death people.
      * 
      */
-    void incDeathPeople(Integer dead);
+    void incDeathPeople(int dead);
 
     /**
      * This method increase(or decrease) the number of infected people.
@@ -22,7 +24,7 @@ public interface Region {
      *                  the number of new infected people.
      * 
      */
-    void incOrDecInfectedPeople(Integer infected);
+    void incOrDecInfectedPeople(int infected);
 
     /**
      * This method calculates the percentage of infected.
@@ -30,28 +32,35 @@ public interface Region {
      * @return
      *          the percentage of infected
      */
-    Integer calcPercInfected();
+    int calcPercInfected();
 
     /**
      * 
      * @return
      *          the num of infected
      */
-    Integer getNumInfected();
+    int getNumInfected();
 
     /**
      * 
      * @return
      *          the num of death
      */
-    Integer getNumDead();
+    int getNumDeath();
 
     /**
      * 
      * @return
      *          the num of cared people
      */
-    Integer getNumCared();
+    int getNumCared();
+
+    /**
+     * 
+     * @return
+     *          region Cure status
+     */
+    RegionCureStatus getCureStatus();
 
     /**
      * 
@@ -72,7 +81,7 @@ public interface Region {
      * @return
      *          total population
      */
-    Integer getPopTot();
+    int getPopTot();
 
     /**
      * 
@@ -86,14 +95,14 @@ public interface Region {
      * @return
      *          the cure facilities
      */
-    Integer getFacilities();
+    int getFacilities();
 
     /**
      * 
      * @return
      *          the region color
      */
-    Integer getColor();
+    int getColor();
 
     /**
      * 
@@ -109,4 +118,11 @@ public interface Region {
      */
     List<TransmissionMeansImpl> getTrasmissionMeans();
 
+    /**
+     * This method change the status.
+     * 
+     * @param started
+     *                  new status
+     */
+    void setCureStatus(RegionCureStatus started);
 }

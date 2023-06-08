@@ -2,8 +2,9 @@ package globaloutbreak.model;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import globaloutbreak.model.api.Disease;
+
 import globaloutbreak.model.api.Infodata;
+import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
@@ -39,11 +40,6 @@ public final class ModelImpl implements Model {
         return new LinkedList<>(this.regions);
     }
 
-    @Override
-    public void chosenDisease(final Disease disease, final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
-    }
 
     @Override
     public void selectedRegion(final Region region) {
@@ -92,5 +88,11 @@ public final class ModelImpl implements Model {
     @Override
     public void addEvent(final float morti, final String name, final float prob) {
             events.add(new Event(name, prob, morti));
+    }
+
+    @Override
+    public void chosenDisease(globaloutbreak.model.disease.Disease disease, String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
     }
 }
