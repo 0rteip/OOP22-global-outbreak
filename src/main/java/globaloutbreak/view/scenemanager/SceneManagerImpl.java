@@ -12,64 +12,56 @@ import view.utilities.SceneStyle;
 public final class SceneManagerImpl implements SceneManager {
 
     private final SceneLoader sceneLoader;
+    private final Stage stage;
 
     /**
      * Constructor that load menu scenes.
      * 
+     * @param stage
      * @param view
      * 
      */
-    public SceneManagerImpl(final View view) {
+    public SceneManagerImpl(final Stage stage, final View view) {
+        this.stage = stage;
         this.sceneLoader = new SceneLoaderImpl(view);
     }
 
     /**
      * Load the main Scene.
      * 
-     * @param stage
-     *              the current stage
      */
     @Override
-    public void openInitialMenu(final Stage stage) {
-        this.openScene(SceneStyle.INITIALMENU, stage);
+    public void openInitialMenu() {
+        this.openScene(SceneStyle.INITIALMENU);
     }
 
     /**
      * Load the tutorial Scene.
-     * 
-     * @param stage
-     *              the current stage
      */
     @Override
-    public void openTutorial(final Stage stage) {
-        this.openScene(SceneStyle.TUTORIAL, stage);
+    public void openTutorial() {
+        this.openScene(SceneStyle.TUTORIAL);
     }
 
     /**
      * Load the main Scene.
-     * 
-     * @param stage
-     *              the current Stage
      */
     @Override
-    public void openDiseaseChoice(final Stage stage) {
-        this.openScene(SceneStyle.CHOOSEDISEASE, stage);
+    public void openDiseaseChoice() {
+        this.openScene(SceneStyle.CHOOSEDISEASE);
     }
 
     @Override
-    public void openDiseaseName(final Stage stage) {
-        this.openScene(SceneStyle.DISEASENAME, stage);
+    public void openDiseaseName() {
+        this.openScene(SceneStyle.DISEASENAME);
     }
 
     /**
      * Set the previous scene.
-     * 
-     * @param stage
-     *              the current stage
      */
     @Override
-    public void openBackScene(final Stage stage) {
-        this.sceneLoader.loadBackScene(stage);
+    public void openBackScene() {
+        this.sceneLoader.loadBackScene(this.stage);
     }
 
     /**
@@ -77,11 +69,9 @@ public final class SceneManagerImpl implements SceneManager {
      * 
      * @param sceneStyle
      *                   the scene to be loaded.
-     * @param stage
-     *                   the current stage
      */
-    private void openScene(final SceneStyle sceneStyle, final Stage stage) {
-        this.sceneLoader.loadScene(sceneStyle, stage);
+    private void openScene(final SceneStyle sceneStyle) {
+        this.sceneLoader.loadScene(sceneStyle, this.stage);
     }
 
     /**
