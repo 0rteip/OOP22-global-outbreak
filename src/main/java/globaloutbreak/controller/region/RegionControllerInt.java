@@ -1,4 +1,4 @@
-package globaloutbreak.controller.region_controller;
+package globaloutbreak.controller.region;
 
 import globaloutbreak.model.region.Region;
 

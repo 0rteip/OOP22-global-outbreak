@@ -1,4 +1,4 @@
-package globaloutbreak.controller.event_controller;
+package globaloutbreak.controller.event;
 /**
  * 
  */

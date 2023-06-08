@@ -1,4 +1,4 @@
-package globaloutbreak.controller.event_controller;
+package globaloutbreak.controller.event;
 
 import java.io.BufferedReader;
 import java.io.IOException;

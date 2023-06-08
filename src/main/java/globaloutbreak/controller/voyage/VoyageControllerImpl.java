@@ -1,4 +1,4 @@
-package globaloutbreak.controller.voyage_cotroller;
+package globaloutbreak.controller.voyage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
