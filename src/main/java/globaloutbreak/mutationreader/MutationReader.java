@@ -1,9 +1,5 @@
 package globaloutbreak.mutationreader;
 
-import java.util.List;
-
-import globaloutbreak.model.mutation.Mutation;
-
 /**
  * Interface that manage the mutation file reader.
  */
@@ -11,9 +7,8 @@ import globaloutbreak.model.mutation.Mutation;
 public interface MutationReader {
 
     /**
+     * read mutation.
      * 
-     * @return
-     *         the list of DiseaseData
      */
-    List<Mutation> getMutation();
+    void readMutation();
 }

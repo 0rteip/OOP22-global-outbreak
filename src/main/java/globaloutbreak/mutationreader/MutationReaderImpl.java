@@ -5,28 +5,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
-
 import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.mutation.MutationData;
 import globaloutbreak.model.mutation.TypeMutation;
 
 import org.slf4j.Logger;
-//import globaloutbreak.model.disease.DiseaseData;
-
 /**
- * Class that reads Diseases file.
+ * Class that reads Mutation file.
  */
 
 public class MutationReaderImpl implements MutationReader {
 
-    private static final String DISEASES_FILE_PATH = "diseases/Mutation.json";
+    private static final String DISEASES_FILE_PATH = "mutation/Mutation.json";
     
     private String name;
 
@@ -38,8 +31,9 @@ public class MutationReaderImpl implements MutationReader {
 
     private String description;
 
+    private MutationData mutationData;
+
     private final Logger logger = LoggerFactory.getLogger(MutationReaderImpl.class);
-    // private final List<DiseaseData> diseases = new ArrayList<>();
 
     /**
      * Constructor.
@@ -50,7 +44,17 @@ public class MutationReaderImpl implements MutationReader {
      */
 
     public MutationReaderImpl(final MutationData mutationData) {
-        try {
+       this.mutationData = mutationData;
+    }
+
+    /**
+     * get mutation.
+     * 
+     */
+
+    @Override
+    public void readMutation() {
+         try {
             final ObjectMapper mapper = new ObjectMapper();
             final JsonNode node = mapper.readTree(new BufferedReader(new InputStreamReader(
                     ClassLoader.getSystemResourceAsStream(DISEASES_FILE_PATH), StandardCharsets.UTF_8)));
@@ -85,22 +89,9 @@ public class MutationReaderImpl implements MutationReader {
                 mutationData.loadMutationFromJson(cost, name, increase, type, description);
             });
         } catch (IOException e) {
-            //logger.warn("Errore durante l'analisi o la mappatura del contenuto JSON nel file {}: {}",
-            //        DISEASES_FILE_PATH,
-             //       e);
+            logger.warn("Errore durante l'analisi o la mappatura del contenuto JSON nel file {}: {}",
+                DISEASES_FILE_PATH,
+                e);
         }
-    }
-
-    /**
-     * get mutation.
-     * 
-     * @return
-     *         a copy of DiseaseData list
-     */
-
-    @Override
-    public List<Mutation> getMutation() {
-        //List.copyOf(diseases);
-        return null;
     }
 }
