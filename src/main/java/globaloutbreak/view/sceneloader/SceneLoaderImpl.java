@@ -102,7 +102,7 @@ public final class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE:
+            case CHOOSEDISEASE,MAP:
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
                 break;

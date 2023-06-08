@@ -67,7 +67,7 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @Override
     public void initializeScene() {
-        
+        System.out.println("f");
     }
     
     

@@ -82,4 +82,9 @@ public final class SceneManagerImpl implements SceneManager {
     public SceneLoader getSceneLoader() {
         return this.sceneLoader;
     }
+
+    @Override
+    public void openMap() {
+        this.openScene(SceneStyle.MAP);
+    }
 }
