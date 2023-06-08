@@ -1,10 +1,29 @@
 [
-    {"nome" : "Canada", "colore" : -62442, "porti" : 1, "aereoporti" : 1, "confini" : ["Stati Uniti"]} , 
-    {"nome" : "Stati Uniti", "colore" : -16773410, "porti" : 1, "aereoporti" : 1, "confini" : ["Canada", "Messico"]} , 
-    {"nome" : "Centroamerica", "colore" : -15437568, "porti" : 1, "confini" : ["Messico", "Colombia"]} , 
-    {"nome" : "Caraibi", "colore" : -16714822, "porti" : 1} , 
-    {"nome" : "Colombia", "colore" : -1959392, "confini" : ["Perù", "Brasile"] } , 
-    {"nome" : "Brasile", "colore" : -9755096, "porti" : 1, "aereoporti" : 1, "confini" : ["Colombia", "Perù", "Bolivia", "Argentina"]} , 
-    {"nome" : "Perù", "colore" : -6750202, "confini" : ["Colombia","Brasile", "Bolivia"]} 
-    
+    {
+        "nome" : "Canada", "colore" : -62442, "porti" : 1, "aereoporti" : 1, "confini" : ["Stati Uniti"], 
+        "humid" : 0.6, "hot" : 0.3, "popTot" : 35158304, "facilities" : 10, "poor" : 0.10, "urban": 0.8
+    } , 
+
+    {
+        "nome" : "Stati Uniti", "colore" : -16773410, "porti" : 1, "aereoporti" : 1, 
+        "confini" : ["Canada", "Messico"], "humid" : 0.6, "hot" : 0.5, "popTot" : 316128839, "facilities" : 10, 
+        "poor" : 0.10, "urban": 0.8
+    } , 
+    {
+        "nome" : "Centroamerica", "colore" : -15437568, "porti" : 1, "confini" : ["Messico", "Colombia"],
+        "humid" : 0.8, "hot" : 0.8, "popTot" : 44723159, "facilities" : 5, "poor" : 0.20, "urban": 0.6
+    } , 
+
+    {
+        "nome" : "Caraibi", "colore" : -16714822, "porti" : 1, "humid" : "0.7", "hot" : 0.3,
+        "popTot" : 38316937, "facilities" : 4, "poor" : 0.20, "urban": 0.8
+    } , 
+    {
+        "nome" : "Colombia", "colore" : -1959392, "confini" : ["Perù", "Brasile"], 
+        "humid" : "0.3", "hot" : 1, "popTot" : 59065954, "facilities" : 4, "poor" : 0.4, "urban": 0.7
+    } , 
+    {
+        "nome" : "Bolivia", "colore" : -8081664, "confini" : ["Colombia", "Perù", "Bolivia", "Argentina"], 
+        "humid" : 0.8, "hot" :  0.8, "popTot" : 10671200, "facilities" : 2, "poor" : 0.4, "urban": 0.7
+    }
 ]
