@@ -5,11 +5,14 @@ import diseasereader.DiseaseReaderImpl;
 import globaloutbreak.controller.api.Controller;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
+import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.model.api.Infodata;
+//import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
-import globaloutbreak.model.api.Mutation;
+//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.api.Region;
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.view.View;
 import javafx.application.Platform;
 
@@ -20,6 +23,7 @@ public final class ControllerImpl implements Controller {
 
     private final View view;
     private final DiseaseController diseaseController;
+    private final MutationControllerImpl mutationcControllerImpl;
 
     /**
      * Create a controller.
@@ -30,6 +34,7 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final View view) {
         this.view = view;
         this.diseaseController = new DiseaseControllerImpl();
+        this.mutationcControllerImpl = new MutationControllerImpl();
     }
 
     @Override
@@ -51,13 +56,13 @@ public final class ControllerImpl implements Controller {
     public void selectedRegion(final Region region) {
     }
 
-    @Override
-    public void selectedMutation(final Mutation mutation) {    
-    }
+   // @Override
+    //public void selectedMutation(final Mutation mutation) {    
+   // }
 
-    @Override
-    public void updateInfo(final Infodata info) {    
-    }
+  //  @Override
+    //public void updateInfo(final Infodata info) {    
+   // }
 
     @Override
     public void displayMessage(final Message message) {     
@@ -77,5 +82,17 @@ public final class ControllerImpl implements Controller {
         final DiseaseReader reader = new DiseaseReaderImpl();
         this.view.setDiseasesData(reader.getDiseases());
         this.diseaseController.readFile(reader.getDiseases());
+    }
+
+    @Override
+    public void updateInfo(Infodata info) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
+    }
+
+    @Override
+    public void selectedMutation(Mutation mutation) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
     }
 }

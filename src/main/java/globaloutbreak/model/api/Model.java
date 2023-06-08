@@ -2,6 +2,8 @@ package globaloutbreak.model.api;
 
 import java.util.List;
 
+import globaloutbreak.model.disease.Disease;
+
 /**
  * Model for GlobalOutbreak app.
  */
