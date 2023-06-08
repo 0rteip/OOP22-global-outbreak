@@ -5,6 +5,7 @@ import java.util.List;
 import globaloutbreak.model.api.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.region.Region;
 
 /**
@@ -21,6 +22,14 @@ public interface Model {
      *                disease's name
      */
     void chosenDisease(Disease disease, String name);
+
+    /**
+     * Set the {@link Cure} to use.
+     * 
+     * @param cure
+     *             cure
+     */
+    void setCure(Cure cure);
 
     /**
      * Move focus on the selected Region.
