@@ -179,13 +179,12 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void incDeathPeople(int dead) {
-                    // TODO Auto-generated method stub
+                public void incDeathPeople(final int dead) {
                     throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
                 }
 
                 @Override
-                public void incOrDecInfectedPeople(int infected) {
+                public void incOrDecInfectedPeople(final int infected) {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'incOrDecInfectedPeople'");
                 }

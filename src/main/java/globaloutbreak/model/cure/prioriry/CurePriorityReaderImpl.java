@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * A Cure Priority reader based on "priorities.json"
+ * A Cure Priority reader based on "priorities.json".
  */
 public final class CurePriorityReaderImpl implements CurePriorityReader {
 
@@ -52,7 +52,7 @@ public final class CurePriorityReaderImpl implements CurePriorityReader {
                             priorityBuilder.setDetectionRate(value.getValue().floatValue());
                             break;
                         default:
-                            System.out.println(value.toString() + " non riconosciuto");
+                            logger.warn("Value '{}' not recognized", value);
                             break;
                     }
                 }

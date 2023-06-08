@@ -19,14 +19,14 @@ import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.region.Region;
 
 /**
- * A simple cure reader based on "cure.json"
+ * A simple cure reader based on "cure.json".
  */
 public final class SimpleCureReaderImpl implements SimpleCureReader {
     private static final String FILE_PATH = "cure/cure.json";
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public SimpleCure getSimpleCure(List<Region> regions) {
+    public SimpleCure getSimpleCure(final List<Region> regions) {
         final List<Priority> priorities = new CurePriorityReaderImpl().getPriorities();
         try {
             final SimpleCure.Builder cureBuilder = new SimpleCure.Builder(regions, priorities);
@@ -62,7 +62,7 @@ public final class SimpleCureReaderImpl implements SimpleCureReader {
                         cureBuilder.setDaysBeforeStartResearch(value.getValue().intValue());
                         break;
                     default:
-                        System.out.println(value.toString() + " non riconosciuto");
+                        logger.warn("Value '{}' not recognized", value);
                         break;
                 }
             }
