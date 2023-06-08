@@ -8,6 +8,7 @@ import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.view.scenecontroller.MutationViewController;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.scene.control.Button;
@@ -23,8 +24,10 @@ public final class ViewImpl implements View {
     private final WindowSettings settings = new WindowSettingsImpl();
     private final SceneManager manager;
     private final List<Button> diseasesButtons = new ArrayList<>();
+    private List<String> mutations = new ArrayList<>();
     private Controller controller;
-
+    private String desc;
+    private Boolean active;
     /**
      * @param stage
      */
@@ -104,6 +107,52 @@ public final class ViewImpl implements View {
     }
 
     /**
+     * @return
+     *         a list with mutations.
+     */
+    @Override
+    public List<String> getMutations() {
+        return List.copyOf(mutations);
+        
+    }
+
+    /**
+     * @return
+     *         a description mutation.
+     */
+    @Override
+    public String  getDescription() {
+        return desc;
+        
+    }
+
+    /**
+     * @param mutations Names
+     *                      a list of diseases names.
+     */
+    @Override
+    public void setMutationsName(final List<String> mutationsNames) {
+       this.mutations = mutationsNames;
+    }
+    /**
+     * @param mutations Names
+     *                      a list of diseases names.
+     */
+    @Override
+    public void setMutationsDesc(String desc, Boolean activate) {
+       this.desc = desc;
+       this.active = activate;
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public boolean checkactivate(){
+        return active;
+    }
+
+    /**
      * @param diseasesNames
      *                      a list of diseases names.
      */
@@ -112,6 +161,7 @@ public final class ViewImpl implements View {
         diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
     }
 
+    
     /**
      * 
      */

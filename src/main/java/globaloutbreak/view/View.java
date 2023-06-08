@@ -78,6 +78,13 @@ public interface View {
      */
     List<Button> getDiseasesButtons();
 
+     /**
+     * 
+     * @return
+     *         List<String> diseasesButtons
+     */
+    List<String> getMutations();
+
     /**
      * 
      * @param diseasesNames
@@ -85,6 +92,12 @@ public interface View {
      */
     void setDiseasesData(List<DiseaseData> diseasesNames);
 
+    /**
+     * 
+     * @param diseasesNames
+     *                      the list of mutation names
+     */
+    void setMutationsName(final List<String> mutationsNames);
     /**
      * 
      * @param type
@@ -96,4 +109,27 @@ public interface View {
      * @param name
      */
     void choosenNameDisease(String name);
+
+    /**
+     * 
+     * @param desc
+     * @param activate
+     */
+    void setMutationsDesc(String desc, Boolean activate);
+
+     /**
+     * 
+     * @return
+     *         description mutation
+     */
+    String  getDescription();
+
+    /**
+     * 
+     * @return
+     */
+    boolean checkactivate();
+
+
+    
 }
