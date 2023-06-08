@@ -110,7 +110,7 @@ public final class SceneLoaderImpl2 implements SceneLoader {
         switch (sceneStyle) {
             case CHOOSEDISEASE, SETTINGS:
                 final SceneInitializer settingsController = (SceneInitializer) controller;
-                settingsController.initializeSettings();
+                settingsController.initializeScene();
                 break;
             default:
                 break;

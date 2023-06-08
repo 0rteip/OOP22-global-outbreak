@@ -10,13 +10,13 @@ import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
 
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;

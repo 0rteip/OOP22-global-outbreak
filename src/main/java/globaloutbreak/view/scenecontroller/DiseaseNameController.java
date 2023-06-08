@@ -23,8 +23,6 @@ public class DiseaseNameController extends AbstractSceneController {
 
     /**
      * Go to the previous scene.
-     * 
-     * @param evt event handler
      */
     @FXML
     public final void backScene() {
@@ -33,8 +31,6 @@ public class DiseaseNameController extends AbstractSceneController {
 
     /**
      * Start the game.
-     * 
-     * @param evt event handler
      */
     @FXML
     public final void startGame() {

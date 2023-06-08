@@ -31,7 +31,7 @@ public class AbstractSceneController implements SceneController {
 
     @Override
     public final void setView(final View view) {
-        this.view = view.clone();
+        this.view = view;
     }
 
     @Override
@@ -51,4 +51,5 @@ public class AbstractSceneController implements SceneController {
             return null;
         }
     }
+
 }

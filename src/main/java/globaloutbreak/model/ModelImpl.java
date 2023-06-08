@@ -1,10 +1,10 @@
 package globaloutbreak.model;
 
 import java.util.List;
-import globaloutbreak.model.api.Disease;
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.model.region.Region;
 
 
@@ -28,7 +28,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setCure(Cure cure) {
+    public void setCure(final Cure cure) {
         this.cure = cure;
     }
 

@@ -23,20 +23,20 @@ public interface SceneManager {
      */
     void openDiseaseChoice();
 
-   /**
+    /**
      * Open diseaseName Scene.
      */
     void openDiseaseName();
-
-   /**
-     * Open last Scene.
-     */
-    void openBackScene();
 
     /**
      * Open Settings Scene.
      */
     void openSettings();
+
+    /**
+     * Open last Scene.
+     */
+    void openBackScene();
 
     /**
      * 

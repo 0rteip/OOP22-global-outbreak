@@ -40,7 +40,7 @@ public final class SettingsController extends AbstractSceneController implements
     }
 
     @Override
-    public void initializeSettings() {
+    public void initializeScene() {
         if (this.gameSpeedComboBox.getItems().isEmpty()) {
             this.gameSpeedComboBox.getItems().addAll(this.getView().getGameSpeeds());
             this.gameSpeedComboBox.getSelectionModel()

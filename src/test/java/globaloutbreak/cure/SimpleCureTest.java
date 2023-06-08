@@ -14,6 +14,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import globaloutbreak.model.region.ClimateImpl;
 import globaloutbreak.model.region.Region;
 
 import globaloutbreak.model.cure.Cure;
@@ -175,6 +176,41 @@ final class SimpleCureTest {
                 @Override
                 public RegionCureStatus getCureStatus() {
                     return this.status;
+                }
+
+                @Override
+                public int getNumInfected() {
+                    throw new UnsupportedOperationException("Unimplemented method 'getNumInfected'");
+                }
+
+                @Override
+                public void incDeathPeople(final int calculateNewDeaths) {
+                    throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
+                }
+
+                @Override
+                public void incOrDecNuminfected(final int i) {
+                    throw new UnsupportedOperationException("Unimplemented method 'incOrDecNuminfected'");
+                }
+
+                @Override
+                public float getUrban() {
+                    throw new UnsupportedOperationException("Unimplemented method 'getUrban'");
+                }
+
+                @Override
+                public ClimateImpl getClimateImpl() {
+                    throw new UnsupportedOperationException("Unimplemented method 'getClimateImpl'");
+                }
+
+                @Override
+                public float getPoor() {
+                    throw new UnsupportedOperationException("Unimplemented method 'getPoor'");
+                }
+
+                @Override
+                public int getPopTot() {
+                    throw new UnsupportedOperationException("Unimplemented method 'getPopTot'");
                 }
 
             };

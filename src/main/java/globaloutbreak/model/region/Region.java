@@ -47,4 +47,53 @@ public interface Region {
      */
     RegionCureStatus getCureStatus();
 
+    /**
+     * 
+     * @return
+     *         num
+     */
+    int getNumInfected();
+
+    /**
+     * 
+     * @param calculateNewDeaths
+     *                          death
+     */
+    void incDeathPeople(int calculateNewDeaths);
+
+    /**
+     * 
+     * @param i
+     *          num
+     */
+    void incOrDecNuminfected(int i);
+
+    /**
+     * 
+     * @return
+     *         urban
+     */
+    float getUrban();
+
+    /**
+     * 
+     * @return
+     *         climate
+     */
+    ClimateImpl getClimateImpl();
+
+    /**
+     * 
+     * @return
+     *         poor
+     */
+    float getPoor();
+
+    /**
+     * 
+     * @return
+     *         pop
+     */
+    int getPopTot();
+
 }

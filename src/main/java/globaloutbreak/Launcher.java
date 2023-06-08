@@ -15,6 +15,6 @@ public final class Launcher {
      *             params
      */
     public static void main(final String[] args) {
-        Main.main(args);
+        GlobalOutbreakApp.main(args);
     }
 }

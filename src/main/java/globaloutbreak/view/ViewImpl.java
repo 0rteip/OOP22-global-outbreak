@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.gamespeed.GameSpeed;
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl2;
 import javafx.application.Platform;
@@ -121,23 +121,13 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public ViewImpl clone() {
-        try {
-            return (ViewImpl) super.clone();
-        } catch (CloneNotSupportedException e) {
-            logger.warn("Clone not supported for view", e);
-            return this;
-        }
-    }
-
-    @Override
-    public void readDiseasesNames() {
-        this.controller.readDiseasesNames();
-    }
-
-    @Override
     public void quit() {
         this.controller.quit();
     }
+
+    @Override
+    public Controller getController() {
+        return this.controller;
+     }
 
 }

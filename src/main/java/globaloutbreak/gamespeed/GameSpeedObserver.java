@@ -19,7 +19,7 @@ public final class GameSpeedObserver implements PropertyChangeListener {
      *             the main view
      */
     public GameSpeedObserver(final View view) {
-        this.view = view.clone();
+        this.view = view;
     }
 
     @Override

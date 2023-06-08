@@ -1,11 +1,11 @@
 package globaloutbreak.controller;
 
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
 
 import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.gamespeed.GameSpeed;
 

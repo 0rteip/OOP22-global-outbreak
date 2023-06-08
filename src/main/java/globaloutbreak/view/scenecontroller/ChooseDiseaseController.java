@@ -18,8 +18,6 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
 
     private String selectedType;
 
-    private boolean consumed;
-
     @FXML
     private VBox chooseDiseaseVbox;
 
@@ -30,12 +28,12 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
     private Button backSceneButton;
 
     @Override
-    public void initializeSettings() {
-        if (!consumed) {
+    public void initializeScene() {
+        if (chooseDiseaseHbox.getChildren().isEmpty()) {
             chooseDiseaseVbox.setSpacing(SMALL_SPACING);
             chooseDiseaseHbox.setAlignment(Pos.CENTER);
             chooseDiseaseHbox.setSpacing(BIG_SPACING);
-            this.getView().readDiseasesNames();
+            this.getView().getController().readDiseasesNames();
             final List<Button> diseasesNames = this.getView().getDiseasesButtons();
             diseasesNames.stream().forEach(button -> {
                 button.setMinHeight(BIG_SPACING);
@@ -44,20 +42,18 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
                         + "-fx-text-fill: white;"
                         + "-fx-font-size: 18px;"
                         + "-fx-font-weight: bold;");
-                button.setOnMouseClicked(e -> {
+                button.setOnMouseClicked(event -> {
                     this.selectedType = button.getText();
-                    this.changeScene();
+
+                    this.openDiseaseNameScene();
                 });
             });
             chooseDiseaseHbox.getChildren().addAll(diseasesNames);
-            consumed = true;
         }
     }
 
     /**
      * return to the prec scene.
-     * 
-     * @param evt
      */
     @FXML
     public void backScene() {
@@ -66,10 +62,8 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
 
     /**
      * Go to the next Scene.
-     * 
-     * @param evt
      */
-    private void changeScene() {
+    private void openDiseaseNameScene() {
         this.getView().choosenDisease(this.selectedType);
         this.getSceneManager().openDiseaseName();
     }

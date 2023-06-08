@@ -18,9 +18,14 @@ public class MainController extends AbstractSceneController {
     private Button exitButton;
 
     /**
+     * Initialize logger.
+     */
+    public final void initialize() {
+
+    }
+
+    /**
      * Go to choose disease name Gui.
-     * 
-     * @param evt
      */
     @FXML
     public final void chooseDisease() {
@@ -29,8 +34,6 @@ public class MainController extends AbstractSceneController {
 
     /**
      * Go to tutorial Gui.
-     * 
-     * @param evt event handler
      */
     @FXML
     public final void openTutorial() {
@@ -39,11 +42,9 @@ public class MainController extends AbstractSceneController {
 
     /**
      * Quit game.
-     * 
-     * @param evt
      */
     @FXML
     public final void quitGame() {
-        this.getView().quit();
+        this.getView().getController().quit();
     }
 }

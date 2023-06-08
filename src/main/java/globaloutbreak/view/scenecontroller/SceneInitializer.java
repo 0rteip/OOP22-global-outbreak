@@ -4,9 +4,8 @@ package globaloutbreak.view.scenecontroller;
  * Interface for initialize settings.
  */
 public interface SceneInitializer {
-
     /**
-     * Init settings.
+     * Initialize scene.
      */
-    void initializeSettings();
+    void initializeScene();
 }

@@ -4,10 +4,10 @@ import java.util.List;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.gamespeed.GameSpeed;
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
 import settings.WindowSettings;
@@ -15,15 +15,7 @@ import settings.WindowSettings;
 /**
  * interface View.
  */
-public interface View extends Cloneable {
-
-    /**
-     * Clones the View.
-     * 
-     * @return
-     *         aview clone
-     */
-    View clone();
+public interface View {
 
     /**
      * Start the view.
@@ -64,6 +56,14 @@ public interface View extends Cloneable {
      *         WindowSettings
      */
     WindowSettings getWindowSettings();
+
+    /**
+     * Returns the {@link Controller}.
+     * 
+     * @return
+     *         Controller
+     */
+    Controller getController();
 
     /**
      * Returns the {@link SceneManager}.
@@ -135,11 +135,6 @@ public interface View extends Cloneable {
      * @param name
      */
     void choosenNameDisease(String name);
-
-    /**
-     * Read disease.
-     */
-    void readDiseasesNames();
 
     /**
      * Quit Application.
