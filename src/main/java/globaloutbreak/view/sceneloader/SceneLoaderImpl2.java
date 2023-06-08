@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
 import globaloutbreak.view.messagedialog.MessageDialog;
@@ -36,6 +37,12 @@ public final class SceneLoaderImpl2 implements SceneLoader {
      * @param view
      *             view
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of View"
+    )
+    // @formatter:on
     public SceneLoaderImpl2(final View view) {
         this.view = view;
     }

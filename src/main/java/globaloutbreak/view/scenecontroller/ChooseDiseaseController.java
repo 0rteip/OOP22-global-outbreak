@@ -33,7 +33,7 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
             chooseDiseaseVbox.setSpacing(SMALL_SPACING);
             chooseDiseaseHbox.setAlignment(Pos.CENTER);
             chooseDiseaseHbox.setSpacing(BIG_SPACING);
-            this.getView().getController().readDiseasesNames();
+            
             final List<Button> diseasesNames = this.getView().getDiseasesButtons();
             diseasesNames.stream().forEach(button -> {
                 button.setMinHeight(BIG_SPACING);

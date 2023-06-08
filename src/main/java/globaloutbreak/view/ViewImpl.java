@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.Controller;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
@@ -41,6 +42,12 @@ public final class ViewImpl implements View {
         this.manager = new SceneManagerImpl2(stage, this);
     }
 
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "We need to use the correct instance of Controller"
+    )
+    // @formatter:on
     @Override
     public void start(final Controller controller) {
         this.controller = controller;
@@ -65,6 +72,16 @@ public final class ViewImpl implements View {
         throw new UnsupportedOperationException("Unimplemented method 'displayVoyage'");
     }
 
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = """
+            We need to access WindowSettings from the SceneLoader, 
+            it could be done by calling methods on the view, 
+            but we preferred to leave the modification to WindowSettings
+        """
+    )
+    // @formatter:on
     @Override
     public WindowSettings getWindowSettings() {
         return this.settings;
@@ -77,6 +94,7 @@ public final class ViewImpl implements View {
 
     @Override
     public List<Button> getDiseasesButtons() {
+        this.controller.readDiseasesNames();
         return List.copyOf(diseasesButtons);
     }
 

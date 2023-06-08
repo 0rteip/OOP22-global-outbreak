@@ -70,8 +70,8 @@ public final class ModelImpl implements Model {
 
     @Override
     public boolean isGameOver() {
-        cure.isCompleted();
-        return false;
+        
+        return cure.isCompleted();
     }
 
 }

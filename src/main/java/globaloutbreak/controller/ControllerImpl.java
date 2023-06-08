@@ -5,6 +5,7 @@ package globaloutbreak.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
@@ -40,6 +41,12 @@ public final class ControllerImpl implements Controller {
      * @param view
      *             View
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "We need to use the correct instance of View"
+    )
+    // @formatter:on
     public ControllerImpl(final View view) {
         // System.out.println("Velocità: " + settings.getGameSpeed());
         this.model = new ModelImpl();

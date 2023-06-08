@@ -1,5 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
 import globaloutbreak.view.sceneloader.SceneLoader;
@@ -23,6 +24,12 @@ public final class SceneManagerImpl2 implements SceneManager {
      * @param view
      *              view
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of Stage to load all the Scene in the correct way"
+    )
+    // @formatter:on
     public SceneManagerImpl2(final Stage stage, final View view) {
         this.stage = stage;
         this.loader = new SceneLoaderImpl2(view);
