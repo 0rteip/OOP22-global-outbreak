@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import globaloutbreak.model.api.Model;
+import globaloutbreak.model.Model;
 
 /**
  * 
