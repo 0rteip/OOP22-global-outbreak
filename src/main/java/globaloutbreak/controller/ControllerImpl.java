@@ -116,7 +116,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void choosenDisease(final String type) {        
+    public void choosenDisease(final String type) {
     }
 
     @Override

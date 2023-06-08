@@ -19,27 +19,29 @@ public interface Model {
     /**
      * Create a new region.
      * 
-     * @param popTot 
-     *              the total population 
-     * @param name  
-     *              the name of the region
+     * @param popTot
+     *                        the total population
+     * @param name
+     *                        the name of the region
      * @param reachableRegion
-     *                        means with the list of reachable state and the numbre of the mean
+     *                        means with the list of reachable state and the numbre
+     *                        of the mean
      * @param urban
-     *              percentage of people living in urban areas
+     *                        percentage of people living in urban areas
      * @param poor
-     *              percentage of people who are below the poverty line
+     *                        percentage of people who are below the poverty line
      * @param color
-     *              the color of the region
+     *                        the color of the region
      * @param facilities
-     *                  number of care facilities
+     *                        number of care facilities
      * @param hot
-     *               percentage of hot climate
+     *                        percentage of hot climate
      * @param humid
-     *              percentage of humidity
+     *                        percentage of humidity
      */
-    void addRegion(Integer popTot, String name, Map<String,Pair<Integer,Optional<List<String>>>> reachableRegion, float urban, float poor,
-        Integer color, Integer facilities, float hot, float humid);
+    void addRegion(Integer popTot, String name, Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion,
+            float urban, float poor,
+            Integer color, Integer facilities, float hot, float humid);
 
     /**
      * Choosen disease type and name.
@@ -113,9 +115,9 @@ public interface Model {
     /**
      * 
      * @return
-     *          the selected region if is empty is all world
+     *         the selected region if is empty is all world
      */
-    public Optional<Region> getSelectedRegion();
+    Optional<Region> getSelectedRegion();
 
     /**
      * This method creates the class Voyage.
@@ -127,23 +129,23 @@ public interface Model {
     /**
      * 
      * @return
-     *          class Voyage
+     *         class Voyage
      */
     Voyage getVoyage();
 
-   /**
-    * This method add a new event.
-
-    * @param death
-                    perc. of death
-    * @param name
-                    event's name 
-    * @param prob
-                    perc. of prob.
-    */
+    /**
+     * This method add a new event.
+     * 
+     * @param death
+     *              perc. of death
+     * @param name
+     *              event's name
+     * @param prob
+     *              perc. of prob.
+     */
     void addEvent(float death, String name, float prob);
 
-     /**
+    /**
      * Returns {@code True} if game is over.
      * 
      * @return

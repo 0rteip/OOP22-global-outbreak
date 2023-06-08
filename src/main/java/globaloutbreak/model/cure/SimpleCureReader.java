@@ -9,7 +9,7 @@ import globaloutbreak.model.region.Region;
 public interface SimpleCureReader {
 
     /**
-     * Returns a {@link SimpleCure}
+     * Returns a {@link SimpleCure}.
      * 
      * @param regions
      *                list of region that contribute the cure

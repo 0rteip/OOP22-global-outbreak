@@ -1,34 +1,35 @@
 package globaloutbreak.model.region;
+
 /**
- * Interface Climate
+ * Interface Climate.
  */
 public interface ClimateInt {
     /**
      * 
      * @return
-     *          arid perc.
+     *         arid perc.
      */
     float getArid();
 
     /**
      * 
      * @return
-     *          humid perc.
-     *          
+     *         humid perc.
+     * 
      */
     float getHumid();
 
     /**
      * 
      * @return
-     *          hot perc.
+     *         hot perc.
      */
     float getHot();
 
     /**
      * 
      * @return
-     *          cold perc
+     *         cold perc
      */
     float getCold();
 

@@ -31,18 +31,18 @@ public final class DiseaseControllerImpl implements DiseaseController {
         final DiseaseData diseaseData = diseaseList.getDisease().stream().filter(e -> e.getType().equals(type))
                 .findFirst()
                 .orElse(null);
-            final DiseaseFactory diseaseFactory = new DiseaseFactoryImpl();
-            if (diseaseData != null && this.checkIfValid(diseaseData.getInfectivity(), "Infectivity") 
-            && this.checkIfValid(diseaseData.getLethality(), "Lethality")
-            && this.checkIfValid(diseaseData.getAirInfectivity(), "AirInfectivity")
-            && this.checkIfValid(diseaseData.getSeaInfectivity(), "SeaInfectivity")
-            && this.checkIfValid(diseaseData.getLandInfectivity(), "LandInfectivity")
-            && this.checkIfValid(diseaseData.getHeatInfectivity(), "HeatInfectivity")
-            && this.checkIfValid(diseaseData.getColdInfectivity(), "ColdInfectivity")
-            && this.checkIfValid(diseaseData.getHumidityInfectivity(), "HumidityInfectivity")
-            && this.checkIfValid(diseaseData.getAridityInfectivity(), "AridityInfectivity")
-            && this.checkIfValid(diseaseData.getPovertyInfectivity(), "PovertyInfectivity")
-            && this.checkIfValid(diseaseData.getCureResistance(), "CureResistance")) {
+        final DiseaseFactory diseaseFactory = new DiseaseFactoryImpl();
+        if (diseaseData != null && this.checkIfValid(diseaseData.getInfectivity(), "Infectivity")
+                && this.checkIfValid(diseaseData.getLethality(), "Lethality")
+                && this.checkIfValid(diseaseData.getAirInfectivity(), "AirInfectivity")
+                && this.checkIfValid(diseaseData.getSeaInfectivity(), "SeaInfectivity")
+                && this.checkIfValid(diseaseData.getLandInfectivity(), "LandInfectivity")
+                && this.checkIfValid(diseaseData.getHeatInfectivity(), "HeatInfectivity")
+                && this.checkIfValid(diseaseData.getColdInfectivity(), "ColdInfectivity")
+                && this.checkIfValid(diseaseData.getHumidityInfectivity(), "HumidityInfectivity")
+                && this.checkIfValid(diseaseData.getAridityInfectivity(), "AridityInfectivity")
+                && this.checkIfValid(diseaseData.getPovertyInfectivity(), "PovertyInfectivity")
+                && this.checkIfValid(diseaseData.getCureResistance(), "CureResistance")) {
             this.disease = diseaseFactory.createDisease(diseaseData.getType(), diseaseData.getInfectivity(),
                     diseaseData.getLethality(), diseaseData.getAirInfectivity(), diseaseData.getSeaInfectivity(),
                     diseaseData.getLandInfectivity(), diseaseData.getHeatInfectivity(),
@@ -62,7 +62,7 @@ public final class DiseaseControllerImpl implements DiseaseController {
     }
 
     @Override
-    public Disease getDisease(){
+    public Disease getDisease() {
         return this.disease;
     }
 
