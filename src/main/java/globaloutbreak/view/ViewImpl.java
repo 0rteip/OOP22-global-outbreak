@@ -142,10 +142,4 @@ public final class ViewImpl implements View {
     public void quit() {
         this.controller.quit();
     }
-
-    @Override
-    public Controller getController() {
-        return this.controller;
-     }
-
 }

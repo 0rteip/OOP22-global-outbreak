@@ -58,14 +58,6 @@ public interface View {
     WindowSettings getWindowSettings();
 
     /**
-     * Returns the {@link Controller}.
-     * 
-     * @return
-     *         Controller
-     */
-    Controller getController();
-
-    /**
      * Returns the {@link SceneManager}.
      * 
      * @return
