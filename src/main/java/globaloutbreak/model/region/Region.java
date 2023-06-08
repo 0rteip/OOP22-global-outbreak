@@ -1,99 +1,128 @@
 package globaloutbreak.model.region;
 
+import java.util.List;
+
 import globaloutbreak.model.cure.RegionCureStatus;
 
 /**
- * 
+ * Interface of RegionImpl.
  */
 public interface Region {
 
     /**
-     * Number of facilities.
+     * This method increase the number of death people.
      * 
-     * @return
-     *         facilities
+     * @param dead the number of new death people.
+     * 
      */
-    int getFacilities();
+    void incDeathPeople(int dead);
 
     /**
-     * Returns total poulation.
+     * This method increase(or decrease) the number of infected people.
      * 
-     * @return
-     *         population
+     * @param infected 
+     *                  the number of new infected people.
+     * 
      */
-    int getTotalPopulation();
+    void incOrDecInfectedPeople(int infected);
 
     /**
-     * Returns number of deaths.
+     * This method calculates the percentage of infected.
      * 
      * @return
-     *         deaths
+     *          the percentage of infected
      */
-    int getDeath();
+    int calcPercInfected();
 
     /**
-     * QUalcoa.
-     * 
-     * @param started
-     *                altr
-     */
-    void setCureStatus(RegionCureStatus started);
-
-    /**
-     * Wuadas.
      * 
      * @return
-     *         asdsada
+     *          the num of infected
+     */
+    int getNumInfected();
+
+    /**
+     * 
+     * @return
+     *          the num of death
+     */
+    int getNumDeath();
+
+    /**
+     * 
+     * @return
+     *          the num of cared people
+     */
+    int getNumCared();
+
+    /**
+     * 
+     * @return
+     *          region Cure status
      */
     RegionCureStatus getCureStatus();
 
     /**
      * 
      * @return
-     *         num
+     *          the region name
      */
-    int getNumInfected();
-
-    /**
-     * 
-     * @param calculateNewDeaths
-     *                          death
-     */
-    void incDeathPeople(int calculateNewDeaths);
-
-    /**
-     * 
-     * @param i
-     *          num
-     */
-    void incOrDecNuminfected(int i);
+    String getName();
 
     /**
      * 
      * @return
-     *         urban
+     *          urban percentage
      */
     float getUrban();
 
     /**
      * 
      * @return
-     *         climate
+     *          total population
      */
-    ClimateImpl getClimateImpl();
+    int getPopTot();
 
     /**
      * 
      * @return
-     *         poor
+     *          poor perc
      */
     float getPoor();
 
     /**
      * 
      * @return
-     *         pop
+     *          the cure facilities
      */
-    int getPopTot();
+    int getFacilities();
 
+    /**
+     * 
+     * @return
+     *          the region color
+     */
+    int getColor();
+
+    /**
+     * 
+     * @return
+     *          climate class
+     */
+    ClimateInt getClimate();
+
+    /**
+     * 
+     * @return
+     *          all means
+     */
+    List<TransmissionMeansImpl> getTrasmissionMeans();
+
+    /**
+     * This method change the status.
+     * 
+     * @param started
+     *                  new status
+     */
+    void setCureStatus(RegionCureStatus started);
 }

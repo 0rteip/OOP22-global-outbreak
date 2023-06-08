@@ -17,8 +17,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import globaloutbreak.model.region.ClimateImpl;
+import globaloutbreak.model.region.ClimateInt;
 import globaloutbreak.model.region.Region;
-
+import globaloutbreak.model.region.TransmissionMeansImpl;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;
@@ -36,7 +37,7 @@ public final class Cose {
     private Cose() {
     }
 
-   /**
+    /**
      * Main.
      * 
      * @param args
@@ -96,22 +97,6 @@ public final class Cose {
                 private RegionCureStatus status = RegionCureStatus.NONE;
 
                 @Override
-                public int getFacilities() {
-                    return c % MAX;
-                }
-
-                @Override
-                public int getTotalPopulation() {
-                    return pop;
-                }
-
-                @Override
-                public int getDeath() {
-                    return deat;
-
-                }
-
-                @Override
                 public String toString() {
                     return "Region [id=" + c + ", population=" + pop + ", death=" + deat + ", status: " + status + "]";
                 }
@@ -139,21 +124,9 @@ public final class Cose {
                 }
 
                 @Override
-                public void incOrDecNuminfected(final int i) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'incOrDecNuminfected'");
-                }
-
-                @Override
                 public float getUrban() {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'getUrban'");
-                }
-
-                @Override
-                public ClimateImpl getClimateImpl() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getClimateImpl'");
                 }
 
                 @Override
@@ -164,8 +137,59 @@ public final class Cose {
 
                 @Override
                 public int getPopTot() {
+                    return this.pop;
+                }
+
+                @Override
+                public void incOrDecInfectedPeople(int infected) {
                     // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getPopTot'");
+                    throw new UnsupportedOperationException("Unimplemented method 'incOrDecInfectedPeople'");
+                }
+
+                @Override
+                public int calcPercInfected() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'calcPercInfected'");
+                }
+
+                @Override
+                public int getNumDeath() {
+                    return this.deat;
+                }
+
+                @Override
+                public int getNumCared() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getNumCared'");
+                }
+
+                @Override
+                public String getName() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+                }
+
+                @Override
+                public int getColor() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getColor'");
+                }
+
+                @Override
+                public ClimateInt getClimate() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getClimate'");
+                }
+
+                @Override
+                public List<TransmissionMeansImpl> getTrasmissionMeans() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
+                }
+
+                @Override
+                public int getFacilities() {
+                    return c % MAX;
                 }
 
             };

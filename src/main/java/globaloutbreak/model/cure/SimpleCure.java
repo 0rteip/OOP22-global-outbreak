@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.region.Region;
-
 import globaloutbreak.model.cure.prioriry.Priority;
 
 /**
@@ -110,14 +109,14 @@ public final class SimpleCure implements Cure {
                 this.isStarted = true;
                 this.increasePriority();
                 this.contributions.entrySet().stream()
-                        .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
+                        .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
                         .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
             } else {
                 // if the region's entire population dies in one day, the other regions don't
                 // care
                 this.daysBeforeStartResearch--;
                 this.highMortalityRateRegions()
-                        .filter(el -> el.getKey().getDeath() != el.getKey().getTotalPopulation())
+                        .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
                         .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
             }
         }
@@ -174,7 +173,7 @@ public final class SimpleCure implements Cure {
     }
 
     private float dailyRegionContribution(final Region region) {
-        return (1 - Float.valueOf(region.getDeath()) / region.getTotalPopulation())
+        return (1 - Float.valueOf(region.getNumDeath()) / region.getPopTot())
                 * region.getFacilities()
                 * this.researchersEfficiency
                 * this.priorities.get(this.currentPriority).getResourcesPercentage()
@@ -218,8 +217,8 @@ public final class SimpleCure implements Cure {
 
     private Stream<Entry<Region, Float>> highMortalityRateRegions() {
         return this.contributions.entrySet().stream()
-                .filter(el -> Float.valueOf(el.getKey().getDeath())
-                        / el.getKey().getTotalPopulation() > this.priorities.get(this.currentPriority)
+                .filter(el -> Float.valueOf(el.getKey().getNumDeath())
+                        / el.getKey().getPopTot() > this.priorities.get(this.currentPriority)
                                 .getDetectionRate());
     }
 

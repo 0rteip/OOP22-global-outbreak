@@ -13,6 +13,8 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.region.ClimateImpl;
 import globaloutbreak.model.region.Region;
@@ -22,12 +24,15 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
+import globaloutbreak.model.region.ClimateInt;
+import globaloutbreak.model.region.TransmissionMeansImpl;
 
 /**
  * Test for SimpleCure.
  */
 final class SimpleCureTest {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private SimpleCure.Builder cureBuilder;
 
     /**
@@ -158,12 +163,12 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int getTotalPopulation() {
+                public int getPopTot() {
                     return pop;
                 }
 
                 @Override
-                public int getDeath() {
+                public int getNumDeath() {
                     return deat;
 
                 }
@@ -179,38 +184,65 @@ final class SimpleCureTest {
                 }
 
                 @Override
+                public void incDeathPeople(int dead) {
+                }
+
+                @Override
+                public void incOrDecInfectedPeople(int infected) {
+                }
+
+                @Override
+                public int calcPercInfected() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
+                }
+
+                @Override
                 public int getNumInfected() {
-                    throw new UnsupportedOperationException("Unimplemented method 'getNumInfected'");
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
                 @Override
-                public void incDeathPeople(final int calculateNewDeaths) {
-                    throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
+                public int getNumCared() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
                 @Override
-                public void incOrDecNuminfected(final int i) {
-                    throw new UnsupportedOperationException("Unimplemented method 'incOrDecNuminfected'");
+                public String getName() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
                 @Override
                 public float getUrban() {
-                    throw new UnsupportedOperationException("Unimplemented method 'getUrban'");
-                }
-
-                @Override
-                public ClimateImpl getClimateImpl() {
-                    throw new UnsupportedOperationException("Unimplemented method 'getClimateImpl'");
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
                 @Override
                 public float getPoor() {
-                    throw new UnsupportedOperationException("Unimplemented method 'getPoor'");
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
                 @Override
-                public int getPopTot() {
-                    throw new UnsupportedOperationException("Unimplemented method 'getPopTot'");
+                public int getColor() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
+                }
+
+                @Override
+                public ClimateInt getClimate() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
+                }
+
+                @Override
+                public List<TransmissionMeansImpl> getTrasmissionMeans() {
+                    logger.warn("Unused method called");
+                    throw new UnsupportedOperationException("Uninplemented method");
                 }
 
             };

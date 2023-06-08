@@ -13,8 +13,10 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.disease.DiseaseFactory;
 import globaloutbreak.model.disease.DiseaseFactoryImpl;
-import globaloutbreak.model.region.ClimateImpl;
+import globaloutbreak.model.region.Climate;
+import globaloutbreak.model.region.ClimateInt;
 import globaloutbreak.model.region.Region;
+import globaloutbreak.model.region.TransmissionMeansImpl;
 
 class InfectionDeathTest {
 
@@ -54,7 +56,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public void incOrDecNuminfected(final int calculateNewInfected) {
+        public void incOrDecInfectedPeople(final int calculateNewInfected) {
             this.infected += calculateNewInfected;
         }
 
@@ -64,7 +66,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public int getDeath() {
+        public int getNumDeath() {
             return this.deaths;
         }
 
@@ -72,12 +74,6 @@ class InfectionDeathTest {
         public RegionCureStatus getCureStatus() {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCureStatus'");
-        }
-
-        @Override
-        public int getTotalPopulation() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getTotalPopulation'");
         }
 
         @Override
@@ -93,8 +89,8 @@ class InfectionDeathTest {
         }
 
         @Override
-        public ClimateImpl getClimateImpl() {
-            return new ClimateImpl() {
+        public ClimateInt getClimate() {
+            return new Climate(0, 0) {
 
                 static final float HOT = 0.1f;
                 static final float COLD = 0.2f;
@@ -123,6 +119,36 @@ class InfectionDeathTest {
 
             };
         }
+
+        @Override
+        public int calcPercInfected() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'calcPercInfected'");
+        }
+
+        @Override
+        public int getNumCared() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getNumCared'");
+        }
+
+        @Override
+        public String getName() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getName'");
+        }
+
+        @Override
+        public int getColor() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getColor'");
+        }
+
+        @Override
+        public List<TransmissionMeansImpl> getTrasmissionMeans() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
+        }
     };
 
     /**
@@ -143,7 +169,7 @@ class InfectionDeathTest {
         Assertions.assertEquals(EXPECTED_INFECTS1, region.getNumInfected());
         disease.killPeopleRegions(regionList);
 
-        Assertions.assertEquals(EXPECTED_DEATHS1, region.getDeath());
+        Assertions.assertEquals(EXPECTED_DEATHS1, region.getNumDeath());
         Assertions.assertEquals(EXPECTED_INFECTS3, region.getNumInfected());
         logger.info("KillTest gone well");
     }

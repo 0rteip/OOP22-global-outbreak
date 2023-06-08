@@ -15,8 +15,7 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
-
-import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
@@ -114,6 +113,10 @@ public final class ControllerImpl implements Controller {
     @Override
     public GameSettingsGetter getSettings() {
         return this.settings.clone();
+    }
+
+    @Override
+    public void choosenDisease(final String type) {        
     }
 
     @Override

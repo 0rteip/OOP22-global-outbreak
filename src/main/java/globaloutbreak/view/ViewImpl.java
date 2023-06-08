@@ -10,7 +10,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.Controller;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.api.Voyage;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;

@@ -1,18 +1,35 @@
 package globaloutbreak.controller;
 
-import globaloutbreak.model.message.Message;
-import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.region.Region;
-
-import globaloutbreak.model.api.Voyage;
-import globaloutbreak.model.infodata.Infodata;
-import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.gamespeed.GameSpeed;
+import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.message.Message;
+import globaloutbreak.model.region.Region;
+import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
 /**
  * Controller interface.
  */
 public interface Controller {
+
+    /**
+     * Choosen disease type.
+     * 
+     * 
+     * @param type
+     *             disease's type
+     */
+    void choosenDisease(String type);
+
+    /**
+     * Choosen disease name.
+     * 
+     * 
+     * @param name
+     *             disease's name
+     */
+    void choosenDiseaseName(String name);
 
     /**
      * Pass the selected region.
@@ -88,13 +105,6 @@ public interface Controller {
      */
     GameSettingsGetter getSettings();
 
-    /**
-     * Selected disease name.
-     * 
-     * @param name
-     *             name
-     */
-    void choosenDiseaseName(String name);
 
     /**
      * Creates the Disease.
@@ -108,5 +118,4 @@ public interface Controller {
      * Read Disease.
      */
     void readDiseasesNames();
-
 }
