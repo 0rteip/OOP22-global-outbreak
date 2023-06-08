@@ -20,7 +20,11 @@ public enum SceneStyle {
     /**
      * Tutorial scene.
      */
-    TUTORIAL("Tutorial", "layouts/TutorialGui.fxml");
+    TUTORIAL("Tutorial", "layouts/Tutorial.fxml"),
+    /**
+     * Mutation scene.
+     */
+    MUTATION("Mutation", "layouts/Mutation.fxml");
 
     private final String fxmlFile;
     private final String title;
