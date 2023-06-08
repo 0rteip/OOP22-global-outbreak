@@ -9,10 +9,10 @@ import globaloutbreak.view.scenemanager.SceneManager;
 public interface SceneController {
 
     /**
-     * @param sceneAdministrator
+     * @param sceneManager
      *                           the {@link SceneManager} to use
      */
-    void setSceneManager(SceneManager sceneAdministrator);
+    void setSceneManager(SceneManager sceneManager);
 
     /**
      * @return

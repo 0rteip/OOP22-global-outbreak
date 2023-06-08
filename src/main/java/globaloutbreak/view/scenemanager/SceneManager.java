@@ -1,7 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
 import globaloutbreak.view.sceneloader.SceneLoader;
-import javafx.stage.Stage;
 
 /**
  * Interface that manage the javaFX scenes.
@@ -10,38 +9,28 @@ public interface SceneManager {
 
     /**
      * 
-     * @param stage
-     *              the current stage.
      */
-    void openInitialMenu(Stage stage);
+    void openInitialMenu();
 
     /**
      * 
-     * @param stage
-     *              the current stage.
      */
-    void openTutorial(Stage stage);
+    void openTutorial();
 
     /**
      * 
-     * @param stage
-     *              the current stage.
      */
-    void openDiseaseChoice(Stage stage);
+    void openDiseaseChoice();
 
     /**
      * 
-     * @param stage
-     *              the current stage.
      */
-    void openDiseaseName(Stage stage);
+    void openDiseaseName();
 
     /**
      * 
-     * @param stage
-     *              the current stage.
      */
-    void openBackScene(Stage stage);
+    void openBackScene();
 
     /**
      * 
