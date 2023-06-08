@@ -52,6 +52,7 @@ public final class ViewImpl implements View {
     @Override
     public void start(final Controller controller) {
         this.controller = controller;
+        logger.info("Starting a new game");
         this.manager.openInitialMenu();
     }
 
@@ -107,11 +108,13 @@ public final class ViewImpl implements View {
     @Override
     public void choosenDisease(final String type) {
         this.controller.createDisease(type);
+        this.logger.info("Create Disease of Type: {}", type);
     }
 
     @Override
     public void choosenNameDisease(final String name) {
         this.controller.choosenDiseaseName(name);
+        this.logger.info("Disease name: {}", name);
     }
 
     @Override

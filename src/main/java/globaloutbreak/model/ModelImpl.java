@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
@@ -19,10 +22,12 @@ import java.util.LinkedList;
  * Impl of Model interface.
  */
 public final class ModelImpl implements Model {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
     private Voyage voyage;
-    private Cure cure;
+    private Optional<Cure> cure = Optional.empty();
     private final List<Event> events = new LinkedList<>();
 
     @Override
@@ -94,11 +99,15 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setCure(final Cure cure) {
-        this.cure = cure;
+        this.cure = Optional.of(cure);
     }
 
     @Override
     public boolean isGameOver() {
-        return this.cure.isCompleted();
+        if (this.cure.isPresent()) {
+            return this.cure.get().isCompleted();
+        }
+        logger.info("No Cure setted, closing game");
+        return true;
     }
 }

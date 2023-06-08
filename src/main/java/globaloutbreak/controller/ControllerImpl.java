@@ -84,16 +84,16 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void setGameSpeed(final GameSpeed gameSpeed) {
+        logger.info("Setted game speed to: {}", gameSpeed.toString());
         this.settings.setGameSpeed(gameSpeed);
     }
 
     @Override
     public void startStop() {
         if (!this.gameLoop.isAlive()) {
-            System.out.println("START loop");
             this.gameLoop.start();
         } else {
-            System.out.println(this.gameLoop.isRunning ? "STOP loop" : "RESTART loop");
+            logger.info(this.gameLoop.isRunning ? "STOP loop, pause" : "RESTART loop");
             this.gameLoop.startStop();
         }
     }
@@ -117,11 +117,12 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void choosenDisease(final String type) {
+        // this.model.setDisease();
+        // this.model.setCure(SimpleCureReader.getCure());
     }
 
     @Override
     public void choosenDiseaseName(final String name) {
-        System.out.println("Disease: " + name);
         this.view.displayMessage(new Message() {
 
             @Override
@@ -138,7 +139,6 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void createDisease(final String type) {
-        System.out.println("Disease: " + type);
     }
 
     @Override
@@ -165,6 +165,7 @@ public final class ControllerImpl implements Controller {
         @Override
         public void run() {
             this.isRunning = true;
+            logger.info("Start GameLoop");
             while (this.isRunning && !model.isGameOver()) {
                 startTime = System.currentTimeMillis();
                 this.update();
@@ -181,6 +182,8 @@ public final class ControllerImpl implements Controller {
                     }
                 }
             }
+            logger.info("Quitting GameLoop");
+            quit();
         }
 
         private void update() {
@@ -192,15 +195,6 @@ public final class ControllerImpl implements Controller {
         }
 
         private void render() {
-            System.out.println("view: " + view + "\ngames: " + settings.getGameSpeed());
-            view.displayMessage(new Message() {
-
-                @Override
-                public MessageType getType() {
-                    return MessageType.CURE;
-                }
-
-            });
             // System.out.println("reder");
             // System.out.println(LocalTime.now());
 
