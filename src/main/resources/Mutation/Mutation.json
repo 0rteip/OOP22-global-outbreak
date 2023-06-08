@@ -1,0 +1,18 @@
+[
+    {
+        "cost":5, 
+        "name":"prova", 
+        "increase":0.1, 
+        "type": "TRASMISSION", 
+        "description":"desc1"
+        
+    },
+    {
+        "cost":4, 
+        "name":"prova1", 
+        "increase":0.2, 
+        "type": "TRASMISSION", 
+        "description":"desc2"
+        
+    }
+]
