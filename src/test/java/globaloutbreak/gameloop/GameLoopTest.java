@@ -20,7 +20,7 @@ final class GameLoopTest {
      * Test if game close because controllerImpl cot create a cure by default.
      */
     @Test
-    public void testGameEndIfNoCureSetted() {
+    void testGameEndIfNoCureSetted() {
         this.logger.info("Starting testGameEndIfNoCureSetted()");
         assertFalse(this.controller.isGameRunning());
         this.controller.startStop();
