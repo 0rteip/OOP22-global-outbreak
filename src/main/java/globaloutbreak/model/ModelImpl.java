@@ -90,12 +90,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public void extractVoyages() {
-        Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions());
-        if(voyages.isEmpty()) {
-            voyages.forEach((s,m) -> {
-                m.forEach((i,p) -> {
+        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions());
+        if (voyages.isEmpty()) {
+            voyages.forEach((s, m) -> {
+                m.forEach((i, p) -> {
                     final Optional<Region> r = getRegionByColor(p.getY());
-                    if(r.isPresent()) {
+                    if (r.isPresent()) {
                         this.incOrDecInfectedPeople(i.intValue(), r.get());
                     }
                 });
@@ -103,7 +103,7 @@ public final class ModelImpl implements Model {
         }
     }
 
-    private Optional<Region> getRegionByColor(int color) {
+    private Optional<Region> getRegionByColor(final int color) {
         return this.getRegions().stream().filter(k -> k.getColor() == color).findFirst();
     }
     @Override
@@ -141,12 +141,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public void causeEvent() {
-        Optional<Pair<Region, Integer>> event = this.causeEvents.causeEvent(this.getRegions()
+        final Optional<Pair<Region, Integer>> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
-                .filter(k -> k.getCureStatus()!= RegionCureStatus.FINISHED)
+                .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
                 .toList()
                 );
-        if(event.isPresent()) {
+        if (event.isPresent()) {
             this.incDeathPeople(event.get().getY(), event.get().getX());
         }
     }

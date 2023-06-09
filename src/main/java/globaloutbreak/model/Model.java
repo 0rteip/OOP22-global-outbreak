@@ -127,9 +127,6 @@ public interface Model {
     /**
      * Thi method extract voyages.
      * 
-     * @return
-     *         String is the type of means, Integer is the number of new infected 
-     *          and in the pair there is departure and destination expressed with the color of region
      */
     void extractVoyages();
     /**

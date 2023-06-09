@@ -23,7 +23,7 @@ public final class CauseEventsImpl implements CauseEvent {
 
     @Override
     public Optional<Pair<Region, Integer>> causeEvent(final List<Region> regions) {
-        if(!regions.isEmpty()) {
+        if (!regions.isEmpty()) {
             final Event event = events.get(RANDOM.nextInt(0, events.size() - 1));
             if (RANDOM.nextInt(0, 100) <= event.getProbOfHapp()) {
                 final Region r = regions.get(RANDOM.nextInt(0, events.size() - 1));
