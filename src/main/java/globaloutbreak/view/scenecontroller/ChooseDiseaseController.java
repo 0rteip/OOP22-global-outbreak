@@ -56,7 +56,7 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
      */
     @FXML
     public void backScene() {
-        this.getSceneManager().openBackScene();
+        this.getSceneManager().openInitialMenu();
     }
 
     /**

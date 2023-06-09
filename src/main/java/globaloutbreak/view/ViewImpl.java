@@ -2,12 +2,14 @@ package globaloutbreak.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.Controller;
+import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
@@ -139,5 +141,15 @@ public final class ViewImpl implements View {
     @Override
     public void quit() {
         this.controller.quit();
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        return this.controller.getInfoSingleRegion();
+    }
+
+    @Override
+    public void selectRegion(int color) {
+        this.controller.selectedRegion(color);
     }
 }

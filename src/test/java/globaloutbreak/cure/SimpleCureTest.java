@@ -23,8 +23,8 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
-import globaloutbreak.model.region.ClimateInt;
-import globaloutbreak.model.region.TransmissionMeansImpl;
+import globaloutbreak.model.region.Climate;
+import globaloutbreak.model.region.TransmissionMean;
 
 /**
  * Test for SimpleCure.
@@ -197,19 +197,13 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int calcPercInfected() {
+                public float calcPercInfected() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getNumInfected() {
-                    logger.warn(logString);
-                    throw new UnsupportedOperationException(errString);
-                }
-
-                @Override
-                public int getNumCared() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }
@@ -239,15 +233,15 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public ClimateInt getClimate() {
+                public Climate getClimate() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
-                public List<TransmissionMeansImpl> getTrasmissionMeans() {
-                    logger.warn(logString);
-                    throw new UnsupportedOperationException(errString);
+                public List<TransmissionMean> getTrasmissionMeans() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
                 }
 
             };

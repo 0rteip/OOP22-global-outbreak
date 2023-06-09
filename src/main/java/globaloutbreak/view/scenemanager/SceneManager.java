@@ -50,6 +50,12 @@ public interface SceneManager {
 
     /**
      * 
+     */
+    void openMap();
+
+
+    /**
+     * 
      * @return
      *         the {@link SceneLoader}.
      */

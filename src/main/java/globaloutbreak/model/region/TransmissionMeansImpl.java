@@ -3,7 +3,9 @@ package globaloutbreak.model.region;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Implement. of TransmissionMeans.
+ */
 public final class TransmissionMeansImpl implements TransmissionMean {
     private final Optional<List<String>> reachableStates;
     private final String type;

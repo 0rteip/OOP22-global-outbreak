@@ -26,17 +26,15 @@ public class DiseaseNameController extends AbstractSceneController {
      */
     @FXML
     public final void backScene() {
-        this.getSceneManager().openBackScene();
+        this.getSceneManager().openDiseaseChoice();
     }
-
+    
     /**
      * Start the game.
      */
     @FXML
     public final void startGame() {
-        //this.getView().choosenNameDisease(nameTextField.getText());
-        // this.getSceneManager().openMapScene();
-        this.getSceneManager().openWorldGraphScene();
+        this.getSceneManager().openMap();
     }
 
 }

@@ -68,10 +68,7 @@ public final class SceneManagerImpl implements SceneManager {
     /**
      * Set the previous scene.
      */
-    @Override
-    public void openBackScene() {
-        this.sceneLoader.loadBackScene(this.stage);
-    }
+    
 
     private void openScene(final SceneStyle sceneStyle) {
         this.sceneLoader.loadScene(sceneStyle, this.stage);
@@ -90,5 +87,10 @@ public final class SceneManagerImpl implements SceneManager {
     @Override
     public void openMessage(final Message message) {
         this.sceneLoader.openDialog(this.stage, message);
+    }
+
+    @Override
+    public void openMap() {
+        this.openScene(SceneStyle.MAP);
     }
 }

@@ -44,6 +44,7 @@ public final class DiseaseControllerImpl implements DiseaseController {
         }
     }
 
+
     private float getIfValid(final float value, final String name) {
         if (value < 0 || value > 1) {
             logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);

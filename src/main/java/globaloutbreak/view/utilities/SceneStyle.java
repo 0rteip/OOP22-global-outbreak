@@ -26,6 +26,10 @@ public enum SceneStyle {
      */
     SETTINGS("Settings", "layouts/game_settings.fxml"),
     /**
+     * Map Scene
+     */
+    MAP("Map", "layouts/MapGui.fxml"),
+    /**
      * World Graph Scene.
      */
     WORLDGRAPH("World graph", "layouts/worldGraph.fxml"),
@@ -33,7 +37,6 @@ public enum SceneStyle {
      * Cure Graph Scene.
      */
     CUREGRAPH("Cure graph", "layouts/cureGraph.fxml");
-
     private final String fxmlFile;
     private final String title;
 

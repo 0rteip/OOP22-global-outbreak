@@ -32,6 +32,6 @@ public class TutorialController extends AbstractSceneController {
      */
     @FXML
     public final void backScene() {
-        this.getSceneManager().openBackScene();
+        this.getSceneManager().openInitialMenu();
     }
 }
