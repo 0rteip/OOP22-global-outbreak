@@ -1,8 +1,14 @@
 package globaloutbreak.model.region;
 /**
- * Enum for mean's state
+ * Enum for mean's state.
  */
 public enum MeansState {
-    CLOSE,
+    /**
+     * border closed.
+     */
+    CLOSE, 
+    /**
+     * borders open.
+     */
     OPEN
 }

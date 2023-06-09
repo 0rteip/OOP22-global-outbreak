@@ -14,8 +14,8 @@ public interface ClimateInt {
     /**
      * 
      * @return
-     *         humid perc.
-     * 
+     *          humid perc.
+     *
      */
     float getHumid();
 

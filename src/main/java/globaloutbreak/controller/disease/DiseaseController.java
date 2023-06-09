@@ -28,4 +28,19 @@ public interface DiseaseController {
      *         Disease
      */
     Disease createDisease(String type);
+
+    /**
+     * Set Disease name.
+     * 
+     * @param name
+     */
+    void setDiseaseName(String name);
+
+    /**
+     * get the Disease.
+     * 
+     * @return
+     *          Disease
+     */
+    Disease getDisease();
 }

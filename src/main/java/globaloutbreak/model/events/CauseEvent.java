@@ -8,8 +8,8 @@ import globaloutbreak.model.region.Region;
 /**
  * Interface of Casuse Event.
  */
-public interface CauseEventInt {
-  
+public interface CauseEvent {
+
     /**
      * This method cause a event.
      * 
@@ -18,5 +18,5 @@ public interface CauseEventInt {
      * @return
 *              the number of deaths it caused ande the Region 
      */
-    public Optional<Pair<Region, Integer>> causeEvent( List<Region> regions);
+    Optional<Pair<Region, Integer>> causeEvent(List<Region> regions);
 }

@@ -55,6 +55,16 @@ public final class DiseaseControllerImpl implements DiseaseController {
         }
     }
 
+    @Override
+    public void setDiseaseName(final String name) {
+        this.disease.setName(name);
+    }
+
+    @Override
+    public Disease getDisease() {
+        return this.disease;
+    }
+
     private boolean checkIfValid(final float value, final String name) {
         if (value < 0 || value > 1) {
             logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);

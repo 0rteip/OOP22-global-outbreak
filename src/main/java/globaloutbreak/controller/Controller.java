@@ -4,7 +4,6 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
@@ -37,7 +36,7 @@ public interface Controller {
      * @param region
      *               region selected
      */
-    void selectedRegion(Region region);
+    void selectedRegion(int region);
 
     /**
      * Pass the selected mutation.

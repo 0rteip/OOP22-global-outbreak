@@ -18,7 +18,6 @@ import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
@@ -60,7 +59,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void selectedRegion(final Region region) {
+    public void selectedRegion(final int region) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedRegion'");
     }

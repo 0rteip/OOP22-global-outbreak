@@ -24,7 +24,7 @@ import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.region.ClimateInt;
-import globaloutbreak.model.region.TransmissionMeansImpl;
+import globaloutbreak.model.region.TransmissionMean;
 
 /**
  * Test for SimpleCure.
@@ -209,12 +209,6 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int getNumCared() {
-                    logger.warn(logString);
-                    throw new UnsupportedOperationException(errString);
-                }
-
-                @Override
                 public String getName() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
@@ -245,9 +239,9 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public List<TransmissionMeansImpl> getTrasmissionMeans() {
-                    logger.warn(logString);
-                    throw new UnsupportedOperationException(errString);
+                public List<TransmissionMean> getTrasmissionMeans() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
                 }
 
             };

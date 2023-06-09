@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import globaloutbreak.model.pair.Pair;
-import globaloutbreak.model.region.RegionImpl;
+import globaloutbreak.model.region.Region;
 
 /**
  * 
@@ -23,5 +23,5 @@ public interface Voyage {
      *         the pair is the departure and destination expressed with the color of
      *         the region
      */
-    Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(List<RegionImpl> regions);
+    Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(List<Region> regions);
 }
