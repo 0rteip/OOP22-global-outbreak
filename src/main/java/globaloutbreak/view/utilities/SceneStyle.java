@@ -1,4 +1,4 @@
-package view.utilities;
+package globaloutbreak.view.utilities;
 
 /**
  * Enumeration of scenes.

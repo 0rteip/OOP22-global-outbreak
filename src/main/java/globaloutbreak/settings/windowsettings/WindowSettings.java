@@ -1,4 +1,4 @@
-package settings;
+package globaloutbreak.settings.windowsettings;
 
 /**
  * Interface that manage window settings.

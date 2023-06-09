@@ -12,6 +12,8 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
+import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
+import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
@@ -19,8 +21,6 @@ import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import settings.WindowSettings;
-import settings.WindowSettingsImpl;
 
 /**
  * Class ViewImpl.

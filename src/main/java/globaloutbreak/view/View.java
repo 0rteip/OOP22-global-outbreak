@@ -8,10 +8,10 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
+import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
-import settings.WindowSettings;
 
 /**
  * interface View.

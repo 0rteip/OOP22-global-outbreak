@@ -1,4 +1,4 @@
-package settings;
+package globaloutbreak.settings.windowsettings;
 
 import java.awt.Toolkit;
 

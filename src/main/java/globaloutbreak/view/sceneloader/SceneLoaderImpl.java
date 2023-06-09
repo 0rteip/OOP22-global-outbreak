@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.layout.Region;
 import globaloutbreak.model.message.Message;
+import globaloutbreak.view.utilities.SceneStyle;
 import globaloutbreak.view.View;
 import globaloutbreak.view.messagedialog.MessageDialog;
 import globaloutbreak.view.scenecontroller.SceneController;
@@ -18,7 +19,6 @@ import globaloutbreak.view.scenecontroller.SceneInitializer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.utilities.SceneStyle;
 
 /**
  * Implementation of {@link SceneLoader}.

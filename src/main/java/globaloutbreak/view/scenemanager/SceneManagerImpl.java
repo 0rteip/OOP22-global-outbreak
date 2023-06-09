@@ -2,11 +2,11 @@ package globaloutbreak.view.scenemanager;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.message.Message;
+import globaloutbreak.view.utilities.SceneStyle;
 import globaloutbreak.view.View;
 import globaloutbreak.view.sceneloader.SceneLoader;
 import globaloutbreak.view.sceneloader.SceneLoaderImpl;
 import javafx.stage.Stage;
-import view.utilities.SceneStyle;
 
 /**
  * Class that manage the scene changing.
