@@ -23,7 +23,7 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
-import globaloutbreak.model.region.ClimateInt;
+import globaloutbreak.model.region.Climate;
 import globaloutbreak.model.region.TransmissionMean;
 
 /**
@@ -197,7 +197,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int calcPercInfected() {
+                public float calcPercInfected() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }
@@ -233,7 +233,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public ClimateInt getClimate() {
+                public Climate getClimate() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }

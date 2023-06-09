@@ -72,4 +72,9 @@ public final class SceneManagerImpl implements SceneManager {
     public void openMessage(final Message message) {
         this.sceneLoader.openDialog(this.stage, message);
     }
+
+    @Override
+    public void openMap() {
+        this.openScene(SceneStyle.MAP);
+    }
 }
