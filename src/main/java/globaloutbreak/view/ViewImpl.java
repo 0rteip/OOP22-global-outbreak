@@ -8,7 +8,6 @@ import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Voyage;
 import globaloutbreak.model.disease.DiseaseData;
-import globaloutbreak.view.scenecontroller.MutationViewController;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.scene.control.Button;
@@ -28,6 +27,8 @@ public final class ViewImpl implements View {
     private Controller controller;
     private String desc;
     private Boolean active;
+    private int cost;
+
     /**
      * @param stage
      */
@@ -35,136 +36,87 @@ public final class ViewImpl implements View {
         this.manager = new SceneManagerImpl(stage, this);
     }
 
-    /**
-     * @param controller
-     *                   the current controller.
-     */
     @Override
     public void start(final Controller controller) {
         this.controller = controller;
         this.manager.openInitialMenu();
     }
 
-    /**
-     * 
-     */
     @Override
     public void displayInfo(final Infodata info) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayInfo'");
     }
 
-    /**
-     * 
-     */
     @Override
     public void displayMessage(final Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayMessage'");
     }
 
-    /**
-     * 
-     */
     @Override
     public void displayVoyage(final Voyage voyage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayVoyage'");
     }
 
-    /**
-     * 
-     */
     @Override
     public Controller getController() {
         return this.controller;
     }
 
-    /**
-     * 
-     */
     @Override
     public WindowSettings getWindowSettings() {
         return this.settings;
     }
 
-    /**
-     * @return
-     *         the scene manager.
-     */
     @Override
     public SceneManager getSceneManager() {
         return this.manager;
     }
 
-    /**
-     * @return
-     *         a list with diseases buttons.
-     */
     @Override
     public List<Button> getDiseasesButtons() {
         return List.copyOf(diseasesButtons);
     }
 
-    /**
-     * @return
-     *         a list with mutations.
-     */
     @Override
     public List<String> getMutations() {
         return List.copyOf(mutations);
-        
     }
 
-    /**
-     * @return
-     *         a description mutation.
-     */
     @Override
     public String  getDescription() {
         return desc;
-        
     }
 
-    /**
-     * @param mutations Names
-     *                      a list of diseases names.
-     */
+     @Override
+    public String getCost() {
+        return String.valueOf(cost);
+    }
+ 
     @Override
     public void setMutationsName(final List<String> mutationsNames) {
        this.mutations = mutationsNames;
     }
-    /**
-     * @param mutations Names
-     *                      a list of diseases names.
-     */
+
     @Override
-    public void setMutationsDesc(String desc, Boolean activate) {
+    public void setMutationsDesc(final String desc, final Boolean activate, final int cost) {
        this.desc = desc;
        this.active = activate;
+       this.cost = cost;
     }
 
-    /**
-     * 
-     */
     @Override
-    public boolean checkactivate(){
+    public boolean checkactivate() {
         return active;
     }
 
-    /**
-     * @param diseasesNames
-     *                      a list of diseases names.
-     */
     @Override
     public void setDiseasesData(final List<DiseaseData> diseasesNames) {
         diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
     }
 
-    
-    /**
-     * 
-     */
     @Override
     public void choosenDisease(final String type) {
         this.getController().choosenDisease(type);

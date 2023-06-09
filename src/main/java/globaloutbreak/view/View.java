@@ -94,10 +94,10 @@ public interface View {
 
     /**
      * 
-     * @param diseasesNames
-     *                      the list of mutation names
+     * @param mutationsNames
+     *                       the list of mutation names
      */
-    void setMutationsName(final List<String> mutationsNames);
+    void setMutationsName(List<String> mutationsNames);
     /**
      * 
      * @param type
@@ -112,24 +112,28 @@ public interface View {
 
     /**
      * 
-     * @param desc
-     * @param activate
+     * @param desc description 
+     * @param activate if the mutation is acrive
+     * @param  cost cost of the mutation
      */
-    void setMutationsDesc(String desc, Boolean activate);
+    void setMutationsDesc(String desc, Boolean activate, int cost);
 
      /**
-     * 
-     * @return
-     *         description mutation
-     */
+     *
+     * @return description mutation
+     *
+    */
     String  getDescription();
 
     /**
      * 
-     * @return
+     * @return if the mutation is active
      */
     boolean checkactivate();
 
-
-    
+    /**
+    * 
+    *@return cost of mutation
+    */
+    String getCost();
 }
