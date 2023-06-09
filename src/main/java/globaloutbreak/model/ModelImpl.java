@@ -5,23 +5,26 @@ import java.util.List;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Region;
+/**
+ * class model impl.
+ */
 
-public class ModelImpl implements Model{
+public final class ModelImpl implements Model { 
     private Disease disease;
 
     @Override
-    public void setDisease(Disease disease) {
+    public void setDisease(final Disease disease) {
         this.disease = disease;
     }
 
     @Override
-    public void selectedRegion(Region region) {
+    public void selectedRegion(final Region region) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedRegion'");
     }
 
     @Override
-    public boolean selectedMutation(String mutation) {
+    public boolean selectedMutation(final String mutation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
     }
@@ -48,5 +51,4 @@ public class ModelImpl implements Model{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getGlobalData'");
     }
-    
 }

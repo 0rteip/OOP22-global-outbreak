@@ -349,7 +349,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                                     region.getNumInfected(), region.getUrban(), region.getPoor(),
                                     region.getClimateImpl().getArid(), region.getClimateImpl().getCold(),
                                     region.getClimateImpl().getHot(), region.getClimateImpl().getHumid())));
-                
                                 }
 
                 /**
