@@ -1,4 +1,5 @@
 package globaloutbreak.model.region;
+
 /**
  * Impl. of ClimatInt.
  */
@@ -45,5 +46,5 @@ public class Climate implements ClimateInt {
     @Override
     public float getCold() {
         return cold;
-    } 
+    }
 }

@@ -21,6 +21,7 @@ import globaloutbreak.model.region.Region;
 
 public final class RegionController implements RegionControllerInt {
     private final Model model;
+
     /**
      * 
      * @param model
@@ -28,7 +29,7 @@ public final class RegionController implements RegionControllerInt {
      * @throws IOException
      */
     public RegionController(final Model model) throws IOException {
-        //readMeans();
+        // readMeans();
         String path = "resources\\region\\ConfigRegion.json";
         JsonNode node = getJsonNode(path);
         this.model = model;
@@ -40,35 +41,45 @@ public final class RegionController implements RegionControllerInt {
             float humid = 0;
             float hot = 0;
             List<String> reachableState;
-            Map<String,Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
+            Map<String, Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
             int color = 0;
             Integer facilities = 0;
             final Iterator<Entry<String, JsonNode>> iterator = k.fields();
             while (iterator.hasNext()) {
                 final Entry<String, JsonNode> e = iterator.next();
                 switch (e.getKey()) {
-                    case "nome" : name = e.getValue().textValue(); 
+                    case "nome":
+                        name = e.getValue().textValue();
                         break;
-                    case "colore" : color = e.getValue().intValue();
+                    case "colore":
+                        color = e.getValue().intValue();
                         break;
-                    case "porti" : means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
+                    case "porti":
+                        means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
                         break;
-                    case "areoporti" : means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
+                    case "areoporti":
+                        means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
                         break;
-                    case "humid" : humid = e.getValue().floatValue();
+                    case "humid":
+                        humid = e.getValue().floatValue();
                         break;
-                    case "confini" : reachableState = getTypeOfMeans(k);
-                        means.put("terra",  new Pair<>(1, Optional.of(reachableState)));
+                    case "confini":
+                        reachableState = getTypeOfMeans(k);
+                        means.put("terra", new Pair<>(1, Optional.of(reachableState)));
                         break;
-                    case "hot" : hot = e.getValue().floatValue();
+                    case "hot":
+                        hot = e.getValue().floatValue();
                         break;
-                    case "facilities" : facilities = e.getValue().intValue();
-                        break;  
-                    case "popTot" : popTot = e.getValue().intValue();
+                    case "facilities":
+                        facilities = e.getValue().intValue();
                         break;
-                    case "urban" : urban = e.getValue().floatValue();
+                    case "popTot":
+                        popTot = e.getValue().intValue();
                         break;
-                    default :
+                    case "urban":
+                        urban = e.getValue().floatValue();
+                        break;
+                    default:
                         break;
                 }
             }
@@ -103,38 +114,41 @@ public final class RegionController implements RegionControllerInt {
         return "";
     }
 
-    /*private void readMeans() throws IOException {
-        JsonNode node = getJsonNode("resources\\region\\ConfigMeans.json");
-        means = new LinkedList<>();
-        node.forEach( k -> {
-            final Iterator<Entry<String, JsonNode>> iterator = k.fields();
-            while(iterator.hasNext()) {
-                String type;
-                List<String> reach;
-                final Entry<String, JsonNode> e = iterator.next();
-                switch(e.getKey()) {
-                    case "type" : type = e.getValue().textValue();
-                }  
-                if(!means.contains(type)) {
-                    means.add(type);
-                }     
-            }
-        });
-    }*/
+    /*
+     * private void readMeans() throws IOException {
+     * JsonNode node = getJsonNode("resources\\region\\ConfigMeans.json");
+     * means = new LinkedList<>();
+     * node.forEach( k -> {
+     * final Iterator<Entry<String, JsonNode>> iterator = k.fields();
+     * while(iterator.hasNext()) {
+     * String type;
+     * List<String> reach;
+     * final Entry<String, JsonNode> e = iterator.next();
+     * switch(e.getKey()) {
+     * case "type" : type = e.getValue().textValue();
+     * }
+     * if(!means.contains(type)) {
+     * means.add(type);
+     * }
+     * }
+     * });
+     * }
+     */
     private List<String> getTypeOfMeans(JsonNode node) {
         List<String> reach = new LinkedList<>();
         final Iterator<Entry<String, JsonNode>> iterator = node.fields();
-            while (iterator.hasNext()) {
-                final Entry<String, JsonNode> e = iterator.next();
-                if(!reach.contains(e.getValue().textValue())) {
-                    reach.add(e.getValue().textValue());
-                }
+        while (iterator.hasNext()) {
+            final Entry<String, JsonNode> e = iterator.next();
+            if (!reach.contains(e.getValue().textValue())) {
+                reach.add(e.getValue().textValue());
             }
+        }
         return reach;
     }
+
     private JsonNode getJsonNode(String path) throws IOException {
         ObjectMapper map = new ObjectMapper();
-        return map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path), 
+        return map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path),
                 StandardCharsets.UTF_8)));
     }
 }

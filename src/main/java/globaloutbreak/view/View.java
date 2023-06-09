@@ -3,11 +3,12 @@ package globaloutbreak.view;
 import java.util.List;
 
 import globaloutbreak.controller.Controller;
-import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Message;
-
+import globaloutbreak.gamespeed.GameSpeed;
+import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.settings.gamesettings.GameSettingsGetter;
+import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
 import settings.WindowSettings;
@@ -21,6 +22,7 @@ public interface View {
      * Start the view.
      * 
      * @param controller
+     *                   controller
      */
     void start(Controller controller);
 
@@ -57,20 +59,41 @@ public interface View {
     WindowSettings getWindowSettings();
 
     /**
-     * Returns the {@link Controller}.
-     * 
-     * @return
-     *         Controller
-     */
-    Controller getController();
-
-    /**
      * Returns the {@link SceneManager}.
      * 
      * @return
      *         SceneManager
      */
     SceneManager getSceneManager();
+
+    /**
+     * Returns True if game is running.
+     * 
+     * @return
+     *         game running
+     */
+    boolean isGameRunning();
+
+    /**
+     * Start or stop the game.
+     */
+    void startStop();
+
+    /**
+     * Returns the GameSettings.
+     * 
+     * @return
+     *         {@link GameSettingsGetter}
+     */
+    GameSettingsGetter getGameSettings();
+
+    /**
+     * Set the current GameSpeed.
+     * 
+     * @param gameSpeed
+     *                  GameSpeed
+     */
+    void setGameSpeed(GameSpeed gameSpeed);
 
     /**
      * 
@@ -97,4 +120,9 @@ public interface View {
      * @param name
      */
     void choosenNameDisease(String name);
+
+    /**
+     * Quit Application.
+     */
+    void quit();
 }

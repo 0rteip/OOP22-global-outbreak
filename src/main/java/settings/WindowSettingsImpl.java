@@ -25,9 +25,6 @@ public final class WindowSettingsImpl implements WindowSettings {
         this.selectedRes = MutablePair.of(selectedWidth, selectedHeight);
     }
 
-    /**
-     * return.
-     */
     @Override
     public int getWindowWidth() {
         return this.selectedRes.getKey().intValue();

@@ -1,7 +1,7 @@
 package globaloutbreak.view.scenecontroller;
 
 /**
- * Interface to initialize Scenes.
+ * Interface for initialize settings.
  */
 public interface SceneInitializer {
     /**

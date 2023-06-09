@@ -45,6 +45,6 @@ public class MainController extends AbstractSceneController {
      */
     @FXML
     public final void quitGame() {
-        this.getView().getController().quit();
+        this.getView().quit();
     }
 }

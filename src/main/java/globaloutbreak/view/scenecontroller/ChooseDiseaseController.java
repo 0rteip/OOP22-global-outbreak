@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controller Choose Disease scene.
  */
-public class ChooseDiseaseController extends AbstractSceneController implements SceneInitializer {
+public final class ChooseDiseaseController extends AbstractSceneController implements SceneInitializer {
 
     private static final int SMALL_SPACING = 50;
     private static final int BIG_SPACING = 100;
@@ -20,21 +20,19 @@ public class ChooseDiseaseController extends AbstractSceneController implements 
 
     @FXML
     private VBox chooseDiseaseVbox;
+
     @FXML
     private HBox chooseDiseaseHbox;
+
     @FXML
     private Button backSceneButton;
 
-    /**
-     * Initilize Button for each Disease.
-     */
     @Override
     public void initializeScene() {
         if (chooseDiseaseHbox.getChildren().isEmpty()) {
             chooseDiseaseVbox.setSpacing(SMALL_SPACING);
             chooseDiseaseHbox.setAlignment(Pos.CENTER);
             chooseDiseaseHbox.setSpacing(BIG_SPACING);
-        
             final List<Button> diseasesNames = this.getView().getDiseasesButtons();
             diseasesNames.stream().forEach(button -> {
                 button.setMinHeight(BIG_SPACING);
@@ -57,7 +55,7 @@ public class ChooseDiseaseController extends AbstractSceneController implements 
      * return to the prec scene.
      */
     @FXML
-    public final void backScene() {
+    public void backScene() {
         this.getSceneManager().openBackScene();
     }
 

@@ -13,6 +13,10 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import globaloutbreak.model.region.Region;
 
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.RegionCureStatus;
@@ -20,7 +24,6 @@ import globaloutbreak.model.cure.SimpleCure;
 import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.region.ClimateInt;
-import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.TransmissionMeansImpl;
 
 /**
@@ -28,6 +31,7 @@ import globaloutbreak.model.region.TransmissionMeansImpl;
  */
 final class SimpleCureTest {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private SimpleCure.Builder cureBuilder;
 
     /**
@@ -144,6 +148,9 @@ final class SimpleCureTest {
     private List<Region> getRegions(final int numberOfRegions) {
         final List<Region> r = new ArrayList<>();
 
+        final String logString = "Unused method called";
+        final String errString = "Uninplemented method";
+
         IntStream.range(1, numberOfRegions).forEach(c -> {
             final Region reg = new Region() {
 
@@ -191,56 +198,56 @@ final class SimpleCureTest {
 
                 @Override
                 public int calcPercInfected() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'calcPercInfected'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getNumInfected() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getNumInfected'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getNumCared() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getNumCared'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public String getName() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public float getUrban() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getUrban'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public float getPoor() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getPoor'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public int getColor() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getColor'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public ClimateInt getClimate() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getClimate'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public List<TransmissionMeansImpl> getTrasmissionMeans() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
             };

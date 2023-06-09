@@ -11,10 +11,10 @@ import globaloutbreak.model.disease.DiseaseData;
 public interface DiseaseController {
 
     /**
-     *  read all Disease data from file.
+     * read all Disease data from file.
      * 
      * @param diseaseList
-     * a list of all Disease data.
+     *                    a list of all Disease data.
      */
     void readFile(List<DiseaseData> diseaseList);
 
@@ -22,7 +22,7 @@ public interface DiseaseController {
      * Create a new Disease.
      * 
      * @param type
-     *         Disease type.
+     *             Disease type.
      * 
      * @return
      *         Disease

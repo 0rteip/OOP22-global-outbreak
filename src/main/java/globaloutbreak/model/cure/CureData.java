@@ -2,8 +2,8 @@ package globaloutbreak.model.cure;
 
 import java.util.List;
 
-import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.region.Region;
+import globaloutbreak.model.cure.prioriry.Priority;
 
 /**
  * A set of usefull Data about the cure status.
