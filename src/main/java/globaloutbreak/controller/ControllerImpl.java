@@ -1,6 +1,8 @@
 package globaloutbreak.controller;
 
-// import java.time.LocalTime;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,14 +97,14 @@ public final class ControllerImpl implements Controller {
         if (!this.gameLoop.isAlive()) {
             this.gameLoop.start();
         } else {
-            logger.info(this.gameLoop.isRunning ? "STOP loop, pause" : "RESTART loop");
+            logger.info(this.gameLoop.isRunning() ? "STOP loop, pause" : "RESTART loop");
             this.gameLoop.startStop();
         }
     }
 
     @Override
     public boolean isGameRunning() {
-        return this.gameLoop.isRunning;
+        return this.gameLoop.isRunning();
     }
 
     // // @formatter:off
@@ -112,6 +114,8 @@ public final class ControllerImpl implements Controller {
     // considerable immutable"
     // )
     // // @formatter:on
+    // It could be possible to suppress the warning because GameSettings is an only
+    // getter interface, but i think this way is safer
     @Override
     public GameSettingsGetter getSettings() {
         return this.settings.clone();
@@ -158,7 +162,8 @@ public final class ControllerImpl implements Controller {
 
         private volatile boolean isRunning;
         private long startTime;
-        private final Object mutex = new Object();
+        private final Lock lock = new ReentrantLock();
+        private final Condition condition = lock.newCondition();
 
         GameLoop() {
             this.setDaemon(true);
@@ -166,23 +171,25 @@ public final class ControllerImpl implements Controller {
 
         @Override
         public void run() {
+            this.lock.lock();
             this.isRunning = true;
+            this.lock.unlock();
             logger.info("Start GameLoop");
-            while (this.isRunning && !model.isGameOver()) {
-                startTime = System.currentTimeMillis();
+            while (isRunning && !model.isGameOver()) {
+                this.startTime = System.currentTimeMillis();
                 this.update();
                 this.render();
                 this.remainingTime();
 
-                synchronized (this.mutex) {
+                this.lock.lock();
+                if (!this.isRunning) {
                     try {
-                        if (!this.isRunning) {
-                            this.mutex.wait();
-                        }
+                        this.condition.await();
                     } catch (InterruptedException e) {
-                        logger.warn("Loop problem on wait function:", e);
+                        logger.warn("Loop problem on await function: ", e);
                     }
                 }
+                this.lock.unlock();
             }
             logger.info("Quitting GameLoop");
             quit();
@@ -205,7 +212,7 @@ public final class ControllerImpl implements Controller {
         }
 
         private void remainingTime() {
-            final long elapsedTime = System.currentTimeMillis() - startTime;
+            final long elapsedTime = System.currentTimeMillis() - this.startTime;
             final int timeUntilNextLoop = Math.round(settings.getGameSpeed().getDuration() * 1000 - elapsedTime);
             if (timeUntilNextLoop > 0) {
                 try {
@@ -217,12 +224,24 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        public void startStop() {
-            this.isRunning = !this.isRunning;
-            synchronized (this.mutex) {
+        private void startStop() {
+            this.lock.lock();
+            try {
+                this.isRunning = !this.isRunning;
                 if (this.isRunning) {
-                    this.mutex.notifyAll();
+                    this.condition.signal();
                 }
+            } finally {
+                this.lock.unlock();
+            }
+        }
+
+        private boolean isRunning() {
+            this.lock.lock();
+            try {
+                return this.isRunning;
+            } finally {
+                this.lock.unlock();
             }
         }
 
