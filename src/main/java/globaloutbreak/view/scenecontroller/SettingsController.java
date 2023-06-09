@@ -26,7 +26,7 @@ public final class SettingsController extends AbstractSceneController implements
 
     @FXML
     private void exitSettings() {
-        // this.getSceneManager().openMap();
+        this.getSceneManager().openMap();
         this.getView().startStop();
     }
 
