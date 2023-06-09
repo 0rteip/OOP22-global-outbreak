@@ -10,23 +10,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-   fx:controller="globaloutbreak.view.scenecontroller.MapController" >
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.MapController">
    <center>
       <StackPane fx:id="mapPane" onMouseClicked="#selectRegion1" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playPausaBut" mnemonicParsing="false" onMouseClicked="#startStop" text="play/pausa" StackPane.alignment="TOP_RIGHT">
-               <StackPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </StackPane.margin>
-            </Button>
             <Label fx:id="mapLab" onMouseClicked="#selectRegion" text="Label" />
-            <Button fx:id="settingBut" mnemonicParsing="false" onMouseClicked="#openSettings" text="settings" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </StackPane.margin>
-            </Button>
          </children>
       </StackPane>
    </center>
@@ -100,6 +88,22 @@
                      </VBox.margin>
                   </Button>
                </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <Button fx:id="openSettings" mnemonicParsing="false" onMouseClicked="#openSettings" text="Settings" />
+                     </children>
+                     <padding>
+                        <Insets bottom="6.0" />
+                     </padding>
+                  </VBox>
+                  <Button fx:id="playPausaBut" mnemonicParsing="false" onMouseClicked="#startStop" text="Play/Pausa" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" right="6.0" top="6.0" />
+               </padding>
             </VBox>
          </children>
       </HBox>
