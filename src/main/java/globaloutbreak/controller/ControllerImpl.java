@@ -164,24 +164,30 @@ public final class ControllerImpl implements Controller {
         @Override
         public void run() {
             this.lock.lock();
-            this.isRunning = true;
-            this.lock.unlock();
+            try {
+                this.isRunning = true;
+            } finally {
+                this.lock.unlock();
+            }
             logger.info("Start GameLoop");
-            while (isRunning && !model.isGameOver()) {
+            while (this.isRunning() && !model.isGameOver()) {
                 this.startTime = System.currentTimeMillis();
                 this.update();
                 this.render();
                 this.remainingTime();
 
                 this.lock.lock();
-                if (!this.isRunning) {
-                    try {
-                        this.condition.await();
-                    } catch (InterruptedException e) {
-                        logger.warn("Loop problem on await function: ", e);
+                try {
+                    if (!this.isRunning) {
+                        try {
+                            this.condition.await();
+                        } catch (InterruptedException e) {
+                            logger.warn("Loop problem on await function: ", e);
+                        }
                     }
+                } finally {
+                    this.lock.unlock();
                 }
-                this.lock.unlock();
             }
             logger.info("Quitting GameLoop");
             quit();
@@ -196,7 +202,7 @@ public final class ControllerImpl implements Controller {
         }
 
         private void render() {
-            // System.out.println("reder");
+            // System.out.println("render");
             // System.out.println(LocalTime.now());
 
             // ControllerImpl.this.view.render(ControllerImpl.this.model.getFoods(),
@@ -211,7 +217,6 @@ public final class ControllerImpl implements Controller {
                     Thread.sleep(timeUntilNextLoop);
                 } catch (InterruptedException e) {
                     logger.warn("Loop problem on sleep function:", e);
-
                 }
             }
         }
@@ -236,6 +241,5 @@ public final class ControllerImpl implements Controller {
                 this.lock.unlock();
             }
         }
-
     }
 }
