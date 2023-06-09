@@ -24,6 +24,7 @@ import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
@@ -59,7 +60,7 @@ public final class ControllerImpl implements Controller {
     // @formatter:on
     public ControllerImpl(final View view) {
         this.view = view;
-        this.model.addNesListener(new NewsObserver(this));
+        this.model.addNewsListener(new NewsObserver(this));
         this.model.setRegions(regionController.getRegions());
     }
 
@@ -104,6 +105,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.model.setDisease(this.diseaseController.createDisease(type));
+        this.model.setCure(new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions()));
     }
 
     @Override

@@ -67,7 +67,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void addNesListener(final PropertyChangeListener listener) {
+    public void addNewsListener(final PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
@@ -95,12 +95,6 @@ public final class ModelImpl implements Model {
     @Override
     public void setDiseaseName(final String name) {
         this.disease.setName(name);
-    }
-
-    @Override
-    public List<Disease> getDiseases() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDiseases'");
     }
 
     @Override
@@ -138,18 +132,22 @@ public final class ModelImpl implements Model {
 
     @Override
     public void extractVoyages() {
-        final Map<String, Float>  pot = new HashMap<>();
+        final Map<String, Float> pot = new HashMap<>();
         voyage.getMeans().forEach(k -> {
             switch (k) {
-                case "terra" : pot.put(k, this.disease.getLandInfectivity());
+                case "terra":
+                    pot.put(k, this.disease.getLandInfectivity());
                     break;
-                case "porti" : pot.put(k, this.disease.getSeaInfectivity());
+                case "porti":
+                    pot.put(k, this.disease.getSeaInfectivity());
                     break;
-                case "areporti" : pot.put(k, this.disease.getAirInfectivity());
+                case "areporti":
+                    pot.put(k, this.disease.getAirInfectivity());
             }
 
         });
-        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
+        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions(),
+                pot);
         if (voyages.isEmpty()) {
             voyages.forEach((s, m) -> {
                 m.forEach((i, p) -> {
@@ -163,8 +161,11 @@ public final class ModelImpl implements Model {
     }
 
     private Optional<Region> getRegionByColor(final int color) {
-        return this.getRegions().stream().filter(k -> k.getColor() == color).findFirst();
+        return this.getRegions().stream()
+                .filter(k -> k.getColor() == color)
+                .findFirst();
     }
+
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
         final Region updateRegion = getRegion(region);
@@ -174,12 +175,11 @@ public final class ModelImpl implements Model {
             if (death + newdeath > popTot) {
                 updateRegion.incDeathPeople(popTot - death);
                 updateRegion.setCureStatus(RegionCureStatus.FINISHED);
-                updateRegion.getTrasmissionMeans().stream().forEach(k -> {
-                    k.setState(MeansState.CLOSE);
-                });
+                updateRegion.getTrasmissionMeans().stream()
+                        .forEach(k -> k.setState(MeansState.CLOSE));
             } else if (death + newdeath < popTot) {
                 updateRegion.incDeathPeople(newdeath);
-            } 
+            }
         }
     }
 
@@ -198,7 +198,9 @@ public final class ModelImpl implements Model {
     }
 
     private Region getRegion(final Region region) {
-        return this.getRegions().stream().filter(k -> k.equals(region)).toList().get(0);
+        return this.getRegions().stream()
+                .filter(k -> k.equals(region))
+                .toList().get(0);
     }
 
     @Override
@@ -206,13 +208,11 @@ public final class ModelImpl implements Model {
         final Optional<Pair<Region, Integer>> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
-                .toList()
-                );
+                .toList());
         if (event.isPresent()) {
             this.incDeathPeople(event.get().getY(), event.get().getX());
         }
     }
-
 
     @Override
     public List<Event> getEvents() {
@@ -221,7 +221,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public void createCauseEvents() {
-       this.causeEvents = new CauseEventsImpl(this.getEvents());
+        this.causeEvents = new CauseEventsImpl(this.getEvents());
     }
 
     @Override

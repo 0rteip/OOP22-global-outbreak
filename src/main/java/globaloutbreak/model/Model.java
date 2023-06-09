@@ -39,7 +39,7 @@ public interface Model {
      */
     void setDiseaseName(String name);
 
-        /**
+    /**
      * Set the {@link Cure} to use.
      * 
      * @param cure
@@ -72,14 +72,6 @@ public interface Model {
      *         list of Regions
      */
     List<Region> getRegions();
-
-    /**
-     * List of all the possible Diseases.
-     * 
-     * @return
-     *         list of Diseases
-     */
-    List<Disease> getDiseases();
 
     /**
      * Get the InfoData contains the info on the current focussed Region.
@@ -133,51 +125,59 @@ public interface Model {
      * @param listener
      *                 listener
      */
-    void addNesListener(PropertyChangeListener listener);
+    void addNewsListener(PropertyChangeListener listener);
+
     /**
      * This method extract voyages.
      */
     void extractVoyages();
+
     /**
      * 
      * @param newdeath
-     *                  new death
+     *                 new death
      * @param region
-     *              region
+     *                 region
      */
     void incDeathPeople(int newdeath, Region region);
+
     /**
      * 
      * @param newinfected
-     *                      new infected
+     *                    new infected
      * @param region
-     *                  region
+     *                    region
      */
     void incOrDecInfectedPeople(int newinfected, Region region);
+
     /**
      * This method cause a event
      */
     void causeEvent();
+
     /**
      * This method create CauseEvent class
      */
     void createCauseEvents();
+
     /**
      * 
      * @param regions
-     *                  regions
+     *                regions
      */
     void setRegions(List<Region> regions);
+
     /**
      * 
      * @param events
-     *              list of Event
+     *               list of Event
      */
     void setEvents(List<Event> events);
+
     /**
      * 
      * @return
-     *          a copy of event's list
+     *         a copy of event's list
      */
     List<Event> getEvents();
 }
