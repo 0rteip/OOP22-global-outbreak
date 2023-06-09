@@ -39,8 +39,8 @@ public interface DiseaseController {
     /**
      * get the Disease.
      * 
-     * @preturn
-     * Disease
+     * @return
+     *          Disease
      */
     Disease getDisease();
 }

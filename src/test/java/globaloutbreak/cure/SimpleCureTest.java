@@ -21,7 +21,7 @@ import globaloutbreak.model.cure.prioriry.CurePriority;
 import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.region.ClimateInt;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.region.TransmissionMeansImpl;
+import globaloutbreak.model.region.TransmissionMean;
 
 /**
  * Test for SimpleCure.
@@ -179,13 +179,13 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void incDeathPeople(int dead) {
+                public void incDeathPeople(final int dead) {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
                 }
 
                 @Override
-                public void incOrDecInfectedPeople(int infected) {
+                public void incOrDecInfectedPeople(final int infected) {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'incOrDecInfectedPeople'");
                 }
@@ -200,12 +200,6 @@ final class SimpleCureTest {
                 public int getNumInfected() {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'getNumInfected'");
-                }
-
-                @Override
-                public int getNumCared() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getNumCared'");
                 }
 
                 @Override
@@ -239,7 +233,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public List<TransmissionMeansImpl> getTrasmissionMeans() {
+                public List<TransmissionMean> getTrasmissionMeans() {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
                 }

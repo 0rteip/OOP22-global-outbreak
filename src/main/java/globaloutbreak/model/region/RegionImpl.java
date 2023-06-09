@@ -11,9 +11,9 @@ import globaloutbreak.model.pair.Pair;
  * Implementation of Region.
  */
 public final class RegionImpl implements Region {
-    private int numInfected = 0;
-    private int numDead = 0;
-    private int numCared = 0;
+    private int numInfected;
+    private int numDead;
+    //private final int numCared;
     private final Integer popTot;
     private final String name;
     private final float urban;
@@ -23,14 +23,14 @@ public final class RegionImpl implements Region {
     private final ClimateInt climate;
     private RegionCureStatus status = RegionCureStatus.NONE;
     //private State statusCure;
-    private List<TransmissionMeansImpl> trasmissionMeans;
+    private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
 
     /**
-     * This is the constructor
+     * This is the constructor.
      * 
-     * @param popTot 
+     * @param popTot
      *              the total population 
-     * @param name  
+     * @param name 
      *              the name of the region
      * @param reachableRegion
      *                        means with the list of reachable state and the numbre of the mean
@@ -48,9 +48,9 @@ public final class RegionImpl implements Region {
      *              percentage of humidity
      * 
      */
-    public RegionImpl(final int popTot, final String name, final Map<String,Pair<Integer, Optional<List<String>>>> reachableRegion, 
-        final float urban, final float poor, 
-        final int color, final int facilities, final float hot, final float humid) {
+    public RegionImpl(final int popTot, final String name, 
+            final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban, 
+            final float poor, final int color, final int facilities, final float hot, final float humid) {
         this.popTot = popTot;
         this.name = name;
         this.urban = urban;
@@ -62,17 +62,16 @@ public final class RegionImpl implements Region {
         //this.statusCure = State.NEUTRO;
     }
 
-   
-    private void createMeans(final Map<String,Pair<Integer,Optional<List<String>>>> reachableRegion) {
+    private void createMeans(final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion) {
         reachableRegion.forEach((mean, list) -> {
             addMeans(list, mean);
         });
     } 
 
     private void addMeans(final Pair<Integer, Optional<List<String>>> pair, final String means) {
-        int n = pair.getX();
-        Optional<List<String>> list = pair.getY();
-        for ( int i = 0; i < n; i++) {
+        final int n = pair.getX();
+        final Optional<List<String>> list = pair.getY();
+        for (int i = 0; i < n; i++) {
             trasmissionMeans.add(new TransmissionMeansImpl(list, means));
         }
     }
@@ -102,10 +101,10 @@ public final class RegionImpl implements Region {
         return numDead;
     }
 
-    @Override
+    /*@Override
     public int getNumCared() {
         return numCared;
-    }
+    }*/
 
     @Override
     public String getName() {
@@ -133,7 +132,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public List<TransmissionMeansImpl> getTrasmissionMeans() {
+    public List<TransmissionMean> getTrasmissionMeans() {
         return new LinkedList<>(trasmissionMeans);
     }
 
@@ -155,7 +154,7 @@ public final class RegionImpl implements Region {
 
 
     @Override
-    public void setCureStatus(RegionCureStatus status) {
+    public void setCureStatus(final RegionCureStatus status) {
         this.status = status;
     }
 

@@ -15,23 +15,27 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import globaloutbreak.controller.api.Controller;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
-
+/**
+ * Implement. of RegionControllerInt.
+ */
 public final class RegionController implements RegionControllerInt {
-    private final Model model;
+    private final Controller controller;
     /**
-     * 
-     * @param model
-     *              model
+     * Constructor.
+     * @param controller
+     *              controller
      * @throws IOException
      */
-    public RegionController(final Model model) throws IOException {
+    public RegionController(final Controller controller) throws IOException {
         //readMeans();
-        String path = "resources\\region\\ConfigRegion.json";
-        JsonNode node = getJsonNode(path);
-        this.model = model;
+        this.controller = controller;
+        final String path = "region/ConfigRegion.json";
+        final JsonNode node = getJsonNode(path);
+        
         node.forEach(k -> {
             int popTot = 0;
             String name = "";
@@ -40,7 +44,7 @@ public final class RegionController implements RegionControllerInt {
             float humid = 0;
             float hot = 0;
             List<String> reachableState;
-            Map<String,Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
+            final Map<String, Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
             int color = 0;
             Integer facilities = 0;
             final Iterator<Entry<String, JsonNode>> iterator = k.fields();
@@ -58,14 +62,16 @@ public final class RegionController implements RegionControllerInt {
                     case "humid" : humid = e.getValue().floatValue();
                         break;
                     case "confini" : reachableState = getTypeOfMeans(k);
-                        means.put("terra",  new Pair<>(1, Optional.of(reachableState)));
+                        means.put("terra", new Pair<>(1, Optional.of(reachableState)));
                         break;
                     case "hot" : hot = e.getValue().floatValue();
                         break;
                     case "facilities" : facilities = e.getValue().intValue();
-                        break;  
+                        break;
                     case "popTot" : popTot = e.getValue().intValue();
                         break;
+                    case "poor" : poor = e.getValue().floatValue();
+                    break;
                     case "urban" : urban = e.getValue().floatValue();
                         break;
                     default :
@@ -79,62 +85,54 @@ public final class RegionController implements RegionControllerInt {
 
     @Override
     public void incDeathPeople(final Integer newdeath, final Region region) {
-
+        this.model.incDeathPeople(newdeath, region);
     }
 
     @Override
     public void incOrDecInfectedPeople(final Integer newInfect, final Region region) {
-
+        this.model.incOrDecInfectedPeople(newInfect, region);
     }
 
     @Override
-    public Integer getDeath(final Integer color) {
-        model.getRegions();
-        return 0;
+    public Integer getDeath(final int color) {
+        return findRegionByColor(color).getNumDeath();
     }
 
     @Override
-    public Integer getInfect(final Integer color) {
-        return 0;
+    public Integer getInfect(final int color) {
+        return findRegionByColor(color).getNumInfected();
     }
 
     @Override
-    public String getName(final Integer color) {
-        return "";
+    public String getName(final int color) {
+        return findRegionByColor(color).getName();
     }
 
-    /*private void readMeans() throws IOException {
-        JsonNode node = getJsonNode("resources\\region\\ConfigMeans.json");
-        means = new LinkedList<>();
-        node.forEach( k -> {
-            final Iterator<Entry<String, JsonNode>> iterator = k.fields();
-            while(iterator.hasNext()) {
-                String type;
-                List<String> reach;
-                final Entry<String, JsonNode> e = iterator.next();
-                switch(e.getKey()) {
-                    case "type" : type = e.getValue().textValue();
-                }  
-                if(!means.contains(type)) {
-                    means.add(type);
-                }     
-            }
-        });
-    }*/
-    private List<String> getTypeOfMeans(JsonNode node) {
-        List<String> reach = new LinkedList<>();
+    private Region findRegionByColor(final int color) {
+        return this.model.getRegions().stream().filter(k -> k.getColor() == color).findFirst().get();
+    }
+
+    private List<String> getTypeOfMeans(final JsonNode node) {
+        final List<String> reach = new LinkedList<>();
         final Iterator<Entry<String, JsonNode>> iterator = node.fields();
             while (iterator.hasNext()) {
                 final Entry<String, JsonNode> e = iterator.next();
-                if(!reach.contains(e.getValue().textValue())) {
+                if (!reach.contains(e.getValue().textValue())) {
                     reach.add(e.getValue().textValue());
                 }
             }
         return reach;
     }
-    private JsonNode getJsonNode(String path) throws IOException {
-        ObjectMapper map = new ObjectMapper();
+
+    private JsonNode getJsonNode(final String path) throws IOException {
+        final ObjectMapper map = new ObjectMapper();
         return map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path), 
                 StandardCharsets.UTF_8)));
+    }
+
+    @Override
+    public void selectRegion(final int region) {
+        final Region r = this.model.getRegions().stream().filter(k -> k.getColor() == region).toList().get(0);
+        this.model.selectedRegion(r);
     }
 }

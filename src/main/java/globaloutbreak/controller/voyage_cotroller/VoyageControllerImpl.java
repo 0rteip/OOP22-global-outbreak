@@ -15,7 +15,7 @@ import globaloutbreak.model.Model;
 import globaloutbreak.model.pair.Pair;
 
 /**
- * 
+ * Implement. of VoyageController.
  */
 public final class VoyageControllerImpl implements VoyageController {
     private final Model model;
@@ -26,11 +26,12 @@ public final class VoyageControllerImpl implements VoyageController {
      */
     public VoyageControllerImpl(final Model model) throws IOException {
         this.model = model;
-        ObjectMapper map = new ObjectMapper();
-        JsonNode node = map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("region/ConfigMeans.json"), 
+        final ObjectMapper map = new ObjectMapper();
+        final String path = "region/ConfigMeans.json";
+        final JsonNode node = map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path), 
                 StandardCharsets.UTF_8)));
-        Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans = new HashMap<>();
-        node.forEach( k -> {
+        final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans = new HashMap<>();
+        node.forEach(k -> {
             final Iterator<Entry<String, JsonNode>> iterator = k.fields();
             while (iterator.hasNext()) {
                 int num = 0;
@@ -52,6 +53,8 @@ public final class VoyageControllerImpl implements VoyageController {
         });
         this.model.createVoyage(sizeAndNameOfMeans);
     }
-
-    
+    @Override
+    public Map<String, Map<Integer, Pair<Integer, Integer>>> extractVoyages() {
+        return this.model.extractVoyages();
+    }
 }

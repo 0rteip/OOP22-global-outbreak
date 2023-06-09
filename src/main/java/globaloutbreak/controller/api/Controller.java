@@ -1,9 +1,14 @@
 package globaloutbreak.controller.api;
 
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.api.Message;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 
@@ -39,9 +44,9 @@ public interface Controller {
      * Pass the selected region.
      * 
      * @param region
-     *               region selected
+     *               region's color
      */
-    void selectedRegion(Region region);
+    void selectedRegion(int region);
 
     /**
      * Pass the selected mutation.
@@ -84,4 +89,20 @@ public interface Controller {
      * Read diseases names.
      */
     void readDiseasesNames();
+
+    /**
+     * Add region.
+     */
+    void addRegion(int popTot, String name, Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, 
+            float urban, float poor,
+            int color, int facilities, float hot, float humid);
+    /**
+     * Get Region by color.
+     * 
+     * @param color
+     *              region's color
+     * @return
+     *          Region
+     */
+    Region getRegionByColor(int color);
 }

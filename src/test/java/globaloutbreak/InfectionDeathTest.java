@@ -13,10 +13,10 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.disease.DiseaseFactory;
 import globaloutbreak.model.disease.DiseaseFactoryImpl;
-import globaloutbreak.model.region.Climate;
+//import globaloutbreak.model.region.Climate;
 import globaloutbreak.model.region.ClimateInt;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.region.TransmissionMeansImpl;
+import globaloutbreak.model.region.TransmissionMean;
 
 class InfectionDeathTest {
 
@@ -90,8 +90,7 @@ class InfectionDeathTest {
 
         @Override
         public ClimateInt getClimate() {
-            return new Climate(0, 0) {
-
+            return new ClimateInt() {
                 static final float HOT = 0.1f;
                 static final float COLD = 0.2f;
                 static final float ARID = 0.6f;
@@ -127,12 +126,6 @@ class InfectionDeathTest {
         }
 
         @Override
-        public int getNumCared() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getNumCared'");
-        }
-
-        @Override
         public String getName() {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getName'");
@@ -145,7 +138,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public List<TransmissionMeansImpl> getTrasmissionMeans() {
+        public List<TransmissionMean> getTrasmissionMeans() {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
         }

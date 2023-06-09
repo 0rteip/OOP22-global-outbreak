@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.events.Event;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
@@ -20,7 +21,7 @@ public interface Model {
      * 
      * @param popTot 
      *              the total population 
-     * @param name  
+     * @param name
      *              the name of the region
      * @param reachableRegion
      *                        means with the list of reachable state and the numbre of the mean
@@ -37,8 +38,9 @@ public interface Model {
      * @param humid
      *              percentage of humidity
      */
-    void addRegion(Integer popTot, String name, Map<String,Pair<Integer,Optional<List<String>>>> reachableRegion, float urban, float poor,
-        Integer color, Integer facilities, float hot, float humid);
+    void addRegion(int popTot, String name, Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, 
+            float urban, float poor,
+            int color, int facilities, float hot, float humid);
 
     /**
      * Choosen disease type and name.
@@ -106,7 +108,7 @@ public interface Model {
      * @return
      *          the selected region if is empty is all world
      */
-    public Optional<Region> getSelectedRegion();
+    Optional<Region> getSelectedRegion();
 
     /**
      * This method creates the class Voyage.
@@ -133,4 +135,45 @@ public interface Model {
                     perc. of prob.
     */
     void addEvent(float death, String name, float prob);
+
+    /**
+     * Thi method extract voyages.
+     * 
+     * @return
+     *         String is the type of means, Integer is the number of new infected 
+     *          and in the pair there is departure and destination expressed with the color of region
+     */
+    Map<String, Map<Integer, Pair<Integer, Integer>>> extractVoyages();
+    /**
+     * 
+     * @param newdeath
+     *                  new death
+     * @param region
+     *                  region
+     */
+    void incDeathPeople(int newdeath, Region region);
+    /**
+     * 
+     * @param newinfected
+     *                      new death
+     * @param region
+     *                  region
+     */
+    void incOrDecInfectedPeople(int newinfected, Region region);
+    /**
+     * 
+     * @return
+     *          region and num of death
+     */
+    Optional<Pair<Region, Integer>> causeEvent();
+    /**
+     * 
+     * @return
+     *          the list of events
+     */
+    List<Event> getEvents();
+    /**
+     * This method creates CauseEvent class.
+     */
+    void createCauseEvents();
 }

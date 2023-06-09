@@ -3,7 +3,7 @@ package globaloutbreak.controller.region_controller;
 import globaloutbreak.model.region.Region;
 
 /**
- * Controller for Region
+ * Controller for Region.
  */
 public interface RegionControllerInt {
 
@@ -35,7 +35,7 @@ public interface RegionControllerInt {
      * @return
      *          return the count of death
      */
-    Integer getDeath(Integer color);
+    Integer getDeath(int color);
 
     /**
      * This method find the infecded count by the region color.
@@ -45,7 +45,7 @@ public interface RegionControllerInt {
      * @return
      *          return the count of infected people
      */
-    Integer getInfect(Integer color);
+    Integer getInfect(int color);
 
     /**
      * This method find the name of region by the region color.
@@ -54,5 +54,11 @@ public interface RegionControllerInt {
      * @return
      *          return the name of region
      */
-    String getName(Integer color);
+    String getName(int color);
+    /**
+     * This method select a region.
+     * @param region
+     *              the region's color
+     */
+    void selectRegion(int region);
 }

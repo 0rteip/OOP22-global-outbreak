@@ -47,14 +47,14 @@ public interface Region {
      *          the num of death
      */
     int getNumDeath();
-
+/* 
     /**
      * 
      * @return
      *          the num of cared people
-     */
+     *//* 
     int getNumCared();
-
+    */
     /**
      * 
      * @return
@@ -116,7 +116,7 @@ public interface Region {
      * @return
      *          all means
      */
-    List<TransmissionMeansImpl> getTrasmissionMeans();
+    List<TransmissionMean> getTrasmissionMeans();
 
     /**
      * This method change the status.
