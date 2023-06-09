@@ -1,4 +1,5 @@
 package globaloutbreak.controller;
+
 import java.util.Map;
 
 import globaloutbreak.gamespeed.GameSpeed;
@@ -105,27 +106,16 @@ public interface Controller {
      */
     GameSettingsGetter getSettings();
 
-
-    /**
-     * Creates the Disease.
-     * 
-     * @param type
-     *             tyoe of disease
-     */
-    void createDisease(String type);
-
     /**
      * Read Disease.
      */
     void readDiseasesNames();
+
     /**
      * This method find Info of selected region.
+     * 
      * @return
-     *          the ifo
+     *         the ifo
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
-    /**
-     * This method set region's list.
-     */
-    void setRegions();
 }
