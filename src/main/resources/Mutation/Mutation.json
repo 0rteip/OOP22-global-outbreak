@@ -1,34 +1,200 @@
 [
     {
+        "cost":28, 
+        "name":"Insufficienza d'organo totale", 
+        "increase":0.8, 
+        "type": "SYMPTOMS", 
+        "description":"La morte cellulare catastrofica di più tipi di tessuto provoca insufficienza d'organo in tutto il corpo e morte rapida"
+        
+    },
+    {
+        "cost":27, 
+        "name":"Necrosi", 
+        "increase":0.7, 
+        "type": "SYMPTOMS", 
+        "description":"Ampie fasce di tessuto infetto perdono l'afflusso di sangue e diventano fonti fatali di cancrena. I corpi decomposti rimangono un vettore di trasmissione"
+        
+    },
+    {
+        "cost":8, 
+        "name":"Follia", 
+        "increase":0.2, 
+        "type": "SYMPTOMS", 
+        "description":"L'azione neuropatica del patogeno nel lobo frontale provoca gravi anomalie emotive e comportamentali. Significativamente più difficile da curare."
+        
+    },
+    {
+        "cost":21, 
+        "name":"Coma", 
+        "increase":0.5, 
+        "type": "SYMPTOMS", 
+        "description":"Gli effetti neuropatici nel tronco encefalico causano la perdita di coscienza e talvolta la morte. Significativamente più difficile da curare"
+        
+    },  
+    {
+        "cost":4, 
+        "name":"Convulsioni", 
+        "increase":0.1, 
+        "type": "SYMPTOMS", 
+        "description":"Blackout e attacchi casuali riducono la capacità del paziente di funzionare in modo indipendente. Può essere fatale."
+        
+    },
+    {
+        "cost":7, 
+        "name":"Tachicardia", 
+        "increase":0.1, 
+        "type": "SYMPTOMS", 
+        "description":"La frequenza cardiaca a riposo è costantemente superiore a 100 battiti al minuto, esercitando una pressione eccessiva sul cuore. Può essere fatale con i pazienti più anziani."
+        
+    },
+    {
+        "cost":11, 
+        "name":"Tumori", 
+        "increase":0.4, 
+        "type": "SYMPTOMS", 
+        "description":"Gli agenti patogeni interrompono i percorsi di crescita cellulare, causando una crescita tumorale incontrollata e alla fine fatale."
+        
+    },
+    {
+        "cost":6, 
+        "name":"Allucinazioni", 
+        "increase":0.2, 
+        "type": "SYMPTOMS", 
+        "description":"Si sono create lesioni occipitali, che causano gravi allucinazioni. La mancanza di consapevolezza aumenta la possibilità di trasmissione e il rischio di lesioni"
+        
+    },
+
+    {
         "cost":5, 
-        "name":"prova", 
+        "name":"Infiammazione", 
+        "increase":0.1, 
+        "type": "SYMPTOMS", 
+        "description":"L'infiammazione ostacola i processi corporei. Il gonfiore può ostacolare la respirazione ed essere fatale"
+        
+    },
+    {
+        "cost":9, 
+        "name":"Aria", 
+        "increase":0.1, 
+        "type": "AIR", 
+        "description":"Conferisce agli agenti patogeni la capacità di viaggiare sulle particelle di polvere. Aumentare l'infettività, specialmente in ambienti aridi e trasmissione aerea."
+        
+    }, 
+    {
+        "cost":9, 
+        "name":"Terra", 
+        "increase":0.1, 
+        "type": "LAND", 
+        "description":"Conferisce agli agenti patogeni la capacità di viaggiare sulle particelle di polvere. Aumentare l'infettività, specialmente in ambienti aridi e trasmissione aerea."
+        
+    },{
+        "cost":9, 
+        "name":"Mare", 
+        "increase":0.1, 
+        "type": "SEA", 
+        "description":"Conferisce agli agenti patogeni la capacità di viaggiare sulle particelle di polvere. Aumentare l'infettività, specialmente in ambienti +con molto vento."
+        
+    },
+    {
+        "cost":9, 
+        "name":"Insetto", 
         "increase":0.1, 
         "type": "TRASMISSION", 
-        "description":"desc1"
+        "description":"Insetti suscettibili di infezione. Gli insetti portatori aumentano l'infettività , specialmente nei climi caldi e la possibilità di mutazione."
         
     },
     {
-        "cost":4, 
-        "name":"prova1", 
-        "increase":0.2, 
+        "cost":9, 
+        "name":"Pipistrello", 
+        "increase":0.1, 
         "type": "TRASMISSION", 
-        "description":"desc2"
+        "description":"descAgente patogeno in grado di diffondersi attraverso l'urina di pipistrello, soprattutto attraverso la frutta. Aumenta l'infettività, la trasmissione terrestre e la mutazione.1"
         
     },
     {
-        "cost":4, 
-        "name":"prova2", 
-        "increase":0.2, 
+        "cost":8, 
+        "name":"Agnello", 
+        "increase":0.1, 
         "type": "TRASMISSION", 
-        "description":"desc2"
+        "description":"L'agente patogeno si diffonde attraverso il consumo di agnello e montone. Aumenta l'infettività e la probabilità di mutazione ."
         
     },
     {
-        "cost":4, 
-        "name":"prova3", 
-        "increase":0.2, 
+        "cost":6, 
+        "name":"Saliva", 
+        "increase":0.1, 
         "type": "TRASMISSION", 
-        "description":"desc2"
+        "description":"Il virus si replica più velocemente nelle ghiandole salivari, aumentando la possibilità di infezione attraverso il contatto con la saliva"
+        
+    }, {
+        "cost":6, 
+        "name":"Pulce", 
+        "increase":0.1, 
+        "type": "TRASMISSION", 
+        "description":"Pulce comune suscettibile di infezione. Aumentare l'infettività , specialmente nelle regioni urbane e la mutazione"
+        
+    }, {
+        "cost":4, 
+        "name":"Suina", 
+        "increase":0.1, 
+        "type": "TRASMISSION", 
+        "description":" il patogeno utilizza i maiali come ospite principale per lo spostamento antigenico, scambiando geni con più ceppi di influenza."
+        
+    },{
+        "cost":12, 
+        "name":"Uccello", 
+        "increase":0.1, 
+        "type": "TRASMISSION", 
+        "description":"Gli uccelli diventano suscettibili alle infezioni. I vettori aviari aumentano l'infettività , la trasmissione terrestre e la mutazione"
+        
+    } , {
+        "cost":11, 
+        "name":"Resistenza ai farmaci", 
+        "increase":0.1, 
+        "type": "DRUGRESISTANCE", 
+        "description":"L'agente patogeno diventa resistente ai farmaci. Aumentare l'efficacia nei paesi ricchi"
+        
+    },{
+        "cost":5, 
+        "name":"Instabilità virale", 
+        "increase":0.1, 
+        "type": "DRUGRESISTANCE", 
+        "description":"Il DNA diventa instabile, aumentando le mutazioni casuali"
+        
+    },{
+        "cost":11, 
+        "name":"Immunità ai farmaci", 
+        "increase":0.1, 
+        "type": "DRUGRESISTANCE", 
+        "description":"Ricevitori cellulari intelligenti in grado di respingere tutta la medicina moderna - aumentando l'efficacia nei paesi ricchi"
+        
+    },{
+        "cost":3, 
+        "name":"Riparazione del DNA", 
+        "increase":0.1, 
+        "type": "DRUGRESISTANCE", 
+        "description":"Riparazione iniziale di filamenti proteici di basso livello danneggiati durante la dormienza. Ripristina i sintomi antichi e la capacità di stabilizzarsi in ambienti più caldi"
+        
+    },{
+        "cost":7, 
+        "name":"Resistenza al freddo", 
+        "increase":0.1, 
+        "type": "COLDRESISTANCE", 
+        "description":"L'agente patogeno si evolve per resistere a temperature e climi freddi"
+        
+    },{
+        "cost":23, 
+        "name":"Tolleranza agli antibiotici", 
+        "increase":0.1, 
+        "type": "DRUGRESISTANCE", 
+        "description":"L'agente patogeno si evolve per resistere agli antibiotici"
+        
+    },{
+        "cost":11, 
+        "name":"Resistenza al calore", 
+        "increase":0.1, 
+        "type": "HEATRESISTANCE", 
+        "description":"L'agente patogeno si evolve per resistere ai climi caldi"
         
     }
 ]
