@@ -1,11 +1,19 @@
 package globaloutbreak.model;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.api.Infodata;
+import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.dataanalyzer.DataAnalyzer;
+import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.message.Message;
+import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
@@ -13,30 +21,41 @@ import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.RegionImpl;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.VoyageImpl;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
+
 /**
  * Impl of Model interface.
  */
 public final class ModelImpl implements Model {
-    private List<Region> regions;
-    private Optional<Region> selectedRegion;
-    private Voyage voyage;
-    private List<Event> events;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Disease disease;
+    private final List<Region> regions = new LinkedList<>();
+    private Optional<Region> selectedRegion = Optional.empty();
+    private Voyage voyage;
+    private Optional<Cure> cure = Optional.empty();
+    private final List<Event> events = new LinkedList<>();
+    private final DataAnalyzer<Integer> deathAnalyzer;
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private Optional<Message> newsMessage = Optional.empty();
+
     private InfoData infoData;
     /**
-     * Constructor.
+     * Creates a model.
      */
     public ModelImpl() {
         this.regions = new LinkedList<>();
         this.events = new LinkedList<>();
         this.selectedRegion = Optional.empty();
-        this.infoData = new InfoDataImpl();
     }
 
     @Override
-    public void addRegion(final Integer ppTot, final String name, Map<String,Pair<Integer, Optional<List<String>>>> reachableRegion,  final float urban, final float poor, 
-        final Integer color, final Integer facilities, final float hot, final float humid) {
+    public void addRegion(final Integer ppTot, final String name,
+            final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban,
+            final float poor, final Integer color, final Integer facilities, final float hot, final float humid) {
         this.regions.add(new RegionImpl(ppTot, name, reachableRegion, urban, poor, color, facilities, hot, humid));
     }
 
@@ -44,7 +63,6 @@ public final class ModelImpl implements Model {
     public List<Region> getRegions() {
         return new LinkedList<>(this.regions);
     }
-
 
     @Override
     public void selectedRegion(final Region region) {
@@ -58,12 +76,12 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setDisease(final Disease disease){
+    public void setDisease(final Disease disease) {
         this.disease = disease;
     }
 
     @Override
-    public void setDiseaseName(final String name){
+    public void setDiseaseName(final String name) {
         this.disease.setName(name);
     }
 
@@ -93,7 +111,7 @@ public final class ModelImpl implements Model {
     @Override
     public void createVoyage(final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans) {
         this.voyage = new VoyageImpl(sizeAndNameOfMeans);
-    }   
+    }
 
     @Override
     public Voyage getVoyage() {
@@ -102,13 +120,27 @@ public final class ModelImpl implements Model {
 
     @Override
     public void addEvent(final float morti, final String name, final float prob) {
-            events.add(new Event(name, prob, morti));
+        events.add(new Event(name, prob, morti));
     }
 
     @Override
-    public void chosenDisease(globaloutbreak.model.disease.Disease disease, String name) {
+    public void chosenDisease(final Disease disease, final String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
+    }
+
+    @Override
+    public void setCure(final Cure cure) {
+        this.cure = Optional.of(cure);
+    }
+
+    @Override
+    public boolean isGameOver() {
+        if (this.cure.isPresent()) {
+            return this.cure.get().isCompleted();
+        }
+        logger.info("No Cure setted, closing game");
+        return true;
     }
 
     @Override

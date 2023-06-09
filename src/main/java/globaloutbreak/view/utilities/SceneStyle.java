@@ -1,4 +1,4 @@
-package view.utilities;
+package globaloutbreak.view.utilities;
 
 /**
  * Enumeration of scenes.
@@ -20,7 +20,11 @@ public enum SceneStyle {
     /**
      * Tutorial scene.
      */
-    TUTORIAL("Tutorial", "layouts/TutorialGui.fxml");
+    TUTORIAL("Tutorial", "layouts/TutorialGui.fxml"),
+    /**
+     * Game Settings Scene.
+     */
+    SETTINGS("Settings", "layouts/game_settings.fxml");
 
     private final String fxmlFile;
     private final String title;

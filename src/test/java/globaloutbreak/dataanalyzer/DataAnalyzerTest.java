@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.dataanalyzer;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 

@@ -1,0 +1,19 @@
+[
+    {
+        "duration": 2,
+        "name": "Normal",
+        "default":true
+    },
+    {
+        "duration": 1,
+        "name": "Fast"
+    },
+    {
+        "duration": 4,
+        "name": "Slow"
+    },
+    {
+        "duration": 0.1,
+        "name": "Really fast"
+    }
+]

@@ -1,21 +1,17 @@
 package globaloutbreak.controller;
 
-
-import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Message;
+import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
 /**
  * Controller interface.
  */
 public interface Controller {
-
-    /**
-     * Start a game, create model and view.
-     */
-    void startGame();
 
     /**
      * Choosen disease type.
@@ -81,7 +77,45 @@ public interface Controller {
     void quit();
 
     /**
-     * Read diseases names.
+     * Start or stop the game.
+     */
+    void startStop();
+
+    /**
+     * Set the game speed.
+     * 
+     * @param gameSpeed
+     *                  to set
+     */
+    void setGameSpeed(GameSpeed gameSpeed);
+
+    /**
+     * Returns if the Game is running.
+     * 
+     * @return
+     *         {@code True} if is running
+     */
+    boolean isGameRunning();
+
+    /**
+     * Returns the GameSettingsGetter.
+     * 
+     * @return
+     *         GameSettingsGetter
+     */
+    GameSettingsGetter getSettings();
+
+
+    /**
+     * Creates the Disease.
+     * 
+     * @param type
+     *             tyoe of disease
+     */
+    void createDisease(String type);
+
+    /**
+     * Read Disease.
      */
     void readDiseasesNames();
 }

@@ -1,4 +1,4 @@
-package diseasereader;
+package globaloutbreak.diseasereader;
 
 import java.util.List;
 

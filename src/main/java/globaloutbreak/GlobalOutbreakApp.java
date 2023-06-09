@@ -2,8 +2,6 @@ package globaloutbreak;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.ControllerImpl;
-import globaloutbreak.model.Model;
-import globaloutbreak.model.ModelImpl;
 import globaloutbreak.view.View;
 import globaloutbreak.view.ViewImpl;
 import javafx.application.Application;
@@ -12,7 +10,6 @@ import javafx.stage.Stage;
 /**
  * Application.
  */
-
 public class GlobalOutbreakApp extends Application {
 
     /**
@@ -22,15 +19,15 @@ public class GlobalOutbreakApp extends Application {
     public final void start(final Stage primaryStage) throws Exception {
 
         final View view = new ViewImpl(primaryStage);
-        final Model model = new ModelImpl();
-        final Controller controller = new ControllerImpl(view, model);
-        controller.startGame();
+        final Controller controller = new ControllerImpl(view);
+        view.start(controller);
     }
 
     /**
-     * Main.
+     * Entry point for the App.
      * 
      * @param args
+     *             passed to launch
      */
     public static void main(final String[] args) {
         launch(args);

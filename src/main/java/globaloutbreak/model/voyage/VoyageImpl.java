@@ -28,15 +28,15 @@ public final class VoyageImpl implements Voyage {
     @Override
     public Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(final List<RegionImpl> regions) {
         Map<String, Map<Integer, Pair<Integer, Integer>>> extractedMeans = new HashMap<>();
-        sizeAndNameOfMeans.forEach( (means, size) -> {
+        sizeAndNameOfMeans.forEach((means, size) -> {
             Map<Integer, Pair<Integer, Integer>> oneMeans = new HashMap<>();
             List<RegionImpl> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-            for ( int i = 0; i < size.getX(); i++) {
+            for (int i = 0; i < size.getX(); i++) {
                 Pair<Integer, Integer> partDest = extractRegion(newRegions);
                 int prob = newRegions
                         .stream()
-                        .filter( k -> k.getColor() == partDest.getX())
+                        .filter(k -> k.getColor() == partDest.getX())
                         .toList()
                         .get(0).calcPercInfected();
                 oneMeans.put(numInfected(prob, size.getY()), partDest);

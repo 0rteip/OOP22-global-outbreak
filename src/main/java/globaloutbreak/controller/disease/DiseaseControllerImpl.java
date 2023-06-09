@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import diseasereader.DiseaseReaderImpl;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.disease.DiseaseDataList;
@@ -19,7 +18,8 @@ import globaloutbreak.model.disease.DiseaseFactoryImpl;
 public final class DiseaseControllerImpl implements DiseaseController {
 
     private final DiseaseDataList diseaseList = new DiseaseDataList();
-    private final Logger logger = LoggerFactory.getLogger(DiseaseReaderImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Disease disease;
 
     @Override
     public void readFile(final List<DiseaseData> diseaseList) {

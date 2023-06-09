@@ -1,5 +1,6 @@
 package globaloutbreak.view.scenemanager;
 
+import globaloutbreak.model.message.Message;
 import globaloutbreak.view.sceneloader.SceneLoader;
 
 /**
@@ -8,27 +9,32 @@ import globaloutbreak.view.sceneloader.SceneLoader;
 public interface SceneManager {
 
     /**
-     * 
+     * Open menu Scene.
      */
     void openInitialMenu();
 
     /**
-     * 
+     * Open tutorial Scene.
      */
     void openTutorial();
 
     /**
-     * 
+     * Open diseaseChoice Scene.
      */
     void openDiseaseChoice();
 
     /**
-     * 
+     * Open diseaseName Scene.
      */
     void openDiseaseName();
 
     /**
-     * 
+     * Open Settings Scene.
+     */
+    void openSettings();
+
+    /**
+     * Open last Scene.
      */
     void openBackScene();
 
@@ -38,4 +44,12 @@ public interface SceneManager {
      *         the {@link SceneLoader}.
      */
     SceneLoader getSceneLoader();
+
+    /**
+     * Open a message.
+     * 
+     * @param message
+     *                message
+     */
+    void openMessage(Message message);
 }

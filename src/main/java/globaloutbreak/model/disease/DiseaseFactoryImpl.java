@@ -5,11 +5,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
-
 import globaloutbreak.model.region.Region;
-
 import org.slf4j.Logger;
-
 
 /**
  * Disease factory class.

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
+
 /**
  * Implementation of Region.
  */
@@ -22,35 +23,37 @@ public final class RegionImpl implements Region {
     private final Integer color;
     private final ClimateInt climate;
     private RegionCureStatus status = RegionCureStatus.NONE;
-    //private State statusCure;
+    // private State statusCure;
     private List<TransmissionMeansImpl> trasmissionMeans;
 
     /**
-     * This is the constructor
+     * This is the constructor.
      * 
-     * @param popTot 
-     *              the total population 
-     * @param name  
-     *              the name of the region
+     * @param popTot
+     *                        the total population
+     * @param name
+     *                        the name of the region
      * @param reachableRegion
-     *                        means with the list of reachable state and the numbre of the mean
+     *                        means with the list of reachable state and the numbre
+     *                        of the mean
      * @param urban
-     *              percentage of people living in urban areas
+     *                        percentage of people living in urban areas
      * @param poor
-     *              percentage of people who are below the poverty line
+     *                        percentage of people who are below the poverty line
      * @param color
-     *              the color of the region
+     *                        the color of the region
      * @param facilities
-     *                  number of care facilities
+     *                        number of care facilities
      * @param hot
-     *               percentage of hot climate
+     *                        percentage of hot climate
      * @param humid
-     *              percentage of humidity
+     *                        percentage of humidity
      * 
      */
-    public RegionImpl(final int popTot, final String name, final Map<String,Pair<Integer, Optional<List<String>>>> reachableRegion, 
-        final float urban, final float poor, 
-        final int color, final int facilities, final float hot, final float humid) {
+    public RegionImpl(final int popTot, final String name,
+            final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion,
+            final float urban, final float poor,
+            final int color, final int facilities, final float hot, final float humid) {
         this.popTot = popTot;
         this.name = name;
         this.urban = urban;
@@ -59,20 +62,19 @@ public final class RegionImpl implements Region {
         this.facilities = facilities;
         this.climate = new Climate(humid, hot);
         createMeans(reachableRegion);
-        //this.statusCure = State.NEUTRO;
+        // this.statusCure = State.NEUTRO;
     }
 
-   
-    private void createMeans(final Map<String,Pair<Integer,Optional<List<String>>>> reachableRegion) {
+    private void createMeans(final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion) {
         reachableRegion.forEach((mean, list) -> {
             addMeans(list, mean);
         });
-    } 
+    }
 
     private void addMeans(final Pair<Integer, Optional<List<String>>> pair, final String means) {
         int n = pair.getX();
         Optional<List<String>> list = pair.getY();
-        for ( int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             trasmissionMeans.add(new TransmissionMeansImpl(list, means));
         }
     }
@@ -147,15 +149,13 @@ public final class RegionImpl implements Region {
         return this.climate;
     }
 
-
     @Override
     public RegionCureStatus getCureStatus() {
         return this.status;
     }
 
-
     @Override
-    public void setCureStatus(RegionCureStatus status) {
+    public void setCureStatus(final RegionCureStatus status) {
         this.status = status;
     }
 
