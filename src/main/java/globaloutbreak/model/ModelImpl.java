@@ -18,12 +18,14 @@ import globaloutbreak.model.events.Event;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.pair.Pair;
+import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.VoyageImpl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -136,7 +138,18 @@ public final class ModelImpl implements Model {
 
     @Override
     public void extractVoyages() {
-        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions());
+        final Map<String, Float>  pot = new HashMap<>();
+        voyage.getMeans().forEach(k -> {
+            switch (k) {
+                case "terra" : pot.put(k, this.disease.getLandInfectivity());
+                    break;
+                case "porti" : pot.put(k, this.disease.getSeaInfectivity());
+                    break;
+                case "areporti" : pot.put(k, this.disease.getAirInfectivity());
+            }
+
+        });
+        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
         if (voyages.isEmpty()) {
             voyages.forEach((s, m) -> {
                 m.forEach((i, p) -> {
@@ -161,6 +174,9 @@ public final class ModelImpl implements Model {
             if (death + newdeath > popTot) {
                 updateRegion.incDeathPeople(popTot - death);
                 updateRegion.setCureStatus(RegionCureStatus.FINISHED);
+                updateRegion.getTrasmissionMeans().stream().forEach(k -> {
+                    k.setState(MeansState.CLOSE);
+                });
             } else if (death + newdeath < popTot) {
                 updateRegion.incDeathPeople(newdeath);
             } 

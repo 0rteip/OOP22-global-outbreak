@@ -1,51 +1,36 @@
 package globaloutbreak.model.region;
 
 /**
- * Impl. of ClimatInt.
+ * Interface Climate.
  */
-public final class Climate implements ClimateInt {
-    private final float arid;
-    private final float humid;
-    private final float hot;
-    private final float cold;
+public interface Climate {
+    /**
+     * 
+     * @return
+     *         arid perc.
+     */
+    float getArid();
 
     /**
-     * Constructor.
      * 
-     * @param humid
-     *              humid perc.
-     * @param hot
-     *              hot perc.
+     * @return
+     *          humid perc.
+     *
      */
-    public Climate(final float humid, final float hot) {
-        this.humid = humid;
-        this.hot = hot;
-        this.arid = 1 - humid;
-        this.cold = 1 - hot;
-    }
+    float getHumid();
 
-    /*private void compute(final float humid, final float hot) {
-        this.arid = 1 - humid;
-        this.cold = 1 - hot;
-    }*/
+    /**
+     * 
+     * @return
+     *         hot perc.
+     */
+    float getHot();
 
-    @Override
-    public float getArid() {
-        return arid;
-    }
+    /**
+     * 
+     * @return
+     *         cold perc
+     */
+    float getCold();
 
-    @Override
-    public float getHumid() {
-        return humid;
-    }
-
-    @Override
-    public float getHot() {
-        return hot;
-    }
-
-    @Override
-    public float getCold() {
-        return cold;
-    }
 }

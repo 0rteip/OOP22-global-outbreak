@@ -32,7 +32,7 @@ public interface Region {
      * @return
      *          the percentage of infected
      */
-    int calcPercInfected();
+    float calcPercInfected();
 
     /**
      * 
@@ -109,7 +109,7 @@ public interface Region {
      * @return
      *          climate class
      */
-    ClimateInt getClimate();
+    Climate getClimate();
 
     /**
      * 

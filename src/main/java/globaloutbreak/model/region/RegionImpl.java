@@ -21,7 +21,7 @@ public final class RegionImpl implements Region {
     private final float poor;
     private final Integer facilities;
     private final Integer color;
-    private final ClimateInt climate;
+    private final Climate climate;
     private RegionCureStatus status = RegionCureStatus.NONE;
     //private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
@@ -59,7 +59,7 @@ public final class RegionImpl implements Region {
         this.poor = poor;
         this.color = color;
         this.facilities = facilities;
-        this.climate = new Climate(humid, hot);
+        this.climate = new ClimateImpl(humid, hot);
         createMeans(reachableRegion);
         // this.statusCure = State.NEUTRO;
     }
@@ -89,7 +89,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public int calcPercInfected() {
+    public float calcPercInfected() {
         return (numInfected * 100) / popTot;
     }
 
@@ -144,7 +144,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public ClimateInt getClimate() {
+    public Climate getClimate() {
         return this.climate;
     }
 
