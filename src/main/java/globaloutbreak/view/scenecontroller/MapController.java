@@ -123,7 +123,7 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     public final void goToGeneralGraph(MouseEvent e) {
-
+        this.getSceneManager().openWorldGraphScene();
     }
 
     @FXML

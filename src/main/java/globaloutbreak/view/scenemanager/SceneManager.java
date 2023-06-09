@@ -42,11 +42,6 @@ public interface SceneManager {
      * 
      */
     void openCureGraphScene();
-    
-    /**
-     * 
-     */
-    void openBackScene();
 
     /**
      * 

@@ -19,13 +19,13 @@ public class WorldGraphSceneController extends AbstractSceneController implement
 
     @Override
     public void initializeScene() {
-        /*InfoData infodata = this.getView().getInfoData();
+        InfoData infodata = this.getView().getInfoData();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Morti", infodata.getTotalDeaths()),
                 new PieChart.Data("Infetti", infodata.getTotalInfected()),
                 new PieChart.Data("Sani", infodata.getTotalPopulation()));
-        pieChart.setData(pieChartData);*/
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+        pieChart.setData(pieChartData);
+        /*ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Morti", 0),
                 new PieChart.Data("Infetti", 0),
                 new PieChart.Data("Sani", 7_000_000));
@@ -34,7 +34,7 @@ public class WorldGraphSceneController extends AbstractSceneController implement
         for (PieChart.Data data : pieChartData) {
             String label = data.getName() + ": " + (int) data.getPieValue();
             data.setName(label);
-        }
+        }*/
     }
 
     @FXML
@@ -44,7 +44,7 @@ public class WorldGraphSceneController extends AbstractSceneController implement
 
     @FXML
     public void backScene() {
-        this.getSceneManager().openDiseaseChoice();
+        this.getSceneManager().openMap();
     }
 
     @FXML

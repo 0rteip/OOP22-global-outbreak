@@ -1,10 +1,7 @@
 package globaloutbreak.view.scenecontroller;
 
 import globaloutbreak.model.infodata.InfoData;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -25,16 +22,16 @@ public class CureGraphSceneController extends AbstractSceneController implements
 
     @Override
     public void initializeScene() {
-        /*InfoData infoData = this.getView().getInfoData();
+        InfoData infoData = this.getView().getInfoData();
         int percentage = infoData.getCureData().getProgress();
         this.progressBar.setProgress(percentage / 100);
         this.progress.setText(Integer.toString(percentage) + " %");
         infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList();
         String listContributors = String.join(",", infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
         this.progressBar.setProgress(0.5);
-        this.cureContributors.setText(listContributors);*/
-        this.progress.setText("20%");
-        this.cureContributors.setText("italia");
+        this.cureContributors.setText(listContributors);
+       // this.progress.setText("20%");
+        //this.cureContributors.setText("italia");
     }
 
     @FXML
@@ -47,7 +44,7 @@ public class CureGraphSceneController extends AbstractSceneController implements
 
     @FXML
     public void backScene(){
-        this.getSceneManager().openDiseaseName();
+        this.getSceneManager().openMap();
     }
 }
 
