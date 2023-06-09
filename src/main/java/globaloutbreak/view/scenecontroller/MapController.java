@@ -202,12 +202,6 @@ public final class MapController extends AbstractSceneController implements Scen
             visibleMeans.add("porti");
             visibleMeans.add("areoporti");
             setMap();
-            final Bounds bounds =  this.borderPane.getBottom().getBoundsInLocal();
-            final int width =  (int) Math.floor(this.borderPane.getWidth());
-            final int height = (int) Math.floor(this.borderPane.getHeight() - bounds.getHeight());
-            resize(sfondo, width, height);
-            resize(buf, width, height);
-            mapLab.setGraphic(sfondo);
             count++;
         }
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
@@ -215,7 +209,7 @@ public final class MapController extends AbstractSceneController implements Scen
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                     if(newValue != null && newValue.intValue() != 0 && newValue != oldValue) {
                         int width = newValue.intValue();
-                        int height = (int)Math.floor(sfondo.getFitHeight());
+                        int height = (int) Math.floor(sfondo.getFitHeight());
                         resizeIconMeans(width, height);
                         resize(sfondo, width, height);
                         resize(buf, width, height);
@@ -228,7 +222,7 @@ public final class MapController extends AbstractSceneController implements Scen
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if(newValue!= null && newValue.intValue() != 0 && newValue != oldValue) {
-                    int width = (int)Math.floor(sfondo.getFitWidth());
+                    int width = (int) Math.floor(sfondo.getFitWidth());
                     int height = newValue.intValue();
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
