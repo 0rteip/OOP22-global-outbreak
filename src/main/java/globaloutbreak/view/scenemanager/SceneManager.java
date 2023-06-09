@@ -36,6 +36,11 @@ public interface SceneManager {
     /**
      * Open last Scene.
      */
+    void openGraphScene();
+    
+    /**
+     * 
+     */
     void openBackScene();
 
     /**
