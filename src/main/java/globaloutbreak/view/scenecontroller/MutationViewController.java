@@ -1,49 +1,36 @@
 package globaloutbreak.view.scenecontroller;
 
-    import java.util.ArrayList;
+
     import java.util.List;
-
-import org.slf4j.Logger;
-    
-
     import javafx.fxml.FXML;
     import javafx.scene.control.Button;
     import javafx.scene.control.Label;
     import javafx.scene.input.MouseEvent;
     import javafx.scene.layout.GridPane;
-    import javafx.stage.Stage;
+
 
     /**
      * Class that manage button handlers.
      */
    public class MutationViewController extends AbstractSceneController implements SceneInitializer {
-    
         @FXML
         private Button newGameButton;
-    
         @FXML
         private Button tutorialButton;
-    
         @FXML
         private GridPane buttonGridPane; 
-
         @FXML
         private GridPane buttonGridPanell; 
-        
         @FXML
         private Button exitButton;
-    
         @FXML
         private Button submitButton;
-    
         @FXML
         private Label descriptionLabel;
-    
+        @FXML
+        private Label pointLabel;
         @FXML
         private Button actionButton;
-        
-        private Stage stage;    
-        private Logger logger;
         private List<String> names;
         /**
          * Initialize.
@@ -55,16 +42,16 @@ import org.slf4j.Logger;
         }
 
         /**
-         * display mutation button
-         * @param list
+         * display mutation button.
+         * @param nameList
          */
-        public void displayButton(List<String>nameList){
+        public void displayButton(final List<String> nameList) {
             int rowIndex = 0;
             int columnIndex = 0;
             names = nameList;
             for (int i = 0; i < nameList.size(); i++) {
-                Button button = createButton(nameList.get(i),i);             
-                buttonGridPane.add(button, columnIndex, rowIndex);  
+                final Button button = createButton(nameList.get(i), i);
+                buttonGridPane.add(button, columnIndex, rowIndex);
                 columnIndex++;
                 if (columnIndex == 4) { 
                     columnIndex = 0;
@@ -73,49 +60,44 @@ import org.slf4j.Logger;
             }
         }
 
-        private Button createButton(String buttonText, int index) {
-            Button button = new Button(buttonText);
+        private Button createButton(final String buttonText, final int index) {
+            final Button button = new Button(buttonText);
             button.setOnAction(e -> handleButtonAction(buttonText, index));
             return button;
         }
 
-        private Button createButtonActivate(String buttonText, int index) {
-            Button button = new Button(buttonText);
-            button.setOnAction(e -> handleActionButtonAction( index));
+        private Button createButtonActivate(final String buttonText, final int index) {
+            final Button button = new Button(buttonText);
+            button.setOnAction(e -> handleActionButtonAction(index));
             return button;
         }
-        private void handleButtonAction(String name, int index) {
+        private void handleButtonAction(final String name, final int index) {
             this.getView().getController().displayMutationDesc(name);
             descriptionLabel.setText(this.getView().getDescription());
-            System.out.println(this.getView().checkactivate());
-            if(!this.getView().checkactivate()){
-                Button button =  createButtonActivate("Evolvi", index);
+            pointLabel.setText(this.getView().getCost());
+            if (!this.getView().checkactivate()) {
+                final Button button =  createButtonActivate("Evolvi", index);
                 buttonGridPanell.add(button, 0, 0);
-            }else {
-                Button button =  createButtonActivate("Involvi", index);
+            } else {
+                final Button button =  createButtonActivate("Involvi", index);
                 buttonGridPanell.add(button, 0, 0);
             }
          //   actionButton.setOnAction(e -> handleActionButtonAction(index));
 
         }
-        private void handleActionButtonAction( int index) {
+        private void handleActionButtonAction(final int index) {
             this.getView().getController().update(names.get(index));
-            System.out.println("EVOLVI");
             // Logica da eseguire quando il pulsante dell'azione viene premuto per l'oggetto specifico
         }
-        
+
         /**
          * Go to the previous scene.
          * 
          * @param evt event handler
          */
         @FXML
-        public final void backScene(final MouseEvent evt) {       
+        public final void backScene(final MouseEvent evt) {
+            //scena di luca
             this.getSceneManager().openBackScene();
-        }   
-    
+        }
     }
-    
-
-
-

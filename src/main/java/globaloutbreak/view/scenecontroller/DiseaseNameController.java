@@ -18,7 +18,6 @@ public class DiseaseNameController extends AbstractSceneController {
      * Initialize logger.
      */
     public void initialize() {
-      
     }
 
     /**
