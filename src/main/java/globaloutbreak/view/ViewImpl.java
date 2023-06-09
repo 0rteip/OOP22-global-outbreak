@@ -109,7 +109,7 @@ public final class ViewImpl implements View {
 
     @Override
     public void choosenDisease(final String type) {
-        this.controller.createDisease(type);
+        this.controller.choosenDisease(type);
         this.logger.info("Create Disease of Type: {}", type);
     }
 
