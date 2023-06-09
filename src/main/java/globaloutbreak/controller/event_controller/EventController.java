@@ -1,9 +1,7 @@
 package globaloutbreak.controller.event_controller;
 
-import java.util.Optional;
-
-import globaloutbreak.model.pair.Pair;
-import globaloutbreak.model.region.Region;
+import java.util.List;
+import globaloutbreak.model.events.Event;
 
 /**
  * Interface of Event controller.
@@ -12,7 +10,7 @@ public interface EventController {
     /**
      * 
      * @return
-     *          region and num of death
+     *         event's list
      */
-    Optional<Pair<Region, Integer>> causeEvent();
+    List<Event> createEvents();
 }

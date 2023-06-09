@@ -10,14 +10,14 @@ import globaloutbreak.model.region.Region;
 /**
  * Implement. of CauseEventInt.
  */
-public final class CauseEvents implements CauseEventInt {
+public final class CauseEventsImpl implements CauseEvent {
     private final List<Event> events;
     private static final Random RANDOM = new Random();
     /**
      * 
      * @param events
      */
-    public CauseEvents(final List<Event> events) {
+    public CauseEventsImpl(final List<Event> events) {
         this.events = new LinkedList<>(events);
     }
 

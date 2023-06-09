@@ -1,8 +1,6 @@
 package globaloutbreak.controller.voyage_cotroller;
 
-import java.util.Map;
-
-import globaloutbreak.model.pair.Pair;
+import globaloutbreak.model.voyage.Voyage;
 
 /**
  * Interface of Voyage controller.
@@ -11,7 +9,7 @@ public interface VoyageController {
     /**
      * 
      * @return
-     *          extracted means
+     *          Voyage class
      */
-    Map<String, Map<Integer, Pair<Integer, Integer>>> extractVoyages();
+    Voyage createVoyage();
 }

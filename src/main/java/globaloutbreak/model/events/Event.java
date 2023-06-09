@@ -1,40 +1,31 @@
 package globaloutbreak.model.events;
 
-
 /**
- * Implement. of EventInt.
+ * The interface of Event.
  */
-public final class Event implements EventInt {
-    private final float probOfHapp;
-    private final float percOfDeath;
-    private final String name;
+public interface Event {
+
     /**
-     * Constractor.
-     * @param name 
-     *              region's name
-     * @param probOfHapp
-     *                  likelihood it could happen
-     * @param percOfDeath
-     *                      percentage of deaths in the total population
+     * 
+     * @param popTot
+     *              total population
+     * @return
+     *          the number of death
      */
-    public Event(final String name, final float probOfHapp, final float percOfDeath) {
-        this.name = name;
-        this.probOfHapp = probOfHapp;
-        this.percOfDeath = percOfDeath;
-    }
+    Integer calcDeath(Integer popTot);
 
-    @Override
-    public Integer calcDeath(final Integer popTot) {
-        return (int) Math.floor(popTot * percOfDeath);
-    }
+    /**
+     * 
+     * @return
+     *          prob. of happening
+     */
+    float getProbOfHapp();
 
-    @Override
-    public float getProbOfHapp() {
-        return this.probOfHapp;
-    }
+    /**
+     * 
+     * @return
+     *          the event's name
+     */
+    String getName();
 
-    @Override
-    public String getName() {
-        return name;
-    }
 }

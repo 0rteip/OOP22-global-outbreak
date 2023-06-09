@@ -8,7 +8,7 @@ import globaloutbreak.model.region.Region;
 /**
  * Interface of Casuse Event.
  */
-public interface CauseEventInt {
+public interface CauseEvent {
 
     /**
      * This method cause a event.

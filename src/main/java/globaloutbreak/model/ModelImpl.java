@@ -6,8 +6,8 @@ import java.util.Optional;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
-import globaloutbreak.model.events.CauseEventInt;
-import globaloutbreak.model.events.CauseEvents;
+import globaloutbreak.model.events.CauseEvent;
+import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
@@ -19,11 +19,11 @@ import java.util.LinkedList;
  * Impl of Model interface.
  */
 public final class ModelImpl implements Model {
-    private final List<Region> regions = new LinkedList<>();
+    private List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
     private Voyage voyage;
-    private final List<Event> events = new LinkedList<>();
-    private CauseEventInt causeEvents;
+    private List<Event> events = new LinkedList<>();
+    private CauseEvent causeEvents;
     @Override
     public void addRegion(final int ppTot, final String name, 
             final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, 
@@ -83,11 +83,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void addEvent(final float morti, final String name, final float prob) {
-            events.add(new Event(name, prob, morti));
-    }
-
-    @Override
     public void chosenDisease(final Disease disease, final String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
@@ -108,7 +103,7 @@ public final class ModelImpl implements Model {
             if (death + newdeath > popTot) {
                 updateRegion.incDeathPeople(popTot - death);
                 updateRegion.setCureStatus(RegionCureStatus.FINISHED);
-            } else if (death + newdeath > popTot) {
+            } else if (death + newdeath < popTot) {
                 updateRegion.incDeathPeople(newdeath);
             } 
         }
@@ -144,6 +139,16 @@ public final class ModelImpl implements Model {
 
     @Override
     public void createCauseEvents() {
-       this.causeEvents = new CauseEvents(this.getEvents());
+       this.causeEvents = new CauseEventsImpl(this.getEvents());
+    }
+
+    @Override
+    public void setRegions(final List<Region> regions) {
+        this.regions = new LinkedList<>(regions);
+    }
+
+    @Override
+    public void setEvents(final List<Event> events) {
+        this.events = new LinkedList<>(events);
     }
 }

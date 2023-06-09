@@ -124,18 +124,6 @@ public interface Model {
      */
     Voyage getVoyage();
 
-   /**
-    * This method add a new event.
-
-    * @param death
-                    perc. of death
-    * @param name
-                    event's name 
-    * @param prob
-                    perc. of prob.
-    */
-    void addEvent(float death, String name, float prob);
-
     /**
      * Thi method extract voyages.
      * 
@@ -176,4 +164,19 @@ public interface Model {
      * This method creates CauseEvent class.
      */
     void createCauseEvents();
+    /**
+     * This method set region's the list.
+     * 
+     * @param regions
+     *                  list of regions
+     */
+    void setRegions(List<Region> regions);
+     /**
+     * This method set the event's list.
+     * 
+     * @param events
+     *                  list of event
+     */
+    void setEvents(List<Event> events);
+
 }
