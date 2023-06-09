@@ -15,7 +15,7 @@ import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
@@ -57,7 +57,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayInfo(final Infodata info) {
+    public void displayInfo(final InfoData info) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayInfo'");
     }

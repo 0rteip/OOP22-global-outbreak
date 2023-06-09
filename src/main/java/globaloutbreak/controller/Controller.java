@@ -2,7 +2,7 @@ package globaloutbreak.controller;
 
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
@@ -53,8 +53,12 @@ public interface Controller {
      * @param info
      *             info to update
      */
-    void updateInfo(Infodata info);
+    void updateInfo();
 
+    /**
+     * Display info in general charts.
+     */
+    void displayInfo();
     /**
      * Display the message notification.
      * 

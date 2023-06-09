@@ -1,5 +1,7 @@
 package globaloutbreak.model.infodata;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,18 +12,28 @@ import globaloutbreak.model.cure.CureData;
  */
 public class InfoDataImpl implements InfoData {
 
+    private static final int BASE_DEATHS_RANGE = 500_000;
+    private static final int BASE_INFECTED_RANGE = 500_000;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private int deathsLimit;
+    private int infectedLimit;
     private int dnaPoints;
     private int totalDeaths;
     private int totalInfected;
+    private int totalPopulation;
     private CureData cureData;
+    private Random random = new Random();
 
     /**
      * Constructor.
      */
-    public InfoDataImpl() {
+    public InfoDataImpl(final int totalPopulation) {
         this.dnaPoints = 1;
+        this.infectedLimit = BASE_INFECTED_RANGE;
+        this.deathsLimit = BASE_DEATHS_RANGE;
+        this.totalPopulation = totalPopulation;
     }
 
     /**
@@ -96,10 +108,18 @@ public class InfoDataImpl implements InfoData {
     @Override
     public void updateTotalDeathsAndInfected(final int totalDeaths, final int totalInfected) {
         this.totalDeaths = totalDeaths;
+        if(this.totalDeaths > this.deathsLimit){
+            this.increasePoints(random.nextInt(3) + 1);
+            this.deathsLimit += BASE_DEATHS_RANGE;
+        }
+        if(this.totalInfected > this.infectedLimit){
+            this.increasePoints(random.nextInt(3) + 1);
+            this.infectedLimit += BASE_INFECTED_RANGE;
+        }
     }
 
     @Override
-    public void updateCureStatus(final CureData cureData) {
+    public void updateCureData(final CureData cureData) {
         this.cureData = cureData;
     }
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.model.api.Infodata;
+
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
@@ -41,7 +41,6 @@ public final class ModelImpl implements Model {
     private final DataAnalyzer<Integer> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Optional<Message> newsMessage = Optional.empty();
-
     private InfoData infoData;
     /**
      * Creates a model.
@@ -92,9 +91,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Infodata getInfo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInfo'");
+    public InfoData getInfo() {
+        return this.infoData;
     }
 
     @Override
@@ -152,5 +150,12 @@ public final class ModelImpl implements Model {
                 regions.stream()
                         .map(region ->region.getNumInfected())
                         .reduce(0, (i1, i2) -> i1+i2));
+
+        if(this.cure.isPresent()){
+            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
+        }
+        
     }
+
+    
 }

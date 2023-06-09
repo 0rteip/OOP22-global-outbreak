@@ -19,8 +19,7 @@ public final class DiseaseControllerImpl implements DiseaseController {
 
     private final DiseaseDataList diseaseList = new DiseaseDataList();
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Disease disease;
-
+    
     @Override
     public void readFile(final List<DiseaseData> diseaseList) {
         this.diseaseList.setDisease(diseaseList);
@@ -32,35 +31,32 @@ public final class DiseaseControllerImpl implements DiseaseController {
                 .findFirst()
                 .orElse(null);
             final DiseaseFactory diseaseFactory = new DiseaseFactoryImpl();
-            if (diseaseData != null && this.checkIfValid(diseaseData.getInfectivity(), "Infectivity") 
-            && this.checkIfValid(diseaseData.getLethality(), "Lethality")
-            && this.checkIfValid(diseaseData.getAirInfectivity(), "AirInfectivity")
-            && this.checkIfValid(diseaseData.getSeaInfectivity(), "SeaInfectivity")
-            && this.checkIfValid(diseaseData.getLandInfectivity(), "LandInfectivity")
-            && this.checkIfValid(diseaseData.getHeatInfectivity(), "HeatInfectivity")
-            && this.checkIfValid(diseaseData.getColdInfectivity(), "ColdInfectivity")
-            && this.checkIfValid(diseaseData.getHumidityInfectivity(), "HumidityInfectivity")
-            && this.checkIfValid(diseaseData.getAridityInfectivity(), "AridityInfectivity")
-            && this.checkIfValid(diseaseData.getPovertyInfectivity(), "PovertyInfectivity")
-            && this.checkIfValid(diseaseData.getCureResistance(), "CureResistance")) {
-            return diseaseFactory.createDisease(diseaseData.getType(), diseaseData.getInfectivity(),
-                    diseaseData.getLethality(), diseaseData.getAirInfectivity(), diseaseData.getSeaInfectivity(),
-                    diseaseData.getLandInfectivity(), diseaseData.getHeatInfectivity(),
-                    diseaseData.getColdInfectivity(),
-                    diseaseData.getCureResistance(), diseaseData.getHumidityInfectivity(),
-                    diseaseData.getAridityInfectivity(), diseaseData.getPovertyInfectivity());
+            if (diseaseData != null) {
+            return diseaseFactory.createDisease(diseaseData.getType(), this.getIfValid(diseaseData.getInfectivity(), "Infectivity"),
+                    this.getIfValid(diseaseData.getLethality(), "Lethality"), this.getIfValid(diseaseData.getAirInfectivity(), "AirInfectivity"), this.getIfValid(diseaseData.getSeaInfectivity(), "seaInfectivity"),
+                    this.getIfValid(diseaseData.getLandInfectivity(), "LandInfectivity"), this.getIfValid(diseaseData.getHeatInfectivity(), "heatInfectivity"),
+                    this.getIfValid(diseaseData.getColdInfectivity(), "ColdInfectivity"),
+                    this.getIfValidCure(diseaseData.getCureResistance()), this.getIfValid(diseaseData.getHumidityInfectivity(), "HumidityInfectivity"),
+                    this.getIfValid(diseaseData.getAridityInfectivity(), "AridityInfectivity"), this.getIfValid(diseaseData.getPovertyInfectivity(), "PovertyInfectivity"));
         } else {
             this.logger.error("No disease dound of the type passed as argument ({})" + type);
             throw new NoSuchElementException("No disease found of the type: " + type);
         }
     }
 
-    private boolean checkIfValid(final float value, final String name) {
+    private float getIfValid(final float value, final String name) {
         if (value < 0 || value > 1) {
             logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);
-            return false;
+            return 0;
         }
-        return true;
+        return value;
     }
 
+    private float getIfValidCure(final float value){
+       if (value < 1) {
+            logger.error("Error parameter update: The new value of cureResistance less than 1");
+            return 0;
+        }
+        return value;
+    }
 }

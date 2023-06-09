@@ -20,7 +20,7 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -72,9 +72,13 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void updateInfo(final Infodata info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
+    public void updateInfo() {
+        this.model.updateInfoData();
+    }
+
+    @Override
+    public void displayInfo(){
+        this.view.displayInfo(this.model.getInfo());
     }
 
     @Override
