@@ -2,7 +2,6 @@ package globaloutbreak.view.scenecontroller;
 import globaloutbreak.model.pair.Pair;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -68,6 +67,7 @@ public final class MapController extends AbstractSceneController implements Scen
     public final void selectRegion1(MouseEvent e) {
 
     }
+
     private ImageView selectedState(int color) {
         WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(), (int)Math.floor(sfondo.getImage().getWidth()), 
                 (int)Math.floor(sfondo.getImage().getHeight()));
@@ -83,6 +83,7 @@ public final class MapController extends AbstractSceneController implements Scen
         resize(i, (int)Math.floor(sfondo.getFitWidth()), (int)Math.floor(sfondo.getFitHeight()));
         return i;
     }
+
     @FXML
     public final void selectRegion(MouseEvent e) {
         final Integer newColor = buf.getImage().getPixelReader().getArgb((int)Math.floor(e.getX()*(sfondo.getImage().getWidth()/sfondo.getFitWidth())), (int)Math.floor(e.getY()*(sfondo.getImage().getHeight()/sfondo.getFitHeight())));
@@ -95,6 +96,7 @@ public final class MapController extends AbstractSceneController implements Scen
                 if(!newColor.equals(color)) {
                     mapLab.setGraphic(selectedState(newColor));
                     this.color = newColor;
+                    
                 }
             }
         }
