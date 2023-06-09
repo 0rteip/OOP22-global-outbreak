@@ -5,9 +5,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
+import globaloutbreak.model.region.Region;
 import org.slf4j.Logger;
-
-import globaloutbreak.model.api.Region;
 
 /**
  * Disease factory class.
@@ -332,7 +331,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                             .filter(region -> region.getNumInfected() > 0)
                             .forEach(region -> {
                                 region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
-                                region.incOrDecNuminfected(-this.calculateNewDeaths(region.getNumInfected()));
+                                region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
                             });
                 }
 
@@ -345,11 +344,11 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                 public void infectRegions(final List<Region> regionList) {
                     regionList.stream()
                             .filter(region -> region.getNumInfected() > 0)
-                            .forEach(region -> region.incOrDecNuminfected(this.calculateNewInfected(region.getPopTot(),
+                            .forEach(region -> region.incOrDecInfectedPeople(this.calculateNewInfected(region.getPopTot(),
                                     region.getNumInfected(), region.getUrban(), region.getPoor(),
-                                    region.getClimateImpl().getArid(), region.getClimateImpl().getCold(),
-                                    region.getClimateImpl().getHot(), region.getClimateImpl().getHumid())));
-                                }
+                                    region.getClimate().getArid(), region.getClimate().getCold(),
+                                    region.getClimate().getHot(), region.getClimate().getHumid())));
+                }
 
                 /**
                  * Calculate the new infected.

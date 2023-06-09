@@ -1,0 +1,38 @@
+.root {
+    -fx-background-color: #2e3944;
+    -fx-font-family: "monospace";
+    -fx-font-size: 1.0em;
+}
+
+#top {
+    -fx-background-color: #F41B1B;
+}
+
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-style: italic;
+}
+
+#saveButton {
+    -fx-background-color: #169100;
+    -fx-text-fill: #ffffff;
+}
+
+#cancelButton {
+    -fx-background-color: #F41B1B;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+}
+
+.combo-box .cell:selected {
+    -fx-text-fill: #ffffff;
+}

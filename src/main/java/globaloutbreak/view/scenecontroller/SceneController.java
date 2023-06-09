@@ -2,6 +2,8 @@ package globaloutbreak.view.scenecontroller;
 
 import globaloutbreak.view.View;
 import globaloutbreak.view.scenemanager.SceneManager;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * Interface of a generic Scene.
@@ -31,4 +33,14 @@ public interface SceneController {
      *         the {@link View}
      */
     View getView();
+
+    /**
+     * Get the current stage.
+     * 
+     * @param event
+     *              event
+     * @return
+     *         satge
+     */
+    Stage getStage(MouseEvent event);
 }

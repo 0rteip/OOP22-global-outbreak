@@ -8,14 +8,17 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.layout.Region;
+import globaloutbreak.model.message.Message;
+import globaloutbreak.view.utilities.SceneStyle;
 import globaloutbreak.view.View;
+import globaloutbreak.view.messagedialog.MessageDialog;
 import globaloutbreak.view.scenecontroller.SceneController;
 import globaloutbreak.view.scenecontroller.SceneInitializer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.utilities.SceneStyle;
 
 /**
  * Implementation of {@link SceneLoader}.
@@ -27,6 +30,7 @@ public final class SceneLoaderImpl implements SceneLoader {
     private final View view;
     private final Map<SceneStyle, Scene> sceneLoaded = new HashMap<>();
     private Optional<SceneStyle> lastScene = Optional.empty();
+    private Optional<SceneStyle> penultimScene = Optional.empty();
 
     /**
      * Create a SceneLoader with an associated view.
@@ -34,6 +38,12 @@ public final class SceneLoaderImpl implements SceneLoader {
      * @param view
      *             view
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of the View to let the SceneController to access to the View"
+    )
+    // @formatter:on
     public SceneLoaderImpl(final View view) {
         this.view = view;
     }
@@ -80,9 +90,8 @@ public final class SceneLoaderImpl implements SceneLoader {
             final SceneController controller = (SceneController) loader.getController();
             this.initializeScene(controller, sceneStyle);
 
-            if (this.lastScene.isEmpty()) {
-                this.lastScene = Optional.of(sceneStyle);
-            }
+            this.penultimScene = this.lastScene;
+            this.lastScene = Optional.of(sceneStyle);
 
             if (!stage.isShowing()) {
                 stage.show();
@@ -90,12 +99,6 @@ public final class SceneLoaderImpl implements SceneLoader {
         } catch (IOException e) {
             logger.warn("Error while loading {}", sceneStyle.getFxmlFile(), e);
         }
-    }
-
-    @Override
-    public void loadBackScene(final Stage stage) {
-        this.lastScene.ifPresent(sS -> this.loadScene(sS, stage));
-
     }
 
     private void initializeScene(final SceneController controller, final SceneStyle sceneStyle) {
@@ -109,5 +112,10 @@ public final class SceneLoaderImpl implements SceneLoader {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void openDialog(final Stage stage, final Message message) {
+        MessageDialog.showMessageDialog(stage, message, this.view);
     }
 }

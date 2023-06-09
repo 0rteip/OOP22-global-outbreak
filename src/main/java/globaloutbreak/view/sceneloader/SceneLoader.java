@@ -1,7 +1,8 @@
 package globaloutbreak.view.sceneloader;
 
+import globaloutbreak.model.message.Message;
+import globaloutbreak.view.utilities.SceneStyle;
 import javafx.stage.Stage;
-import view.utilities.SceneStyle;
 
 /**
  * An interface for loading scene.
@@ -17,9 +18,12 @@ public interface SceneLoader {
     void loadScene(SceneStyle sceneStyle, Stage stage);
 
     /**
+     * Open a dialog.
      * 
      * @param stage
-     *              current Stage
+     *                stage
+     * @param message
+     *                message
      */
-    void loadBackScene(Stage stage);
+    void openDialog(Stage stage, Message message);
 }

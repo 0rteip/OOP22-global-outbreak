@@ -3,7 +3,8 @@ package globaloutbreak.model.disease;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import globaloutbreak.model.api.Region;
+import globaloutbreak.model.region.Region;
+
 
 /**
  * Interface of disease.
