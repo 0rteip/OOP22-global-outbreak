@@ -89,11 +89,23 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Map<String, Map<Integer, Pair<Integer, Integer>>> extractVoyages() {
-        //mettere un controllo
-        return this.voyage.extractMeans(this.getRegions());
+    public void extractVoyages() {
+        Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions());
+        if(voyages.isEmpty()) {
+            voyages.forEach((s,m) -> {
+                m.forEach((i,p) -> {
+                    final Optional<Region> r = getRegionByColor(p.getY());
+                    if(r.isPresent()) {
+                        this.incOrDecInfectedPeople(i.intValue(), r.get());
+                    }
+                });
+            });
+        }
     }
 
+    private Optional<Region> getRegionByColor(int color) {
+        return this.getRegions().stream().filter(k -> k.getColor() == color).findFirst();
+    }
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
         final Region updateRegion = getRegion(region);
@@ -128,9 +140,17 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<Pair<Region, Integer>> causeEvent() {
-        return this.causeEvents.causeEvent(this.getRegions());
+    public void causeEvent() {
+        Optional<Pair<Region, Integer>> event = this.causeEvents.causeEvent(this.getRegions()
+                .stream()
+                .filter(k -> k.getCureStatus()!= RegionCureStatus.FINISHED)
+                .toList()
+                );
+        if(event.isPresent()) {
+            this.incDeathPeople(event.get().getY(), event.get().getX());
+        }
     }
+
 
     @Override
     public List<Event> getEvents() {

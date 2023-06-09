@@ -131,7 +131,7 @@ public interface Model {
      *         String is the type of means, Integer is the number of new infected 
      *          and in the pair there is departure and destination expressed with the color of region
      */
-    Map<String, Map<Integer, Pair<Integer, Integer>>> extractVoyages();
+    void extractVoyages();
     /**
      * 
      * @param newdeath
@@ -149,11 +149,11 @@ public interface Model {
      */
     void incOrDecInfectedPeople(int newinfected, Region region);
     /**
+     * This method cause a event.
+     * If is Presesent audate deathPeople
      * 
-     * @return
-     *          region and num of death
      */
-    Optional<Pair<Region, Integer>> causeEvent();
+    void causeEvent();
     /**
      * 
      * @return
@@ -178,5 +178,4 @@ public interface Model {
      *                  list of event
      */
     void setEvents(List<Event> events);
-
 }

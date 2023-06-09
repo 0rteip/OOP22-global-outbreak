@@ -23,13 +23,14 @@ public final class CauseEventsImpl implements CauseEvent {
 
     @Override
     public Optional<Pair<Region, Integer>> causeEvent(final List<Region> regions) {
-        final Event event = events.get(RANDOM.nextInt(0, events.size() - 1));
-        if (RANDOM.nextInt(0, 100) <= event.getProbOfHapp()) {
-            final Region r = regions.get(RANDOM.nextInt(0, events.size() - 1));
-            return Optional.of(new Pair<>(r, event.calcDeath(r.getPopTot())));
-        } else {
-            return Optional.empty();
+        if(!regions.isEmpty()) {
+            final Event event = events.get(RANDOM.nextInt(0, events.size() - 1));
+            if (RANDOM.nextInt(0, 100) <= event.getProbOfHapp()) {
+                final Region r = regions.get(RANDOM.nextInt(0, events.size() - 1));
+                return Optional.of(new Pair<>(r, event.calcDeath(r.getPopTot())));
+            }
         }
+        return Optional.empty();
     }
 
 }
