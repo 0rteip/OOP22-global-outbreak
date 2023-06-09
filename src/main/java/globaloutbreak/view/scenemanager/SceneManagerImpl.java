@@ -36,7 +36,7 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     /**
-     * Load the tutorial Scene.
+     *Load the tutorial Scene.
      */
     @Override
     public void openTutorial() {

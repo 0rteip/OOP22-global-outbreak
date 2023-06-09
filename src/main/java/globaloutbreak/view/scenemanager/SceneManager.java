@@ -36,7 +36,6 @@ public interface SceneManager {
      * 
      */
     void openMutationScene();
-    
     /**
      * 
      * @return
