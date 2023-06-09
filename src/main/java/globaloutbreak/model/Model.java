@@ -142,4 +142,9 @@ public interface Model {
                     perc. of prob.
     */
     void addEvent(float death, String name, float prob);
+
+    /**
+     * update all info.
+     */
+    void updateInfoData();
 }

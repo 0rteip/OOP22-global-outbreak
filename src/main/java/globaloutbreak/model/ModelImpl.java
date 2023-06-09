@@ -6,6 +6,8 @@ import java.util.Optional;
 import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.infodata.InfoData;
+import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.RegionImpl;
@@ -21,6 +23,7 @@ public final class ModelImpl implements Model {
     private Voyage voyage;
     private List<Event> events;
     private Disease disease;
+    private InfoData infoData;
     /**
      * Constructor.
      */
@@ -28,6 +31,7 @@ public final class ModelImpl implements Model {
         this.regions = new LinkedList<>();
         this.events = new LinkedList<>();
         this.selectedRegion = Optional.empty();
+        this.infoData = new InfoDataImpl();
     }
 
     @Override
@@ -105,5 +109,16 @@ public final class ModelImpl implements Model {
     public void chosenDisease(globaloutbreak.model.disease.Disease disease, String name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
+    }
+
+    @Override
+    public void updateInfoData(){
+        this.infoData.updateTotalDeathsAndInfected(regions.stream()
+                .filter(region -> region.getNumDeath() > 0)
+                .map(region -> region.getNumDeath())
+                .reduce(0, (m1, m2) -> m1 + m2), 
+                regions.stream()
+                        .map(region ->region.getNumInfected())
+                        .reduce(0, (i1, i2) -> i1+i2));
     }
 }

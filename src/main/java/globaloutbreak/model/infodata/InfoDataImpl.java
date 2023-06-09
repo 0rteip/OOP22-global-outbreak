@@ -3,6 +3,8 @@ package globaloutbreak.model.infodata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.model.cure.CureData;
+
 /**
  * Class to manage Dna Points.
  */
@@ -11,6 +13,9 @@ public class InfoDataImpl implements InfoData {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private int dnaPoints;
+    private int totalDeaths;
+    private int totalInfected;
+    private CureData cureData;
 
     /**
      * Constructor.
@@ -53,7 +58,7 @@ public class InfoDataImpl implements InfoData {
      * @return
      *         the points owned.
      */
-    public Integer getPoints() {
+    public int getPoints() {
         return this.dnaPoints;
     }
 
@@ -71,5 +76,30 @@ public class InfoDataImpl implements InfoData {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getTotalDeaths() {
+        return this.totalDeaths;
+    }
+
+    @Override
+    public int getTotalInfected() {
+        return this.totalInfected;
+    }
+
+    @Override
+    public CureData getCureData() {
+        return this.cureData;
+    }
+
+    @Override
+    public void updateTotalDeathsAndInfected(final int totalDeaths, final int totalInfected) {
+        this.totalDeaths = totalDeaths;
+    }
+
+    @Override
+    public void updateCureStatus(final CureData cureData) {
+        this.cureData = cureData;
     }
 }

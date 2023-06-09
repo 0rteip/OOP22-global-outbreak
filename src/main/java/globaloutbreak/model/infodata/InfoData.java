@@ -1,5 +1,7 @@
 package globaloutbreak.model.infodata;
 
+import globaloutbreak.model.cure.CureData;
+
 /**
  * Interface to manage DnaPoints.
  */
@@ -26,5 +28,36 @@ public interface InfoData {
      * @return
      *         the points owned.
      */
-    Integer getPoints();
+    int getPoints();
+
+    /**
+     * 
+     * @return
+     * total deaths
+     */
+    int getTotalDeaths();
+
+    /**
+     * 
+     * @return
+     * total infected
+     */
+    int getTotalInfected();
+
+    /**
+     * 
+     * @return
+     * cure data
+     */
+    CureData getCureData();
+
+    /**
+     * update total deaths.
+     */
+    void updateTotalDeathsAndInfected(int totalDeaths, int totalInfected);
+
+    /**
+     * update Cure Status.
+     */
+    void updateCureStatus(CureData cureData);
 }
