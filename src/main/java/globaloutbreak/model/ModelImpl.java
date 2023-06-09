@@ -38,7 +38,7 @@ public final class ModelImpl implements Model {
     private Voyage voyage;
     private Optional<Cure> cure = Optional.empty();
     private final List<Event> events = new LinkedList<>();
-    private final DataAnalyzer<Integer> deathAnalyzer;
+    //private final DataAnalyzer<Integer> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Optional<Message> newsMessage = Optional.empty();
     private InfoData infoData;
@@ -46,9 +46,7 @@ public final class ModelImpl implements Model {
      * Creates a model.
      */
     public ModelImpl() {
-        this.regions = new LinkedList<>();
-        this.events = new LinkedList<>();
-        this.selectedRegion = Optional.empty();
+
     }
 
     @Override
@@ -155,6 +153,12 @@ public final class ModelImpl implements Model {
             this.infoData.updateCureData(this.cure.get().getGlobalStatus());
         }
         
+    }
+
+    @Override
+    public void addNesListener(PropertyChangeListener listener) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addNesListener'");
     }
 
     

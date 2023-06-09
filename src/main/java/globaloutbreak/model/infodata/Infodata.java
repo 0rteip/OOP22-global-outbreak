@@ -38,6 +38,12 @@ public interface InfoData {
     int getTotalInfected();
 
     /**
+     * 
+     * @return
+     * total population
+     */
+    int getTotalPopulation();
+    /**
      * @return
      * cure data
      */

@@ -57,9 +57,8 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayInfo(final InfoData info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayInfo'");
+    public InfoData getInfoData() {
+        return this.controller.displayInfo();
     }
 
     @Override

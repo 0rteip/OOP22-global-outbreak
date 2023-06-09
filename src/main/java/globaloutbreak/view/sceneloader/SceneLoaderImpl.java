@@ -111,14 +111,10 @@ public final class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE:
+            case CHOOSEDISEASE, WORLDGRAPH, CUREGRAPH:
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
                 break;
-            case GENERALGRAPHS:
-            final SceneInitializer sceneInitController2 = (SceneInitializer) controller;
-            sceneInitController2.initializeScene();
-            break;
             default:
                 break;
         }

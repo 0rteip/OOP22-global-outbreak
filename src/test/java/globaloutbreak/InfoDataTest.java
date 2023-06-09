@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
-import globaloutbreak.model.observer.InfoDataDiseaseObserver;
 
 class InfoDataTest {
 
@@ -66,10 +65,7 @@ class InfoDataTest {
 
         Disease disease = new Disease(THIRD_NUM, THIRD_NUM);
 
-        InfoData infodata = new InfoDataImpl();
-        PropertyChangeListener pointsObserver = new InfoDataDiseaseObserver(infodata);
-
-        disease.addPropertyChangeListener("DnaPoints", pointsObserver);
+        InfoData infodata = new InfoDataImpl(500_000);
 
         Assertions.assertEquals(1, infodata.getPoints());
         logger.info("Dna Points are {} and expected was 1", infodata.getPoints());

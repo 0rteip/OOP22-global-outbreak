@@ -54,7 +54,7 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final View view) {
         // System.out.println("Velocità: " + settings.getGameSpeed());
         this.model = new ModelImpl();
-        this.model.addNesListener(new NewsObserver(this));
+        //this.model.addNesListener(new NewsObserver(this));
         this.diseaseController = new DiseaseControllerImpl();
         this.view = view;
     }
@@ -77,8 +77,8 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void displayInfo(){
-        this.view.displayInfo(this.model.getInfo());
+    public InfoData displayInfo(){
+       return this.model.getInfo();
     }
 
     @Override

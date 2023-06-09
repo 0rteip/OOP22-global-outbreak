@@ -101,6 +101,11 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
+    public int getTotalPopulation(){
+        return this.totalPopulation;
+    }
+
+    @Override
     public CureData getCureData() {
         return this.cureData;
     }

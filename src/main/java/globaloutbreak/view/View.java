@@ -32,7 +32,7 @@ public interface View {
      * @param info
      *             to update
      */
-    void displayInfo(InfoData info);
+    InfoData getInfoData();
 
     /**
      * Display the message notification.

@@ -58,7 +58,7 @@ public interface Controller {
     /**
      * Display info in general charts.
      */
-    void displayInfo();
+    InfoData displayInfo();
     /**
      * Display the message notification.
      * 

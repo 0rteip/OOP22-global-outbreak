@@ -57,8 +57,13 @@ public final class SceneManagerImpl implements SceneManager {
     }
     
     @Override
-    public void openGraphScene(){
-        this.openScene(SceneStyle.GENERALGRAPHS);
+    public void openWorldGraphScene(){
+        this.openScene(SceneStyle.WORLDGRAPH);
+    }
+
+    @Override
+    public void openCureGraphScene(){
+        this.openScene(SceneStyle.CUREGRAPH);
     }
     /**
      * Set the previous scene.
