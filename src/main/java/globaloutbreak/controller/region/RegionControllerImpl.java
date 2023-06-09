@@ -69,8 +69,8 @@ public final class RegionControllerImpl implements RegionController {
                         default :
                             break;
                     }
-                    regions.add(new RegionImpl(popTot, name, means, urban, poor, color, facilities, hot, humid));
                 }
+                regions.add(new RegionImpl(popTot, name, means, urban, poor, color, facilities, hot, humid));
             });
         } catch (IOException e) {
             logger.error("Failed creation of events", e);

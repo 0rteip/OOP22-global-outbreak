@@ -1,8 +1,10 @@
 package globaloutbreak.view;
 
 import java.util.List;
+import java.util.Map;
 
 import globaloutbreak.controller.Controller;
+import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;
@@ -125,4 +127,16 @@ public interface View {
      * Quit Application.
      */
     void quit();
+    /**
+     * 
+     * @return
+     *          info of selected region
+     */
+    Map<TypeOfInfo, String> getInfoSingleRegion();
+    /**
+     * 
+     * @param color
+     */
+    void selectRegion(int color);
+      
 }

@@ -19,7 +19,7 @@
       </StackPane>
    </center>
    <bottom>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox minHeight="-Infinity" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                <children>

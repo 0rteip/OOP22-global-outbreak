@@ -1,4 +1,5 @@
 package globaloutbreak.view.scenecontroller;
+import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.model.pair.Pair;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -65,7 +66,33 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     public final void selectRegion1(MouseEvent e) {
-
+        final Integer newColor = buf.getImage().getPixelReader().getArgb((int)Math.floor(e.getX()*(sfondo.getImage().getWidth()/sfondo.getFitWidth())), (int)Math.floor(e.getY()*(sfondo.getImage().getHeight()/sfondo.getFitHeight())));
+        if(!newColor.equals(Color.BLACK.getIntArgbPre())) {
+            if(newColor.equals(Color.WHITE.getIntArgbPre()) || !newColor.equals(color)) {
+                if(newColor.equals(Color.WHITE.getIntArgbPre())) {
+                    this.color = Color.WHITE.getIntArgbPre();
+                    mapLab.setGraphic(sfondo);
+                    this.getView().selectRegion(newColor);
+                }
+                if(!newColor.equals(color)) {
+                    mapLab.setGraphic(selectedState(newColor));
+                    this.color = newColor;
+                    this.getView().selectRegion(newColor);
+                    Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
+                    System.out.println(info.size());
+                    info.forEach((t,s) -> {
+                        if(t.equals(TypeOfInfo.INFETTI)) {
+                            infectedText.setText(s);
+                        } else if(t.equals(TypeOfInfo.MORTI)) {
+                            deathText.setText(s);
+                        } else if(t.equals(TypeOfInfo.REGION)) {
+                            regionText.setText(s);
+                        }
+                        
+                    });
+                }
+            }
+        }
     }
 
     private ImageView selectedState(int color) {
@@ -86,25 +113,12 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     public final void selectRegion(MouseEvent e) {
-        final Integer newColor = buf.getImage().getPixelReader().getArgb((int)Math.floor(e.getX()*(sfondo.getImage().getWidth()/sfondo.getFitWidth())), (int)Math.floor(e.getY()*(sfondo.getImage().getHeight()/sfondo.getFitHeight())));
-        if(!newColor.equals(Color.BLACK.getIntArgbPre())) {
-            if(newColor.equals(Color.WHITE.getIntArgbPre()) || !newColor.equals(color)) {
-                if(newColor.equals(Color.WHITE.getIntArgbPre())) {
-                    this.color = Color.WHITE.getIntArgbPre();
-                    mapLab.setGraphic(sfondo);
-                }
-                if(!newColor.equals(color)) {
-                    mapLab.setGraphic(selectedState(newColor));
-                    this.color = newColor;
-                    
-                }
-            }
-        }
+        
     }
 
     @FXML
     public final void openSettings(MouseEvent e) {
-
+        this.getSceneManager().openSettings();
     }
 
     @FXML
@@ -114,12 +128,12 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     public final void goToMutation(MouseEvent e) {
-
+        
     }
     
     @FXML
     public final void startStop(MouseEvent e) {
-
+        this.getView().startStop();
     }
     private ImageView getImage(String path) {
         return new ImageView(ClassLoader.getSystemResource(path).toString());
@@ -156,7 +170,6 @@ public final class MapController extends AbstractSceneController implements Scen
                     l.setGraphic(ik);
                     StackPane.setMargin(l, new Insets((int)Math.floor(p.getY()*percH), width-(int)Math.floor(p.getX()*percW), height-(int)Math.floor(p.getY()*percH), (int)Math.floor(p.getX()*percW)));
                 });
-                
             });
         }
     }
@@ -204,8 +217,10 @@ public final class MapController extends AbstractSceneController implements Scen
             visibleMeans.add("porti");
             visibleMeans.add("areoporti");
             setMap();
-            count++;
         }
+        resize(sfondo, (int) Math.floor( borderPane.getWidth()), (int) Math.floor(borderPane.getHeight()));
+        mapLab.setGraphic(sfondo);
+        count++;
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -224,6 +239,7 @@ public final class MapController extends AbstractSceneController implements Scen
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if(newValue!= null && newValue.intValue() != 0 && newValue != oldValue) {
+                    //System.out.println((int) Math.floor( borderPane.getCenter().getLayoutBounds().getHeight()));
                     int width = (int) Math.floor(sfondo.getFitWidth());
                     int height = newValue.intValue();
                     resizeIconMeans(width, height);

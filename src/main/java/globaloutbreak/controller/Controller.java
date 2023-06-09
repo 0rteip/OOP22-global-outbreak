@@ -1,4 +1,5 @@
 package globaloutbreak.controller;
+import java.util.Map;
 
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
@@ -117,4 +118,14 @@ public interface Controller {
      * Read Disease.
      */
     void readDiseasesNames();
+    /**
+     * This method find Info of selected region.
+     * @return
+     *          the ifo
+     */
+    Map<TypeOfInfo, String> getInfoSingleRegion();
+    /**
+     * This method set region's list.
+     */
+    void setRegions();
 }
