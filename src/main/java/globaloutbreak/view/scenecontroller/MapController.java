@@ -20,8 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.sun.prism.paint.Color;
-
-public final class MapController extends AbstractSceneController implements SceneInitializer{
+/**
+ * Map Controller.
+ */
+public final class MapController extends AbstractSceneController implements SceneInitializer {
     @FXML
     private StackPane mapPane;
 
@@ -59,8 +61,9 @@ public final class MapController extends AbstractSceneController implements Scen
     private ImageView buf;
     private String airportPaths;
     private String portPath;
-    Map<String, Map<Pair<Integer,Integer>, Label>> meansPos = new HashMap<>();
+    private Map<String, Map<Pair<Integer, Integer>, Label>> meansPos = new HashMap<>();
     private List<String> visibleMeans;
+
     @FXML
     public final void selectRegion1(MouseEvent e) {
 
@@ -82,16 +85,16 @@ public final class MapController extends AbstractSceneController implements Scen
     }
     @FXML
     public final void selectRegion(MouseEvent e) {
-        Integer newColor = buf.getImage().getPixelReader().getArgb((int)Math.floor(e.getX()*(sfondo.getImage().getWidth()/sfondo.getFitWidth())), (int)Math.floor(e.getY()*(sfondo.getImage().getHeight()/sfondo.getFitHeight())));
+        final Integer newColor = buf.getImage().getPixelReader().getArgb((int)Math.floor(e.getX()*(sfondo.getImage().getWidth()/sfondo.getFitWidth())), (int)Math.floor(e.getY()*(sfondo.getImage().getHeight()/sfondo.getFitHeight())));
         if(!newColor.equals(Color.BLACK.getIntArgbPre())) {
             if(newColor.equals(Color.WHITE.getIntArgbPre()) || !newColor.equals(color)) {
                 if(newColor.equals(Color.WHITE.getIntArgbPre())) {
-                    color = Color.WHITE.getIntArgbPre();
+                    this.color = Color.WHITE.getIntArgbPre();
                     mapLab.setGraphic(sfondo);
                 }
                 if(!newColor.equals(color)) {
                     mapLab.setGraphic(selectedState(newColor));
-                    color = newColor;
+                    this.color = newColor;
                 }
             }
         }
