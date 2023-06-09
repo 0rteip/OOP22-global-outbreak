@@ -3,7 +3,6 @@ package globaloutbreak.view.sceneloader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +28,6 @@ public final class SceneLoaderImpl implements SceneLoader {
     private FXMLLoader loader;
     private final View view;
     private final Map<SceneStyle, Scene> sceneLoaded = new HashMap<>();
-    private Optional<SceneStyle> lastScene = Optional.empty();
-    private Optional<SceneStyle> penultimScene = Optional.empty();
 
     /**
      * Create a SceneLoader with an associated view.
@@ -89,9 +86,6 @@ public final class SceneLoaderImpl implements SceneLoader {
 
             final SceneController controller = (SceneController) loader.getController();
             this.initializeScene(controller, sceneStyle);
-
-            this.penultimScene = this.lastScene;
-            this.lastScene = Optional.of(sceneStyle);
 
             if (!stage.isShowing()) {
                 stage.show();
