@@ -63,7 +63,7 @@ public final class DiseaseControllerImpl implements DiseaseController {
     }
 
     @Override
-    public Disease getDisease(){
+    public Disease getDisease() {
         return this.disease;
     }
 

@@ -91,11 +91,14 @@ public interface Controller {
     void displayMutation();
     /**
      * Display mutation desc.
+     * @param name
+     *              mutation name
      */
     void displayMutationDesc(String name);
-  /**
-     * update mutation increment.
- * @param name
-     */
+    /**
+    * update mutation increment.
+    * @param name
+    *              mutation name
+    */
     void update(String name);
 } 

@@ -24,7 +24,7 @@ public final class ControllerImpl implements Controller {
 
     private final View view;
     private final DiseaseController diseaseController;
-    private Model model;
+    private final Model model;
     private final MutationControllerImpl mutationcControllerImpl;
 
     /**
@@ -32,12 +32,14 @@ public final class ControllerImpl implements Controller {
      * 
      * @param view
      *             view of application
+     * @param model
+     *             view of application
      */
     public ControllerImpl(final View view, final Model model) {
         this.view = view;
         this.model = model;
         this.diseaseController = new DiseaseControllerImpl();
-        this.mutationcControllerImpl = new MutationControllerImpl(view);
+        this.mutationcControllerImpl = new MutationControllerImpl(view, diseaseController);
     }
 
     @Override
@@ -61,19 +63,19 @@ public final class ControllerImpl implements Controller {
     }
 
    // @Override
-    //public void selectedMutation(final Mutation mutation) {    
+    //public void selectedMutation(final Mutation mutation) {
    // }
 
   //  @Override
-    //public void updateInfo(final Infodata info) {    
+    //public void updateInfo(final Infodata info) {
    // }
 
     @Override
-    public void displayMessage(final Message message) {     
+    public void displayMessage(final Message message) {
     }
 
     @Override
-    public void startVoyage(final Voyage voyage) {     
+    public void startVoyage(final Voyage voyage) {
     }
 
     @Override
@@ -89,27 +91,26 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void displayMutation(){
+    public void displayMutation() {
         this.mutationcControllerImpl.displayMutationsName();
-      
     }
     @Override
-    public void update(String name){
+    public void update(final String name) {
         this.mutationcControllerImpl.update(name);
     }
     @Override
-    public void displayMutationDesc(String name){
+    public void displayMutationDesc(final String name) {
         this.mutationcControllerImpl.displayMutationsDesc(name);
     }
 
     @Override
-    public void updateInfo(Infodata info) {
+    public void updateInfo(final Infodata info) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
     }
 
     @Override
-    public void selectedMutation(Mutation mutation) {
+    public void selectedMutation(final Mutation mutation) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
     }

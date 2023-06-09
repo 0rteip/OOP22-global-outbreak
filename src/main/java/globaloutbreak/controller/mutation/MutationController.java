@@ -1,7 +1,5 @@
 package globaloutbreak.controller.mutation;
 
-import globaloutbreak.model.mutation.Mutation;
-
 /**
  * interface mutation controller.
  */
@@ -17,13 +15,16 @@ public interface MutationController {
      /**
      * Display the description.
      * 
+     * @param name 
+     *              mutation
      */
     void displayMutationsDesc(String name);
 
     /**
      * do the increment of the mutation.
      * 
-     * @param mutation mutation
+     * @param name 
+     *              mutation
      */
     void update(String name);
 

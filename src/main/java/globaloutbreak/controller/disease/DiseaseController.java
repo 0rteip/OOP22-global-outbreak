@@ -34,12 +34,13 @@ public interface DiseaseController {
      * 
      * @param name
      */
-    void setDiseaseName(String name);
 
+    void setDiseaseName(String name);
+    
     /**
      * get the Disease.
      * 
-     * @preturn
+     * @return
      * Disease
      */
     Disease getDisease();
