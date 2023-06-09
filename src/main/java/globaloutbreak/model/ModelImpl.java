@@ -143,6 +143,8 @@ public final class ModelImpl implements Model {
                     break;
                 case "areporti":
                     pot.put(k, this.disease.getAirInfectivity());
+                default:
+                    break;
             }
 
         });

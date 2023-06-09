@@ -127,16 +127,18 @@ public interface View {
      * Quit Application.
      */
     void quit();
+
     /**
      * 
      * @return
-     *          info of selected region
+     *         info of selected region
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
+
     /**
      * 
      * @param color
      */
     void selectRegion(int color);
-      
+
 }
