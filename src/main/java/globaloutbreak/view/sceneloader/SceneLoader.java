@@ -18,13 +18,6 @@ public interface SceneLoader {
     void loadScene(SceneStyle sceneStyle, Stage stage);
 
     /**
-     * 
-     * @param stage
-     *              current Stage
-     */
-    void loadBackScene(Stage stage);
-
-    /**
      * Open a dialog.
      * 
      * @param stage

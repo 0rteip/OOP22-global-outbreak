@@ -30,6 +30,7 @@ public final class SceneLoaderImpl implements SceneLoader {
     private final View view;
     private final Map<SceneStyle, Scene> sceneLoaded = new HashMap<>();
     private Optional<SceneStyle> lastScene = Optional.empty();
+    private Optional<SceneStyle> penultimScene = Optional.empty();
 
     /**
      * Create a SceneLoader with an associated view.
@@ -89,9 +90,8 @@ public final class SceneLoaderImpl implements SceneLoader {
             final SceneController controller = (SceneController) loader.getController();
             this.initializeScene(controller, sceneStyle);
 
-            if (this.lastScene.isEmpty()) {
-                this.lastScene = Optional.of(sceneStyle);
-            }
+            this.penultimScene = this.lastScene;
+            this.lastScene = Optional.of(sceneStyle);
 
             if (!stage.isShowing()) {
                 stage.show();
@@ -99,12 +99,6 @@ public final class SceneLoaderImpl implements SceneLoader {
         } catch (IOException e) {
             logger.warn("Error while loading {}", sceneStyle.getFxmlFile(), e);
         }
-    }
-
-    @Override
-    public void loadBackScene(final Stage stage) {
-        this.lastScene.ifPresent(sS -> this.loadScene(sS, stage));
-
     }
 
     private void initializeScene(final SceneController controller, final SceneStyle sceneStyle) {

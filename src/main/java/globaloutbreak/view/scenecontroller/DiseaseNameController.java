@@ -26,7 +26,7 @@ public class DiseaseNameController extends AbstractSceneController {
      */
     @FXML
     public final void backScene() {
-        this.getSceneManager().openBackScene();
+        this.getSceneManager().openDiseaseChoice();
     }
 
     /**

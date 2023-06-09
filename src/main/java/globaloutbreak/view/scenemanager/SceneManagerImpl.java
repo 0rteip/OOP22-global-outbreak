@@ -53,12 +53,7 @@ public final class SceneManagerImpl implements SceneManager {
     public void openDiseaseName() {
         this.openScene(SceneStyle.DISEASENAME);
     }
-
-    @Override
-    public void openBackScene() {
-        this.sceneLoader.loadBackScene(this.stage);
-    }
-
+    
     private void openScene(final SceneStyle sceneStyle) {
         this.sceneLoader.loadScene(sceneStyle, this.stage);
     }

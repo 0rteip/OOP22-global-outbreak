@@ -34,11 +34,6 @@ public interface SceneManager {
     void openSettings();
 
     /**
-     * Open last Scene.
-     */
-    void openBackScene();
-
-    /**
      * 
      * @return
      *         the {@link SceneLoader}.
