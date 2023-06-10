@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 
-public class WorldGraphSceneController extends AbstractSceneController implements SceneInitializer {
+/**
+ * WorldGraphSceneController.
+ */
+public final class WorldGraphSceneController extends AbstractSceneController implements SceneInitializer {
     @FXML
     private PieChart pieChart;
     @FXML
@@ -25,11 +28,14 @@ public class WorldGraphSceneController extends AbstractSceneController implement
                 new PieChart.Data("Infetti", infodata.getTotalInfected()),
                 new PieChart.Data("Sani", infodata.getTotalPopulation()));
         pieChart.setData(pieChartData);
-        /*ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Morti", 0),
-                new PieChart.Data("Infetti", 0),
-                new PieChart.Data("Sani", 7_000_000));
-        pieChart.setData(pieChartData);*/
+        /*
+         * ObservableList<PieChart.Data> pieChartData =
+         * FXCollections.observableArrayList(
+         * new PieChart.Data("Morti", 0),
+         * new PieChart.Data("Infetti", 0),
+         * new PieChart.Data("Sani", 7_000_000));
+         * pieChart.setData(pieChartData);
+         */
 
         for (PieChart.Data data : pieChartData) {
             String label = data.getName() + ": " + (int) data.getPieValue();

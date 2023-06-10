@@ -54,14 +54,13 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
                         + "-fx-font-size: 18px;"
                         + "-fx-font-weight: bold;");
                 button.setOnMouseClicked(event -> {
-                    if(buttonClicked.isPresent() && buttonClicked.get().equals(button.getText())){
+                    if (buttonClicked.isPresent() && buttonClicked.get().equals(button.getText())) {
                         this.selectedType = button.getText();
                         this.openDiseaseNameScene();
                         this.buttonClicked = Optional.empty();
                         vboxParameters.getChildren().clear();
-                    }
-                    else{
-                        if(!labelsList.isEmpty()){
+                    } else {
+                        if (!labelsList.isEmpty()) {
                             labelsList = new ArrayList<>();
                         }
                         labelsList.add(new Label("Infettività: " + data.getInfectivity()));

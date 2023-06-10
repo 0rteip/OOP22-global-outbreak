@@ -34,7 +34,7 @@ import java.util.LinkedList;
  * Impl of Model interface.
  */
 
-public class ModelImpl implements Model {
+public final class ModelImpl implements Model {
 
     private List<Voyage> voyages = new ArrayList<>();
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
