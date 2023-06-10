@@ -112,20 +112,6 @@ public final class ModelImpl implements Model {
 
     @Override
     public InfoData getInfo() {
-        this.infoData.updateTotalDeathsAndInfected(regions.stream()
-                .filter(region -> region.getNumDeath() > 0)
-                .map(region -> region.getNumDeath())
-                .reduce(0, (m1, m2) -> m1 + m2),
-                regions.stream()
-                        .map(region -> region.getNumInfected())
-                        .reduce(0, (i1, i2) -> i1 + i2));
-
-        if (this.cure.isPresent()) {
-            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
-        }
-
-        System.out.println(infoData);
-
         return this.infoData;
     }
 
@@ -167,9 +153,10 @@ public final class ModelImpl implements Model {
                 case "porti":
                     pot.put(k, this.disease.getSeaInfectivity());
                     break;
-                case "areporti" : pot.put(k, this.disease.getAirInfectivity());
+                case "areporti":
+                    pot.put(k, this.disease.getAirInfectivity());
                     break;
-                default : 
+                default:
                     break;
             }
         });
@@ -181,11 +168,13 @@ public final class ModelImpl implements Model {
         }
     }
 
-    /*private Optional<Region> getRegionByColor(final int color) {
-        return this.getRegions().stream()
-                .filter(k -> k.getColor() == color)
-                .findFirst();
-    }*/
+    /*
+     * private Optional<Region> getRegionByColor(final int color) {
+     * return this.getRegions().stream()
+     * .filter(k -> k.getColor() == color)
+     * .findFirst();
+     * }
+     */
 
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
@@ -215,18 +204,19 @@ public final class ModelImpl implements Model {
             final ExtractedEvent exEvent = event.get();
             this.incDeathPeople(exEvent.getDeath(), exEvent.getRegion());
             final Message msg = new Message() {
-                    @Override
-                    public MessageType getType() {
-                        return MessageType.NEWS;
-                    }
-    
-                    @Override
-                    public String toString() {
-                        return exEvent.getEvent() + " in " + exEvent.getRegion().getName() + " ha causato  " + exEvent.getDeath() + " morti.";
-                    }
-                };
-                pcs.firePropertyChange(MessageType.CATASTROPHE.getTitle(), message, msg);
-                message = Optional.of(msg);
+                @Override
+                public MessageType getType() {
+                    return MessageType.NEWS;
+                }
+
+                @Override
+                public String toString() {
+                    return exEvent.getEvent() + " in " + exEvent.getRegion().getName() + " ha causato  "
+                            + exEvent.getDeath() + " morti.";
+                }
+            };
+            pcs.firePropertyChange(MessageType.CATASTROPHE.getTitle(), message, msg);
+            message = Optional.of(msg);
         }
     }
 

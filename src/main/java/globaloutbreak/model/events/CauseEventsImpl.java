@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import globaloutbreak.model.region.Region;
+
 /**
  * Implement. of CauseEventInt.
  */
 public final class CauseEventsImpl implements CauseEvent {
     private final List<Event> events;
     private static final Random RANDOM = new Random();
+
     /**
      * 
      * @param events

@@ -20,7 +20,6 @@ import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.events.ExtractedEvent;
-import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyages;

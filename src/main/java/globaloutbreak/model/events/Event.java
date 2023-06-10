@@ -8,23 +8,23 @@ public interface Event {
     /**
      * 
      * @param popTot
-     *              total population
+     *               total population
      * @return
-     *          the number of death
+     *         the number of death
      */
     Integer calcDeath(Integer popTot);
 
     /**
      * 
      * @return
-     *          prob. of happening
+     *         prob. of happening
      */
     float getProbOfHapp();
 
     /**
      * 
      * @return
-     *          the event's name
+     *         the event's name
      */
     String getName();
 
