@@ -1,6 +1,9 @@
 package globaloutbreak.model.infodata;
 
+import java.util.List;
+
 import globaloutbreak.model.cure.CureData;
+import globaloutbreak.model.region.Region;
 
 /**
  * Info.
@@ -54,7 +57,7 @@ public interface InfoData {
      * @param numDeaths
      * @param numInfected
      */
-    void updateTotalDeathsAndInfected(long numDeaths, long numInfected);
+    void updateTotalDeathsAndInfected(List<Region> regions);
 
     /**
      * update cure data.

@@ -1,11 +1,13 @@
 package globaloutbreak.model.infodata;
 
+import java.util.List;
 import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.cure.CureData;
+import globaloutbreak.model.region.Region;
 
 /**
  * Class to manage Dna Points.
@@ -101,7 +103,7 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public long getTotalPopulation(){
+    public long getTotalPopulation() {
         return this.totalPopulation;
     }
 
@@ -111,13 +113,18 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public void updateTotalDeathsAndInfected(final long totalDeaths, final long totalInfected) {
-        this.totalDeaths = totalDeaths;
-        if(this.totalDeaths > this.deathsLimit){
+    public void updateTotalDeathsAndInfected(List<Region> regions) {
+        this.totalDeaths = regions.stream()
+                .map(Region::getNumDeath)
+                .reduce(0, (e0, e1) -> e0 + e1);
+        if (this.totalDeaths > this.deathsLimit) {
             this.increasePoints(random.nextInt(3) + 1);
             this.deathsLimit += BASE_DEATHS_RANGE;
         }
-        if(this.totalInfected > this.infectedLimit){
+        this.totalInfected = regions.stream()
+                .map(Region::getNumInfected)
+                .reduce(0, (e0, e1) -> e0 + e1);
+        if (this.totalInfected > this.infectedLimit) {
             this.increasePoints(random.nextInt(3) + 1);
             this.infectedLimit += BASE_INFECTED_RANGE;
         }
@@ -129,7 +136,7 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public void updateDeaths(final long deaths){
+    public void updateDeaths(final long deaths) {
         this.totalDeaths += deaths;
     }
 }
