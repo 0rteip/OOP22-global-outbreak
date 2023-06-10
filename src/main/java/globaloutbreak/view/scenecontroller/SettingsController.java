@@ -26,7 +26,7 @@ public final class SettingsController extends AbstractSceneController implements
 
     @FXML
     private void exitSettings() {
-        // this.getSceneManager().openMap();
+        this.getSceneManager().openMap();
         this.getView().startStop();
     }
 
@@ -40,6 +40,9 @@ public final class SettingsController extends AbstractSceneController implements
 
     @Override
     public void initializeScene() {
+        if (this.getView().isGameRunning()) {
+            this.getView().startStop();
+        }
         if (this.gameSpeedComboBox.getItems().isEmpty()) {
             this.gameSpeedComboBox.getItems().addAll(this.getView().getGameSettings().getGameSpeeds());
             this.gameSpeedComboBox.getSelectionModel()

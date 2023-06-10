@@ -13,9 +13,6 @@ import javafx.stage.Stage;
  */
 public class GlobalOutbreakApp extends Application {
 
-    /**
-     * Set controller and load scene.
-     */
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final View view = new ViewImpl(primaryStage);

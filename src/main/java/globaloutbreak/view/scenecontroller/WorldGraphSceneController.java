@@ -29,12 +29,12 @@ public class WorldGraphSceneController extends AbstractSceneController implement
                 new PieChart.Data("Morti", 0),
                 new PieChart.Data("Infetti", 0),
                 new PieChart.Data("Sani", 7_000_000));
-        pieChart.setData(pieChartData);
+        pieChart.setData(pieChartData);*/
 
         for (PieChart.Data data : pieChartData) {
             String label = data.getName() + ": " + (int) data.getPieValue();
             data.setName(label);
-        }*/
+        }
     }
 
     @FXML

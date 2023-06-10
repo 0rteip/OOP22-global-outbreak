@@ -2,6 +2,7 @@ package globaloutbreak.view;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.TypeOfInfo;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
  */
 public interface View {
 
+    List<DiseaseData> getDiseasesDatas();
     /**
      * Start the view.
      * 
@@ -31,8 +33,8 @@ public interface View {
     /**
      * Update visual info.
      * 
-     * @param info
-     *             to update
+     * @return
+     *         infodata
      */
     InfoData getInfoData();
 
@@ -184,16 +186,18 @@ public interface View {
      * @param name  name of the mutation
      */
     void update(String name);
+
     /**
      * 
      * @return
-     *          info of selected region
+     *         info of selected region
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
+
     /**
      * 
      * @param color
      */
-    void selectRegion(int color);
-      
+    void selectRegion(Optional<Integer> color);
+
 }

@@ -20,8 +20,17 @@ fx:controller="globaloutbreak.view.scenecontroller.ChooseDiseaseController" styl
             </Button>
             <Text styleClass="tutorial-title" text="Seleziona un tipo di epidemia" />
         </HBox>
-        <HBox styleClass="hbox-diseases" fx:id="chooseDiseaseHbox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-            
+        <HBox>
+            <children>
+                <HBox styleClass="hbox-diseases" fx:id="chooseDiseaseHbox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS">
+                    
+                </HBox>
+                <VBox fx:id="vboxParameters" styleClass="vbox-parameters">
+                    <children>
+                        
+                    </children>
+                </VBox>
+            </children>
         </HBox>
 	</children>
 </VBox>

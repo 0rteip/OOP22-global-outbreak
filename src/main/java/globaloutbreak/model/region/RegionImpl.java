@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 
@@ -13,8 +16,9 @@ import globaloutbreak.model.pair.Pair;
  */
 public final class RegionImpl implements Region {
     private int numInfected;
-    private int numDead;
-    //private final int numCared;
+    private int numDeath;
+    // private final int numCared;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Integer popTot;
     private final String name;
     private final float urban;
@@ -23,16 +27,16 @@ public final class RegionImpl implements Region {
     private final Integer color;
     private final Climate climate;
     private RegionCureStatus status = RegionCureStatus.NONE;
-    //private State statusCure;
+    // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
 
     /**
      * This is the constructor.
      * 
      * @param popTot
-     *              the total population 
-     * @param name 
-     *              the name of the region
+     *                        the total population
+     * @param name
+     *                        the name of the region
      * @param reachableRegion
      *                        means with the list of reachable state and the numbre
      *                        of the mean
@@ -50,8 +54,8 @@ public final class RegionImpl implements Region {
      *                        percentage of humidity
      * 
      */
-    public RegionImpl(final int popTot, final String name, 
-            final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban, 
+    public RegionImpl(final int popTot, final String name,
+            final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban,
             final float poor, final int color, final int facilities, final float hot, final float humid) {
         this.popTot = popTot;
         this.name = name;
@@ -79,18 +83,48 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void incDeathPeople(final int dead) {
-        this.numDead += dead;
+    public void incDeathPeople(final int death) {
+
+        if (this.numDeath < popTot) {
+            if (this.numDeath + death >= popTot) {
+                if (this.numDeath + death > popTot) {
+                    logger.warn("Too many death but I add those possible");
+                }
+                this.numDeath += this.popTot - this.numDeath;
+                this.status = RegionCureStatus.FINISHED;
+                this.getTrasmissionMeans().stream().forEach(k -> {
+                    k.setState(MeansState.CLOSE);
+                });
+            } else {
+                this.numDeath += death;
+            }
+        } else {
+            logger.warn("The state is Finished");
+        }
     }
 
     @Override
     public void incOrDecInfectedPeople(final int infected) {
-        this.numInfected += infected;
+        if (this.numInfected < popTot && this.status != RegionCureStatus.FINISHED) {
+            final int sum = this.numInfected + infected;
+            if (sum >= this.popTot) {
+                if (sum > this.popTot) {
+                    logger.warn("Too many infected but I add those possible");
+                }
+                this.numInfected += popTot - this.numInfected;
+            } else {
+                this.numInfected += infected;
+            }
+        } else {
+            logger.warn("State is already infected or RegionState is Finished");
+        }
     }
 
     @Override
     public float calcPercInfected() {
-        return (numInfected * 100) / popTot;
+        final float infect = this.numInfected;
+        final float pop = this.popTot;
+        return infect / pop;
     }
 
     @Override
@@ -100,13 +134,15 @@ public final class RegionImpl implements Region {
 
     @Override
     public int getNumDeath() {
-        return numDead;
+        return numDeath;
     }
 
-    /*@Override
-    public int getNumCared() {
-        return numCared;
-    }*/
+    /*
+     * @Override
+     * public int getNumCared() {
+     * return numCared;
+     * }
+     */
 
     @Override
     public String getName() {

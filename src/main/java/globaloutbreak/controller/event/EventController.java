@@ -1,4 +1,5 @@
 package globaloutbreak.controller.event;
+
 import java.util.List;
 import globaloutbreak.model.events.Event;
 

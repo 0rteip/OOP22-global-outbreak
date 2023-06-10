@@ -13,8 +13,7 @@
 
 <BorderPane prefHeight="768.0" prefWidth="1366.0"
    xmlns="http://javafx.com/javafx/15"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.SettingsController"
-   stylesheets="css/settings.css">
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.SettingsController" stylesheets="css/settings.css">
    <top>
       <VBox id="top" BorderPane.alignment="CENTER">
          <children>

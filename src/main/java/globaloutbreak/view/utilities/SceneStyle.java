@@ -24,13 +24,13 @@ public enum SceneStyle {
     /**
      * Game Settings Scene.
      */
-    SETTINGS("Settings", "layouts/game_settings.fxml"),
+    SETTINGS("Settings", "layouts/GameSettings.fxml"),
       /**
      * Game Settings Scene.
      */
     MUTATION("Mutation", "layouts/mutation.fxml"),
     /**
-     * Map Scene
+     * Map Scene.
      */
     MAP("Map", "layouts/MapGui.fxml"),
     /**

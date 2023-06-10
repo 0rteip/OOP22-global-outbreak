@@ -1,9 +1,10 @@
 package globaloutbreak.controller;
+
 import java.util.Map;
 import java.util.List;
+import java.util.Optional;
 
 import globaloutbreak.gamespeed.GameSpeed;
-//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.message.Message;
@@ -34,12 +35,18 @@ public interface Controller {
     void choosenDiseaseName(String name);
 
     /**
+     * 
+     * @return
+     * disease
+     */
+    Disease getDisease();
+    /**
      * Pass the selected region.
      * 
      * @param region
      *               region selected
      */
-    void selectedRegion(int region);
+    void selectedRegion(Optional<Integer> region);
 
     /**
      * Pass the selected mutation.
@@ -52,15 +59,17 @@ public interface Controller {
     /**
      * Update DNA points, cure status, general info.
      * 
-     * @param info
-     *             info to update
      */
     void updateInfo();
 
     /**
      * Display info in general charts.
+     * 
+     * @return
+     *         infodata
      */
     InfoData displayInfo();
+
     /**
      * Display the message notification.
      * 
@@ -111,15 +120,6 @@ public interface Controller {
      */
     GameSettingsGetter getSettings();
 
-
-    /**
-     * Creates the Disease.
-     * 
-     * @param type
-     *             tyoe of disease
-     */
-    void createDisease(String type);
-
     /**
      * Read Disease.
      */
@@ -155,14 +155,16 @@ public interface Controller {
      * @param name name of the mutation
      */
     void update(String name);
+
     /**
      * This method find Info of selected region.
+     * 
      * @return
-     *          the ifo
+     *         the ifo
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
     /**
-     * This method set region's list.
+     * This method set a list of model.
      */
     void setRegions();
 }

@@ -3,6 +3,7 @@ package globaloutbreak.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.model.disease.DiseaseDataList;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
@@ -34,6 +36,7 @@ public final class ViewImpl implements View {
     private final SceneManager manager;
     private final List<Button> diseasesButtons = new ArrayList<>();
     private List<String> mutations = new ArrayList<>();
+    private DiseaseDataList diseasesList = new DiseaseDataList();
     private Controller controller;
     private String desc;
     private Boolean active;
@@ -104,8 +107,12 @@ public final class ViewImpl implements View {
         this.controller.readDiseasesNames();
         return List.copyOf(diseasesButtons);
     }
-
-    @Override
+ @Override
+    public List<DiseaseData> getDiseasesDatas() {
+        this.controller.readDiseasesNames();
+        return List.copyOf(diseasesList.getDisease());
+    }
+       @Override
     public List<String> getMutations() {
         return List.copyOf(mutations);
     }
@@ -140,18 +147,17 @@ public final class ViewImpl implements View {
     @Override
     public void setDiseasesData(final List<DiseaseData> diseasesNames) {
         diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
+        diseasesList.setDisease(diseasesNames);
     }
 
     @Override
     public void choosenDisease(final String type) {
         this.controller.choosenDisease(type);
-        this.logger.info("Create Disease of Type: {}", type);
     }
 
     @Override
     public void choosenNameDisease(final String name) {
         this.controller.choosenDiseaseName(name);
-        this.logger.info("Disease name: {}", name);
     }
 
     @Override
@@ -198,7 +204,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void selectRegion(int color) {
+    public void selectRegion(final Optional<Integer> color) {
         this.controller.selectedRegion(color);
     }
 }
