@@ -18,6 +18,7 @@ import globaloutbreak.model.events.Event;
 import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
+import globaloutbreak.model.observer.InfoDataRegionObserver;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.region.Region;
@@ -210,9 +211,7 @@ public class ModelImpl implements Model {
     @Override
     public void setRegions(final List<Region> regions) {
         this.regions = new LinkedList<>(regions);
-        this.infoData = new InfoDataImpl(this.regions.stream()
-                .map(Region::getPopTot)
-                .reduce(0, (e0, e1) -> e0 + e1));
+        this.initializeInfoData();
     }
 
     @Override
@@ -247,6 +246,15 @@ public class ModelImpl implements Model {
     @Override
     public void setVoyages(final Voyages voyages) {
         this.voyageC = voyages;
+    }
+
+    private void initializeInfoData() {
+        this.infoData = new InfoDataImpl(this.regions.stream()
+                .map(Region::getPopTot)
+                .reduce(0, (e0, e1) -> e0 + e1));
+        this.regions.forEach(region -> {
+            region.initializeObserver(new InfoDataRegionObserver(this.infoData));
+        });
     }
 
     // private CureData emptyCureData() {
