@@ -19,6 +19,7 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
@@ -94,7 +95,7 @@ final class RegionVoyagesAndEventsTest {
         final List<Event> events = controller.createEvents();
         final CauseEvent causeEvent = new CauseEventsImpl(events);
         //System.out.println(events);
-        Optional<Pair<String, Pair<Region, Integer>>> cat = causeEvent.causeEvent(regions);
+        Optional<ExtractedEvent> cat = causeEvent.causeEvent(regions);
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);
         }
