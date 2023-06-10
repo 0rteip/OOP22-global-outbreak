@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A DataAnalyzer based on the mainly cause of death.
  */
-public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
+public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
 
     private static String filePath = "diseases/deaths.csv";
 
@@ -64,7 +64,7 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Integer> {
     }
 
     @Override
-    public void analyze(final Integer data) {
+    public void analyze(final Long data) {
         this.causeOfDeahs.ifPresent(e -> e.entrySet().stream()
                 .filter(el -> el.getValue() <= data)
                 .findFirst()
