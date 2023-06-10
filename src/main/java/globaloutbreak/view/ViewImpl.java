@@ -41,6 +41,7 @@ public final class ViewImpl implements View {
     private String desc;
     private Boolean active;
     private int cost;
+    private int points;
 
     /**
      * Creates a VIewImpl.
@@ -117,6 +118,10 @@ public final class ViewImpl implements View {
     public List<String> getMutations() {
         return List.copyOf(mutations);
     }
+    @Override 
+    public String getPoints(){
+        return Integer.toString(points);
+    }
 
     @Override
     public String getDescription() {
@@ -129,8 +134,9 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void setMutationsName(final List<String> mutationsNames) {
-        this.mutations = mutationsNames;
+    public void setMutationsName(final List<String> mutationsNames, final int points) {
+       this.mutations = mutationsNames;
+       this.points = points;
     }
 
     @Override

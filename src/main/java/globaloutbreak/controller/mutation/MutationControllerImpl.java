@@ -58,13 +58,18 @@ public final class MutationControllerImpl implements MutationController {
         final List<Mutation> mutations = mutationData.getMutations();
         final Mutation mutationData = mutations.stream()
                                                 .filter(mutation -> mutation.getName().equals(name))
-                                                .findFirst().orElse(null);
-        if (mutationManager.isActivate(name)) {
-            mutationManager.removeToActivate(name);
-            mutationData.decrease(model.getDisease());
-        } else {
-            mutationManager.addToActivate(name);
-            mutationData.increase(model.getDisease());
+                                                .findFirst().orElse(null);                           
+        if(model.getInfo().getPoints() >= mutationData.getCost()){
+            if (mutationManager.isActivate(name)) {
+                mutationManager.removeToActivate(name);
+                model.getInfo().increasePoints(mutationData.getCost());
+                mutationData.decrease(model.getDisease());
+                } else {
+                     mutationManager.addToActivate(name);
+                     model.getInfo().decreasePoints(mutationData.getCost());
+                     mutationData.increase(model.getDisease());
+                }
         }
+      
     }
 }

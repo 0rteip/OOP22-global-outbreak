@@ -188,7 +188,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void setMutationsName(final List<String> list) {
-        view.setMutationsName(List.copyOf(list));
+        view.setMutationsName(List.copyOf(list),model.getInfo().getPoints());
     }
 
     @Override
