@@ -1,17 +1,14 @@
 package globaloutbreak.controller;
 
 import java.util.List;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
@@ -29,13 +26,10 @@ import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.mutation.Mutation;
-//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.disease.Disease;
-import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettings;

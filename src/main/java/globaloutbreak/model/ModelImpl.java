@@ -20,12 +20,9 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
-import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.Voyages;
-import globaloutbreak.model.voyage.VoyagesImpl;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
@@ -42,7 +39,6 @@ public class ModelImpl implements Model {
     private Optional<Region> selectedRegion = Optional.empty();
     private Voyages voyageC;
     private Optional<Cure> cure = Optional.empty();
-    private List<Event> events = new LinkedList<>();
     private final DataAnalyzer<Integer> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Optional<Message> message = Optional.empty();
@@ -212,11 +208,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void createCauseEvents() {
-
-    }
-
-    @Override
     public void setRegions(final List<Region> regions) {
         this.regions = new LinkedList<>(regions);
         this.infoData = new InfoDataImpl(this.regions.stream()
@@ -226,7 +217,6 @@ public class ModelImpl implements Model {
 
     @Override
     public void setEvents(final List<Event> events) {
-        this.events = new LinkedList<>(events);
         this.causeEvents = new CauseEventsImpl(events);
     }
 
@@ -252,10 +242,6 @@ public class ModelImpl implements Model {
     @Override
     public Voyages getVoyage() {
         return this.voyageC;
-    }
-
-    private void setCauseEvents(final List<Event> events) {
-        this.causeEvents = new CauseEventsImpl(List.copyOf(events));
     }
 
     @Override

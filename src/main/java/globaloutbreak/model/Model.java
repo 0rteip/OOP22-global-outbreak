@@ -151,11 +151,6 @@ public interface Model {
     void causeEvent();
 
     /**
-     * This method create CauseEvent class.
-     */
-    void createCauseEvents();
-
-    /**
      * 
      * @param regions
      *                regions
