@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.tuple.Pair;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.region.Region;
@@ -103,13 +104,6 @@ public interface Model {
     Optional<Region> getSelectedRegion();
 
     /**
-     * This method creates the class Voyage.
-     * 
-     * @param sizeAndNameOfMeans
-     */
-    void createVoyage(Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans);
-
-    /**
      * 
      * @return
      *         class Voyage
@@ -178,4 +172,8 @@ public interface Model {
      *               list of Event
      */
     void setEvents(List<Event> events);
+    /**
+     * Set voyages variable.
+     */
+    void setVoyages(Voyages voyages);
 }

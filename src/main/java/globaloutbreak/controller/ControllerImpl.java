@@ -20,6 +20,8 @@ import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.newsobserver.NewsObserver;
 import globaloutbreak.controller.region.RegionController;
 import globaloutbreak.controller.region.RegionControllerImpl;
+import globaloutbreak.controller.voyage.VoyageController;
+import globaloutbreak.controller.voyage.VoyageControllerImpl;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
@@ -33,6 +35,7 @@ import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettings;
@@ -55,6 +58,7 @@ public final class ControllerImpl implements Controller {
     private final View view;
     private final RegionController regionController = new RegionControllerImpl();
     private final MutationController mutationController;
+    private final VoyageController voyageController = new VoyageControllerImpl();
 
     /**
      * Create a controller.
@@ -73,6 +77,7 @@ public final class ControllerImpl implements Controller {
         this.view = view;
         this.model.addNewsListener(new NewsObserver(this));
         this.model.setRegions(regionController.getRegions());
+        this.model.setVoyages(voyageController.createVoyage());
     }
 
     @Override

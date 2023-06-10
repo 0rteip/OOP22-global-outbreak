@@ -13,6 +13,7 @@ import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
+import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.message.Message;
@@ -39,7 +40,7 @@ public class ModelImpl implements Model {
     private Disease disease;
     private List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
-    private Voyages voyage;
+    private Voyages voyageC;
     private Optional<Cure> cure = Optional.empty();
     private List<Event> events = new LinkedList<>();
     private final DataAnalyzer<Integer> deathAnalyzer;
@@ -124,16 +125,10 @@ public class ModelImpl implements Model {
         return this.selectedRegion;
     }
 
-
-    @Override
-    public Voyages getVoyage() {
-        return this.voyage;
-    }
-
     @Override
     public void extractVoyages() {
         final Map<String, Float> pot = new HashMap<>();
-        voyage.getMeans().forEach(k -> {
+        voyageC.getMeans().forEach(k -> {
             switch (k) {
                 case "terra":
                     pot.put(k, this.disease.getLandInfectivity());
@@ -148,7 +143,7 @@ public class ModelImpl implements Model {
                     break;
             }
         });
-        final List<Voyage> voyages = this.voyage.extractMeans(this.getRegions(), pot);
+        final List<Voyage> voyages = this.voyageC.extractMeans(this.getRegions(), pot);
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
                 this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());
@@ -225,6 +220,7 @@ public class ModelImpl implements Model {
     @Override
     public void setEvents(final List<Event> events) {
         this.events = new LinkedList<>(events);
+        this.causeEvents = new CauseEventsImpl(events);
     }
 
     @Override
@@ -247,9 +243,17 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void createVoyage(Map<String, org.apache.commons.lang3.tuple.Pair<Integer, Integer>> sizeAndNameOfMeans) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createVoyage'");
+    public Voyages getVoyage() {
+        return this.voyageC;
+    }
+
+    private void setCauseEvents(final List<Event>  events) {
+        this.causeEvents = new CauseEventsImpl(List.copyOf(events));
+    }
+
+    @Override
+    public void setVoyages(final Voyages voyages) {
+       this.voyageC = voyages;
     }
 
     // private CureData emptyCureData() {
