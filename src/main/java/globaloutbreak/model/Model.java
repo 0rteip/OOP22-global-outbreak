@@ -155,11 +155,11 @@ public interface Model {
      */
     void incOrDecInfectedPeople(int newinfected, Region region);
     /**
-     * This method cause a event
+     * This method cause a event.
      */
     void causeEvent();
     /**
-     * This method create CauseEvent class
+     * This method create CauseEvent class.
      */
     void createCauseEvents();
     /**

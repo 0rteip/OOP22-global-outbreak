@@ -252,9 +252,9 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public Map<TypeOfInfo, String> getInfoSingleRegion() {
-        Map<TypeOfInfo, String> info = new HashMap<>();
-        Optional<Region> r = this.model.getSelectedRegion();
-        if(r.isPresent()) {
+        final Map<TypeOfInfo, String> info = new HashMap<>();
+        final Optional<Region> r = this.model.getSelectedRegion();
+        if (r.isPresent()) {
             info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
             info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
             info.put(TypeOfInfo.REGION, r.get().getName());

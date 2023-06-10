@@ -52,10 +52,11 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     private Button worldBut;
+
     @FXML
     private BorderPane borderPane;
 
-    private int count = 0;
+    private int count;
     private int color;
     private ImageView airportsMap;
     private ImageView portsMap;
@@ -65,45 +66,56 @@ public final class MapController extends AbstractSceneController implements Scen
     private String portPath;
     private Map<String, Map<Pair<Integer, Integer>, Label>> meansPos = new HashMap<>();
     private List<String> visibleMeans;
+    private Double percH = 1.0;
+    private Double percW = 1.0;
+    private String path;
+    /**
+     * Contructor.
+     */
+    public MapController() {
+        count = 0;
+    }
 
+    /**
+     * This is stackPane's lister.
+     * 
+     * @param e
+     *          Mouse Event (on click)
+     */
     @FXML
-    public final void selectRegion1(MouseEvent e) {
+    public void selectRegion(final MouseEvent e) {
         final Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
         if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
-            if (newColor.equals(Color.WHITE.getIntArgbPre()) || !newColor.equals(color)) {
-                if (newColor.equals(Color.WHITE.getIntArgbPre())) {
-                    this.color = Color.WHITE.getIntArgbPre();
-                    mapLab.setGraphic(sfondo);
-                    this.getView().selectRegion(newColor);
-                }
-                if (!newColor.equals(color)) {
-                    mapLab.setGraphic(selectedState(newColor));
-                    this.color = newColor;
-                    this.getView().selectRegion(newColor);
-                    Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
-                    System.out.println(info.size());
-                    info.forEach((t, s) -> {
-                        if (t.equals(TypeOfInfo.INFETTI)) {
-                            infectedText.setText(s);
-                        } else if (t.equals(TypeOfInfo.MORTI)) {
-                            deathText.setText(s);
-                        } else if (t.equals(TypeOfInfo.REGION)) {
-                            regionText.setText(s);
-                        }
-
-                    });
-                }
+            if (newColor.equals(Color.WHITE.getIntArgbPre())) {
+                this.color = Color.WHITE.getIntArgbPre();
+                mapLab.setGraphic(sfondo);
+                this.getView().selectRegion(newColor);
+            }
+            if (!newColor.equals(color)) {
+                mapLab.setGraphic(selectedState(newColor));
+                this.color = newColor;
+                this.getView().selectRegion(newColor);
+                final Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
+                info.forEach((t, s) -> {
+                    if (t.equals(TypeOfInfo.INFETTI)) {
+                        infectedText.setText(s);
+                    } else if (t.equals(TypeOfInfo.MORTI)) {
+                        deathText.setText(s);
+                    } else if (t.equals(TypeOfInfo.REGION)) {
+                        regionText.setText(s);
+                    }
+                });
             }
         }
     }
 
-    private ImageView selectedState(int color) {
-        WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(),
+    private ImageView selectedState(final int color) {
+        final WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(),
                 (int) Math.floor(sfondo.getImage().getWidth()),
                 (int) Math.floor(sfondo.getImage().getHeight()));
-        Image bufImage = buf.getImage();
+        final Image bufImage = buf.getImage();
         for (int i = 0; i < (int) Math.floor(bufImage.getWidth()); i++) {
             for (int j = 0; j < (int) Math.floor(bufImage.getHeight()); j++) {
                 if (bufImage.getPixelReader().getArgb(i, j) == color) {
@@ -111,55 +123,70 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         }
-        ImageView i = new ImageView(sfonW);
+        final ImageView i = new ImageView(sfonW);
         resize(i, (int) Math.floor(sfondo.getFitWidth()), (int) Math.floor(sfondo.getFitHeight()));
         return i;
     }
 
+    /**
+     * This method open settings Scene.
+     * 
+     * @param e
+     *          Mouse Event (on click)
+     */
     @FXML
-    public final void selectRegion(MouseEvent e) {
-
-    }
-
-    @FXML
-    public final void openSettings(MouseEvent e) {
+    public void openSettings(final MouseEvent e) {
         this.getSceneManager().openSettings();
     }
 
+    /**
+     * This method open generalGraph Scene.
+     * 
+     * @param e
+     *          Mouse Event (on click)
+     */
     @FXML
-    public final void goToGeneralGraph(MouseEvent e) {
+    public void goToGeneralGraph(final MouseEvent e) {
 
     }
 
+    /**
+     * This method open mutation Scene.
+     * 
+     * @param e
+     *          Mouse Event (on click)
+     */
     @FXML
-    public final void goToMutation(MouseEvent e) {
+    public void goToMutation(final MouseEvent e) {
 
     }
 
+    /**
+     * This method open star/stop Scene.
+     * 
+     * @param e
+     *          Mouse Event (on click)
+     */
     @FXML
-    public final void startStop(MouseEvent e) {
+    public void startStop(final MouseEvent e) {
         this.getView().startStop();
     }
 
-    private ImageView getImage(String path) {
+    private ImageView getImage(final String path) {
         return new ImageView(ClassLoader.getSystemResource(path).toString());
     }
 
-    private void resize(ImageView image, Integer width, Integer height) {
+    private void resize(final ImageView image, final Integer width, final Integer height) {
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
 
-    private Double percH = 1.0;
-    private Double percW = 1.0;
-    String path;
-
-    private void resizeIconMeans(Integer width, Integer height) {
+    private void resizeIconMeans(final Integer width, final Integer height) {
         path = "";
         percH = 1.0;
         percW = 1.0;
-        Double oldH = sfondo.getImage().getHeight();
-        Double oldW = sfondo.getImage().getWidth();
+        final Double oldH = sfondo.getImage().getHeight();
+        final Double oldW = sfondo.getImage().getWidth();
         if (width != 0 && height != 0) {
             percH = height / oldH;
             percW = width / oldW;
@@ -171,9 +198,12 @@ public final class MapController extends AbstractSceneController implements Scen
                         break;
                     case "porti":
                         path = portPath;
+                        break;
+                    default :
+                        break;
                 }
                 m.forEach((p, l) -> {
-                    ImageView ik = getImage(path);
+                    final ImageView ik = getImage(path);
                     resize(ik, (int) Math.floor(ik.getImage().getWidth() * percW),
                             (int) Math.floor(ik.getImage().getWidth() * percW));
                     ik.setPreserveRatio(true);
@@ -186,16 +216,16 @@ public final class MapController extends AbstractSceneController implements Scen
         }
     }
 
-    private Map<Pair<Integer, Integer>, Label> extractPos(ImageView im) {
-        int width = (int) Math.floor(im.getImage().getWidth());
-        int height = (int) Math.floor(im.getImage().getHeight());
-        Map<Pair<Integer, Integer>, Label> temp = new HashMap<>();
-        WritableImage r = new WritableImage(im.getImage().getPixelReader(), width, height);
+    private Map<Pair<Integer, Integer>, Label> extractPos(final ImageView im) {
+        final int width = (int) Math.floor(im.getImage().getWidth());
+        final int height = (int) Math.floor(im.getImage().getHeight());
+        final Map<Pair<Integer, Integer>, Label> temp = new HashMap<>();
+        final WritableImage r = new WritableImage(im.getImage().getPixelReader(), width, height);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (r.getPixelReader().getArgb(i, j) != -1
-                        && r.getPixelReader().getArgb(i, j) != -16777216) {
-                    Label label = new Label();
+                        && r.getPixelReader().getArgb(i, j) != Color.BLACK.getIntArgbPre()) {
+                    final Label label = new Label();
                     this.mapPane.getChildren().add(label);
                     temp.put(new Pair<Integer, Integer>(i, j), label);
                 }
@@ -214,10 +244,15 @@ public final class MapController extends AbstractSceneController implements Scen
                 case "porti":
                     meansPos.put(k, extractPos(portsMap));
                     break;
+                default:
+                    break;
             }
         });
     }
 
+    /**
+     * This method initialize the scene.
+     */
     @Override
     public void initializeScene() {
         if (count == 0) {
@@ -227,7 +262,6 @@ public final class MapController extends AbstractSceneController implements Scen
             this.airportsMap = getImage("configView/airportsMap.png");
             this.portsMap = getImage("configView/ports.png");
             this.buf = getImage("configView/checkRegion.png");
-
             this.sfondo = getImage("configView/sfon.png");
             visibleMeans = new LinkedList<>();
             visibleMeans.add("porti");
@@ -239,10 +273,11 @@ public final class MapController extends AbstractSceneController implements Scen
         count++;
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && newValue.intValue() != 0 && newValue != oldValue) {
-                    int width = newValue.intValue();
-                    int height = (int) Math.floor(sfondo.getFitHeight());
+            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue,
+                    final Number newValue) {
+                if (newValue != null && newValue.intValue() != 0 && !newValue.equals(oldValue)) {
+                    final int width = newValue.intValue();
+                    final int height = (int) Math.floor(sfondo.getFitHeight());
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
                     resize(buf, width, height);
@@ -253,12 +288,11 @@ public final class MapController extends AbstractSceneController implements Scen
 
         borderPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && newValue.intValue() != 0 && newValue != oldValue) {
-                    // System.out.println((int) Math.floor(
-                    // borderPane.getCenter().getLayoutBounds().getHeight()));
-                    int width = (int) Math.floor(sfondo.getFitWidth());
-                    int height = newValue.intValue();
+            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue,
+                    final Number newValue) {
+                if (newValue != null && newValue.intValue() != 0 && !newValue.equals(oldValue)) {
+                    final int width = (int) Math.floor(sfondo.getFitWidth());
+                    final int height = newValue.intValue();
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
                     resize(buf, width, height);

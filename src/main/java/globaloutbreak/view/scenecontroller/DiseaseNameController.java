@@ -28,7 +28,7 @@ public class DiseaseNameController extends AbstractSceneController {
     public final void backScene() {
         this.getSceneManager().openDiseaseChoice();
     }
-    
+
     /**
      * Start the game.
      */

@@ -23,7 +23,7 @@ public final class EventControllerImpl implements EventController {
     @Override
     public List<Event> createEvents() {
         final List<Event> events = new LinkedList<>();
-        final String path = "region/ConfigMeans.json";
+        final String path = "events/ConfigEvents.json";
         final ObjectMapper map = new ObjectMapper();
         JsonNode node;
         try {

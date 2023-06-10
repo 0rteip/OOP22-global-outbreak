@@ -150,7 +150,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void selectRegion(int color) {
+    public void selectRegion(final int color) {
         this.controller.selectedRegion(color);
     }
 }

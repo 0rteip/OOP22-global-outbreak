@@ -26,7 +26,7 @@ public enum SceneStyle {
      */
     SETTINGS("Settings", "layouts/game_settings.fxml"),
     /**
-     * Map Scene
+     * Map Scene.
      */
     MAP("Map", "layouts/MapGui.fxml");
     private final String fxmlFile;

@@ -138,5 +138,5 @@ public interface View {
      * @param color
      */
     void selectRegion(int color);
-      
+
 }
