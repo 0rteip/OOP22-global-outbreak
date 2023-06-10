@@ -9,7 +9,7 @@ import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.voyage.Voyages;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
 /**
@@ -85,7 +85,7 @@ public interface Controller {
      * @param voyage
      *               to start
      */
-    void startVoyage(Voyages voyage);
+    void startVoyage(Voyage voyage);
 
     /**
      * Quits from application.

@@ -13,7 +13,7 @@ import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.voyage.Voyages;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
@@ -77,9 +77,8 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayVoyage(final Voyages voyage) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayVoyage'");
+    public void displayVoyage(final Voyage voyage) {
+        this.logger.info("Voyage from " + voyage.getPart() + " to " + voyage.getDest());
     }
 
     // @formatter:off
@@ -107,36 +106,38 @@ public final class ViewImpl implements View {
         this.controller.readDiseasesNames();
         return List.copyOf(diseasesButtons);
     }
- @Override
+
+    @Override
     public List<DiseaseData> getDiseasesDatas() {
         this.controller.readDiseasesNames();
         return List.copyOf(diseasesList.getDisease());
     }
-       @Override
+
+    @Override
     public List<String> getMutations() {
         return List.copyOf(mutations);
     }
 
     @Override
-    public String  getDescription() {
+    public String getDescription() {
         return desc;
     }
 
-     @Override
+    @Override
     public String getCost() {
         return String.valueOf(cost);
     }
- 
+
     @Override
     public void setMutationsName(final List<String> mutationsNames) {
-       this.mutations = mutationsNames;
+        this.mutations = mutationsNames;
     }
 
     @Override
     public void setMutationsDesc(final String desc, final Boolean activate, final int cost) {
-       this.desc = desc;
-       this.active = activate;
-       this.cost = cost;
+        this.desc = desc;
+        this.active = activate;
+        this.cost = cost;
     }
 
     @Override
@@ -189,10 +190,12 @@ public final class ViewImpl implements View {
     public void displayMutation() {
         controller.displayMutationsName();
     }
+
     @Override
     public void displayMutationDesc(final String name) {
-       controller.displayMuatationDesc(name);
+        controller.displayMuatationDesc(name);
     }
+
     @Override
     public void update(final String name) {
         controller.update(name);

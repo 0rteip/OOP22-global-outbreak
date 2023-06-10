@@ -31,7 +31,7 @@ import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.infodata.InfoData;
-import globaloutbreak.model.voyage.Voyages;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -104,7 +104,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startVoyage(final Voyages voyage) {
+    public void startVoyage(final Voyage voyage) {
         this.view.displayVoyage(voyage);
     }
 
@@ -143,13 +143,13 @@ public final class ControllerImpl implements Controller {
     @Override
     public void readDiseasesNames() {
         final DiseaseReader reader = new DiseaseReaderImpl();
-        if(this.view != null){
+        if (this.view != null) {
             this.view.setDiseasesData(reader.getDiseases());
         }
         this.diseaseController.readFile(reader.getDiseases());
     }
 
-    public Disease getDisease(){
+    public Disease getDisease() {
         return this.model.getDisease();
     }
 
@@ -180,22 +180,27 @@ public final class ControllerImpl implements Controller {
     public void quit() {
         Platform.exit();
     }
-    @Override 
+
+    @Override
     public void displayMutationsName() {
         mutationController.displayMutationsName(this);
     }
+
     @Override
     public void setMutationsName(final List<String> list) {
         view.setMutationsName(List.copyOf(list));
     }
+
     @Override
     public void setMutationsDesc(final String description, final boolean activate, final int cost) {
         view.setMutationsDesc(description, activate, cost);
     }
+
     @Override
     public void displayMuatationDesc(final String name) {
         mutationController.displayMutationsDesc(name, this);
     }
+
     @Override
     public void update(final String name) {
         mutationController.update(name, model);
@@ -245,6 +250,7 @@ public final class ControllerImpl implements Controller {
         }
 
         private void update() {
+            model.update();
             // System.out.println("update");
             // ControllerImpl.this.update(dayCicle);
             // if (ControllerImpl.this.model.isSimulationOver()) {
@@ -253,8 +259,7 @@ public final class ControllerImpl implements Controller {
         }
 
         private void render() {
-            // System.out.println("render");
-            // System.out.println(LocalTime.now());
+            model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
 
             // ControllerImpl.this.view.render(ControllerImpl.this.model.getFoods(),
             // ControllerImpl.this.model.getOrganisms());
