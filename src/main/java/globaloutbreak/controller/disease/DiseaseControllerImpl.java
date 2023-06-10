@@ -47,7 +47,7 @@ public final class DiseaseControllerImpl implements DiseaseController {
 
     private float getIfValid(final float value, final String name) {
         if (value < 0 || value > 1) {
-            logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);
+            logger.error("Error parameter value: The value of {} is less than 0 or exceeds 1", name);
             return 0;
         }
         return value;
@@ -55,8 +55,8 @@ public final class DiseaseControllerImpl implements DiseaseController {
 
     private float getIfValidCure(final float value){
        if (value < 1) {
-            logger.error("Error parameter update: The new value of cureResistance less than 1");
-            return 0;
+            logger.error("Error parameter: The value of cureResistance less than 1");
+            return 1;
         }
         return value;
     }

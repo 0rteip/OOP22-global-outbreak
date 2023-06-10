@@ -26,6 +26,7 @@ import globaloutbreak.model.region.Region;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
+import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettings;
@@ -122,13 +123,20 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDiseaseName(final String name) {
         this.model.setDiseaseName(name);
+        logger.info("Completed creation of the new malattia: " + this.model.getDisease().toString());
     }
 
     @Override
     public void readDiseasesNames() {
         final DiseaseReader reader = new DiseaseReaderImpl();
-        this.view.setDiseasesData(reader.getDiseases());
+        if(this.view != null){
+            this.view.setDiseasesData(reader.getDiseases());
+        }
         this.diseaseController.readFile(reader.getDiseases());
+    }
+
+    public Disease getDisease(){
+        return this.model.getDisease();
     }
 
     @Override

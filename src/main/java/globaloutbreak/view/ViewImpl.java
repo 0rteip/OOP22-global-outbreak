@@ -17,6 +17,7 @@ import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
+import globaloutbreak.model.disease.DiseaseDataList;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
@@ -33,6 +34,7 @@ public final class ViewImpl implements View {
     private final WindowSettings settings = new WindowSettingsImpl();
     private final SceneManager manager;
     private final List<Button> diseasesButtons = new ArrayList<>();
+    private DiseaseDataList diseasesList = new DiseaseDataList();
     private Controller controller;
 
     /**
@@ -102,8 +104,15 @@ public final class ViewImpl implements View {
     }
 
     @Override
+    public List<DiseaseData> getDiseasesDatas() {
+        this.controller.readDiseasesNames();
+        return List.copyOf(diseasesList.getDisease());
+    }
+
+    @Override
     public void setDiseasesData(final List<DiseaseData> diseasesNames) {
         diseasesNames.stream().forEach(disease -> diseasesButtons.add(new Button(disease.getType())));
+        diseasesList.setDisease(diseasesNames);
     }
 
     @Override
@@ -115,7 +124,6 @@ public final class ViewImpl implements View {
     @Override
     public void choosenNameDisease(final String name) {
         this.controller.choosenDiseaseName(name);
-        this.logger.info("Disease name: {}", name);
     }
 
     @Override

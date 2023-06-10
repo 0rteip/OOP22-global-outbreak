@@ -4,6 +4,7 @@ import java.util.Map;
 
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
@@ -32,6 +33,12 @@ public interface Controller {
      */
     void choosenDiseaseName(String name);
 
+    /**
+     * 
+     * @return
+     * disease
+     */
+    Disease getDisease();
     /**
      * Pass the selected region.
      * 

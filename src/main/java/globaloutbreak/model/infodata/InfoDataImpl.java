@@ -17,12 +17,12 @@ public class InfoDataImpl implements InfoData {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private int deathsLimit;
-    private int infectedLimit;
+    private long deathsLimit;
+    private long infectedLimit;
     private int dnaPoints;
-    private int totalDeaths;
-    private int totalInfected;
-    private int totalPopulation;
+    private long totalDeaths;
+    private long totalInfected;
+    private long totalPopulation;
     private CureData cureData;
     private Random random = new Random();
 
@@ -91,17 +91,17 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public int getTotalDeaths() {
+    public long getTotalDeaths() {
         return this.totalDeaths;
     }
 
     @Override
-    public int getTotalInfected() {
+    public long getTotalInfected() {
         return this.totalInfected;
     }
 
     @Override
-    public int getTotalPopulation(){
+    public long getTotalPopulation(){
         return this.totalPopulation;
     }
 
@@ -111,7 +111,7 @@ public class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public void updateTotalDeathsAndInfected(final int totalDeaths, final int totalInfected) {
+    public void updateTotalDeathsAndInfected(final long totalDeaths, final long totalInfected) {
         this.totalDeaths = totalDeaths;
         if(this.totalDeaths > this.deathsLimit){
             this.increasePoints(random.nextInt(3) + 1);

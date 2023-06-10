@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
  */
 public interface View {
 
+    List<DiseaseData> getDiseasesDatas();
     /**
      * Start the view.
      * 

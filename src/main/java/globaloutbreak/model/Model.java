@@ -19,16 +19,6 @@ import globaloutbreak.model.voyage.Voyage;
 public interface Model {
 
     /**
-     * Choosen disease type and name.
-     * 
-     * @param disease
-     *                disease's type
-     * @param name
-     *                disease's name
-     */
-    void chosenDisease(Disease disease, String name);
-
-    /**
      * @param disease
      */
     void setDisease(Disease disease);
@@ -39,6 +29,12 @@ public interface Model {
      */
     void setDiseaseName(String name);
 
+    /**
+     * 
+     * @return
+     * Disease
+     */
+    Disease getDisease();
     /**
      * Returns {@code True} id {@code setDisease(Disease disease)} was called.
      * 

@@ -55,31 +55,31 @@ public class DiseaseReaderImpl implements DiseaseReader {
                             diseaseData.setLethality(value.getValue().floatValue());
                             break;
                         case "airInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setAirInfectivity(value.getValue().floatValue());
                             break;
                         case "landInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setLandInfectivity(value.getValue().floatValue());
                             break;
                         case "seaInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setSeaInfectivity(value.getValue().floatValue());
                             break;
                         case "heatInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setHeatInfectivity(value.getValue().floatValue());
                             break;
                         case "coldInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setColdInfectivity(value.getValue().floatValue());
                             break;
                         case "cureResistance":
                             diseaseData.setCureResistance(value.getValue().floatValue());
                             break;
                         case "humidityInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setHumidityInfectivity(value.getValue().floatValue());
                             break;
                         case "aridityInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setAridityInfectivity(value.getValue().floatValue());
                             break;
                         case "povertyInfectivity":
-                            diseaseData.setInfectivity(value.getValue().floatValue());
+                            diseaseData.setPovertyInfectivity(value.getValue().floatValue());
                             break;
                         default:
                             logger.error("String not recognized in file {}", DISEASES_FILE_PATH);

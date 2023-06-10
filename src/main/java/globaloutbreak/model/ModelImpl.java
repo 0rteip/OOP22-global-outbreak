@@ -110,6 +110,11 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public Disease getDisease(){
+        return this.disease;
+    }
+
+    @Override
     public InfoData getInfo() {
         this.infoData.updateTotalDeathsAndInfected(regions.stream()
                 .filter(region -> region.getNumDeath() > 0)
@@ -122,8 +127,6 @@ public final class ModelImpl implements Model {
         if (this.cure.isPresent()) {
             this.infoData.updateCureData(this.cure.get().getGlobalStatus());
         }
-
-        System.out.println(infoData);
 
         return this.infoData;
     }
@@ -147,12 +150,6 @@ public final class ModelImpl implements Model {
     @Override
     public Voyage getVoyage() {
         return this.voyage;
-    }
-
-    @Override
-    public void chosenDisease(final Disease disease, final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
     }
 
     @Override
