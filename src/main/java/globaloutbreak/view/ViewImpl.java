@@ -13,7 +13,7 @@ import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
@@ -71,7 +71,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayVoyage(final Voyage voyage) {
+    public void displayVoyage(final Voyages voyage) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayVoyage'");
     }

@@ -4,14 +4,13 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 
 /**
  * Model for GlobalOutbreak app.
@@ -117,7 +116,7 @@ public interface Model {
      * @return
      *         class Voyage
      */
-    Voyage getVoyage();
+    Voyages getVoyage();
 
     /**
      * Returns {@code True} if game is over.

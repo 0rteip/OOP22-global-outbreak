@@ -27,7 +27,7 @@ import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.infodata.InfoData;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -95,7 +95,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startVoyage(final Voyage voyage) {
+    public void startVoyage(final Voyages voyage) {
         this.view.displayVoyage(voyage);
     }
 

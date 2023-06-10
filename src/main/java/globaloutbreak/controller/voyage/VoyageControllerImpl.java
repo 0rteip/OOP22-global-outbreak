@@ -11,8 +11,8 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import globaloutbreak.model.pair.Pair;
-import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.voyage.VoyageImpl;
+import globaloutbreak.model.voyage.Voyages;
+import globaloutbreak.model.voyage.VoyagesImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public final class VoyageControllerImpl implements VoyageController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
-    public Voyage createVoyage() {
+    public Voyages createVoyage() {
         final ObjectMapper map = new ObjectMapper();
         final String path = "voyage/ConfigMeans.json";
         JsonNode node;
@@ -53,7 +53,7 @@ public final class VoyageControllerImpl implements VoyageController {
         } catch (IOException e) {
             logger.error("Failed creation of events", e);
         }
-        return new VoyageImpl(sizeAndNameOfMeans);
+        return new VoyagesImpl(sizeAndNameOfMeans);
 
     }
 }

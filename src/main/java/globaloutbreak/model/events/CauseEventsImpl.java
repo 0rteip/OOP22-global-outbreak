@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-
-import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 /**
  * Implement. of CauseEventInt.
@@ -22,12 +20,12 @@ public final class CauseEventsImpl implements CauseEvent {
     }
 
     @Override
-    public Optional<Pair<String, Pair<Region, Integer>>> causeEvent(final List<Region> regions) {
+    public Optional<ExtractedEvent> causeEvent(final List<Region> regions) {
         if (!regions.isEmpty()) {
             final Event event = events.get(RANDOM.nextInt(0, events.size() - 1));
             if (RANDOM.nextInt(0, 100) <= event.getProbOfHapp()) {
                 final Region r = regions.get(RANDOM.nextInt(0, regions.size() - 1));
-                return Optional.of(new Pair<>(event.getName(), new Pair<>(r, event.calcDeath(r.getPopTot()))));
+                return Optional.of(new ExtractedEventImpl(r, event.getName(), event.calcDeath(r.getPopTot())));
             }
         }
         return Optional.empty();

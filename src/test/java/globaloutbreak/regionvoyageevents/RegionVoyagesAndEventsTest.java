@@ -22,7 +22,7 @@ import globaloutbreak.model.events.Event;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 
 /**
  * Test for Region and Voyages.
@@ -63,7 +63,7 @@ final class RegionVoyagesAndEventsTest {
 
     @Test
     void testVoyages() {
-        final Voyage means = vC.createVoyage();
+        final Voyages means = vC.createVoyage();
         //System.out.println(means.getMeans());
         final Map<String, Float> pot = new HashMap<>();
         final float v = 0;

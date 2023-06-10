@@ -18,14 +18,16 @@ import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.voyage.VoyageImpl;
+import globaloutbreak.model.voyage.VoyageM;
+import globaloutbreak.model.voyage.Voyages;
+import globaloutbreak.model.voyage.VoyagesImpl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -42,12 +44,12 @@ public final class ModelImpl implements Model {
     private Disease disease;
     private List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
-    private Voyage voyage;
+    private Voyages voyage;
     private Optional<Cure> cure = Optional.empty();
     private List<Event> events = new LinkedList<>();
     private final DataAnalyzer<Integer> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private Optional<Message> newsMessage = Optional.empty();
+    private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
 
@@ -56,7 +58,7 @@ public final class ModelImpl implements Model {
      */
     public ModelImpl() {
         this.deathAnalyzer = new DeathNumberAnalyzer((key, value) -> {
-            final Message message = new Message() {
+            final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
                     return MessageType.NEWS;
@@ -67,8 +69,8 @@ public final class ModelImpl implements Model {
                     return disease.getName() + " killed more than: " + key + "\nMore than " + value + " people.";
                 }
             };
-            pcs.firePropertyChange(MessageType.NEWS.getTitle(), newsMessage, message);
-            newsMessage = Optional.of(message);
+            pcs.firePropertyChange(MessageType.NEWS.getTitle(), message, msg);
+            message = Optional.of(msg);
         });
     }
 
@@ -140,11 +142,11 @@ public final class ModelImpl implements Model {
 
     @Override
     public void createVoyage(final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans) {
-        this.voyage = new VoyageImpl(sizeAndNameOfMeans);
+        this.voyage = new VoyagesImpl(sizeAndNameOfMeans);
     }
 
     @Override
-    public Voyage getVoyage() {
+    public Voyages getVoyage() {
         return this.voyage;
     }
 
@@ -171,24 +173,19 @@ public final class ModelImpl implements Model {
                     break;
             }
         });
-        final Map<String, Map<Pair<Integer, Integer>, Integer>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
+        final List<VoyageM> voyages = this.voyage.extractMeans(this.getRegions(), pot);
         if (!voyages.isEmpty()) {
-            voyages.forEach((s, m) -> {
-                m.forEach((p, i) -> {
-                    final Optional<Region> r = getRegionByColor(p.getY());
-                    if (r.isPresent()) {
-                        this.incOrDecInfectedPeople(i.intValue(), r.get());
-                    }
-                });
+            voyages.forEach(k -> {
+                this.incOrDecInfectedPeople(k.getInfected(), k.getPart());
             });
         }
     }
 
-    private Optional<Region> getRegionByColor(final int color) {
+    /*private Optional<Region> getRegionByColor(final int color) {
         return this.getRegions().stream()
                 .filter(k -> k.getColor() == color)
                 .findFirst();
-    }
+    }*/
 
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
@@ -210,12 +207,26 @@ public final class ModelImpl implements Model {
 
     @Override
     public void causeEvent() {
-        final Optional<Pair<String, Pair<Region, Integer>>> event = this.causeEvents.causeEvent(this.getRegions()
+        final Optional<ExtractedEvent> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
                 .toList());
         if (event.isPresent()) {
-            this.incDeathPeople(event.get().getY().getY(), event.get().getY().getX());
+            final ExtractedEvent exEvent = event.get();
+            this.incDeathPeople(exEvent.getDeath(), exEvent.getRegion());
+            final Message msg = new Message() {
+                    @Override
+                    public MessageType getType() {
+                        return MessageType.NEWS;
+                    }
+    
+                    @Override
+                    public String toString() {
+                        return exEvent.getEvent() + " in " + exEvent.getRegion().getName() + " ha causato  " + exEvent.getDeath() + " morti.";
+                    }
+                };
+                pcs.firePropertyChange(MessageType.CATASTROPHE.getTitle(), message, msg);
+                message = Optional.of(msg);
         }
     }
 

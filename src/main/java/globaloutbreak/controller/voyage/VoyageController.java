@@ -1,6 +1,6 @@
 package globaloutbreak.controller.voyage;
 
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 /**
  * Interface of Voyage Controller.
  */
@@ -11,5 +11,5 @@ public interface VoyageController {
      * @return
      *         Voyage
      */
-    Voyage createVoyage();
+    Voyages createVoyage();
 }

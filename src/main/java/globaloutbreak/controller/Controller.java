@@ -7,7 +7,7 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
 /**
@@ -77,7 +77,7 @@ public interface Controller {
      * @param voyage
      *               to start
      */
-    void startVoyage(Voyage voyage);
+    void startVoyage(Voyages voyage);
 
     /**
      * Quits from application.
