@@ -22,7 +22,8 @@ fx:controller="globaloutbreak.view.scenecontroller.MutationViewController" style
                 
                 <Button fx:id="backButton" onMouseClicked="#backScene" text="">
                 </Button>
-                <Text text="Seleziona il potenziamento" fill="WHITE" />     
+                <Text text="Seleziona il potenziamento" fill="WHITE" />
+                <Label fx:id="pointsText" textFill="WHITE" />
                 <GridPane fx:id="buttonGridPane"></GridPane>
                 <Text text="DESCRIZIONE" />
                 <Label fx:id="descriptionLabel" textFill="WHITE" />

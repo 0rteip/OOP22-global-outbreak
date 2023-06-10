@@ -119,13 +119,17 @@ public interface View {
      *                      the list of diseases names
      */
     void setDiseasesData(List<DiseaseData> diseasesNames);
-
+    /**
+     * get points.
+     */
+    String getPoints();
     /**
      * 
      * @param mutationsNames the list of mutation names
+     * @param points points
      *                       
      */
-    void setMutationsName(List<String> mutationsNames);
+    void setMutationsName(List<String> mutationsNames, int points);
     /**
      * 
      * @param type

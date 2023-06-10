@@ -31,6 +31,8 @@ package globaloutbreak.view.scenecontroller;
         private Label pointLabel;
         @FXML
         private Button actionButton;
+        @FXML
+        private Label pointsText;
         private List<String> names;
         /**
          * Initialize.
@@ -39,8 +41,15 @@ package globaloutbreak.view.scenecontroller;
         public void initializeScene() { 
             this.getView().displayMutation();
             displayButton(this.getView().getMutations());
+            displayPoints(this.getView().getPoints());
         }
 
+        /**
+         * display points
+         */
+        private void displayPoints (final String points) {
+            pointsText.setText("PUNTI "+this.getView().getPoints());
+        }
         /**
          * display mutation button.
          * @param nameList
