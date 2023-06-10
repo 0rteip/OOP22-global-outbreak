@@ -24,7 +24,7 @@ public final class VoyageControllerImpl implements VoyageController {
     @Override
     public Voyage createVoyage() {
         final ObjectMapper map = new ObjectMapper();
-        final String path = "region/ConfigMeans.json";
+        final String path = "voyage/ConfigMeans.json";
         JsonNode node;
         final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans = new HashMap<>();
         try {
@@ -32,10 +32,10 @@ public final class VoyageControllerImpl implements VoyageController {
                     StandardCharsets.UTF_8)));
             node.forEach(k -> {
                 final Iterator<Entry<String, JsonNode>> iterator = k.fields();
+                int num = 0;
+                String type = "";
+                int pass = 0;
                 while (iterator.hasNext()) {
-                    int num = 0;
-                    String type = "";
-                    int pass = 0;
                     final Entry<String, JsonNode> e = iterator.next();
                     switch (e.getKey()) {
                         case "type" : type = e.getValue().textValue();
@@ -47,8 +47,8 @@ public final class VoyageControllerImpl implements VoyageController {
                         default :
                             break;
                     }
-                    sizeAndNameOfMeans.put(type, new Pair<>(num, pass));
                 }
+                sizeAndNameOfMeans.put(type, new Pair<>(num, pass)); 
             });
         } catch (IOException e) {
             logger.error("Failed creation of events", e);

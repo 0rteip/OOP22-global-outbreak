@@ -1,7 +1,9 @@
 package globaloutbreak.controller.voyage;
 
 import globaloutbreak.model.voyage.Voyage;
-
+/**
+ * Interface of Voyage Controller.
+ */
 public interface VoyageController {
     /**
      * This method create class Voyage.
@@ -10,5 +12,4 @@ public interface VoyageController {
      *          Voyage
      */
     Voyage createVoyage();
-
 }

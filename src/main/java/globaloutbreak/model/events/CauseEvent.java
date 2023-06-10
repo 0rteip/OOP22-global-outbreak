@@ -16,7 +16,7 @@ public interface CauseEvent {
      * @param regions
      *                  list of region
      * @return
-*              the number of deaths it caused ande the Region 
+*              the event's name, the number of deaths it caused and the Region 
      */
-    Optional<Pair<Region, Integer>> causeEvent(List<Region> regions);
+    Optional<Pair<String, Pair<Region, Integer>>> causeEvent(List<Region> regions);
 }
