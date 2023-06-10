@@ -261,6 +261,7 @@ public final class ControllerImpl implements Controller {
 
         private void render() {
             System.out.println(model.getInfo().getTotalInfected());
+            view.render();
             // model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
 
         }

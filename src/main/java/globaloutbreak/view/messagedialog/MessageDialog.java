@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 public final class MessageDialog {
 
     private static final int MARGIN = 6;
-    private static final String CSS_PATH = "css/message.css";
 
     private MessageDialog() {
     }
@@ -51,8 +50,6 @@ public final class MessageDialog {
         BorderPane.setAlignment(closeButton, Pos.BOTTOM_RIGHT);
 
         final Scene scene = new Scene(root);
-        scene.getStylesheets().add(MessageDialog.class.getResource(CSS_PATH).toExternalForm());
-
         s.setScene(scene);
         s.setTitle(message.getType().getTitle());
         s.show();

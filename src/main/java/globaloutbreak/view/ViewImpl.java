@@ -216,4 +216,9 @@ public final class ViewImpl implements View {
     public void selectRegion(final Optional<Integer> color) {
         this.controller.selectedRegion(color);
     }
+
+    @Override
+    public void render() {
+        Platform.runLater(() -> manager.openMap());
+    }
 }
