@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
@@ -39,7 +39,15 @@ public interface Model {
      */
     void setDiseaseName(String name);
 
-        /**
+    /**
+     * Returns {@code True} id {@code setDisease(Disease disease)} was called.
+     * 
+     * @return
+     *         true if setted
+     */
+    boolean isDiseaseSet();
+
+    /**
      * Set the {@link Cure} to use.
      * 
      * @param cure
@@ -74,21 +82,13 @@ public interface Model {
     List<Region> getRegions();
 
     /**
-     * List of all the possible Diseases.
-     * 
-     * @return
-     *         list of Diseases
-     */
-    List<Disease> getDiseases();
-
-    /**
      * Get the InfoData contains the info on the current focussed Region.
      * 
      * @return
      *         InfoData of the current focussed Region.
      *         If no region is selected it returns some global Infodata
      */
-    Infodata getInfo();
+    InfoData getInfo();
 
     /**
      * Get rilevant data on the global situations.
@@ -133,51 +133,64 @@ public interface Model {
      * @param listener
      *                 listener
      */
-    void addNesListener(PropertyChangeListener listener);
+    void addNewsListener(PropertyChangeListener listener);
+
     /**
      * This method extract voyages.
      */
     void extractVoyages();
+
     /**
      * 
      * @param newdeath
-     *                  new death
+     *                 new death
      * @param region
-     *              region
+     *                 region
      */
     void incDeathPeople(int newdeath, Region region);
+
     /**
      * 
      * @param newinfected
-     *                      new infected
+     *                    new infected
      * @param region
-     *                  region
+     *                    region
      */
     void incOrDecInfectedPeople(int newinfected, Region region);
+
     /**
-     * This method cause a event
+     * This method cause a event.
      */
     void causeEvent();
+
     /**
-     * This method create CauseEvent class
+     * This method create CauseEvent class.
      */
     void createCauseEvents();
+
     /**
      * 
      * @param regions
-     *                  regions
+     *                regions
      */
     void setRegions(List<Region> regions);
+
     /**
      * 
      * @param events
-     *              list of Event
+     *               list of Event
      */
     void setEvents(List<Event> events);
+
     /**
      * 
      * @return
-     *          a copy of event's list
+     *         a copy of event's list
      */
     List<Event> getEvents();
+
+    /**
+     * update all info.
+     */
+    void updateInfoData();
 }

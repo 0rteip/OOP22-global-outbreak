@@ -18,7 +18,6 @@ public class DiseaseNameController extends AbstractSceneController {
      * Initialize logger.
      */
     public void initialize() {
-
     }
 
     /**
@@ -28,12 +27,13 @@ public class DiseaseNameController extends AbstractSceneController {
     public final void backScene() {
         this.getSceneManager().openDiseaseChoice();
     }
-    
+
     /**
      * Start the game.
      */
     @FXML
     public final void startGame() {
+        this.getView().choosenNameDisease(this.nameTextField.getText());
         this.getSceneManager().openMap();
     }
 

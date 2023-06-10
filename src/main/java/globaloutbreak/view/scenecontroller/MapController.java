@@ -1,5 +1,6 @@
 package globaloutbreak.view.scenecontroller;
 
+
 import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.model.pair.Pair;
 import javafx.beans.value.ChangeListener;
@@ -67,7 +68,7 @@ public final class MapController extends AbstractSceneController implements Scen
     private List<String> visibleMeans;
 
     @FXML
-    public final void selectRegion1(MouseEvent e) {
+    public void selectRegion1(final MouseEvent e) {
         final Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
@@ -99,7 +100,7 @@ public final class MapController extends AbstractSceneController implements Scen
         }
     }
 
-    private ImageView selectedState(int color) {
+    private ImageView selectedState(final int color) {
         WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(),
                 (int) Math.floor(sfondo.getImage().getWidth()),
                 (int) Math.floor(sfondo.getImage().getHeight()));
@@ -117,35 +118,36 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     @FXML
-    public final void selectRegion(MouseEvent e) {
+    public void selectRegion(final MouseEvent e) {
 
     }
 
     @FXML
-    public final void openSettings(MouseEvent e) {
+    public void openSettings(final MouseEvent e) {
         this.getSceneManager().openSettings();
     }
 
     @FXML
     public final void goToGeneralGraph(MouseEvent e) {
+        this.getSceneManager().openWorldGraphScene();
+    }
+
+    @FXML
+    public void goToMutation(final MouseEvent e) {
 
     }
 
     @FXML
-    public final void goToMutation(MouseEvent e) {
-
-    }
-
-    @FXML
-    public final void startStop(MouseEvent e) {
+    public void startStop(final MouseEvent e) {
         this.getView().startStop();
+        this.setPlayPauseButtonText();
     }
 
-    private ImageView getImage(String path) {
+    private ImageView getImage(final String path) {
         return new ImageView(ClassLoader.getSystemResource(path).toString());
     }
 
-    private void resize(ImageView image, Integer width, Integer height) {
+    private void resize(final ImageView image, final Integer width, final Integer height) {
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
@@ -154,12 +156,16 @@ public final class MapController extends AbstractSceneController implements Scen
     private Double percW = 1.0;
     String path;
 
-    private void resizeIconMeans(Integer width, Integer height) {
+    private void resizeIconMeans(final Integer width, final Integer height) {
         path = "";
         percH = 1.0;
         percW = 1.0;
         Double oldH = sfondo.getImage().getHeight();
         Double oldW = sfondo.getImage().getWidth();
+        if (width != 0 && height != 0) {
+            percH = height / oldH;
+            percW = width / oldW;
+            meansPos.forEach((s, m) -> {
         if (width != 0 && height != 0) {
             percH = height / oldH;
             percW = width / oldW;
@@ -186,7 +192,7 @@ public final class MapController extends AbstractSceneController implements Scen
         }
     }
 
-    private Map<Pair<Integer, Integer>, Label> extractPos(ImageView im) {
+    private Map<Pair<Integer, Integer>, Label> extractPos(final ImageView im) {
         int width = (int) Math.floor(im.getImage().getWidth());
         int height = (int) Math.floor(im.getImage().getHeight());
         Map<Pair<Integer, Integer>, Label> temp = new HashMap<>();
@@ -218,8 +224,17 @@ public final class MapController extends AbstractSceneController implements Scen
         });
     }
 
+    private void setPlayPauseButtonText() {
+        if (this.getView().isGameRunning()) {
+            this.playPausaBut.setText("Stop");
+        } else {
+            this.playPausaBut.setText("Play");
+        }
+    }
+
     @Override
     public void initializeScene() {
+        this.setPlayPauseButtonText();
         if (count == 0) {
             color = Color.WHITE.getIntArgbPre();
             this.airportPaths = "configView/aereo2.png";
@@ -240,6 +255,14 @@ public final class MapController extends AbstractSceneController implements Scen
         borderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue != null && newValue.intValue() != 0 && newValue != oldValue) {
+                    int width = newValue.intValue();
+                    int height = (int) Math.floor(sfondo.getFitHeight());
+                    resizeIconMeans(width, height);
+                    resize(sfondo, width, height);
+                    resize(buf, width, height);
+                    mapLab.setGraphic(sfondo);
+                }
                 if (newValue != null && newValue.intValue() != 0 && newValue != oldValue) {
                     int width = newValue.intValue();
                     int height = (int) Math.floor(sfondo.getFitHeight());

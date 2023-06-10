@@ -11,7 +11,7 @@ import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettings;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
 
@@ -31,10 +31,10 @@ public interface View {
     /**
      * Update visual info.
      * 
-     * @param info
-     *             to update
+     * @return
+     *         infodata
      */
-    void displayInfo(Infodata info);
+    InfoData getInfoData();
 
     /**
      * Display the message notification.
@@ -127,16 +127,18 @@ public interface View {
      * Quit Application.
      */
     void quit();
+
     /**
      * 
      * @return
-     *          info of selected region
+     *         info of selected region
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
+
     /**
      * 
      * @param color
      */
     void selectRegion(int color);
-      
+
 }

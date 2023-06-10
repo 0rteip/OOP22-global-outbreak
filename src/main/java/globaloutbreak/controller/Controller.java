@@ -1,9 +1,10 @@
 package globaloutbreak.controller;
+
 import java.util.Map;
 
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
@@ -50,10 +51,16 @@ public interface Controller {
     /**
      * Update DNA points, cure status, general info.
      * 
-     * @param info
-     *             info to update
      */
-    void updateInfo(Infodata info);
+    void updateInfo();
+
+    /**
+     * Display info in general charts.
+     * 
+     * @return
+     *         infodata
+     */
+    InfoData displayInfo();
 
     /**
      * Display the message notification.
@@ -105,27 +112,16 @@ public interface Controller {
      */
     GameSettingsGetter getSettings();
 
-
-    /**
-     * Creates the Disease.
-     * 
-     * @param type
-     *             tyoe of disease
-     */
-    void createDisease(String type);
-
     /**
      * Read Disease.
      */
     void readDiseasesNames();
+
     /**
      * This method find Info of selected region.
+     * 
      * @return
-     *          the ifo
+     *         the ifo
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
-    /**
-     * This method set region's list.
-     */
-    void setRegions();
 }

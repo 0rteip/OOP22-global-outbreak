@@ -17,7 +17,7 @@ import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
@@ -59,9 +59,8 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayInfo(final Infodata info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayInfo'");
+    public InfoData getInfoData() {
+        return this.controller.displayInfo();
     }
 
     @Override
@@ -109,14 +108,12 @@ public final class ViewImpl implements View {
 
     @Override
     public void choosenDisease(final String type) {
-        this.controller.createDisease(type);
-        this.logger.info("Create Disease of Type: {}", type);
+        this.controller.choosenDisease(type);
     }
 
     @Override
     public void choosenNameDisease(final String name) {
         this.controller.choosenDiseaseName(name);
-        this.logger.info("Disease name: {}", name);
     }
 
     @Override
@@ -150,7 +147,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void selectRegion(int color) {
+    public void selectRegion(final int color) {
         this.controller.selectedRegion(color);
     }
 }

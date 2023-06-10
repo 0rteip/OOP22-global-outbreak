@@ -24,8 +24,10 @@ import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.cure.SimpleCureReaderImpl;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -38,12 +40,12 @@ import javafx.application.Platform;
 public final class ControllerImpl implements Controller {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final GameSettings settings = new GameSettingsImpl();
-    private final GameLoop gameLoop = new GameLoop();
-    private final DiseaseController diseaseController;
-    private final Model model;
     private final View view;
-    private final RegionController regionController;
+    private final Model model = new ModelImpl();
+    private final GameLoop gameLoop = new GameLoop();
+    private final GameSettings settings = new GameSettingsImpl();
+    private final RegionController regionController = new RegionControllerImpl();
+    private final DiseaseController diseaseController = new DiseaseControllerImpl();
 
     /**
      * Create a controller.
@@ -58,13 +60,9 @@ public final class ControllerImpl implements Controller {
     )
     // @formatter:on
     public ControllerImpl(final View view) {
-        // System.out.println("Velocità: " + settings.getGameSpeed());
-        this.model = new ModelImpl();
-        this.model.addNesListener(new NewsObserver(this));
-        this.diseaseController = new DiseaseControllerImpl();
         this.view = view;
-        this.regionController = new RegionControllerImpl();
-        this.setRegions();
+        this.model.addNewsListener(new NewsObserver(this));
+        this.model.setRegions(regionController.getRegions());
     }
 
     @Override
@@ -74,56 +72,35 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void selectedMutation(final Mutation mutation) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
     }
 
     @Override
-    public void updateInfo(final Infodata info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
+    public void updateInfo() {
+        this.model.updateInfoData();
+    }
+
+    @Override
+    public InfoData displayInfo() {
+        return this.model.getInfo();
     }
 
     @Override
     public void displayMessage(final Message message) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayMessage'");
+        this.view.displayMessage(message);
     }
 
     @Override
     public void startVoyage(final Voyage voyage) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startVoyage'");
+        this.view.displayVoyage(voyage);
     }
 
-    @Override
-    public void setGameSpeed(final GameSpeed gameSpeed) {
-        logger.info("Setted game speed to: {}", gameSpeed.toString());
-        this.settings.setGameSpeed(gameSpeed);
-    }
-
-    @Override
-    public void startStop() {
-        if (!this.gameLoop.isAlive()) {
-            this.gameLoop.start();
-        } else {
-            logger.info(this.gameLoop.isRunning() ? "STOP loop, pause" : "RESTART loop");
-            this.gameLoop.startStop();
-        }
-    }
-
-    @Override
-    public boolean isGameRunning() {
-        return this.gameLoop.isRunning();
-    }
-
-    // // @formatter:off
+    // @formatter:off
     // @SuppressFBWarnings(
-    // value = "EI_EXPOSE_REP",
-    // justification = "settings is casted to a only getters interface and
-    // considerable immutable"
+    //     value = "EI_EXPOSE_REP",
+    //     justification = "settings is casted to a only getters interface and considerable immutable"
     // )
-    // // @formatter:on
+    // @formatter:on
     // It could be possible to suppress the warning because GameSettings is an only
     // getter interface, but i think this way is safer
     @Override
@@ -134,15 +111,19 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.model.setDisease(this.diseaseController.createDisease(type));
+        this.logger.info("Create Disease of Type: {}", type);
+        final Cure cure = new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions());
+        if (cure.isConsistent()) {
+            this.model.setCure(cure);
+        } else {
+            this.logger.warn("Unable to create a Cure instance, something went wrong");
+        }
     }
 
     @Override
     public void choosenDiseaseName(final String name) {
         this.model.setDiseaseName(name);
-    }
-
-    @Override
-    public void createDisease(final String type) {
+        this.logger.info("Disease name: {}", name);
     }
 
     @Override
@@ -150,6 +131,47 @@ public final class ControllerImpl implements Controller {
         final DiseaseReader reader = new DiseaseReaderImpl();
         this.view.setDiseasesData(reader.getDiseases());
         this.diseaseController.readFile(reader.getDiseases());
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        final Map<TypeOfInfo, String> info = new HashMap<>();
+        final Optional<Region> r = this.model.getSelectedRegion();
+        if (r.isPresent()) {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        } /*
+           * else {
+           * info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
+           * info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+           * info.put(TypeOfInfo.REGION, r.get().getName());
+           * }
+           */
+        return info;
+    }
+
+    @Override
+    public void setGameSpeed(final GameSpeed gameSpeed) {
+        logger.info("Setted game speed to: {}", gameSpeed.toString());
+        this.settings.setGameSpeed(gameSpeed);
+    }
+
+    @Override
+    public void startStop() {
+        if (this.model.isDiseaseSet()) {
+            if (!this.gameLoop.isAlive()) {
+                this.gameLoop.start();
+            } else {
+                logger.info(this.gameLoop.isRunning() ? "STOP loop, pause" : "RESTART loop");
+                this.gameLoop.startStop();
+            }
+        }
+    }
+
+    @Override
+    public boolean isGameRunning() {
+        return this.gameLoop.isRunning();
     }
 
     @Override
@@ -248,26 +270,5 @@ public final class ControllerImpl implements Controller {
                 this.lock.unlock();
             }
         }
-    }
-
-    @Override
-    public Map<TypeOfInfo, String> getInfoSingleRegion() {
-        Map<TypeOfInfo, String> info = new HashMap<>();
-        Optional<Region> r = this.model.getSelectedRegion();
-        if(r.isPresent()) {
-            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
-            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-            info.put(TypeOfInfo.REGION, r.get().getName());
-        } /*else {
-            info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
-            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-            info.put(TypeOfInfo.REGION, r.get().getName());
-        }*/
-        return info;
-    }
-
-    @Override
-    public void setRegions() {
-        this.model.setRegions(regionController.getRegions());
     }
 }
