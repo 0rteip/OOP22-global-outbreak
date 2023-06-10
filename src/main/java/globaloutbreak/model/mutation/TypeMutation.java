@@ -23,5 +23,17 @@ public enum TypeMutation {
     /**
      * drugresistence.
      */
-    DRUGRESISTANCE;
+    DRUGRESISTANCE,
+    /**
+     * air.
+     */
+    AIR,
+    /**
+     * land.
+     */
+    LAND,
+    /**
+     * sea.
+     */
+    SEA;
 }

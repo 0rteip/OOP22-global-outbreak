@@ -1,5 +1,6 @@
 package globaloutbreak.controller;
 
+import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
+import globaloutbreak.controller.mutation.MutationController;
+import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.newsobserver.NewsObserver;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
@@ -17,7 +20,8 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.mutation.Mutation;
+//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.infodata.Infodata;
@@ -36,6 +40,7 @@ public final class ControllerImpl implements Controller {
     private final GameSettings settings = new GameSettingsImpl();
     private final GameLoop gameLoop = new GameLoop();
     private final DiseaseController diseaseController;
+    private final MutationController mutationController;
     private final Model model;
     private final View view;
 
@@ -56,6 +61,7 @@ public final class ControllerImpl implements Controller {
         this.model = new ModelImpl();
         this.model.addNesListener(new NewsObserver(this));
         this.diseaseController = new DiseaseControllerImpl();
+        this.mutationController = new MutationControllerImpl();
         this.view = view;
     }
 
@@ -148,6 +154,26 @@ public final class ControllerImpl implements Controller {
     @Override
     public void quit() {
         Platform.exit();
+    }
+    @Override 
+    public void displayMutationsName() {
+        mutationController.displayMutationsName(this);
+    }
+    @Override
+    public void setMutationsName(final List<String> list) {
+        view.setMutationsName(List.copyOf(list));
+    }
+    @Override
+    public void setMutationsDesc(final String description, final boolean activate, final int cost) {
+        view.setMutationsDesc(description, activate, cost);
+    }
+    @Override
+    public void displayMuatationDesc(final String name) {
+        mutationController.displayMutationsDesc(name, this);
+    }
+    @Override
+    public void update(final String name) {
+        mutationController.update(name, model);
     }
 
     private final class GameLoop extends Thread {

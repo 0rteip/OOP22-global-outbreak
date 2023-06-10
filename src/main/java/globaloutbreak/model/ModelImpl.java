@@ -27,12 +27,8 @@ import java.util.LinkedList;
 /**
  * Impl of Model interface.
  */
-public final class ModelImpl implements Model {
-/**
- * class model impl.
- */
 
-public class ModelImpl implements Model{
+public class ModelImpl implements Model {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Disease disease;
     private final List<Region> regions = new LinkedList<>();
@@ -77,10 +73,6 @@ public class ModelImpl implements Model{
         this.regions.add(new RegionImpl(ppTot, name, reachableRegion, urban, poor, color, facilities, hot, humid));
     }
 
-    @Override
-    public List<Region> getRegions() {
-        return new LinkedList<>(this.regions);
-    }
     @Override
     public List<Region> getRegions() {
         return new LinkedList<>(this.regions);
@@ -162,5 +154,10 @@ public class ModelImpl implements Model{
         }
         logger.info("No Cure setted, closing game");
         return true;
+    }
+
+    @Override
+    public Disease getDisease() {
+        return disease;
     }
 }

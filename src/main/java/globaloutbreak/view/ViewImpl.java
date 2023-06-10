@@ -177,4 +177,17 @@ public final class ViewImpl implements View {
     public void quit() {
         this.controller.quit();
     }
+
+    @Override
+    public void displayMutation() {
+        controller.displayMutationsName();
+    }
+    @Override
+    public void displayMutationDesc(final String name) {
+       controller.displayMuatationDesc(name);
+    }
+    @Override
+    public void update(final String name) {
+        controller.update(name);
+    }
 }

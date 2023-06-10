@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import globaloutbreak.model.api.Infodata;
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.pair.Pair;
@@ -173,4 +172,10 @@ public interface Model {
      *                 listener
      */
     void addNesListener(PropertyChangeListener listener);
+
+    /**
+     * 
+     * @return disease
+     */
+    Disease getDisease();
 }

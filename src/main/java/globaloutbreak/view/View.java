@@ -104,8 +104,8 @@ public interface View {
 
      /**
      * 
-     * @return
-     *         List<String> diseasesButtons
+     * @return list of mutation name
+     *         
      */
     List<String> getMutations();
 
@@ -118,8 +118,8 @@ public interface View {
 
     /**
      * 
-     * @param mutationsNames
-     *                       the list of mutation names
+     * @param mutationsNames the list of mutation names
+     *                       
      */
     void setMutationsName(List<String> mutationsNames);
     /**
@@ -160,4 +160,26 @@ public interface View {
     *@return cost of mutation
     */
     String getCost();
+
+    /**
+     * 
+     */
+    void quit();
+
+    /**
+     * method to display mutation.
+     */
+    void displayMutation();
+
+    /**
+     * method to display mutation description.
+     * @param name name of the mutation
+     */
+    void displayMutationDesc(String name);
+
+    /**
+     * method for update the disease.
+     * @param name  name of the mutation
+     */
+    void update(String name);
 }

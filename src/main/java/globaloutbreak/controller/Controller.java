@@ -1,7 +1,10 @@
 package globaloutbreak.controller;
 
+import java.util.List;
+
 import globaloutbreak.gamespeed.GameSpeed;
-import globaloutbreak.model.api.Mutation;
+//import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
@@ -118,4 +121,35 @@ public interface Controller {
      * Read Disease.
      */
     void readDiseasesNames();
+
+    /**
+     * ask mutation name.
+     */
+    void displayMutationsName();
+
+   /**
+    * set mutation name.
+    * @param list list of mutation name
+    */
+    void setMutationsName(List<String> list);
+
+    /**
+     * set mutation information.
+     * @param description description of the mutation
+     * @param activate {@code True} if is active
+     * @param cost cost of the mutation
+     */
+    void setMutationsDesc(String description, boolean activate, int cost);
+
+    /**
+     * displat mutation description.
+     * @param name name of the mutation
+     */
+    void displayMuatationDesc(String name);
+
+    /**
+     * update disease.
+     * @param name name of the mutation
+     */
+    void update(String name);
 }

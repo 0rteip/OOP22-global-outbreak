@@ -64,6 +64,6 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
      */
     private void openDiseaseNameScene() {
         this.getView().choosenDisease(this.selectedType);
-        this.getSceneManager().openDiseaseName();
+        this.getSceneManager().openMutationScene();
     }
 }

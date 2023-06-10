@@ -1,20 +1,20 @@
 package globaloutbreak.model.mutation;
-
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+//import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.disease.Disease;
 /**
  * class mutation impl.
  */
 public final class MutationImpl implements Mutation { 
 
-    private String name;
-
-    private int cost;
-
-    private float increase;
-
-    private TypeMutation type;
-
-    private String description;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final String name;
+    private final int cost;
+    private final float increase;
+    private final TypeMutation type;
+    private final String description;
+    //private final ModelImpl modelImpl;
 
     /**
      * constructor.
@@ -31,7 +31,6 @@ public final class MutationImpl implements Mutation {
         this.increase = increase;
         this.type = type;
         this.description = description;
-
     }
 
     @Override
@@ -61,43 +60,43 @@ public final class MutationImpl implements Mutation {
 
     @Override
     public void increase(final Disease disease) {
-        selectType(disease, Operation.ADD);
+        selectType(increase, disease);
     }
     @Override
     public void decrease(final Disease disease) {
-        selectType(disease, Operation.SUBTRACT);
+        final float decrease = -increase;
+        selectType(decrease, disease);
     }
-    private void selectType(final Disease disease, final Operation op) {
+    private void selectType(final float increment, final Disease disease) {
         switch (this.type) {
             case TRASMISSION: 
-                //function increase trasmission
-                //disease.updateTrasmission(this.increase)
+                disease.updateInfectivity(increment);
+                System.out.println("A");
+                break;
+            case AIR: 
+                disease.updateAirInfectivity(increment);
+                break;
+            case LAND: 
+                disease.updateLandInfectivity(increment);
+                break;
+            case SEA: 
+                disease.updateSeaInfectivity(increment);
                 break;
             case SYMPTOMS: 
-                //function increase symptoms
+                disease.updateLethality(increment);
                 break;
             case HEATRESISTANCE: 
-                //function increase heatresistence
+                disease.updateHeatInfectivity(increment);
                 break;
             case COLDRESISTANCE: 
-                //function increase coldresistence
+                disease.updateColdInfectivity(increment);
                 break;
             case DRUGRESISTANCE: 
-                //function increase drugresistence
+                disease.updateCureResistance(increment);
                 break;
-            default://exception
+            default:
+                logger.warn("Type {} not found.", type);
+                break;
        }
-
     }
-    private enum Operation {
-        ADD("+"),
-        SUBTRACT("-");
-        private final String symbol;
-        Operation(final String symbol) {
-            this.symbol = symbol;
-        }
-        public String getSymbol() {
-            return symbol;
-        }
-       }
 }

@@ -44,15 +44,13 @@ public interface Mutation {
 
     /**
      * increase the parameter.
-     * 
-     * @param disease the desease of the increase
+     * @param disease
      */
     void increase(Disease disease);
 
     /**
      * decrease the parameter.
-     * 
-     * @param disease the desease of the increase
+     * @param disease
      */
     void decrease(Disease disease);
 }

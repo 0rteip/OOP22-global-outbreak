@@ -63,14 +63,6 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     /**
-     * Set the previous scene.
-     */
-    @Override
-    public void openBackScene() {
-        this.sceneLoader.loadBackScene(this.stage);
-    }
-
-    /**
      * Open the scene selected.
      * 
      * @param sceneStyle

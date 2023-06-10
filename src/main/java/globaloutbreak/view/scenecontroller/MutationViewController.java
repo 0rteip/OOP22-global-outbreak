@@ -37,7 +37,7 @@ package globaloutbreak.view.scenecontroller;
          */
         @Override
         public void initializeScene() { 
-            this.getView().getController().displayMutation();
+            this.getView().displayMutation();
             displayButton(this.getView().getMutations());
         }
 
@@ -45,7 +45,7 @@ package globaloutbreak.view.scenecontroller;
          * display mutation button.
          * @param nameList
          */
-        public void displayButton(final List<String> nameList) {
+        private void displayButton(final List<String> nameList) {
             int rowIndex = 0;
             int columnIndex = 0;
             names = nameList;
@@ -72,7 +72,7 @@ package globaloutbreak.view.scenecontroller;
             return button;
         }
         private void handleButtonAction(final String name, final int index) {
-            this.getView().getController().displayMutationDesc(name);
+            this.getView().displayMutationDesc(name);
             descriptionLabel.setText(this.getView().getDescription());
             pointLabel.setText(this.getView().getCost());
             if (!this.getView().checkactivate()) {
@@ -86,7 +86,7 @@ package globaloutbreak.view.scenecontroller;
 
         }
         private void handleActionButtonAction(final int index) {
-            this.getView().getController().update(names.get(index));
+            this.getView().update(names.get(index));
             // Logica da eseguire quando il pulsante dell'azione viene premuto per l'oggetto specifico
         }
 
@@ -98,6 +98,6 @@ package globaloutbreak.view.scenecontroller;
         @FXML
         public final void backScene(final MouseEvent evt) {
             //scena di luca
-            this.getSceneManager().openBackScene();
+            this.getSceneManager().openDiseaseChoice();
         }
     }

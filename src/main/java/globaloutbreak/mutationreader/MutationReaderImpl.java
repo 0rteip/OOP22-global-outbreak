@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 public class MutationReaderImpl implements MutationReader {
 
     private static final String DISEASES_FILE_PATH = "mutation/Mutation.json";
-    
     private String name;
 
     private int cost;
@@ -31,7 +30,7 @@ public class MutationReaderImpl implements MutationReader {
 
     private String description;
 
-    private MutationData mutationData;
+    private final MutationData mutationData;
 
     private final Logger logger = LoggerFactory.getLogger(MutationReaderImpl.class);
 
@@ -90,8 +89,7 @@ public class MutationReaderImpl implements MutationReader {
             });
         } catch (IOException e) {
             logger.warn("Errore durante l'analisi o la mappatura del contenuto JSON nel file {}: {}",
-                DISEASES_FILE_PATH,
-                e);
+                DISEASES_FILE_PATH, e);
         }
     }
 }
