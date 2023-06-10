@@ -2,13 +2,9 @@ package globaloutbreak.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import org.apache.commons.lang3.tuple.Pair;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
-import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.region.Region;

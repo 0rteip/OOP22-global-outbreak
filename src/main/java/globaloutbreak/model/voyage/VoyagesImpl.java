@@ -32,10 +32,10 @@ public final class VoyagesImpl implements Voyages {
     }
 
     @Override
-    public List<VoyageM> extractMeans(final List<Region> regions,
+    public List<Voyage> extractMeans(final List<Region> regions,
             final Map<String, Float> pot) {
 
-        final List<VoyageM> extractedMeans = new LinkedList<>();
+        final List<Voyage> extractedMeans = new LinkedList<>();
         sizeAndNameOfMeans.forEach((means, size) -> {
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
@@ -46,7 +46,7 @@ public final class VoyagesImpl implements Voyages {
                             .stream()
                             .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                     final float prob = part.calcPercInfected() + pot.get(means);
-                    final VoyageM voyage = new VoyageMImpl(means, partDest.getX().getColor(), partDest.getY().getColor(),
+                    final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(), partDest.getY().getColor(),
                             numInfected(prob, size.getY()));
                     extractedMeans.add(voyage);
                 }
