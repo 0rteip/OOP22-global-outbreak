@@ -147,7 +147,7 @@ public final class MapController extends AbstractSceneController implements Scen
      *          Mouse Event (on click)
      */
     @FXML
-    public final void goToGeneralGraph(MouseEvent e) {
+    public void goToGeneralGraph(final MouseEvent e) {
         this.getSceneManager().openWorldGraphScene();
     }
 
