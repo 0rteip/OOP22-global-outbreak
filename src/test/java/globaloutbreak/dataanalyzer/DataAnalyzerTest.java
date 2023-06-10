@@ -35,7 +35,7 @@ class DataAnalyzerTest {
         logger.info("Starting testOrderedDeathValues()");
         final List<Integer> numberOfDeaths = new LinkedList<>(this.getOrderedNumberOfDeaths());
         final List<Integer> results = new LinkedList<>();
-        final DataAnalyzer<Integer> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Integer>() {
+        final DataAnalyzer<Long> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Integer>() {
             @Override
             public void accept(final String key, final Integer value) {
                 results.add(value);
@@ -43,7 +43,7 @@ class DataAnalyzerTest {
         });
         numberOfDeaths.stream()
                 .sorted()
-                .forEach(deaths -> analyzer.analyze(deaths));
+                .forEach(deaths -> analyzer.analyze(Long.valueOf(deaths)));
         assertIterableEquals(numberOfDeaths, results, "Death values are not returned in order");
         logger.info("testOrderedDeathValues() gone well");
     }

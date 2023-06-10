@@ -3,12 +3,7 @@ package globaloutbreak;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.random.RandomGenerator;
-import java.util.stream.IntStream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -29,8 +24,6 @@ import globaloutbreak.model.region.Climate;
 import globaloutbreak.model.region.ClimateImpl;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.TransmissionMean;
-import globaloutbreak.view.View;
-import globaloutbreak.view.ViewImpl;
 
 class InfoDataTest {
 
@@ -153,7 +146,7 @@ class InfoDataTest {
         final Model model = new ModelImpl();
         controller.readDiseasesNames();
         controller.choosenDisease(reader.getDiseases().get(0).getType());
-       // Disease disease = controller.getDisease();
+       Disease disease = controller.getDisease();
 
         InfoData infodata = new InfoDataImpl(1_500_000);
         PropertyChangeListener infoDataObserver = new InfoDataRegionObserver(infodata);
