@@ -63,4 +63,9 @@ public interface SceneManager {
      *                message
      */
     void openMessage(Message message);
+
+    /**
+     * Open Mutation scene
+     */
+    void openMutationScene();
 }

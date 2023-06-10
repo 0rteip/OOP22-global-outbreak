@@ -2,6 +2,7 @@ package globaloutbreak;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.ControllerImpl;
+import globaloutbreak.model.ModelImpl;
 import globaloutbreak.view.View;
 import globaloutbreak.view.ViewImpl;
 import javafx.application.Application;
@@ -14,8 +15,8 @@ public class GlobalOutbreakApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-
         final View view = new ViewImpl(primaryStage);
+        final ModelImpl model = new ModelImpl();
         final Controller controller = new ControllerImpl(view);
         view.start(controller);
     }

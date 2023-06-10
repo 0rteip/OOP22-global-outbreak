@@ -15,25 +15,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /**
-     * Method to create new Disease.
-     * 
-     * @param diseaseType
-     * @param diseaseInfectivity
-     * @param diseaseLethality
-     * @param diseaseAirInfectivity
-     * @param diseaseSeaInfectivity
-     * @param diseaseLandInfectivity
-     * @param diseaseHeatInfectivity
-     * @param diseaseColdInfectivity
-     * @param diseaseCureResistance
-     * @param diseaseHumidityInfectivity
-     * @param diseaseAridityInfectivity
-     * @param diseasePovertyInfectivity
-     * 
-     * @return
-     *         new {@link Disease}
-     */
     @Override
     public Disease createDisease(final String diseaseType, final float diseaseInfectivity,
             final float diseaseLethality, final float diseaseAirInfectivity,
@@ -59,118 +40,66 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                 private float povertyInfectivity = diseasePovertyInfectivity;
                 private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
-                /**
-                 * @return
-                 *         the Disease name.
-                 */
                 @Override
                 public String getName() {
                     return this.name;
                 }
 
-                /**
-                 * @return
-                 *         the Disease type
-                 */
                 @Override
                 public String getType() {
                     return this.type;
                 }
 
-                /**
-                 * @return
-                 *         the Disease infectivity.
-                 */
                 @Override
                 public float getInfectivity() {
                     return this.infectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease lethality.
-                 */
                 @Override
                 public float getLethality() {
                     return this.lethality;
                 }
 
-                /**
-                 * @return
-                 *         the Disease airTransmission.
-                 */
                 @Override
                 public float getAirInfectivity() {
                     return this.airInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease seaTransmission.
-                 */
                 @Override
                 public float getSeaInfectivity() {
                     return this.seaInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease landTransmission.
-                 */
                 @Override
                 public float getLandInfectivity() {
                     return this.landInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease coldTransmission.
-                 */
                 @Override
                 public float getColdInfectivity() {
                     return this.coldInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease heatTransmission.
-                 */
                 @Override
                 public float getHeatInfectivity() {
                     return this.heatInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease cureResistance.
-                 */
                 @Override
                 public float getCureResistance() {
                     return this.cureResistance;
                 }
 
-                /**
-                 * @return
-                 *         the Disease aridityResistance.
-                 */
                 @Override
                 public float getAridityInfectivity() {
                     return this.aridityInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease humidityResistance.
-                 */
                 @Override
                 public float getHumidityInfectivity() {
                     return this.humidityInfectivity;
                 }
 
-                /**
-                 * @return
-                 *         the Disease povertyTransmission.
-                 */
                 @Override
                 public float getPovertyInfectivity() {
                     return this.povertyInfectivity;
@@ -181,89 +110,56 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     this.name = diseaseName;
                 }
 
-                /**
-                 * increase or decrease infectivity.
-                 */
                 @Override
                 public void updateInfectivity(final float infectivity) {
                     this.infectivity = getParameterUpdate(this.infectivity + infectivity, "infectivity");
                 }
 
-                /**
-                 * increase or decrease lethality.
-                 */
                 @Override
                 public void updateLethality(final float lethality) {
                     this.lethality = getParameterUpdate(this.lethality + lethality, "lethality");
                 }
 
-                /**
-                 * increase or decrease airTransmission.
-                 */
                 @Override
                 public void updateAirInfectivity(final float airInfectivity) {
                     this.airInfectivity = getParameterUpdate(this.airInfectivity + airInfectivity, "airInfectivity");
                 }
 
-                /**
-                 * increase or decrease sea transmission.
-                 */
                 @Override
                 public void updateSeaInfectivity(final float seaInfectivity) {
                     this.seaInfectivity = getParameterUpdate(this.seaInfectivity + seaInfectivity, "seaInfectivity");
                 }
 
-                /**
-                 * increase or decrease land transmission.
-                 */
                 @Override
                 public void updateLandInfectivity(final float landTransmission) {
                     this.landInfectivity = getParameterUpdate(this.landInfectivity + landInfectivity, "landInfectivity");
                 }
 
-                /**
-                 * increase or decrease heat transmission.
-                 */
                 @Override
                 public void updateHeatInfectivity(final float heatInfectivity) {
                     this.heatInfectivity = getParameterUpdate(this.heatInfectivity + heatInfectivity, "heatInfectivity");
                 }
 
-                /**
-                 * increase or decrease cold transmission.
-                 */
                 @Override
                 public void updateColdInfectivity(final float coldInfectivity) {
                     this.coldInfectivity = getParameterUpdate(this.coldInfectivity + coldInfectivity, "coldInfectivity");
                 }
 
-                /**
-                 * increase or decrease cure resistance.
-                 */
                 @Override
                 public void updateCureResistance(final float cureResistance) {
                     this.cureResistance += cureResistance;
                 }
 
-                /**
-                 * increase or decrease aridity resistance.
-                 */
                 @Override
                 public void updateAridityInfectivity(final float aridityInfectivity) {
                     this.aridityInfectivity = getParameterUpdate(this.aridityInfectivity + aridityInfectivity, "aridityInfectivity");
                 }
 
-                /**
-                 * increase or decrease humidity resistance.
-                 */
                 @Override
                 public void updateHumidityInfectivity(final float humidityInfectivity) {
                     this.humidityInfectivity = getParameterUpdate(this.humidityInfectivity + humidityInfectivity, "humidityInfectivity");
                 }
 
-                /**
-                 * increase or decrease poverty infectivity.
-                 */
                 @Override
                 public void updatePovertyInfectivity(final float povertyInfectivity) {
                     this.povertyInfectivity = getParameterUpdate(this.povertyInfectivity + povertyInfectivity, "povertyInfectivity");
@@ -282,9 +178,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                             + ", diseasePovertyInfectivity: " + this.getPovertyInfectivity() + "]";
                 }
 
-                /**
-                 * Add a new observer to class.
-                 */
                 @Override
                 public void initializeObserver(final String name, final PropertyChangeListener listener) {
                     switch (name) {
@@ -297,15 +190,10 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     }
                 }
 
-                /**
-                 * kill regions people.
-                 * 
-                 * @param regionList List of all regions
-                 */
                 @Override
                 public void killPeopleRegions(final List<Region> regionList) {
 
-                    regionList.stream()
+                   regionList.stream()
                             .filter(region -> region.getNumInfected() > 0)
                             .forEach(region -> {
                                 region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
@@ -313,11 +201,6 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                             });
                 }
 
-                /**
-                 * infect regions people.
-                 * 
-                 * @param regionList List of all regions
-                 */
                 @Override
                 public void infectRegions(final List<Region> regionList) {
                     regionList.stream()
@@ -354,6 +237,16 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                     return 0;
                 }
 
+                /**
+                 * Calculate total infectivity.
+                 * @param urban
+                 * @param poor
+                 * @param hot
+                 * @param cold
+                 * @param humidity
+                 * @param aridity
+                 * @return
+                 */
                 private float calculateInfectivity(final float urban, final float poor, final float hot,
                         final float cold, final float humidity, final float aridity) {
                     return this.infectivity * urban + this.heatInfectivity * hot + this.coldInfectivity * cold
@@ -371,7 +264,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                         return (int) Math.round(infected * this.getLethality());
                     }
                     logger.error("The number of infected must be at least 1");
-                    return -1;
+                    return 0;
                 }
 
                 /**

@@ -78,3 +78,7 @@
     -fx-pref-width: 30px;
     -fx-pref-height: 30px;
 }
+.vbox-parameters{
+    -fx-background-color: #F6F6F6;
+    -fx-padding: 10.0;
+}

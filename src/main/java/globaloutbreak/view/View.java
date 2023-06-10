@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
  */
 public interface View {
 
+    List<DiseaseData> getDiseasesDatas();
     /**
      * Start the view.
      * 
@@ -105,6 +106,13 @@ public interface View {
      */
     List<Button> getDiseasesButtons();
 
+     /**
+     * 
+     * @return list of mutation name
+     *         
+     */
+    List<String> getMutations();
+
     /**
      * 
      * @param diseasesNames
@@ -112,6 +120,12 @@ public interface View {
      */
     void setDiseasesData(List<DiseaseData> diseasesNames);
 
+    /**
+     * 
+     * @param mutationsNames the list of mutation names
+     *                       
+     */
+    void setMutationsName(List<String> mutationsNames);
     /**
      * 
      * @param type
@@ -125,9 +139,53 @@ public interface View {
     void choosenNameDisease(String name);
 
     /**
-     * Quit Application.
+     * 
+     * @param desc description 
+     * @param activate if the mutation is acrive
+     * @param  cost cost of the mutation
+     */
+    void setMutationsDesc(String desc, Boolean activate, int cost);
+
+     /**
+     *
+     * @return description mutation
+     *
+    */
+    String  getDescription();
+
+    /**
+     * 
+     * @return if the mutation is active
+     */
+    boolean checkactivate();
+
+    /**
+    * 
+    *@return cost of mutation
+    */
+    String getCost();
+
+    /**
+     * 
      */
     void quit();
+
+    /**
+     * method to display mutation.
+     */
+    void displayMutation();
+
+    /**
+     * method to display mutation description.
+     * @param name name of the mutation
+     */
+    void displayMutationDesc(String name);
+
+    /**
+     * method for update the disease.
+     * @param name  name of the mutation
+     */
+    void update(String name);
 
     /**
      * 

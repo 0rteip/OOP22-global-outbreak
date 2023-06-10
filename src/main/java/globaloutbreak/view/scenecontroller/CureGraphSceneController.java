@@ -27,12 +27,8 @@ public class CureGraphSceneController extends AbstractSceneController implements
         this.progressBar.setProgress(percentage / 100);
         this.progress.setText(Integer.toString(percentage) + " %");
         infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList();
-        String listContributors = String.join(",",
-                infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
-        this.progressBar.setProgress(0.5);
+        String listContributors = String.join(",", infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
         this.cureContributors.setText(listContributors);
-        // this.progress.setText("20%");
-        // this.cureContributors.setText("italia");
     }
 
     @FXML

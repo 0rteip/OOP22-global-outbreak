@@ -169,8 +169,8 @@ public final class MapController extends AbstractSceneController implements Scen
      *          Mouse Event (on click)
      */
     @FXML
-    public void goToMutation(final MouseEvent e) {
-
+    public final void goToMutation(MouseEvent e) {
+        this.getSceneManager().openMutationScene();
     }
 
     /**

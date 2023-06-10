@@ -29,20 +29,20 @@ public interface InfoData {
      * @return
      * total deaths
      */
-    int getTotalDeaths();
+    long getTotalDeaths();
 
     /**
      * @return
      * total infected
      */
-    int getTotalInfected();
+    long getTotalInfected();
 
     /**
      * 
      * @return
      * total population
      */
-    int getTotalPopulation();
+    long getTotalPopulation();
     /**
      * @return
      * cure data
@@ -52,7 +52,7 @@ public interface InfoData {
     /**
      * update total deaths and infected.
      */
-    void updateTotalDeathsAndInfected(int numDeaths, int numInfected);
+    void updateTotalDeathsAndInfected(long numDeaths, long numInfected);
 
     /**
      * update cure data.

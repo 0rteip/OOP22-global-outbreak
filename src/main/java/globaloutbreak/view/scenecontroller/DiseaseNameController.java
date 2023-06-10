@@ -35,6 +35,7 @@ public class DiseaseNameController extends AbstractSceneController {
     public final void startGame() {
         this.getView().choosenNameDisease(this.nameTextField.getText());
         this.getSceneManager().openMap();
+        this.getView().choosenNameDisease(nameTextField.getText());
     }
 
 }

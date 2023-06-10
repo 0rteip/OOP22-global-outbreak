@@ -8,15 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.cure.Cure;
-import globaloutbreak.model.cure.CureData;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
-import globaloutbreak.model.cure.prioriry.CurePriority;
-import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
-import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.message.Message;
@@ -31,15 +27,14 @@ import globaloutbreak.model.voyage.VoyagesImpl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
  * Impl of Model interface.
  */
-public final class ModelImpl implements Model {
 
+public class ModelImpl implements Model {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Disease disease;
     private List<Region> regions = new LinkedList<>();
@@ -83,7 +78,6 @@ public final class ModelImpl implements Model {
     public List<Region> getRegions() {
         return new LinkedList<>(this.regions);
     }
-
     @Override
     public void selectedRegion(final Optional<Region> region) {
         this.selectedRegion = region;
@@ -130,20 +124,10 @@ public final class ModelImpl implements Model {
         return this.selectedRegion;
     }
 
-    @Override
-    public void createVoyage(final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans) {
-        this.voyage = new VoyagesImpl(sizeAndNameOfMeans);
-    }
 
     @Override
     public Voyages getVoyage() {
         return this.voyage;
-    }
-
-    @Override
-    public void chosenDisease(final Disease disease, final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chosenDisease'");
     }
 
     @Override
@@ -226,13 +210,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public List<Event> getEvents() {
-        return new LinkedList<>(events);
-    }
-
-    @Override
     public void createCauseEvents() {
-        this.causeEvents = new CauseEventsImpl(this.getEvents());
+       
     }
 
     @Override
@@ -263,18 +242,14 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void updateInfoData() {
-        this.infoData.updateTotalDeathsAndInfected(regions.stream()
-                .filter(region -> region.getNumDeath() > 0)
-                .map(region -> region.getNumDeath())
-                .reduce(0, (m1, m2) -> m1 + m2),
-                regions.stream()
-                        .map(region -> region.getNumInfected())
-                        .reduce(0, (i1, i2) -> i1 + i2));
+    public Disease getDisease() {
+        return disease;
+    }
 
-        if (this.cure.isPresent()) {
-            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
-        }
+    @Override
+    public void createVoyage(Map<String, org.apache.commons.lang3.tuple.Pair<Integer, Integer>> sizeAndNameOfMeans) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createVoyage'");
     }
 
     // private CureData emptyCureData() {
