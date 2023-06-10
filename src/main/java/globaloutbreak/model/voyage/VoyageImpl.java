@@ -17,6 +17,7 @@ import java.util.LinkedList;
 public final class VoyageImpl implements Voyage {
     private final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans;
     private final Random rand = new Random();
+
     /**
      * 
      * @param sizeAndNameOfMeans
@@ -26,13 +27,14 @@ public final class VoyageImpl implements Voyage {
     }
 
     @Override
-    public Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(final List<Region> regions, final Map<String, Float> pot) {
+    public Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(final List<Region> regions,
+            final Map<String, Float> pot) {
         final Map<String, Map<Integer, Pair<Integer, Integer>>> extractedMeans = new HashMap<>();
         sizeAndNameOfMeans.forEach((means, size) -> {
             final Map<Integer, Pair<Integer, Integer>> oneMeans = new HashMap<>();
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-                    
+
             for (int i = 0; i < size.getX(); i++) {
                 final Pair<Integer, Integer> partDest = extractRegion(newRegions, means);
                 final float prob = newRegions
@@ -48,23 +50,27 @@ public final class VoyageImpl implements Voyage {
         return extractedMeans;
     }
 
-    private Pair<Integer, Integer> extractRegion(final List<Region> newRegions, String type) {
+    private Pair<Integer, Integer> extractRegion(final List<Region> newRegions, final String type) {
         final Region region = newRegions.get(rand.nextInt(0, newRegions.size()));
         List<Region> efectieRegions = new LinkedList<>();
         switch (type) {
-            case "terra" : efectieRegions = findRegionsByName(newRegions, region.getTrasmissionMeans()
+            case "terra":
+                efectieRegions = findRegionsByName(newRegions, region.getTrasmissionMeans()
                         .stream()
                         .filter(k -> k.getType().equals(type))
                         .findFirst().get()
                         .getReachableStates().get());
                 break;
-            case "porti" : 
-            case "areoporti" :
+            case "porti":
+            case "areoporti":
                 efectieRegions = newRegions.stream()
                         .filter(k -> k.getTrasmissionMeans()
                                 .stream().filter(i -> i.getType()
-                                .equals(type)).count() > 0)
+                                        .equals(type))
+                                .count() > 0)
                         .toList();
+            default:
+                break;
         }
         int dest = rand.nextInt(0, efectieRegions.size());
         while (dest == region.getColor()) {
@@ -73,22 +79,21 @@ public final class VoyageImpl implements Voyage {
         return new Pair<Integer, Integer>(region.getColor(), efectieRegions.get(dest).getColor());
     }
 
-    private List<Region> findRegionsByName(List<Region> regions, List<String> nameRegions) {
+    private List<Region> findRegionsByName(final List<Region> regions, final List<String> nameRegions) {
         List<Region> rs = new LinkedList<>();
         regions.forEach(k -> {
-            nameRegions.forEach(s ->  {
-                if(k.getName().equals(s)) {
+            nameRegions.forEach(s -> {
+                if (k.getName().equals(s)) {
                     rs.add(k);
                 }
-            }
-            );
+            });
         });
         return rs;
     }
 
     private boolean checkIfMeansAreOpen(final List<TransmissionMean> list, final String means) {
         final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN))
-                .count(); 
+                .count();
         return open > 0;
     }
 

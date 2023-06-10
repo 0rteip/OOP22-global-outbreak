@@ -67,7 +67,7 @@ public final class MapController extends AbstractSceneController implements Scen
     private List<String> visibleMeans;
 
     @FXML
-    public final void selectRegion1(MouseEvent e) {
+    public void selectRegion1(final MouseEvent e) {
         final Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
@@ -99,7 +99,7 @@ public final class MapController extends AbstractSceneController implements Scen
         }
     }
 
-    private ImageView selectedState(int color) {
+    private ImageView selectedState(final int color) {
         WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(),
                 (int) Math.floor(sfondo.getImage().getWidth()),
                 (int) Math.floor(sfondo.getImage().getHeight()));
@@ -117,35 +117,35 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     @FXML
-    public final void selectRegion(MouseEvent e) {
+    public void selectRegion(final MouseEvent e) {
 
     }
 
     @FXML
-    public final void openSettings(MouseEvent e) {
+    public void openSettings(final MouseEvent e) {
         this.getSceneManager().openSettings();
     }
 
     @FXML
-    public final void goToGeneralGraph(MouseEvent e) {
+    public void goToGeneralGraph(final MouseEvent e) {
 
     }
 
     @FXML
-    public final void goToMutation(MouseEvent e) {
+    public void goToMutation(final MouseEvent e) {
 
     }
 
     @FXML
-    public final void startStop(MouseEvent e) {
+    public void startStop(final MouseEvent e) {
         this.getView().startStop();
     }
 
-    private ImageView getImage(String path) {
+    private ImageView getImage(final String path) {
         return new ImageView(ClassLoader.getSystemResource(path).toString());
     }
 
-    private void resize(ImageView image, Integer width, Integer height) {
+    private void resize(final ImageView image, final Integer width, final Integer height) {
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
@@ -154,7 +154,7 @@ public final class MapController extends AbstractSceneController implements Scen
     private Double percW = 1.0;
     String path;
 
-    private void resizeIconMeans(Integer width, Integer height) {
+    private void resizeIconMeans(final Integer width, final Integer height) {
         path = "";
         percH = 1.0;
         percW = 1.0;
@@ -186,7 +186,7 @@ public final class MapController extends AbstractSceneController implements Scen
         }
     }
 
-    private Map<Pair<Integer, Integer>, Label> extractPos(ImageView im) {
+    private Map<Pair<Integer, Integer>, Label> extractPos(final ImageView im) {
         int width = (int) Math.floor(im.getImage().getWidth());
         int height = (int) Math.floor(im.getImage().getHeight());
         Map<Pair<Integer, Integer>, Label> temp = new HashMap<>();
