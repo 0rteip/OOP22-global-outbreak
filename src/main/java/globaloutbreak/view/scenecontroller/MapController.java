@@ -106,6 +106,7 @@ public final class MapController extends AbstractSceneController implements Scen
             if(newColor != Color.WHITE.getIntArgbPre()) {
                 this.getView().selectRegion(Optional.of(newColor));
                 this.getView().startStop();
+                mapLab.setGraphic(selectedState(newColor));
                 start = true;
             }
         }
