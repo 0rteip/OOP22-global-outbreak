@@ -31,7 +31,7 @@ public final class RegionImpl implements Region {
     private RegionCureStatus status = RegionCureStatus.NONE;
     // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
-    private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * This is the constructor.
@@ -101,6 +101,7 @@ public final class RegionImpl implements Region {
             } else {
                 this.numDeath += death;
             }
+            this.numInfected -= death;
         } else {
             logger.warn("The state is Finished");
         }
@@ -200,7 +201,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void initializeObserver(PropertyChangeListener listener){
+    public void initializeObserver(final PropertyChangeListener listener) {
         this.infodataSupport.addPropertyChangeListener(listener);
     }
 

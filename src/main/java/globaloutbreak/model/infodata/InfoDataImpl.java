@@ -12,7 +12,7 @@ import globaloutbreak.model.region.Region;
 /**
  * Class to manage Dna Points.
  */
-public class InfoDataImpl implements InfoData {
+public final class InfoDataImpl implements InfoData {
 
     private static final int BASE_DEATHS_RANGE = 500_000;
     private static final int BASE_INFECTED_RANGE = 500_000;
