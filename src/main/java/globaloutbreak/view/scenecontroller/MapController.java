@@ -139,6 +139,7 @@ public final class MapController extends AbstractSceneController implements Scen
     @FXML
     public void startStop(final MouseEvent e) {
         this.getView().startStop();
+        this.setPlayPauseButtonText();
     }
 
     private ImageView getImage(final String path) {
@@ -218,8 +219,17 @@ public final class MapController extends AbstractSceneController implements Scen
         });
     }
 
+    private void setPlayPauseButtonText() {
+        if (this.getView().isGameRunning()) {
+            this.playPausaBut.setText("Stop");
+        } else {
+            this.playPausaBut.setText("Play");
+        }
+    }
+
     @Override
     public void initializeScene() {
+        this.setPlayPauseButtonText();
         if (count == 0) {
             color = Color.WHITE.getIntArgbPre();
             this.airportPaths = "configView/aereo2.png";

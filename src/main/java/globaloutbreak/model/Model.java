@@ -40,6 +40,14 @@ public interface Model {
     void setDiseaseName(String name);
 
     /**
+     * Returns {@code True} id {@code setDisease(Disease disease)} was called.
+     * 
+     * @return
+     *         true if setted
+     */
+    boolean isDiseaseSet();
+
+    /**
      * Set the {@link Cure} to use.
      * 
      * @param cure

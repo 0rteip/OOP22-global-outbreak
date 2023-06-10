@@ -2,6 +2,7 @@ package globaloutbreak.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,6 +96,11 @@ public final class ModelImpl implements Model {
     @Override
     public void setDiseaseName(final String name) {
         this.disease.setName(name);
+    }
+
+    @Override
+    public boolean isDiseaseSet() {
+        return Objects.isNull(this.disease);
     }
 
     @Override
