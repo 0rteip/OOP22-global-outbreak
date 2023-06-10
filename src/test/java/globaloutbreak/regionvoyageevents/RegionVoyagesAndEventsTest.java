@@ -1,5 +1,6 @@
 package globaloutbreak.regionvoyageevents;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
@@ -67,13 +68,14 @@ final class RegionVoyagesAndEventsTest {
         //System.out.println(means.getMeans());
         final Map<String, Float> pot = new HashMap<>();
         final float v = 0;
-        final float a = (float) 0.6;
+        final float a = (float) 0;
         pot.put("terra", v);
         pot.put("aereoporti", a);
         pot.put("porti", v);
         pot.forEach((s, f) -> {
             assertTrue(means.getMeans().contains(s));
         });
+        means.extractMeans(contr.getRegions(), pot);
         regions.forEach(k -> {
             k.getTrasmissionMeans().forEach(t -> {
                 assertTrue(means.getMeans().contains(t.getType()));

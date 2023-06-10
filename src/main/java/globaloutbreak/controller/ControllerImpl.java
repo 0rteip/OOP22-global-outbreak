@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
+import globaloutbreak.controller.event.EventController;
+import globaloutbreak.controller.event.EventControllerImpl;
 import globaloutbreak.controller.mutation.MutationController;
 import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.newsobserver.NewsObserver;
@@ -53,7 +55,7 @@ public final class ControllerImpl implements Controller {
     private final RegionController regionController = new RegionControllerImpl();
     private final MutationController mutationController;
     private final VoyageController voyageController = new VoyageControllerImpl();
-
+    private final EventController eventController = new EventControllerImpl();
     /**
      * Create a controller.
      * 
@@ -72,6 +74,7 @@ public final class ControllerImpl implements Controller {
         this.model.addNewsListener(new NewsObserver(this));
         this.model.setRegions(regionController.getRegions());
         this.model.setVoyages(voyageController.createVoyage());
+        this.model.setEvents(eventController.createEvents());
     }
 
     @Override

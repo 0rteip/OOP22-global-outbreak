@@ -136,13 +136,14 @@ public final class ModelImpl implements Model {
                 case "porti":
                     pot.put(k, this.disease.getSeaInfectivity());
                     break;
-                case "areporti":
+                case "aereoporti":
                     pot.put(k, this.disease.getAirInfectivity());
                     break;
                 default:
                     break;
             }
         });
+       
         final List<Voyage> voyages = this.voyageC.extractMeans(this.getRegions(), pot);
         this.voyages = List.copyOf(voyages);
         if (!voyages.isEmpty()) {
