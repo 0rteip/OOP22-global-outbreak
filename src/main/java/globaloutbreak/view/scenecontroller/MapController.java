@@ -101,14 +101,17 @@ public final class MapController extends AbstractSceneController implements Scen
                     this.color = newColor;
                     this.getView().selectRegion(Optional.of(newColor));
                 }
-            } else {
+            }
+        } else {
+            if(newColor != Color.WHITE.getIntArgbPre()) {
                 this.getView().selectRegion(Optional.of(newColor));
                 this.getView().startStop();
                 start = true;
             }
-            this.setTextFilds(this.getView().getInfoSingleRegion());
-
         }
+        this.setTextFilds(this.getView().getInfoSingleRegion());
+
+    
     }
 
     private void setTextFilds(final Map<TypeOfInfo, String> info) {
