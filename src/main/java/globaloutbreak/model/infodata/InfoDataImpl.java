@@ -24,9 +24,9 @@ public final class InfoDataImpl implements InfoData {
     private int dnaPoints;
     private long totalDeaths;
     private long totalInfected;
-    private long totalPopulation;
+    private final long totalPopulation;
     private CureData cureData;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     /**
      * Constructor.
@@ -72,6 +72,7 @@ public final class InfoDataImpl implements InfoData {
      * @return
      *         the points owned.
      */
+    @Override
     public int getPoints() {
         return this.dnaPoints;
     }
@@ -113,7 +114,7 @@ public final class InfoDataImpl implements InfoData {
     }
 
     @Override
-    public void updateTotalDeathsAndInfected(List<Region> regions) {
+    public void updateTotalDeathsAndInfected(final List<Region> regions) {
         this.totalDeaths = regions.stream()
                 .map(Region::getNumDeath)
                 .reduce(0, (e0, e1) -> e0 + e1);

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 /**
  * Disease factory class.
  */
-public class DiseaseFactoryImpl implements DiseaseFactory {
+public final class DiseaseFactoryImpl implements DiseaseFactory {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -212,6 +212,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
             public void infectRegions(final List<Region> regionList) {
                 regionList.stream()
                         .filter(region -> region.getNumInfected() > 0)
+                        .filter(region -> region.getNumInfected() + region.getNumDeath() < region.getPopTot())
                         .forEach(region -> region.incOrDecInfectedPeople(this.calculateNewInfected(region.getPopTot(),
                                 region.getNumInfected(), region.getUrban(), region.getPoor(),
                                 region.getClimate().getArid(), region.getClimate().getCold(),
@@ -222,7 +223,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                                                         region.getNumInfected(), region.getUrban(), region.getPoor(),
                                                         region.getClimate().getArid(), region.getClimate().getCold(),
                                                         region.getClimate().getHot(), region.getClimate().getHumid())));
-                logger.info("There have been new infected: {}");
+                logger.info("There have been new infected");
             }
 
             /**

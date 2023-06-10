@@ -22,8 +22,8 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
 
     @Override
     public void initializeScene() {
-        InfoData infodata = this.getView().getInfoData();
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+        final InfoData infodata = this.getView().getInfoData();
+        final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Morti", infodata.getTotalDeaths()),
                 new PieChart.Data("Infetti", infodata.getTotalInfected()),
                 new PieChart.Data("Sani", infodata.getTotalPopulation()));
@@ -37,8 +37,8 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
          * pieChart.setData(pieChartData);
          */
 
-        for (PieChart.Data data : pieChartData) {
-            String label = data.getName() + ": " + (int) data.getPieValue();
+        for (final PieChart.Data data : pieChartData) {
+            final String label = data.getName() + ": " + (int) data.getPieValue();
             data.setName(label);
         }
     }

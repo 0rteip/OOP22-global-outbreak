@@ -279,7 +279,7 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        void startStop() {
+        public void startStop() {
             this.lock.lock();
             try {
                 this.isRunning = !this.isRunning;

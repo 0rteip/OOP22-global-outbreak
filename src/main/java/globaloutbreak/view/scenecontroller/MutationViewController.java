@@ -41,13 +41,13 @@ package globaloutbreak.view.scenecontroller;
         public void initializeScene() { 
             this.getView().displayMutation();
             displayButton(this.getView().getMutations());
-            displayPoints(this.getView().getPoints());
+            displayPoints();
         }
 
         /**
          * display points
          */
-        private void displayPoints (final String points) {
+        private void displayPoints () {
             pointsText.setText("PUNTI "+this.getView().getPoints());
         }
         /**

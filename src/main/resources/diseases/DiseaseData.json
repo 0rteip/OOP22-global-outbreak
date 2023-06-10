@@ -1,16 +1,16 @@
 [
     {
         "type": "Batteri",
-        "lethality": 0.1,
-        "infectivity": 0.1,
-        "airInfectivity": 0.1,
-        "seaInfectivity": 0.1,
-        "landInfectivity": 0.1,
-        "heatInfectivity": 0.1,
-        "coldInfectivity": 0.1,
-        "aridityInfectivity": 0.1,
-        "humidityInfectivity": 0.1,
+        "lethality": 0.01,
+        "infectivity": 0.01,
+        "airInfectivity": 0.01,
+        "seaInfectivity": 0.01,
+        "landInfectivity": 0.01,
+        "heatInfectivity": 0.01,
+        "coldInfectivity": 0.01,
+        "aridityInfectivity": 0.01,
+        "humidityInfectivity": 0.01,
         "cureResistance": 1,
-        "povertyInfectivity": 0.1
+        "povertyInfectivity": 0.01
     }
 ]
