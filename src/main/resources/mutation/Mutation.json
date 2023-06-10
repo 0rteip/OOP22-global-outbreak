@@ -73,7 +73,7 @@
         
     },
     {
-        "cost":9, 
+        "cost":1, 
         "name":"Aria", 
         "increase":0.01, 
         "type": "AIR", 

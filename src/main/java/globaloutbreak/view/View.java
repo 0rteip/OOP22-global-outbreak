@@ -204,4 +204,9 @@ public interface View {
      */
     void selectRegion(Optional<Integer> color);
 
+    /**
+     * Render View.
+     */
+    void render();
+
 }

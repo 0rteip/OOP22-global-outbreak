@@ -246,8 +246,8 @@ public final class ModelImpl implements Model {
     @Override
     public void update() {
         this.disease.infectRegions(this.regions);
-        // this.extractVoyages();
-        // this.causeEvent();
+        this.extractVoyages();
+        this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.deathAnalyzer.analyze(this.regions.stream()
