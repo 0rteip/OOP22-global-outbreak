@@ -36,7 +36,7 @@ public final class ViewImpl implements View {
     private final SceneManager manager;
     private final List<Button> diseasesButtons = new ArrayList<>();
     private List<String> mutations = new ArrayList<>();
-    private DiseaseDataList diseasesList = new DiseaseDataList();
+    private final DiseaseDataList diseasesList = new DiseaseDataList();
     private Controller controller;
     private String desc;
     private Boolean active;

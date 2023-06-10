@@ -246,7 +246,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void initializeObserver(PropertyChangeListener listener) {
+                public void initializeObserver(final PropertyChangeListener listener) {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
                 }

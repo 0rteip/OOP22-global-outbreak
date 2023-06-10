@@ -30,7 +30,7 @@ public class InfoDataRegionObserver implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(final PropertyChangeEvent property) {
-        if (property.getPropertyName().equals("infectedRegion")
+        if ("infectedRegion".equals(property.getPropertyName())
                 && (int) property.getNewValue() > (int) property.getOldValue() && (int) property.getOldValue() == 0) {
             this.infoData.increasePoints(random.nextInt(2) + 1);
         }

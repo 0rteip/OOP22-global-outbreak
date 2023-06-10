@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 /**
  * Disease factory class.
  */
-public class DiseaseFactoryImpl implements DiseaseFactory {
+public final class DiseaseFactoryImpl implements DiseaseFactory {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -223,7 +223,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                                                         region.getNumInfected(), region.getUrban(), region.getPoor(),
                                                         region.getClimate().getArid(), region.getClimate().getCold(),
                                                         region.getClimate().getHot(), region.getClimate().getHumid())));
-                logger.info("There have been new infected: {}");
+                logger.info("There have been new infected");
             }
 
             /**

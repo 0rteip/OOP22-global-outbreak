@@ -142,7 +142,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public void initializeObserver(PropertyChangeListener listener) {
+        public void initializeObserver(final PropertyChangeListener listener) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
         }
@@ -160,8 +160,12 @@ class InfectionDeathTest {
         final List<Region> regionList = new ArrayList<>();
 
         regionList.add(region);
-        final float expectedInfectivity = (float) (disease.getInfectivity() * region.getUrban() + disease.getAridityInfectivity() * region.getClimate().getArid() + disease.getHumidityInfectivity() * region.getClimate().getHumid() + disease.getColdInfectivity() * region.getClimate().getCold() + disease.getHeatInfectivity() * region.getClimate().getHot() + disease.getPovertyInfectivity() * region.getPoor());
-        System.out.println(expectedInfectivity);
+        final float expectedInfectivity = (float) (disease.getInfectivity() * region.getUrban()
+                + disease.getAridityInfectivity() * region.getClimate().getArid()
+                + disease.getHumidityInfectivity() * region.getClimate().getHumid()
+                + disease.getColdInfectivity() * region.getClimate().getCold()
+                + disease.getHeatInfectivity() * region.getClimate().getHot()
+                + disease.getPovertyInfectivity() * region.getPoor());
         final long expectedInfected = (long) (region.getNumInfected() * expectedInfectivity) + region.getNumInfected();
         disease.infectRegions(regionList);
         Assertions.assertEquals(expectedInfected, region.getNumInfected());

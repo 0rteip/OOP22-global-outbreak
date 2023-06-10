@@ -152,6 +152,7 @@ public final class ControllerImpl implements Controller {
         this.diseaseController.readFile(reader.getDiseases());
     }
 
+    @Override
     public Disease getDisease() {
         return this.model.getDisease();
     }
@@ -278,7 +279,7 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        private void startStop() {
+        public void startStop() {
             this.lock.lock();
             try {
                 this.isRunning = !this.isRunning;

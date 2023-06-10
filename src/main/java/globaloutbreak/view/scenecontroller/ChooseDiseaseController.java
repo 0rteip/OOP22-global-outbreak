@@ -19,7 +19,7 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
 
     private static final int SMALL_SPACING = 50;
     private static final int BIG_SPACING = 100;
-    private List<Button> buttonsList = new ArrayList<>();
+    private final List<Button> buttonsList = new ArrayList<>();
     private Optional<String> buttonClicked = Optional.empty();
     private List<Label> labelsList = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public final class ChooseDiseaseController extends AbstractSceneController imple
             chooseDiseaseHbox.setSpacing(BIG_SPACING);
             final List<DiseaseData> diseasesNames = this.getView().getDiseasesDatas();
             diseasesNames.stream().forEach(data -> {
-                Button button = new Button(data.getType());
+                final Button button = new Button(data.getType());
                 button.setMinHeight(BIG_SPACING);
                 button.setMinWidth(BIG_SPACING);
                 button.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"

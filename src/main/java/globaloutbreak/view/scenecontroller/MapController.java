@@ -76,7 +76,6 @@ public final class MapController extends AbstractSceneController implements Scen
     private Double percW = 1.0;
     private String path;
     private Boolean start = false;
-    private Timeline timeline;
 
     /**
      * Contructor.
@@ -177,7 +176,7 @@ public final class MapController extends AbstractSceneController implements Scen
      *          Mouse Event (on click)
      */
     @FXML
-    public final void goToMutation(MouseEvent e) {
+    public void goToMutation(final MouseEvent e) {
         this.getSceneManager().openMutationScene();
     }
 
@@ -334,9 +333,8 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     @Override
-    public void updateScene(GameSpeed gameSpeed) {
-        
-        timeline = new Timeline(new KeyFrame(Duration.seconds(gameSpeed.getDuration()), event -> {
+    public void updateScene(final GameSpeed gameSpeed) {
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(gameSpeed.getDuration()), event -> {
             // Logica per aggiornare la label
             this.setTextFilds(this.getView().getInfoSingleRegion());
         }));
