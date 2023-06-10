@@ -72,6 +72,7 @@ public final class ControllerImpl implements Controller {
         } else {
             this.model.selectedRegion(Optional.empty());
         }
+
     }
 
     @Override

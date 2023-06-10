@@ -52,7 +52,7 @@ public final class ModelImpl implements Model {
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
-
+    private final static int INITIAL_INC = 1;
     /**
      * Creates a model.
      */
@@ -87,6 +87,10 @@ public final class ModelImpl implements Model {
     @Override
     public void selectedRegion(final Optional<Region> region) {
         this.selectedRegion = region;
+        final Region updateR = this.regions.stream().filter(k -> k.getColor() == region.get().getColor()).findFirst().get();
+        if(updateR.getNumInfected() == 0) {
+            this.incOrDecInfectedPeople(INITIAL_INC, updateR);
+        }
     }
 
     @Override
