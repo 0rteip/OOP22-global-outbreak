@@ -28,7 +28,7 @@ public enum SceneStyle {
       /**
      * Game Settings Scene.
      */
-    MUTATION("Mutation", "layouts/mutation.fxml"),
+    MUTATION("Mutation", "layouts/Mutation.fxml"),
     /**
      * Map Scene.
      */

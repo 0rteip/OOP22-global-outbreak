@@ -15,5 +15,9 @@
     {
         "duration": 0.1,
         "name": "Really fast"
+    },
+    {
+        "duration": 0.05,
+        "name": "Insane"
     }
 ]

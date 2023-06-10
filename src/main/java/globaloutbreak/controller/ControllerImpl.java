@@ -254,18 +254,15 @@ public final class ControllerImpl implements Controller {
 
         private void update() {
             model.update();
-            // System.out.println("update");
-            // ControllerImpl.this.update(dayCicle);
-            // if (ControllerImpl.this.model.isSimulationOver()) {
-            // ControllerImpl.this.view.setSimulationOver();
-            // }
+            if (model.isGameOver()) {
+                view.quit();
+            }
         }
 
         private void render() {
-            model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
+            System.out.println(model.getInfo().getTotalInfected());
+            // model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
 
-            // ControllerImpl.this.view.render(ControllerImpl.this.model.getFoods(),
-            // ControllerImpl.this.model.getOrganisms());
         }
 
         private void remainingTime() {

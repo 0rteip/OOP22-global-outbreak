@@ -247,14 +247,15 @@ public final class ModelImpl implements Model {
     @Override
     public void update() {
         this.disease.infectRegions(this.regions);
-        this.extractVoyages();
-        this.causeEvent();
+        // this.extractVoyages();
+        // this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));
         this.cure.ifPresent(cure -> cure.research());
+        this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 
     // private CureData emptyCureData() {
