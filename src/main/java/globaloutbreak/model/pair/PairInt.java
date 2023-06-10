@@ -1,8 +1,12 @@
 package globaloutbreak.model.pair;
 /**
- * Interface for Pair
+ * Interface for Pair.
+ * @param <X>
+ *          generic X
+ * @param <Y>
+ *          generic Y
  */
-public interface PairInt<X,Y> {
+public interface PairInt<X, Y> {
     /**
      * 
      * @return
@@ -15,5 +19,5 @@ public interface PairInt<X,Y> {
      * @return
      *          Y
      */
-	Y getY();
+    Y getY();
 }

@@ -2,12 +2,14 @@ package globaloutbreak.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.Controller;
+import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;
@@ -15,7 +17,7 @@ import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettingsImpl;
 import globaloutbreak.settings.windowsettings.WindowSettings;
 import globaloutbreak.model.disease.DiseaseData;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import globaloutbreak.view.scenemanager.SceneManagerImpl;
 import javafx.application.Platform;
@@ -61,9 +63,8 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void displayInfo(final Infodata info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayInfo'");
+    public InfoData getInfoData() {
+        return this.controller.displayInfo();
     }
 
     @Override
@@ -189,5 +190,15 @@ public final class ViewImpl implements View {
     @Override
     public void update(final String name) {
         controller.update(name);
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        return this.controller.getInfoSingleRegion();
+    }
+
+    @Override
+    public void selectRegion(int color) {
+        this.controller.selectedRegion(color);
     }
 }

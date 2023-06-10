@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.WorldGraphSceneController">
+   <children>
+      <HBox prefWidth="200.0">
+         <children>
+            <Button fx:id="backButton" onMouseClicked="#backScene" text=""></Button>
+            <Button fx:id="worldButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Mondo" HBox.hgrow="ALWAYS" onAction="#showWorldInfo" />
+            <Button fx:id="cureButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cura" HBox.hgrow="ALWAYS" onAction="#showCureProgress"/>
+         </children>
+      </HBox>
+      <PieChart fx:id="pieChart" />
+   </children>
+</VBox>

@@ -1,6 +1,9 @@
 package globaloutbreak.controller;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,6 +17,8 @@ import globaloutbreak.controller.disease.DiseaseControllerImpl;
 import globaloutbreak.controller.mutation.MutationController;
 import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.newsobserver.NewsObserver;
+import globaloutbreak.controller.region.RegionController;
+import globaloutbreak.controller.region.RegionControllerImpl;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
@@ -23,8 +28,9 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.mutation.Mutation;
 //import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.region.Region;
+//import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -43,6 +49,7 @@ public final class ControllerImpl implements Controller {
     private final MutationController mutationController;
     private final Model model;
     private final View view;
+    private final RegionController regionController;
 
     /**
      * Create a controller.
@@ -59,16 +66,17 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final View view) {
         // System.out.println("Velocità: " + settings.getGameSpeed());
         this.model = new ModelImpl();
-        this.model.addNesListener(new NewsObserver(this));
+        //this.model.addNesListener(new NewsObserver(this));
         this.diseaseController = new DiseaseControllerImpl();
         this.mutationController = new MutationControllerImpl();
         this.view = view;
+        this.regionController = new RegionControllerImpl();
+        this.setRegions();
     }
 
     @Override
-    public void selectedRegion(final Region region) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectedRegion'");
+    public void selectedRegion(final int color) {
+        this.model.selectedRegion(this.regionController.findRegionByColor(color));
     }
 
     @Override
@@ -78,9 +86,13 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void updateInfo(final Infodata info) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
+    public void updateInfo() {
+        this.model.updateInfoData();
+    }
+
+    @Override
+    public InfoData displayInfo(){
+       return this.model.getInfo();
     }
 
     @Override
@@ -267,5 +279,26 @@ public final class ControllerImpl implements Controller {
                 this.lock.unlock();
             }
         }
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        Map<TypeOfInfo, String> info = new HashMap<>();
+        Optional<Region> r = this.model.getSelectedRegion();
+        if(r.isPresent()) {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        } /*else {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        }*/
+        return info;
+    }
+
+    @Override
+    public void setRegions() {
+        this.model.setRegions(regionController.getRegions());
     }
 }

@@ -186,9 +186,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateInfectivity(final float infectivity) {
-                    if (checkParameterUpdate(this.infectivity + infectivity, "infectivity")) {
-                        this.infectivity += infectivity;
-                    }
+                    this.infectivity = getParameterUpdate(this.infectivity + infectivity, "infectivity");
                 }
 
                 /**
@@ -196,9 +194,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateLethality(final float lethality) {
-                    if (checkParameterUpdate(this.lethality + lethality, "lethality")) {
-                        this.lethality += lethality;
-                    }
+                    this.lethality = getParameterUpdate(this.lethality + lethality, "lethality");
                 }
 
                 /**
@@ -206,9 +202,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateAirInfectivity(final float airInfectivity) {
-                    if (checkParameterUpdate(this.airInfectivity + airInfectivity, "airInfectivity")) {
-                        this.airInfectivity += airInfectivity;
-                    }
+                    this.airInfectivity = getParameterUpdate(this.airInfectivity + airInfectivity, "airInfectivity");
                 }
 
                 /**
@@ -216,9 +210,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateSeaInfectivity(final float seaInfectivity) {
-                    if (checkParameterUpdate(this.seaInfectivity + seaInfectivity, "seaInfectivity")) {
-                        this.seaInfectivity += seaInfectivity;
-                    }
+                    this.seaInfectivity = getParameterUpdate(this.seaInfectivity + seaInfectivity, "seaInfectivity");
                 }
 
                 /**
@@ -226,9 +218,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateLandInfectivity(final float landTransmission) {
-                    if (checkParameterUpdate(this.landInfectivity + landInfectivity, "landInfectivity")) {
-                        this.landInfectivity += landInfectivity;
-                    }
+                    this.landInfectivity = getParameterUpdate(this.landInfectivity + landInfectivity, "landInfectivity");
                 }
 
                 /**
@@ -236,9 +226,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateHeatInfectivity(final float heatInfectivity) {
-                    if (checkParameterUpdate(this.heatInfectivity + heatInfectivity, "heatInfectivity")) {
-                        this.heatInfectivity += heatInfectivity;
-                    }
+                    this.heatInfectivity = getParameterUpdate(this.heatInfectivity + heatInfectivity, "heatInfectivity");
                 }
 
                 /**
@@ -246,9 +234,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateColdInfectivity(final float coldInfectivity) {
-                    if (checkParameterUpdate(this.coldInfectivity + coldInfectivity, "coldInfectivity")) {
-                        this.coldInfectivity += coldInfectivity;
-                    }
+                    this.coldInfectivity = getParameterUpdate(this.coldInfectivity + coldInfectivity, "coldInfectivity");
                 }
 
                 /**
@@ -256,9 +242,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateCureResistance(final float cureResistance) {
-                    if (checkParameterUpdate(this.cureResistance + cureResistance, "cureResistance")) {
-                        this.cureResistance += cureResistance;
-                    }
+                    this.cureResistance += cureResistance;
                 }
 
                 /**
@@ -266,9 +250,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateAridityInfectivity(final float aridityInfectivity) {
-                    if (checkParameterUpdate(this.aridityInfectivity + aridityInfectivity, "aridityInfectivity")) {
-                        this.aridityInfectivity += aridityInfectivity;
-                    }
+                    this.aridityInfectivity = getParameterUpdate(this.aridityInfectivity + aridityInfectivity, "aridityInfectivity");
                 }
 
                 /**
@@ -276,9 +258,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updateHumidityInfectivity(final float humidityInfectivity) {
-                    if (checkParameterUpdate(this.humidityInfectivity + humidityInfectivity, "humidityInfectivity")) {
-                        this.humidityInfectivity += humidityInfectivity;
-                    }
+                    this.humidityInfectivity = getParameterUpdate(this.humidityInfectivity + humidityInfectivity, "humidityInfectivity");
                 }
 
                 /**
@@ -286,9 +266,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  */
                 @Override
                 public void updatePovertyInfectivity(final float povertyInfectivity) {
-                    if (checkParameterUpdate(this.povertyInfectivity + povertyInfectivity, "povertyInfectivity")) {
-                        this.povertyInfectivity += povertyInfectivity;
-                    }
+                    this.povertyInfectivity = getParameterUpdate(this.povertyInfectivity + povertyInfectivity, "povertyInfectivity");
                 }
 
                 @Override
@@ -420,12 +398,13 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  *         true if number is between 0 and 1, false otherwise
                  * 
                  */
-                private boolean checkParameterUpdate(final float value, final String name) {
-                    if (value < 0 || value > 1) {
+                private float getParameterUpdate(final float value, final String name) {
+                    final float max_value = 0.16f;
+                    if (value < 0 || value > max_value) {
                         logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);
-                        return false;
+                        return max_value;
                     }
-                    return true;
+                    return value;
                 }
             };
     }

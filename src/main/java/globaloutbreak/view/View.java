@@ -1,15 +1,17 @@
 package globaloutbreak.view;
 
 import java.util.List;
+import java.util.Map;
 
 import globaloutbreak.controller.Controller;
+import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.windowsettings.WindowSettings;
-import globaloutbreak.model.infodata.Infodata;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.view.scenemanager.SceneManager;
 import javafx.scene.control.Button;
 
@@ -32,7 +34,7 @@ public interface View {
      * @param info
      *             to update
      */
-    void displayInfo(Infodata info);
+    InfoData getInfoData();
 
     /**
      * Display the message notification.
@@ -182,4 +184,16 @@ public interface View {
      * @param name  name of the mutation
      */
     void update(String name);
+    /**
+     * 
+     * @return
+     *          info of selected region
+     */
+    Map<TypeOfInfo, String> getInfoSingleRegion();
+    /**
+     * 
+     * @param color
+     */
+    void selectRegion(int color);
+      
 }

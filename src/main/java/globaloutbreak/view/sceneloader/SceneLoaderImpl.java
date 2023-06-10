@@ -105,7 +105,7 @@ public final class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE, MUTATION:
+            case CHOOSEDISEASE, MUTATION, MAP, WORLDGRAPH, CUREGRAPH:
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
                 break;
