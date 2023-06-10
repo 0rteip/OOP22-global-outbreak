@@ -13,7 +13,6 @@ import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
-import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
@@ -22,8 +21,6 @@ import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.voyage.VoyageImpl;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
@@ -138,11 +135,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void createVoyage(final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans) {
-        this.voyage = new VoyageImpl(sizeAndNameOfMeans);
-    }
-
-    @Override
     public Voyage getVoyage() {
         return this.voyage;
     }
@@ -214,13 +206,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public List<Event> getEvents() {
-        return new LinkedList<>(events);
-    }
-
-    @Override
     public void createCauseEvents() {
-        this.causeEvents = new CauseEventsImpl(this.getEvents());
+       
     }
 
     @Override
@@ -251,18 +238,9 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void updateInfoData() {
-        this.infoData.updateTotalDeathsAndInfected(regions.stream()
-                .filter(region -> region.getNumDeath() > 0)
-                .map(region -> region.getNumDeath())
-                .reduce(0, (m1, m2) -> m1 + m2),
-                regions.stream()
-                        .map(region -> region.getNumInfected())
-                        .reduce(0, (i1, i2) -> i1 + i2));
-
-        if (this.cure.isPresent()) {
-            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
-        }
+    public void createVoyage(Map<String, org.apache.commons.lang3.tuple.Pair<Integer, Integer>> sizeAndNameOfMeans) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createVoyage'");
     }
 
     // private CureData emptyCureData() {

@@ -82,7 +82,6 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void updateInfo() {
-        this.model.updateInfoData();
     }
 
     @Override
