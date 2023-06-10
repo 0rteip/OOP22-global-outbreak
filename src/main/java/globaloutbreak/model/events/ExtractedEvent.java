@@ -23,5 +23,5 @@ public interface ExtractedEvent {
      * @return
      *         new Death
      */
-    int getDeath();
+    long getDeath();
 }

@@ -239,7 +239,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
              * @return
              *         the number of infected to add.
              */
-            private int calculateNewInfected(final int population, final int currentInfected, final float urban,
+            private long calculateNewInfected(final long population, final long currentInfected, final float urban,
                     final float poor, final float arid, final float cold, final float hot, final float humid) {
                 if (this.checkIfPositive(population, "population")
                         && this.checkIfPositive(currentInfected, "currentInfected")
@@ -275,12 +275,12 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
              * 
              * @param infected
              */
-            private int calculateNewDeaths(final int infected) {
+            private long calculateNewDeaths(final long infected) {
                 if (this.checkIfPositive(infected, "infected")) {
-                    return (int) Math.ceil(infected * this.getLethality());
+                    return (long) Math.ceil(infected * this.getLethality());
                 }
                 logger.error("The number of infected must be at least 1");
-                return 0;
+                return 0L;
             }
 
             /**

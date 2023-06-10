@@ -34,17 +34,17 @@ class InfectionDeathTest {
         private int deaths = INITIAL_DEATHS;
 
         @Override
-        public int getNumInfected() {
+        public long getNumInfected() {
             return this.infected;
         }
 
         @Override
-        public void incDeathPeople(final int calculateNewDeaths) {
+        public void incDeathPeople(final long calculateNewDeaths) {
             this.deaths += calculateNewDeaths;
         }
 
         @Override
-        public int getPopTot() {
+        public long getPopTot() {
             return POPULATION;
         }
 
@@ -54,7 +54,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public void incOrDecInfectedPeople(final int calculateNewInfected) {
+        public void incOrDecInfectedPeople(final long calculateNewInfected) {
             this.infected += calculateNewInfected;
         }
 
@@ -64,7 +64,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public int getNumDeath() {
+        public long getNumDeath() {
             return this.deaths;
         }
 

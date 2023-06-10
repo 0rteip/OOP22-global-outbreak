@@ -20,7 +20,7 @@
     } , 
     {
         "nome" : "Colombia", "colore" : -1959392, "confini" : ["Perù", "Brasile", "Centroamerica"], 
-        "humid" : 0.3, "hot" : 0.8, "popTot" : 59065954, "facilities" : 4, "poor" : 0.4, "urban": 0.7
+        "humid" : 0.3, "hot" : 0.8, "popTot" : 51065954, "facilities" : 4, "poor" : 0.4, "urban": 0.7
     } , 
     {
         "nome" : "Brasile", "colore" : -9755096, "porti" : 1, "aereoporti" : 1, "confini" : ["Perù", "Colombia", "Argentina", "Bolivia"], 
@@ -36,12 +36,12 @@
     },
     {
         "nome" : "Argentina", "colore" :  -606720, "porti" : 1, 
-        "confini" : ["Brasile", "Bolivia", "Perù"], "humid" : 0.6, "hot" : 0.5, "popTot" : 316128839, "facilities" : 10, 
+        "confini" : ["Brasile", "Bolivia", "Perù"], "humid" : 0.6, "hot" : 0.5, "popTot" : 31612839, "facilities" : 10, 
         "poor" : 0.10, "urban": 0.8
     } , 
     {
         "nome" : "Sudafrica", "colore" : -13800, "porti" : 1, "aereoporti" : 1, 
-        "confini" : ["Botswana", "Angola", "Africa Orientale" ], "humid" : 0.6, "hot" : 0.5, "popTot" : 316128839, "facilities" : 10, 
+        "confini" : ["Botswana", "Angola", "Africa Orientale" ], "humid" : 0.6, "hot" : 0.5, "popTot" : 31612839, "facilities" : 10, 
         "poor" : 0.10, "urban": 0.8
     } , 
     {
@@ -56,7 +56,7 @@
     } , 
     {
         "nome" : "Africa Orientale", "colore" : -16733965,
-        "confini" : ["Zimbabwe", "Sudafrica", "Botswana", "Angola", "Africa Centrale"], "humid" : 0.3, "hot" : 0.8, "popTot" : 320789180, "facilities" : 3, 
+        "confini" : ["Zimbabwe", "Sudafrica", "Botswana", "Angola", "Africa Centrale"], "humid" : 0.3, "hot" : 0.8, "popTot" : 200789180, "facilities" : 3, 
         "poor" : 0.8, "urban": 0.3
     } , 
     {
@@ -71,7 +71,7 @@
     } , 
     {
         "nome" : "Sudan", "colore" : -3584, 
-        "confini" : ["Africa Orientale", "Africa Centrale", "Egitto", "Libia"], "humid" : 0.3, "hot" : 0.8, "popTot" : 49260479, "facilities" : 3, 
+        "confini" : ["Africa Orientale", "Africa Centrale", "Egitto", "Libia"], "humid" : 0.3, "hot" : 0.8, "popTot" : 45260479, "facilities" : 3, 
         "poor" : 0.7, "urban": 0.4
     } , 
     {
@@ -86,7 +86,7 @@
     } , 
     {
         "nome" : "Algeria", "colore" :  -16774766, 
-        "confini" : ["Marocco", "Africa Occidentale", "Libia"], "humid" : 0.3, "hot" : 0.7, "popTot" : 50094694, "facilities" : 3, 
+        "confini" : ["Marocco", "Africa Occidentale", "Libia"], "humid" : 0.3, "hot" : 0.7, "popTot" : 40094694, "facilities" : 3, 
         "poor" : 0.6, "urban": 0.4
     } , 
     {
@@ -101,7 +101,7 @@
     } , 
     {
         "nome" : "Arabia Saudita", "colore" : -15906816, "porti" : 1, "aereoporti" : 1, "confini" : ["Iraq", "Medio Oriente"], 
-        "humid" : 0.3, "hot" : 0.7, "popTot" : 71752069, "facilities" : 8, "poor" : 0.3, "urban": 0.8
+        "humid" : 0.3, "hot" : 0.7, "popTot" : 30752069, "facilities" : 8, "poor" : 0.3, "urban": 0.8
     } , 
     {
         "nome" : "Medio Oriente", "colore" : -16774506, "confini" : ["Arabia Saudita", "Iraq", "Egitto"], 
@@ -121,7 +121,7 @@
     } , 
     {
         "nome" : "India", "colore" : -4479662, "porti" : 1, "aereoporti" : 1, "confini" : ["Sud-Est Asia", "Pakistan", "Cina"], 
-        "humid" : 0.7, "hot" : 0.8, "popTot" : 1457015015, "facilities" : 6, "poor" : 0.4, "urban": 0.6
+        "humid" : 0.7, "hot" : 0.8, "popTot" : 1407015015, "facilities" : 6, "poor" : 0.4, "urban": 0.6
     } , 
     {
         "nome" : "Cina", "colore" : -49859, "porti" : 1, "aereoporti" : 1, "confini" : ["Sud-Est Asia", "India", "Corea", "Russia", "Kazakistan", "Asia Centrale"], 
@@ -129,7 +129,7 @@
     } , 
     {
         "nome" : "Russia", "colore" : -5046265, "porti" : 1, "aereoporti" : 1, "confini" : ["Cina", "Kazakistan", "Turchia", "Iran", "Corea"], 
-        "humid" : 0.7, "hot" : 0.2, "popTot" : 160369925, "facilities" : 6, "poor" : 0.4, "urban": 0.7
+        "humid" : 0.7, "hot" : 0.2, "popTot" : 130369925, "facilities" : 6, "poor" : 0.4, "urban": 0.7
     } , 
     {
         "nome" : "Australia", "colore" : -12629812, "porti" : 1, "aereoporti" : 1,  
@@ -173,7 +173,7 @@
     } ,     
     {
         "nome" : "Corea", "colore" : -20792, "confini" : ["Russia", "Cina"], 
-        "humid" : 0.5, "hot" : 0.5, "popTot" : 73221229, "facilities" : 8, "poor" : 0.10, "urban": 0.5
+        "humid" : 0.5, "hot" : 0.5, "popTot" : 40221229, "facilities" : 8, "poor" : 0.10, "urban": 0.5
     } , 
     {
         "nome" : "Giappone", "colore" : -7702471, "porti" : 1, "aereoporti" : 1,
@@ -193,19 +193,19 @@
     } , 
     {
         "nome" : "Gran Bretagna", "colore" : -11183172, "porti" : 1, "aereoporti" : 1, 
-        "humid" : 0.6, "hot" : 0.3, "popTot" : 68692366, "facilities" : 10, "poor" : 0.10, "urban": 0.8
+        "humid" : 0.6, "hot" : 0.3, "popTot" : 66692366, "facilities" : 10, "poor" : 0.10, "urban": 0.8
     } , 
     {
         "nome" : "Spagna", "colore" : -4818432, "porti" : 1, "aereoporti" : 1, "confini" : ["Francia"], 
-        "humid" : 0.3, "hot" : 0.7, "popTot" : 57107227, "facilities" : 10, "poor" : 0.10, "urban": 0.6
+        "humid" : 0.3, "hot" : 0.7, "popTot" : 30107227, "facilities" : 10, "poor" : 0.10, "urban": 0.6
     } , 
     {
         "nome" : "Francia", "colore" : -9170, "porti" : 1, "aereoporti" : 1, "confini" : ["Italia", "Spagna", "Germania", "Europa Centrale"], 
-        "humid" : 0.5, "hot" : 0.5, "popTot" : 77766807, "facilities" : 10, "poor" : 0.10, "urban": 0.8
+        "humid" : 0.5, "hot" : 0.5, "popTot" : 60766807, "facilities" : 10, "poor" : 0.10, "urban": 0.8
     } , 
     {
         "nome" : "Germania", "colore" : -30166, "porti" : 1, "aereoporti" : 1, "confini" : ["Polonia", "Europa Centrale", "Francia"], 
-        "humid" : 0.7, "hot" : 0.3, "popTot" : 103039718, "facilities" : 10, "poor" : 0.10, "urban": 0.8
+        "humid" : 0.7, "hot" : 0.3, "popTot" : 70039718, "facilities" : 10, "poor" : 0.10, "urban": 0.8
     } , 
     {
         "nome" : "Italia", "colore" : -14567680, "aereoporti" : 1, "confini" : ["Francia", "Europa Centrale"], 

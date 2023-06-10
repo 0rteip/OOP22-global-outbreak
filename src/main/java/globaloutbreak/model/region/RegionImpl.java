@@ -9,9 +9,6 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sun.source.doctree.SystemPropertyTree;
-
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 
@@ -19,11 +16,11 @@ import globaloutbreak.model.pair.Pair;
  * Implementation of Region.
  */
 public final class RegionImpl implements Region {
-    private int numInfected;
-    private int numDeath;
+    private long numInfected;
+    private long numDeath;
     // private final int numCared;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final Integer popTot;
+    private final long popTot;
     private final String name;
     private final float urban;
     private final float poor;
@@ -59,7 +56,7 @@ public final class RegionImpl implements Region {
      *                        percentage of humidity
      * 
      */
-    public RegionImpl(final int popTot, final String name,
+    public RegionImpl(final long popTot, final String name,
             final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban,
             final float poor, final int color, final int facilities, final float hot, final float humid) {
         this.popTot = popTot;
@@ -88,7 +85,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void incDeathPeople(final int death) {
+    public void incDeathPeople(final long death) {
 
         if (this.numDeath < popTot) {
             if (this.numDeath + death >= popTot) {
@@ -110,11 +107,11 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void incOrDecInfectedPeople(final int infected) {
+    public void incOrDecInfectedPeople(final long infected) {
         if (this.status != RegionCureStatus.FINISHED) {
 
             if(this.numInfected < popTot && (this.numInfected + infected) >= 0) {
-                final int sum = this.numInfected + infected;
+                final long sum = this.numInfected + infected;
                 if (sum >= this.popTot) {
                     if (sum > this.popTot) {
                         logger.warn("Too many infected but I add those possible");
@@ -142,12 +139,12 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public int getNumInfected() {
+    public long getNumInfected() {
         return numInfected;
     }
 
     @Override
-    public int getNumDeath() {
+    public long getNumDeath() {
         return numDeath;
     }
 
@@ -169,7 +166,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public int getPopTot() {
+    public long getPopTot() {
         return popTot;
     }
 

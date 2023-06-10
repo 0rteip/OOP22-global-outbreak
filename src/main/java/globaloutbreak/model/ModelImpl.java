@@ -232,7 +232,7 @@ public final class ModelImpl implements Model {
     private void initializeInfoData() {
         this.infoData = new InfoDataImpl(this.regions.stream()
                 .map(Region::getPopTot)
-                .reduce(0, (e0, e1) -> e0 + e1));
+                .reduce(0L, (e0, e1) -> e0 + e1));
         this.regions.forEach(region -> {
             region.initializeObserver(new InfoDataRegionObserver(this.infoData));
         });

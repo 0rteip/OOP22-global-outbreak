@@ -28,9 +28,9 @@ public final class EventImpl implements Event {
     }
 
     @Override
-    public Integer calcDeath(final Integer popTot) {
+    public long calcDeath(final long popTot) {
         infodataSupport.firePropertyChange("eventdeath", 0, (int) Math.floor(popTot * percOfDeath));
-        return (int) Math.floor(popTot * percOfDeath);
+        return (long) Math.floor(popTot * percOfDeath);
     }
 
     @Override

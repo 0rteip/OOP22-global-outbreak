@@ -31,7 +31,7 @@ public final class InfoDataImpl implements InfoData {
     /**
      * Constructor.
      */
-    public InfoDataImpl(final int totalPopulation) {
+    public InfoDataImpl(final long totalPopulation) {
         this.dnaPoints = 1;
         this.infectedLimit = BASE_INFECTED_RANGE;
         this.deathsLimit = BASE_DEATHS_RANGE;
@@ -116,14 +116,14 @@ public final class InfoDataImpl implements InfoData {
     public void updateTotalDeathsAndInfected(List<Region> regions) {
         this.totalDeaths = regions.stream()
                 .map(Region::getNumDeath)
-                .reduce(0, (e0, e1) -> e0 + e1);
+                .reduce(0L, (e0, e1) -> e0 + e1);
         if (this.totalDeaths > this.deathsLimit) {
             this.increasePoints(random.nextInt(3) + 1);
             this.deathsLimit += BASE_DEATHS_RANGE;
         }
         this.totalInfected = regions.stream()
                 .map(Region::getNumInfected)
-                .reduce(0, (e0, e1) -> e0 + e1);
+                .reduce(0L, (e0, e1) -> e0 + e1);
         if (this.totalInfected > this.infectedLimit) {
             this.increasePoints(random.nextInt(3) + 1);
             this.infectedLimit += BASE_INFECTED_RANGE;

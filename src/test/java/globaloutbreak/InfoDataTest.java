@@ -57,14 +57,13 @@ class InfoDataTest {
                 }
 
                 @Override
-                public int getPopTot() {
+                public long getPopTot() {
                     return population;
                 }
 
                 @Override
-                public int getNumDeath() {
+                public long getNumDeath() {
                     return death;
-
                 }
 
                 @Override
@@ -78,12 +77,12 @@ class InfoDataTest {
                 }
 
                 @Override
-                public void incDeathPeople(final int dead) {
+                public void incDeathPeople(final long dead) {
                     this.death += dead;
                 }
 
                 @Override
-                public void incOrDecInfectedPeople(final int infected) {
+                public void incOrDecInfectedPeople(final long infected) {
                     this.infected += infected;
                 }
 
@@ -105,7 +104,7 @@ class InfoDataTest {
                 }
 
                 @Override
-                public int getNumInfected() {
+                public long getNumInfected() {
                     return this.getNumInfected();
                 }
 
