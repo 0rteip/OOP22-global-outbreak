@@ -23,7 +23,6 @@ import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
-import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.VoyageImpl;
@@ -84,8 +83,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void selectedRegion(final Region region) {
-        this.selectedRegion = Optional.of(region);
+    public void selectedRegion(final Optional<Region> region) {
+        this.selectedRegion = region;
     }
 
     @Override
@@ -163,18 +162,17 @@ public final class ModelImpl implements Model {
                 case "porti":
                     pot.put(k, this.disease.getSeaInfectivity());
                     break;
-                case "areporti":
-                    pot.put(k, this.disease.getAirInfectivity());
-                default:
+                case "areporti" : pot.put(k, this.disease.getAirInfectivity());
+                    break;
+                default : 
                     break;
             }
 
         });
-        final Map<String, Map<Integer, Pair<Integer, Integer>>> voyages = this.voyage.extractMeans(this.getRegions(),
-                pot);
+        final Map<String, Map<Pair<Integer, Integer>, Integer>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
         if (voyages.isEmpty()) {
             voyages.forEach((s, m) -> {
-                m.forEach((i, p) -> {
+                m.forEach((p, i) -> {
                     final Optional<Region> r = getRegionByColor(p.getY());
                     if (r.isPresent()) {
                         this.incOrDecInfectedPeople(i.intValue(), r.get());
@@ -193,32 +191,13 @@ public final class ModelImpl implements Model {
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
         final Region updateRegion = getRegion(region);
-        final int popTot = updateRegion.getPopTot();
-        final int death = updateRegion.getNumDeath();
-        if (death < popTot) {
-            if (death + newdeath > popTot) {
-                updateRegion.incDeathPeople(popTot - death);
-                updateRegion.setCureStatus(RegionCureStatus.FINISHED);
-                updateRegion.getTrasmissionMeans().stream()
-                        .forEach(k -> k.setState(MeansState.CLOSE));
-            } else if (death + newdeath < popTot) {
-                updateRegion.incDeathPeople(newdeath);
-            }
-        }
+        updateRegion.incDeathPeople(newdeath);
     }
 
     @Override
     public void incOrDecInfectedPeople(final int newinfected, final Region region) {
         final Region updateRegion = getRegion(region);
-        final int popTot = updateRegion.getPopTot();
-        final int infected = updateRegion.getNumInfected();
-        if (infected < popTot) {
-            if (infected + newinfected >= popTot) {
-                updateRegion.incDeathPeople(popTot - infected);
-            } else {
-                updateRegion.incDeathPeople(newinfected);
-            }
-        }
+        updateRegion.incOrDecInfectedPeople(newinfected);
     }
 
     private Region getRegion(final Region region) {
@@ -229,12 +208,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public void causeEvent() {
-        final Optional<Pair<Region, Integer>> event = this.causeEvents.causeEvent(this.getRegions()
+        final Optional<Pair<String, Pair<Region, Integer>>> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
                 .toList());
         if (event.isPresent()) {
-            this.incDeathPeople(event.get().getY(), event.get().getX());
+            this.incDeathPeople(event.get().getY().getY(), event.get().getY().getX());
         }
     }
 

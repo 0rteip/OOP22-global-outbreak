@@ -55,9 +55,9 @@ public interface Model {
      * Move focus on the selected Region.
      * 
      * @param region
-     *               Region selected
+     *               Region selected (empty = Mondo)
      */
-    void selectedRegion(Region region);
+    void selectedRegion(Optional<Region> region);
 
     /**
      * Pass the selected mutation.

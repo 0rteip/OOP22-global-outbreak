@@ -1,6 +1,7 @@
 package globaloutbreak.controller;
 
 import java.util.Map;
+import java.util.Optional;
 
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.api.Mutation;
@@ -45,7 +46,7 @@ public interface Controller {
      * @param region
      *               region selected
      */
-    void selectedRegion(int region);
+    void selectedRegion(Optional<Integer> region);
 
     /**
      * Pass the selected mutation.
@@ -131,4 +132,8 @@ public interface Controller {
      *         the ifo
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
+    /**
+     * This method set a list of model.
+     */
+    void setRegions();
 }

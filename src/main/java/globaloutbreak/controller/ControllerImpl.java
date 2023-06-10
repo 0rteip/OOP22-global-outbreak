@@ -67,8 +67,12 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void selectedRegion(final int color) {
-        this.model.selectedRegion(this.regionController.findRegionByColor(color));
+    public void selectedRegion(final Optional<Integer> color) {
+        if(color.isPresent()) {
+            this.model.selectedRegion(Optional.of(this.regionController.findRegionByColor(color.get())));
+        } else {
+            this.model.selectedRegion(Optional.empty());
+        }
     }
 
     @Override
@@ -112,6 +116,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.model.setDisease(this.diseaseController.createDisease(type));
+        this.logger.info("Create Disease of Type: {}", type);
         final Cure cure = new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions());
         if (cure.isConsistent()) {
             this.model.setCure(cure);
@@ -137,24 +142,6 @@ public final class ControllerImpl implements Controller {
 
     public Disease getDisease(){
         return this.model.getDisease();
-    }
-
-    @Override
-    public Map<TypeOfInfo, String> getInfoSingleRegion() {
-        final Map<TypeOfInfo, String> info = new HashMap<>();
-        final Optional<Region> r = this.model.getSelectedRegion();
-        if (r.isPresent()) {
-            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
-            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-            info.put(TypeOfInfo.REGION, r.get().getName());
-        } /*
-           * else {
-           * info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
-           * info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-           * info.put(TypeOfInfo.REGION, r.get().getName());
-           * }
-           */
-        return info;
     }
 
     @Override
@@ -276,5 +263,26 @@ public final class ControllerImpl implements Controller {
                 this.lock.unlock();
             }
         }
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        final Map<TypeOfInfo, String> info = new HashMap<>();
+        final Optional<Region> r = this.model.getSelectedRegion();
+        if (r.isPresent()) {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        } else {
+            info.put(TypeOfInfo.INFETTI, "");
+            info.put(TypeOfInfo.MORTI, "");
+            info.put(TypeOfInfo.REGION, "Mondo");
+        }
+        return info;
+    }
+
+    @Override
+    public void setRegions() {
+        this.model.setRegions(regionController.getRegions());
     }
 }

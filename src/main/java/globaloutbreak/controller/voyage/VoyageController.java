@@ -1,9 +1,8 @@
 package globaloutbreak.controller.voyage;
 
 import globaloutbreak.model.voyage.Voyage;
-
 /**
- * 
+ * Interface of Voyage Controller.
  */
 public interface VoyageController {
     /**

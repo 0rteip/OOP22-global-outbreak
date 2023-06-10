@@ -2,10 +2,12 @@ package globaloutbreak.view.messagedialog;
 
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -13,6 +15,10 @@ import javafx.stage.Stage;
  * Utility classes for message dialogs.
  */
 public final class MessageDialog {
+
+    private static final int MARGIN = 6;
+    private static final String CSS_PATH = "css/message.css";
+
     private MessageDialog() {
     }
 
@@ -38,9 +44,15 @@ public final class MessageDialog {
             view.startStop();
         });
 
-        final VBox root = new VBox();
-        root.getChildren().addAll(label, closeButton);
+        final BorderPane root = new BorderPane();
+        root.setCenter(label);
+        root.setBottom(closeButton);
+        BorderPane.setMargin(closeButton, new Insets(MARGIN));
+        BorderPane.setAlignment(closeButton, Pos.BOTTOM_RIGHT);
+
         final Scene scene = new Scene(root);
+        scene.getStylesheets().add(MessageDialog.class.getResource(CSS_PATH).toExternalForm());
+
         s.setScene(scene);
         s.setTitle(message.getType().getTitle());
         s.show();

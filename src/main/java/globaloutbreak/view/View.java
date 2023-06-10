@@ -2,6 +2,7 @@ package globaloutbreak.view;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import globaloutbreak.controller.Controller;
 import globaloutbreak.controller.TypeOfInfo;
@@ -140,6 +141,6 @@ public interface View {
      * 
      * @param color
      */
-    void selectRegion(int color);
+    void selectRegion(Optional<Integer> color);
 
 }
