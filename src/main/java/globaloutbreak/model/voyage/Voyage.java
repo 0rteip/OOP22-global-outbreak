@@ -25,7 +25,7 @@ public interface Voyage {
      *         the pair is the departure and destination expressed with the color of
      *         the region
      */
-    Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(List<Region> regions, Map<String, Float> pot);
+    Map<String, Map<Pair<Integer, Integer>, Integer>> extractMeans(List<Region> regions, Map<String, Float> pot);
     /**
      * 
      * @return
