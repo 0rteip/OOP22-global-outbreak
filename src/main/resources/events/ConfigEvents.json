@@ -1,7 +1,29 @@
 [
     {
         "name" : "Uragano",
-        "prob" : 0.2,
+        "prob" : 0.1,
         "morti" : 0.000005
+    }, 
+    {
+        "name" : "Terremoto",
+        "prob" : 0.15,
+        "morti" : 0.000002
+    }, 
+    {
+        "name" : "Alluvione",
+        "prob" : 0.25,
+        "morti" : 0.000002
+    }, 
+    {
+        "name" : "Tornado",
+        "prob" : 0.1,
+        "morti" : 0.000005
+    },
+    {
+        "name" : "Tempesta",
+        "prob" : 0.3,
+        "morti" : 0.000002
     }
+    
+
 ]

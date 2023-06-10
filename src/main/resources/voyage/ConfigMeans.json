@@ -1,11 +1,11 @@
 [
     {
-        "type" : "areoporto",
+        "type" : "aereoporti",
         "passengers" : 600,
         "num" : 4
     }, 
     {
-        "type" : "porto",
+        "type" : "porti",
         "passengers" : 300,
         "num" : 4
     }, 
