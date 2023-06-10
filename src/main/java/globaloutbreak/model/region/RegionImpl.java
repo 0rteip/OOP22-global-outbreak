@@ -34,6 +34,7 @@ public final class RegionImpl implements Region {
     // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
     private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * This is the constructor.

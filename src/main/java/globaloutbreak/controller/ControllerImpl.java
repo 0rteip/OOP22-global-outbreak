@@ -152,6 +152,7 @@ public final class ControllerImpl implements Controller {
         this.diseaseController.readFile(reader.getDiseases());
     }
 
+    @Override
     public Disease getDisease() {
         return this.model.getDisease();
     }
@@ -252,21 +253,21 @@ public final class ControllerImpl implements Controller {
             quit();
         }
 
-        private void update() {
+        void update() {
             model.update();
             if (model.isGameOver()) {
                 view.quit();
             }
         }
 
-        private void render() {
-            System.out.println(model.getInfo().getTotalInfected());
+        void render() {
+            // System.out.println(model.getInfo().getTotalInfected());
             view.render();
             // model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
 
         }
 
-        private void remainingTime() {
+        void remainingTime() {
             final long elapsedTime = System.currentTimeMillis() - this.startTime;
             final int timeUntilNextLoop = Math.round(settings.getGameSpeed().getDuration() * 1000 - elapsedTime);
             if (timeUntilNextLoop > 0) {
@@ -278,7 +279,7 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        private void startStop() {
+        void startStop() {
             this.lock.lock();
             try {
                 this.isRunning = !this.isRunning;
@@ -290,7 +291,7 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        private boolean isRunning() {
+        boolean isRunning() {
             this.lock.lock();
             try {
                 return this.isRunning;
