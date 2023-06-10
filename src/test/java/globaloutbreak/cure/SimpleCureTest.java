@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.random.RandomGenerator;
 import java.util.stream.IntStream;
 
@@ -73,13 +74,13 @@ final class SimpleCureTest {
                 .build();
 
         assertTrue(cure.getGlobalStatus().getMajorContributors().isEmpty());
-        assertEquals(-1, cure.getGlobalStatus().getRemainingDays());
+        assertEquals(Optional.empty(), cure.getGlobalStatus().getRemainingDays());
 
         IntStream.range(0, daysBeforeStartResearch + 1).forEach(w -> {
             cure.research();
         });
         assertEquals(numberOfMajorContributors, cure.getGlobalStatus().getMajorContributors().size());
-        assertNotEquals(-1, cure.getGlobalStatus().getRemainingDays());
+        assertNotEquals(Optional.empty(), cure.getGlobalStatus().getRemainingDays());
     }
 
     /**

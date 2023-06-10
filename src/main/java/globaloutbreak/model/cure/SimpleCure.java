@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
@@ -59,12 +60,15 @@ public final class SimpleCure implements Cure {
             }
 
             @Override
-            public int getRemainingDays() {
+            public Optional<Integer> getRemainingDays() {
                 final float dailyInvestment = contributions.entrySet().stream()
                         .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.STARTED)
                         .map(el -> dailyRegionContribution(el.getKey()))
                         .reduce(0f, (f0, f1) -> f0 + f1);
-                return dailyInvestment != 0 ? Math.round((necessaryBudget - researchBudget) / dailyInvestment) : -1;
+
+                return dailyInvestment != 0
+                        ? Optional.of(Math.round((necessaryBudget - researchBudget) / dailyInvestment))
+                        : Optional.empty();
             }
 
             @Override
