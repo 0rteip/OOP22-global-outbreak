@@ -3,7 +3,7 @@ package globaloutbreak.model.voyage;
 /**
  * Extracted Voyage.
  */
-public interface VoyageM {
+public interface Voyage {
     /**
      * 
      * @return

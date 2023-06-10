@@ -21,7 +21,7 @@ import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.VoyageM;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.model.voyage.VoyagesImpl;
 
@@ -148,7 +148,7 @@ public class ModelImpl implements Model {
                     break;
             }
         });
-        final List<VoyageM> voyages = this.voyage.extractMeans(this.getRegions(), pot);
+        final List<Voyage> voyages = this.voyage.extractMeans(this.getRegions(), pot);
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
                 this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());

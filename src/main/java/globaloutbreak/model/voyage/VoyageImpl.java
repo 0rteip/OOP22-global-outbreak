@@ -3,7 +3,7 @@ package globaloutbreak.model.voyage;
 /**
  * Implement. of Voyage.
  */
-public final class VoyageMImpl implements VoyageM {
+public final class VoyageImpl implements Voyage {
     private final String type;
     private final int part;
     private final int dest;
@@ -20,7 +20,7 @@ public final class VoyageMImpl implements VoyageM {
      * @param infected
      *                 new infect
      */
-    public VoyageMImpl(final String type, final int part,
+    public VoyageImpl(final String type, final int part,
             final int dest, final int infected) {
         this.type = type;
         this.part = part;
