@@ -83,8 +83,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void selectedRegion(final Region region) {
-        this.selectedRegion = Optional.of(region);
+    public void selectedRegion(final Optional<Region> region) {
+        this.selectedRegion = region;
     }
 
     @Override

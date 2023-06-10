@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.sun.prism.paint.Color;
 
@@ -78,37 +79,36 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     /**
-     * This is stackPane's lister.
+     * This is mapLab's lister.
      * 
      * @param e
      *          Mouse Event (on click)
      */
     @FXML
     public void selectRegion(final MouseEvent e) {
-        final Integer newColor = buf.getImage().getPixelReader().getArgb(
+        Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
         if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
             if (newColor.equals(Color.WHITE.getIntArgbPre())) {
                 this.color = Color.WHITE.getIntArgbPre();
                 mapLab.setGraphic(sfondo);
-                this.getView().selectRegion(newColor);
-            }
-            if (!newColor.equals(color)) {
+                this.getView().selectRegion(Optional.empty());
+            } if (!newColor.equals(color)) {
                 mapLab.setGraphic(selectedState(newColor));
                 this.color = newColor;
-                this.getView().selectRegion(newColor);
-                final Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
-                info.forEach((t, s) -> {
-                    if (t.equals(TypeOfInfo.INFETTI)) {
-                        infectedText.setText(s);
-                    } else if (t.equals(TypeOfInfo.MORTI)) {
-                        deathText.setText(s);
-                    } else if (t.equals(TypeOfInfo.REGION)) {
-                        regionText.setText(s);
-                    }
-                });
+                this.getView().selectRegion(Optional.of(newColor));
             }
+            final Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
+            info.forEach((t, s) -> {
+                if (t.equals(TypeOfInfo.INFETTI)) {
+                    infectedText.setText(s);
+                } else if (t.equals(TypeOfInfo.MORTI)) {
+                    deathText.setText(s);
+                } else if (t.equals(TypeOfInfo.REGION)) {
+                    regionText.setText(s);
+                }
+            });
         }
     }
 

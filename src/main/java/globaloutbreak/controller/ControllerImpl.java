@@ -66,8 +66,12 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void selectedRegion(final int color) {
-        this.model.selectedRegion(this.regionController.findRegionByColor(color));
+    public void selectedRegion(final Optional<Integer> color) {
+        if(color.isPresent()) {
+            this.model.selectedRegion(Optional.of(this.regionController.findRegionByColor(color.get())));
+        } else {
+            this.model.selectedRegion(Optional.empty());
+        }
     }
 
     @Override
@@ -262,11 +266,11 @@ public final class ControllerImpl implements Controller {
             info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
             info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
             info.put(TypeOfInfo.REGION, r.get().getName());
-        } /*else {
-            info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
-            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-            info.put(TypeOfInfo.REGION, r.get().getName());
-        }*/
+        } else {
+            info.put(TypeOfInfo.INFETTI, "");
+            info.put(TypeOfInfo.MORTI, "");
+            info.put(TypeOfInfo.REGION, "Mondo");
+        }
         return info;
     }
 

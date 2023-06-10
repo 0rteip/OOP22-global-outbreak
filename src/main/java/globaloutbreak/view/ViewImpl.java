@@ -3,6 +3,7 @@ package globaloutbreak.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,7 +148,7 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void selectRegion(final int color) {
+    public void selectRegion(final Optional<Integer> color) {
         this.controller.selectedRegion(color);
     }
 }

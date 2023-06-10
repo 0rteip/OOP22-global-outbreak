@@ -212,7 +212,7 @@
         "humid" : 0.5, "hot" : 0.5, "popTot" : 59831093, "facilities" : 9, "poor" : 0.10, "urban": 0.8
     } , 
     {
-        "nome" : "Europa Centrale", "colore" : -62442, "confini" : ["Germania", "Polonia", "Ucraina", "Balcani", "Italia"], 
+        "nome" : "Europa Centrale", "colore" : -16728907, "confini" : ["Germania", "Polonia", "Ucraina", "Balcani", "Italia"], 
         "humid" : 0.6, "hot" : 0.3, "popTot" : 44448562, "facilities" : 10, "poor" : 0.2, "urban": 0.6
     } , 
     {
