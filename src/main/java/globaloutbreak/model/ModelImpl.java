@@ -26,6 +26,7 @@ import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.Voyages;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -34,13 +35,15 @@ import java.util.LinkedList;
  */
 
 public class ModelImpl implements Model {
+
+    private List<Voyage> voyages = new ArrayList<>();
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Disease disease;
     private List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
     private Voyages voyageC;
     private Optional<Cure> cure = Optional.empty();
-    private final DataAnalyzer<Integer> deathAnalyzer;
+    private final DataAnalyzer<Long> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
@@ -82,7 +85,6 @@ public class ModelImpl implements Model {
     @Override
     public void selectedRegion(final Optional<Region> region) {
         this.selectedRegion = region;
-        logger.info(region.toString());
         if (this.selectedRegion.isPresent() && !this.isDiseaseSpreading) {
             final Region updateR = this.regions.stream()
                     .filter(k -> k.getColor() == region.get().getColor())
@@ -111,7 +113,7 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean isDiseaseSet() {
-        return Objects.isNull(this.disease);
+        return !Objects.isNull(this.disease);
     }
 
     @Override
@@ -120,18 +122,11 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<Integer> getGlobalData() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGlobalData'");
-    }
-
-    @Override
     public Optional<Region> getSelectedRegion() {
         return this.selectedRegion;
     }
 
-    @Override
-    public void extractVoyages() {
+    private void extractVoyages() {
         final Map<String, Float> pot = new HashMap<>();
         voyageC.getMeans().forEach(k -> {
             switch (k) {
@@ -149,9 +144,10 @@ public class ModelImpl implements Model {
             }
         });
         final List<Voyage> voyages = this.voyageC.extractMeans(this.getRegions(), pot);
+        this.voyages = List.copyOf(voyages);
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
-                this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());
+                this.incOrDecInfectedPeople(k.getInfected(), this.getRegionByColor(k.getDest()).get());
 
             });
         }
@@ -163,26 +159,11 @@ public class ModelImpl implements Model {
                 .findFirst();
     }
 
-    @Override
-    public void incDeathPeople(final int newdeath, final Region region) {
-        final Region updateRegion = getRegion(region);
-        updateRegion.incDeathPeople(newdeath);
+    private void incOrDecInfectedPeople(final int newinfected, final Region region) {
+        region.incOrDecInfectedPeople(newinfected);
     }
 
-    @Override
-    public void incOrDecInfectedPeople(final int newinfected, final Region region) {
-        final Region updateRegion = getRegion(region);
-        updateRegion.incOrDecInfectedPeople(newinfected);
-    }
-
-    private Region getRegion(final Region region) {
-        return this.getRegions().stream()
-                .filter(k -> k.equals(region))
-                .toList().get(0);
-    }
-
-    @Override
-    public void causeEvent() {
+    private void causeEvent() {
         final Optional<ExtractedEvent> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
@@ -190,7 +171,7 @@ public class ModelImpl implements Model {
         if (event.isPresent()) {
             final ExtractedEvent exEvent = event.get();
             final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
-            this.incDeathPeople(exEvent.getDeath(), exRegion);
+            exRegion.incDeathPeople(exEvent.getDeath());
             final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
@@ -255,6 +236,24 @@ public class ModelImpl implements Model {
         this.regions.forEach(region -> {
             region.initializeObserver(new InfoDataRegionObserver(this.infoData));
         });
+    }
+
+    @Override
+    public List<Voyage> getVoyages() {
+        return this.voyages;
+    }
+
+    @Override
+    public void update() {
+        this.disease.infectRegions(this.regions);
+        this.extractVoyages();
+        this.causeEvent();
+        this.disease.killPeopleRegions(this.regions);
+        this.infoData.updateTotalDeathsAndInfected(this.regions);
+        this.deathAnalyzer.analyze(this.regions.stream()
+                .map(el -> Long.valueOf(el.getNumDeath()))
+                .reduce(0L, (e0, e1) -> e0 + e1));
+        this.cure.ifPresent(cure -> cure.research());
     }
 
     // private CureData emptyCureData() {

@@ -8,6 +8,7 @@ import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.region.Region;
+import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.voyage.Voyages;
 
 /**
@@ -85,14 +86,6 @@ public interface Model {
     InfoData getInfo();
 
     /**
-     * Get rilevant data on the global situations.
-     * 
-     * @return
-     *         global data
-     */
-    List<Integer> getGlobalData();
-
-    /**
      * 
      * @return
      *         the selected region if is empty is all world
@@ -122,33 +115,6 @@ public interface Model {
      */
     void addNewsListener(PropertyChangeListener listener);
 
-    /**
-     * This method extract voyages.
-     */
-    void extractVoyages();
-
-    /**
-     * 
-     * @param newdeath
-     *                 new death
-     * @param region
-     *                 region
-     */
-    void incDeathPeople(int newdeath, Region region);
-
-    /**
-     * 
-     * @param newinfected
-     *                    new infected
-     * @param region
-     *                    region
-     */
-    void incOrDecInfectedPeople(int newinfected, Region region);
-
-    /**
-     * This method cause a event.
-     */
-    void causeEvent();
 
     /**
      * 
@@ -163,8 +129,23 @@ public interface Model {
      *               list of Event
      */
     void setEvents(List<Event> events);
+
     /**
      * Set voyages variable.
      */
     void setVoyages(Voyages voyages);
+
+    /**
+     * Returns the voyages.
+     * 
+     * @return
+     *         list of {@link Voyage}
+     */
+    List<Voyage> getVoyages();
+
+    /**
+     * Update {@link Model}
+     */
+    void update();
+
 }
