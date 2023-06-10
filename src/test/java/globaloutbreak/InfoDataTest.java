@@ -37,7 +37,7 @@ class InfoDataTest {
         final Controller controller = new ControllerImpl(null);
         controller.readDiseasesNames();
         controller.choosenDisease(reader.getDiseases().get(0).getType());
-        Disease disease = controller.getDisease();
+       // Disease disease = controller.getDisease();
 
         InfoData infodata = new InfoDataImpl(1_500_000);
 

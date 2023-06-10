@@ -47,15 +47,14 @@ import javafx.application.Platform;
 public final class ControllerImpl implements Controller {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final View view;
+
     private final Model model = new ModelImpl();
-    private final GameLoop gameLoop = new GameLoop();
     private final GameSettings settings = new GameSettingsImpl();
     private final GameLoop gameLoop = new GameLoop();
     private final DiseaseController diseaseController = new DiseaseControllerImpl();
-    private final Model model;
     private final View view;
     private final RegionController regionController = new RegionControllerImpl();
+    private final MutationController mutationController;
 
     /**
      * Create a controller.

@@ -132,12 +132,6 @@ public interface Model {
      */
     void addNewsListener(PropertyChangeListener listener);
 
-
-    /**
-     * 
-     * @return disease
-     */
-    Disease getDisease();
     /**
      * This method extract voyages.
      */
