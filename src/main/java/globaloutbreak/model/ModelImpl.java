@@ -49,6 +49,8 @@ public class ModelImpl implements Model {
     private CauseEvent causeEvents;
     private InfoData infoData;
     private final static int INITIAL_INC = 1;
+    private boolean isDiseaseSpreading;
+
     /**
      * Creates a model.
      */
@@ -79,12 +81,18 @@ public class ModelImpl implements Model {
     public List<Region> getRegions() {
         return new LinkedList<>(this.regions);
     }
+
     @Override
     public void selectedRegion(final Optional<Region> region) {
         this.selectedRegion = region;
-        final Region updateR = this.regions.stream().filter(k -> k.getColor() == region.get().getColor()).findFirst().get();
-        if(updateR.getNumInfected() == 0) {
+        logger.info(region.toString());
+        if (this.selectedRegion.isPresent() && !this.isDiseaseSpreading) {
+            final Region updateR = this.regions.stream()
+                    .filter(k -> k.getColor() == region.get().getColor())
+                    .findFirst().get();
             this.incOrDecInfectedPeople(INITIAL_INC, updateR);
+            this.isDiseaseSpreading = !this.isDiseaseSpreading;
+            this.logger.info("Disease started spreading");
         }
     }
 
@@ -147,11 +155,10 @@ public class ModelImpl implements Model {
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
                 this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());
-                
+
             });
         }
     }
-
 
     private Optional<Region> getRegionByColor(final int color) {
         return this.getRegions().stream()
@@ -206,7 +213,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void createCauseEvents() {
-       
+
     }
 
     @Override
@@ -247,13 +254,13 @@ public class ModelImpl implements Model {
         return this.voyageC;
     }
 
-    private void setCauseEvents(final List<Event>  events) {
+    private void setCauseEvents(final List<Event> events) {
         this.causeEvents = new CauseEventsImpl(List.copyOf(events));
     }
 
     @Override
     public void setVoyages(final Voyages voyages) {
-       this.voyageC = voyages;
+        this.voyageC = voyages;
     }
 
     // private CureData emptyCureData() {
