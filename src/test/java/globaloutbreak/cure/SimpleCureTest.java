@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.random.RandomGenerator;
@@ -242,6 +243,12 @@ final class SimpleCureTest {
                 public List<TransmissionMean> getTrasmissionMeans() {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
+                }
+
+                @Override
+                public void initializeObserver(PropertyChangeListener listener) {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
                 }
 
             };

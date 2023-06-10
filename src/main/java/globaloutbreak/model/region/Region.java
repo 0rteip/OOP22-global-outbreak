@@ -1,5 +1,6 @@
 package globaloutbreak.model.region;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import globaloutbreak.model.cure.RegionCureStatus;
@@ -125,4 +126,9 @@ public interface Region {
      *                  new status
      */
     void setCureStatus(RegionCureStatus started);
+
+    /**
+     * Add the property change listener for infoData.
+     */
+    void initializeObserver(PropertyChangeListener listener);
 }

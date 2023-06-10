@@ -8,12 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import globaloutbreak.model.cure.Cure;
-import globaloutbreak.model.cure.CureData;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
-import globaloutbreak.model.cure.prioriry.CurePriority;
-import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
@@ -29,7 +26,6 @@ import globaloutbreak.model.voyage.VoyageImpl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 

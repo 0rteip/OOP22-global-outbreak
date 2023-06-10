@@ -1,5 +1,7 @@
 package globaloutbreak.model.events;
 
+import java.beans.PropertyChangeListener;
+
 /**
  * The interface of Event.
  */
@@ -28,4 +30,8 @@ public interface Event {
      */
     String getName();
 
+    /**
+     * Add the property change listener for infoData.
+     */
+    void initializeObserver(PropertyChangeListener listener);
 }

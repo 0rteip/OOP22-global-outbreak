@@ -3,7 +3,7 @@ package globaloutbreak.model.region;
 /**
  * Impl. of ClimatInt.
  */
-public final class ClimateImpl implements Climate {
+public class ClimateImpl implements Climate {
     private final float arid;
     private final float humid;
     private final float hot;

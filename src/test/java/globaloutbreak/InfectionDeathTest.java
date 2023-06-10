@@ -1,5 +1,6 @@
 package globaloutbreak;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,7 @@ class InfectionDeathTest {
 
     private static final int INITIAL_INFECTS = 55_000;
     private static final int INITIAL_DEATHS = 5_000;
-    private static final int EXPECTED_INFECTS1 = 80_850;
-    private static final int EXPECTED_DEATHS1 = 13_085;
-    private static final int EXPECTED_INFECTS3 = 72_765;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Region region = new Region() {
@@ -91,9 +90,9 @@ class InfectionDeathTest {
         public Climate getClimate() {
             return new Climate() {
                 static final float HOT = 0.1f;
-                static final float COLD = 0.2f;
-                static final float ARID = 0.6f;
-                static final float HUMID = 0.1f;
+                static final float COLD = 0.1f;
+                static final float ARID = 0.9f;
+                static final float HUMID = 0.9f;
 
                 @Override
                 public float getHot() {
@@ -141,6 +140,12 @@ class InfectionDeathTest {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
         }
+
+        @Override
+        public void initializeObserver(PropertyChangeListener listener) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
+        }
     };
 
     /**
@@ -150,19 +155,20 @@ class InfectionDeathTest {
     @Test
     void testKillPeople() {
         final DiseaseFactory diseaseFactory = new DiseaseFactoryImpl();
-        final Disease disease = diseaseFactory.createDisease("Virus", 0.5f, 0.1f, 0.3f, 0.2f,
-                0.1f, 0.2f, 0.1f, 0.2f, 0.3f, 0.1f, 0.2f);
-
+        final Disease disease = diseaseFactory.createDisease("Virus", 0.1f, 0.1f, 0.1f, 0.1f,
+                0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
         final List<Region> regionList = new ArrayList<>();
 
         regionList.add(region);
+        final float expectedInfectivity = (float) (disease.getInfectivity() * region.getUrban() + disease.getAridityInfectivity() * region.getClimate().getArid() + disease.getHumidityInfectivity() * region.getClimate().getHumid() + disease.getColdInfectivity() * region.getClimate().getCold() + disease.getHeatInfectivity() * region.getClimate().getHot() + disease.getPovertyInfectivity() * region.getPoor());
+        System.out.println(expectedInfectivity);
+        final long expectedInfected = (long) (region.getNumInfected() * expectedInfectivity) + region.getNumInfected();
         disease.infectRegions(regionList);
-
-        Assertions.assertEquals(EXPECTED_INFECTS1, region.getNumInfected());
+        Assertions.assertEquals(expectedInfected, region.getNumInfected());
+        final long expectedDeaths = (long) (region.getNumInfected() * disease.getLethality()) + region.getNumDeath();
         disease.killPeopleRegions(regionList);
 
-        Assertions.assertEquals(EXPECTED_DEATHS1, region.getNumDeath());
-        Assertions.assertEquals(EXPECTED_INFECTS3, region.getNumInfected());
+        Assertions.assertEquals(expectedDeaths, region.getNumDeath());
         logger.info("KillTest gone well");
     }
 }

@@ -127,4 +127,9 @@ public class InfoDataImpl implements InfoData {
     public void updateCureData(final CureData cureData) {
         this.cureData = cureData;
     }
+
+    @Override
+    public void updateDeaths(final long deaths){
+        this.totalDeaths += deaths;
+    }
 }

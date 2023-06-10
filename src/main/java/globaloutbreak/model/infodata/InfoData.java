@@ -51,12 +51,23 @@ public interface InfoData {
 
     /**
      * update total deaths and infected.
+     * @param numDeaths
+     * @param numInfected
      */
     void updateTotalDeathsAndInfected(long numDeaths, long numInfected);
 
     /**
      * update cure data.
+     * 
+     * @param
+     * cureData
      */
     void updateCureData(CureData cureData);
+
+    /**
+     * 
+     * @param deaths
+     */
+    void updateDeaths(long deaths);
 }
 

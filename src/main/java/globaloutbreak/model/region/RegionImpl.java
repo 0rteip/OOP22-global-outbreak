@@ -1,5 +1,7 @@
 package globaloutbreak.model.region;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public final class RegionImpl implements Region {
     private RegionCureStatus status = RegionCureStatus.NONE;
     // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
+    private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * This is the constructor.
@@ -111,8 +114,10 @@ public final class RegionImpl implements Region {
                 if (sum > this.popTot) {
                     logger.warn("Too many infected but I add those possible");
                 }
+                infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
                 this.numInfected += popTot - this.numInfected;
             } else {
+                infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
                 this.numInfected += infected;
             }
         } else {
@@ -192,6 +197,11 @@ public final class RegionImpl implements Region {
     @Override
     public void setCureStatus(final RegionCureStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public void initializeObserver(PropertyChangeListener listener){
+        this.infodataSupport.addPropertyChangeListener(listener);
     }
 
 }
