@@ -33,7 +33,7 @@ public final class RegionControllerImpl implements RegionController {
         try {
             node = getJsonNode(path);
             node.forEach(k -> {
-                int popTot = 0;
+                long popTot = 0;
                 String name = "";
                 float urban = 0;
                 float poor = 0;

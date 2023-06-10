@@ -168,12 +168,12 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int getPopTot() {
+                public long getPopTot() {
                     return pop;
                 }
 
                 @Override
-                public int getNumDeath() {
+                public long getNumDeath() {
                     return deat;
 
                 }
@@ -189,12 +189,12 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void incDeathPeople(final int dead) {
+                public void incDeathPeople(final long dead) {
                     throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
                 }
 
                 @Override
-                public void incOrDecInfectedPeople(final int infected) {
+                public void incOrDecInfectedPeople(final long infected) {
                     // TODO Auto-generated method stub
                     throw new UnsupportedOperationException("Unimplemented method 'incOrDecInfectedPeople'");
                 }
@@ -206,7 +206,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public int getNumInfected() {
+                public long getNumInfected() {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }

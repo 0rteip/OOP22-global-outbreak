@@ -14,7 +14,7 @@ public interface Event {
      * @return
      *         the number of death
      */
-    Integer calcDeath(Integer popTot);
+    long calcDeath(long popTot);
 
     /**
      * 

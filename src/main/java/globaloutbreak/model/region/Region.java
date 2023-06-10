@@ -16,7 +16,7 @@ public interface Region {
      * @param dead the number of new death people.
      * 
      */
-    void incDeathPeople(int dead);
+    void incDeathPeople(long dead);
 
     /**
      * This method increase(or decrease) the number of infected people.
@@ -25,7 +25,7 @@ public interface Region {
      *                  the number of new infected people.
      * 
      */
-    void incOrDecInfectedPeople(int infected);
+    void incOrDecInfectedPeople(long infected);
 
     /**
      * This method calculates the percentage of infected.
@@ -40,14 +40,14 @@ public interface Region {
      * @return
      *          the num of infected
      */
-    int getNumInfected();
+    long getNumInfected();
 
     /**
      * 
      * @return
      *          the num of death
      */
-    int getNumDeath();
+    long getNumDeath();
 /* 
     /**
      * 
@@ -82,7 +82,7 @@ public interface Region {
      * @return
      *          total population
      */
-    int getPopTot();
+    long getPopTot();
 
     /**
      * 

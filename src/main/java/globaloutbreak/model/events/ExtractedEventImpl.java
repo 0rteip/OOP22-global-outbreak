@@ -6,7 +6,7 @@ package globaloutbreak.model.events;
 public final class ExtractedEventImpl implements ExtractedEvent {
     private final int region;
     private final String event;
-    private final int death;
+    private final long death;
     /**
      * 
      * @param region
@@ -16,7 +16,7 @@ public final class ExtractedEventImpl implements ExtractedEvent {
      * @param death
      *              new death
      */
-    public ExtractedEventImpl(final int region, final String event, final int death) {
+    public ExtractedEventImpl(final int region, final String event, final long death) {
         this.region = region;
         this.event = event;
         this.death = death;
@@ -33,7 +33,7 @@ public final class ExtractedEventImpl implements ExtractedEvent {
     }
 
     @Override
-    public int getDeath() {
+    public long getDeath() {
         return this.death;
     }
 
