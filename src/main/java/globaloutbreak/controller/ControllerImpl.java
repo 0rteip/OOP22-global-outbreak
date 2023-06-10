@@ -24,6 +24,7 @@ import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.api.Mutation;
+import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.voyage.Voyage;
 import globaloutbreak.model.infodata.Infodata;
@@ -105,7 +106,12 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.model.setDisease(this.diseaseController.createDisease(type));
-        this.model.setCure(new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions()));
+        final Cure cure = new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions());
+        if (cure.isConsistent()) {
+            this.model.setCure(cure);
+        } else {
+            this.logger.warn("Unable to create a Cure instance, something went wrong");
+        }
     }
 
     @Override
@@ -146,11 +152,13 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void startStop() {
-        if (!this.gameLoop.isAlive()) {
-            this.gameLoop.start();
-        } else {
-            logger.info(this.gameLoop.isRunning() ? "STOP loop, pause" : "RESTART loop");
-            this.gameLoop.startStop();
+        if (this.model.isDiseaseSet()) {
+            if (!this.gameLoop.isAlive()) {
+                this.gameLoop.start();
+            } else {
+                logger.info(this.gameLoop.isRunning() ? "STOP loop, pause" : "RESTART loop");
+                this.gameLoop.startStop();
+            }
         }
     }
 
