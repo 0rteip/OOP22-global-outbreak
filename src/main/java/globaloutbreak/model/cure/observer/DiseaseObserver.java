@@ -6,7 +6,8 @@ import java.beans.PropertyChangeListener;
 import globaloutbreak.model.cure.Cure;
 
 /**
- * An observer which notify the {@link Cure} if {@link globaloutbreak.model.api.Disease} mutations
+ * An observer which notify the {@link Cure} if
+ * {@link globaloutbreak.model.api.Disease} mutations
  * affect it's research.
  */
 public final class DiseaseObserver implements PropertyChangeListener {
@@ -25,10 +26,15 @@ public final class DiseaseObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent property) {
-        if ("difficulty".equals(property.getPropertyName())) {
-            this.cure.increaseResearchDifficulty((float) property.getNewValue());
-        } else if ("progress".equals(property.getPropertyName())) {
-            this.cure.reduceResearchProgress((float) property.getNewValue());
+        switch (property.getPropertyName()) {
+            case "resist":
+                this.cure.increaseResearchDifficulty((float) property.getNewValue());
+                break;
+            case "decre":
+                this.cure.reduceResearchProgress((float) property.getNewValue());
+                break;
+            default:
+                break;
         }
     }
 }
