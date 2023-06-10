@@ -170,10 +170,9 @@ public final class ModelImpl implements Model {
                 default : 
                     break;
             }
-
         });
         final Map<String, Map<Pair<Integer, Integer>, Integer>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
-        if (voyages.isEmpty()) {
+        if (!voyages.isEmpty()) {
             voyages.forEach((s, m) -> {
                 m.forEach((p, i) -> {
                     final Optional<Region> r = getRegionByColor(p.getY());

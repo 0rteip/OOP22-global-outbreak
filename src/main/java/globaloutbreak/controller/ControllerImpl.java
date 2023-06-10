@@ -267,8 +267,9 @@ public final class ControllerImpl implements Controller {
             info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
             info.put(TypeOfInfo.REGION, r.get().getName());
         } else {
-            info.put(TypeOfInfo.INFETTI, "");
-            info.put(TypeOfInfo.MORTI, "");
+            final InfoData infoData = this.model.getInfo();
+            info.put(TypeOfInfo.INFETTI, Long.toString(infoData.getTotalInfected()));
+            info.put(TypeOfInfo.MORTI, Long.toString(infoData.getTotalDeaths()));
             info.put(TypeOfInfo.REGION, "Mondo");
         }
         return info;

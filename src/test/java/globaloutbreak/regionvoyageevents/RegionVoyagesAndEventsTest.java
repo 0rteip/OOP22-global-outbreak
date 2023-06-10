@@ -80,6 +80,13 @@ final class RegionVoyagesAndEventsTest {
             });
             k.incOrDecInfectedPeople((int) Math.floor(k.getPopTot() * 0.5));
         });
+        regions.forEach(i -> {
+            i.getTrasmissionMeans().forEach(t -> {
+                assertTrue(means.getMeans().contains(t.getType()));
+            });
+            i.incDeathPeople(i.getPopTot());
+        });
+        means.extractMeans(regions, pot);
     }
 
     @Test

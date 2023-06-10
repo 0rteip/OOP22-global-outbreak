@@ -40,15 +40,17 @@ public final class VoyageImpl implements Voyage {
             final Map<Pair<Integer, Integer>, Integer> oneMeans = new HashMap<>();
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-            for (int i = 0; i < size.getX(); i++) {
-                final Pair<Integer, Integer> partDest = extractRegion(newRegions, means);
-                final Region part = newRegions
-                        .stream()
-                        .filter(k -> k.getColor() == partDest.getX()).toList().get(0);
-                final float prob = part.calcPercInfected() + pot.get(means);
-                oneMeans.put(partDest, numInfected(prob, size.getY()));
+            if(!newRegions.isEmpty()) {
+                for (int i = 0; i < size.getX(); i++) {
+                    final Pair<Integer, Integer> partDest = extractRegion(newRegions, means);
+                    final Region part = newRegions
+                            .stream()
+                            .filter(k -> k.getColor() == partDest.getX()).toList().get(0);
+                    final float prob = part.calcPercInfected() + pot.get(means);
+                    oneMeans.put(partDest, numInfected(prob, size.getY()));
+                }
+                extractedMeans.put(means, oneMeans);
             }
-            extractedMeans.put(means, oneMeans);
         });
         return extractedMeans;
     }

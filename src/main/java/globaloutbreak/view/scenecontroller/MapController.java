@@ -99,8 +99,11 @@ public final class MapController extends AbstractSceneController implements Scen
                 this.color = newColor;
                 this.getView().selectRegion(Optional.of(newColor));
             }
-            final Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
-            info.forEach((t, s) -> {
+            this.setTextFilds(this.getView().getInfoSingleRegion());
+        }
+    }
+    private void setTextFilds( Map<TypeOfInfo, String> info) {
+        info.forEach((t, s) -> {
                 if (t.equals(TypeOfInfo.INFETTI)) {
                     infectedText.setText(s);
                 } else if (t.equals(TypeOfInfo.MORTI)) {
@@ -109,7 +112,6 @@ public final class MapController extends AbstractSceneController implements Scen
                     regionText.setText(s);
                 }
             });
-        }
     }
 
     private ImageView selectedState(final int color) {
@@ -278,6 +280,7 @@ public final class MapController extends AbstractSceneController implements Scen
             visibleMeans.add("porti");
             visibleMeans.add("areoporti");
             setMap();
+            this.setTextFilds(this.getView().getInfoSingleRegion());
         }
         resize(sfondo, (int) Math.floor(borderPane.getWidth()), (int) Math.floor(borderPane.getHeight()));
         mapLab.setGraphic(sfondo);
