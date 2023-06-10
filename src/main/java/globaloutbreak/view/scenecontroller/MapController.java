@@ -1,7 +1,10 @@
 package globaloutbreak.view.scenecontroller;
 
 import globaloutbreak.controller.TypeOfInfo;
+import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.pair.Pair;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -14,7 +17,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import javafx.beans.value.ObservableValue;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +31,7 @@ import com.sun.prism.paint.Color;
 /**
  * Map Controller.
  */
-public final class MapController extends AbstractSceneController implements SceneInitializer {
+public final class MapController extends AbstractSceneController implements SceneInitializer, SceneUpdater {
     @FXML
     private StackPane mapPane;
 
@@ -71,6 +76,7 @@ public final class MapController extends AbstractSceneController implements Scen
     private Double percW = 1.0;
     private String path;
     private Boolean start = false;
+    private Timeline timeline;
 
     /**
      * Contructor.
@@ -325,5 +331,16 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         });
+    }
+
+    @Override
+    public void updateScene(GameSpeed gameSpeed) {
+        
+        timeline = new Timeline(new KeyFrame(Duration.seconds(gameSpeed.getDuration()), event -> {
+            // Logica per aggiornare la label
+            this.setTextFilds(this.getView().getInfoSingleRegion());
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 }

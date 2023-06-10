@@ -149,7 +149,6 @@ public final class ModelImpl implements Model {
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
                 this.incOrDecInfectedPeople(k.getInfected(), this.getRegionByColor(k.getDest()).get());
-
             });
         }
     }
@@ -247,8 +246,8 @@ public final class ModelImpl implements Model {
     @Override
     public void update() {
         this.disease.infectRegions(this.regions);
-        // this.extractVoyages();
-        // this.causeEvent();
+        this.extractVoyages();
+        this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.deathAnalyzer.analyze(this.regions.stream()

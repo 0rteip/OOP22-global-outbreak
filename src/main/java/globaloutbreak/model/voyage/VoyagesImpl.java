@@ -46,6 +46,7 @@ public final class VoyagesImpl implements Voyages {
                             .stream()
                             .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                     final float prob = part.calcPercInfected() + pot.get(means);
+                    logger.info("prob " + prob + " infected " + numInfected(prob, size.getY()));
                     final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(), partDest.getY().getColor(),
                             numInfected(prob, size.getY()));
                     extractedMeans.add(voyage);
