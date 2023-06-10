@@ -15,6 +15,7 @@ import globaloutbreak.view.View;
 import globaloutbreak.view.messagedialog.MessageDialog;
 import globaloutbreak.view.scenecontroller.SceneController;
 import globaloutbreak.view.scenecontroller.SceneInitializer;
+import globaloutbreak.view.scenecontroller.SceneUpdater;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -99,9 +100,15 @@ public final class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE,  MUTATION, MAP, SETTINGS, WORLDGRAPH, CUREGRAPH:
+            case CHOOSEDISEASE,  MUTATION,  SETTINGS, WORLDGRAPH, CUREGRAPH:
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
+                break;
+            case MAP:
+                final SceneInitializer sceneInitController2 = (SceneInitializer) controller;
+                sceneInitController2.initializeScene();
+                final SceneUpdater sceneUpdater = (SceneUpdater) controller;
+                sceneUpdater.updateScene(view.getGameSettings().getGameSpeeds().stream().min((e1, e2) -> Float.compare(e1.getDuration(), e2.getDuration())).get());
                 break;
             default:
                 break;
