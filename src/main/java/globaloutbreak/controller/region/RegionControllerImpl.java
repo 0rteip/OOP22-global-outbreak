@@ -1,4 +1,5 @@
 package globaloutbreak.controller.region;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
@@ -17,12 +18,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.region.RegionImpl;
+
 /**
  * Implement. of RegionControllerInt.
  */
 public final class RegionControllerImpl implements RegionController {
     private final List<Region> regions = new LinkedList<>();
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public List<Region> getRegions() {
         final String path = "region/ConfigRegion.json";
@@ -44,29 +47,39 @@ public final class RegionControllerImpl implements RegionController {
                 while (iterator.hasNext()) {
                     final Entry<String, JsonNode> e = iterator.next();
                     switch (e.getKey()) {
-                        case "nome" : name = e.getValue().textValue(); 
+                        case "nome":
+                            name = e.getValue().textValue();
                             break;
-                        case "colore" : color = e.getValue().intValue();
+                        case "colore":
+                            color = e.getValue().intValue();
                             break;
-                        case "porti" :
-                        case "areoporti" : means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
+                        case "porti":
+                        case "aereoporti":
+                            means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
                             break;
-                        case "humid" : humid = e.getValue().floatValue();
+                        case "humid":
+                            humid = e.getValue().floatValue();
                             break;
-                        case "confini" : reachableState = getTypeOfMeans(k);
+                        case "confini":
+                            reachableState = getTypeOfMeans(e.getValue());
                             means.put("terra", new Pair<>(1, Optional.of(reachableState)));
                             break;
-                        case "hot" : hot = e.getValue().floatValue();
+                        case "hot":
+                            hot = e.getValue().floatValue();
                             break;
-                        case "facilities" : facilities = e.getValue().intValue();
+                        case "facilities":
+                            facilities = e.getValue().intValue();
                             break;
-                        case "popTot" : popTot = e.getValue().intValue();
+                        case "popTot":
+                            popTot = e.getValue().intValue();
                             break;
-                        case "poor" : poor = e.getValue().floatValue();
-                        break;
-                        case "urban" : urban = e.getValue().floatValue();
+                        case "poor":
+                            poor = e.getValue().floatValue();
                             break;
-                        default :
+                        case "urban":
+                            urban = e.getValue().floatValue();
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -85,19 +98,19 @@ public final class RegionControllerImpl implements RegionController {
 
     private List<String> getTypeOfMeans(final JsonNode node) {
         final List<String> reach = new LinkedList<>();
-        final Iterator<Entry<String, JsonNode>> iterator = node.fields();
-            while (iterator.hasNext()) {
-                final Entry<String, JsonNode> e = iterator.next();
-                if (!reach.contains(e.getValue().textValue())) {
-                    reach.add(e.getValue().textValue());
+        if (node.isArray()) {
+            for (final JsonNode n : node) {
+                if (!reach.contains(n.textValue())) {
+                    reach.add(n.textValue());
                 }
             }
+        }
         return reach;
     }
 
     private JsonNode getJsonNode(final String path) throws IOException {
         final ObjectMapper map = new ObjectMapper();
-        return map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path), 
+        return map.readTree(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path),
                 StandardCharsets.UTF_8)));
     }
 
