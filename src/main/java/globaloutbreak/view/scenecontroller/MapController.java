@@ -110,8 +110,6 @@ public final class MapController extends AbstractSceneController implements Scen
             }
         }
         this.setTextFilds(this.getView().getInfoSingleRegion());
-
-    
     }
 
     private void setTextFilds(final Map<TypeOfInfo, String> info) {
