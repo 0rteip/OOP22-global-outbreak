@@ -111,6 +111,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDisease(final String type) {
         this.model.setDisease(this.diseaseController.createDisease(type));
+        this.logger.info("Create Disease of Type: {}", type);
         final Cure cure = new SimpleCureReaderImpl().getSimpleCure(this.model.getRegions());
         if (cure.isConsistent()) {
             this.model.setCure(cure);
@@ -122,6 +123,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void choosenDiseaseName(final String name) {
         this.model.setDiseaseName(name);
+        this.logger.info("Disease name: {}", name);
     }
 
     @Override
