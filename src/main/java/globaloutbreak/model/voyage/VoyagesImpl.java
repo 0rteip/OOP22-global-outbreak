@@ -39,14 +39,15 @@ public final class VoyagesImpl implements Voyages {
         sizeAndNameOfMeans.forEach((means, size) -> {
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-            if(!newRegions.isEmpty()) {
+            if (!newRegions.isEmpty()) {
                 for (int i = 0; i < size.getX(); i++) {
                     final Pair<Region, Region> partDest = extractRegion(newRegions, means);
                     final Region part = newRegions
                             .stream()
                             .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                     final float prob = part.calcPercInfected() + pot.get(means);
-                    final VoyageM voyage = new VoyageMImpl(means, partDest.getX(), partDest.getY(), numInfected(prob, size.getY()));
+                    final VoyageM voyage = new VoyageMImpl(means, partDest.getX().getColor(), partDest.getY().getColor(),
+                            numInfected(prob, size.getY()));
                     extractedMeans.add(voyage);
                 }
             }

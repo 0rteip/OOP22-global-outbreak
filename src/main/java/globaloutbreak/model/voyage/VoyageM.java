@@ -1,7 +1,5 @@
 package globaloutbreak.model.voyage;
 
-import globaloutbreak.model.region.Region;
-
 /**
  * Extracted Voyage.
  */
@@ -18,13 +16,13 @@ public interface VoyageM {
      * @return
      *          starting region.
      */
-    Region getPart();
+    int getPart();
     /**
      * 
      * @return
      *          destination region
      */
-    Region getDest();
+    int getDest();
     /**
      * 
      * @return

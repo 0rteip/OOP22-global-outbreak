@@ -86,7 +86,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void selectRegion(final MouseEvent e) {
-        Integer newColor = buf.getImage().getPixelReader().getArgb(
+        final Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
         if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
@@ -94,7 +94,7 @@ public final class MapController extends AbstractSceneController implements Scen
                 this.color = Color.WHITE.getIntArgbPre();
                 mapLab.setGraphic(sfondo);
                 this.getView().selectRegion(Optional.empty());
-            } if (!newColor.equals(color)) {
+            } else if (!newColor.equals(color)) {
                 mapLab.setGraphic(selectedState(newColor));
                 this.color = newColor;
                 this.getView().selectRegion(Optional.of(newColor));
@@ -102,7 +102,7 @@ public final class MapController extends AbstractSceneController implements Scen
             this.setTextFilds(this.getView().getInfoSingleRegion());
         }
     }
-    private void setTextFilds( Map<TypeOfInfo, String> info) {
+    private void setTextFilds(final Map<TypeOfInfo, String> info) {
         info.forEach((t, s) -> {
                 if (t.equals(TypeOfInfo.INFETTI)) {
                     infectedText.setText(s);

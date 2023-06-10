@@ -399,10 +399,10 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
                  * 
                  */
                 private float getParameterUpdate(final float value, final String name) {
-                    final float max_value = 0.16f;
-                    if (value < 0 || value > max_value) {
+                    final float maxValue = 0.16f;
+                    if (value < 0 || value > maxValue) {
                         logger.error("Error parameter update: The new value of {} is less than 0 or exceeds 1", name);
-                        return max_value;
+                        return maxValue;
                     }
                     return value;
                 }

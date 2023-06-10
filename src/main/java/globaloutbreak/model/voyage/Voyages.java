@@ -24,6 +24,7 @@ public interface Voyages {
      *         the region
      */
     List<VoyageM> extractMeans(List<Region> regions, Map<String, Float> pot);
+
     /**
      * 
      * @return

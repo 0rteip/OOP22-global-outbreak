@@ -67,7 +67,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void selectedRegion(final Optional<Integer> color) {
-        if(color.isPresent()) {
+        if (color.isPresent()) {
             this.model.selectedRegion(Optional.of(this.regionController.findRegionByColor(color.get())));
         } else {
             this.model.selectedRegion(Optional.empty());

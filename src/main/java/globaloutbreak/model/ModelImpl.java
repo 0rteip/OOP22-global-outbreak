@@ -163,18 +163,18 @@ public final class ModelImpl implements Model {
         final List<VoyageM> voyages = this.voyage.extractMeans(this.getRegions(), pot);
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
-                this.incOrDecInfectedPeople(k.getInfected(), k.getPart());
+                this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());
+                
             });
         }
     }
 
-    /*
-     * private Optional<Region> getRegionByColor(final int color) {
-     * return this.getRegions().stream()
-     * .filter(k -> k.getColor() == color)
-     * .findFirst();
-     * }
-     */
+
+    private Optional<Region> getRegionByColor(final int color) {
+        return this.getRegions().stream()
+                .filter(k -> k.getColor() == color)
+                .findFirst();
+    }
 
     @Override
     public void incDeathPeople(final int newdeath, final Region region) {
@@ -202,7 +202,8 @@ public final class ModelImpl implements Model {
                 .toList());
         if (event.isPresent()) {
             final ExtractedEvent exEvent = event.get();
-            this.incDeathPeople(exEvent.getDeath(), exEvent.getRegion());
+            final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
+            this.incDeathPeople(exEvent.getDeath(), exRegion);
             final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
@@ -211,7 +212,7 @@ public final class ModelImpl implements Model {
 
                 @Override
                 public String toString() {
-                    return exEvent.getEvent() + " in " + exEvent.getRegion().getName() + " ha causato  "
+                    return exEvent.getEvent() + " in " + exRegion.getName() + " ha causato  "
                             + exEvent.getDeath() + " morti.";
                 }
             };

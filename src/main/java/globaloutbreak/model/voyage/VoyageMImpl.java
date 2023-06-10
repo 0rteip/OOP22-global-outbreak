@@ -1,53 +1,51 @@
 package globaloutbreak.model.voyage;
 
-import globaloutbreak.model.region.Region;
-
 /**
  * Implement. of Voyage.
  */
 public final class VoyageMImpl implements VoyageM {
     private final String type;
-    private final Region part;
-    private final Region dest;
+    private final int part;
+    private final int dest;
     private final int infected;
 
     /**
      * 
      * @param type
      *                 type of means
-     * @param region
-     *                 starting region
-     * @param region2
-     *                 destination region
+     * @param part
+     *                 starting region's color
+     * @param dest
+     *                 destination region's color
      * @param infected
      *                 new infect
      */
-    public VoyageMImpl(final String type, final Region region,
-            final Region region2, final int infected) {
+    public VoyageMImpl(final String type, final int part,
+            final int dest, final int infected) {
         this.type = type;
-        this.part = region;
-        this.dest = region2;
+        this.part = part;
+        this.dest = dest;
         this.infected = infected;
     }
 
     @Override
     public String getType() {
-        return type;
+        return this.type;
     }
 
     @Override
-    public Region getPart() {
-        return part;
+    public int getPart() {
+        return this.part;
     }
 
     @Override
-    public Region getDest() {
-        return dest;
+    public int getDest() {
+        return this.dest;
     }
 
     @Override
     public int getInfected() {
-        return infected;
+        return this.infected;
     }
 
 }

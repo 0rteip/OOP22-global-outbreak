@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 public class CureGraphSceneController extends AbstractSceneController implements SceneInitializer {
 
-    @FXML 
+    @FXML
     private ProgressBar progressBar;
     @FXML
     private Button worldButton;
@@ -27,24 +27,25 @@ public class CureGraphSceneController extends AbstractSceneController implements
         this.progressBar.setProgress(percentage / 100);
         this.progress.setText(Integer.toString(percentage) + " %");
         infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList();
-        String listContributors = String.join(",", infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
+        String listContributors = String.join(",",
+                infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
         this.progressBar.setProgress(0.5);
         this.cureContributors.setText(listContributors);
-       // this.progress.setText("20%");
-        //this.cureContributors.setText("italia");
+        // this.progress.setText("20%");
+        // this.cureContributors.setText("italia");
     }
 
     @FXML
-    public void showWorldInfo(){
+    public void showWorldInfo() {
         this.getSceneManager().openWorldGraphScene();
     }
 
     @FXML
-    public void showCureProgress(){}
+    public void showCureProgress() {
+    }
 
     @FXML
-    public void backScene(){
+    public void backScene() {
         this.getSceneManager().openMap();
     }
 }
-
