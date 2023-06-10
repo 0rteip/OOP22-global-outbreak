@@ -91,11 +91,11 @@ package globaloutbreak.view.scenecontroller;
                 final Button button =  createButtonActivate("Involvi", index);
                 buttonGridPanell.add(button, 0, 0);
             }
-         //   actionButton.setOnAction(e -> handleActionButtonAction(index));
 
         }
         private void handleActionButtonAction(final int index) {
             this.getView().update(names.get(index));
+            this.getSceneManager().openMap();
         }
 
         /**
@@ -105,6 +105,6 @@ package globaloutbreak.view.scenecontroller;
          */
         @FXML
         public final void backScene(final MouseEvent evt) {
-            this.getSceneManager().openMap();;
+            this.getSceneManager().openMap();
         }
     }
