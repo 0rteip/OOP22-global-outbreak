@@ -149,7 +149,6 @@ public final class ModelImpl implements Model {
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
                 this.incOrDecInfectedPeople(k.getInfected(), this.getRegionByColor(k.getDest()).get());
-
             });
         }
     }
