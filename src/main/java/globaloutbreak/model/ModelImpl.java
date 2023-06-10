@@ -254,7 +254,7 @@ public final class ModelImpl implements Model {
         this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));
-        this.cure.ifPresent(cure -> cure.research());
+        System.out.println(this.cure.get().getGlobalStatus());
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 

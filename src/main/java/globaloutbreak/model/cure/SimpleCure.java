@@ -115,12 +115,14 @@ public final class SimpleCure implements Cure {
                         .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
                         .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
             } else {
+                if (this.highMortalityRateRegions().count() > 0) {
+                    this.daysBeforeStartResearch--;
+                    this.highMortalityRateRegions()
+                            .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
+                            .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
+                }
                 // if the region's entire population dies in one day, the other regions don't
                 // care
-                this.daysBeforeStartResearch--;
-                this.highMortalityRateRegions()
-                        .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
-                        .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
             }
         }
 
