@@ -212,6 +212,7 @@ public class DiseaseFactoryImpl implements DiseaseFactory {
             public void infectRegions(final List<Region> regionList) {
                 regionList.stream()
                         .filter(region -> region.getNumInfected() > 0)
+                        .filter(region -> region.getNumInfected() + region.getNumDeath() < region.getPopTot())
                         .forEach(region -> region.incOrDecInfectedPeople(this.calculateNewInfected(region.getPopTot(),
                                 region.getNumInfected(), region.getUrban(), region.getPoor(),
                                 region.getClimate().getArid(), region.getClimate().getCold(),
