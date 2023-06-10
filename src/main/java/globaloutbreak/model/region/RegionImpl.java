@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sun.source.doctree.SystemPropertyTree;
+
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 
@@ -31,7 +33,7 @@ public final class RegionImpl implements Region {
     private RegionCureStatus status = RegionCureStatus.NONE;
     // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
-    private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * This is the constructor.
@@ -101,6 +103,7 @@ public final class RegionImpl implements Region {
             } else {
                 this.numDeath += death;
             }
+            this.incOrDecInfectedPeople(- death);
         } else {
             logger.warn("The state is Finished");
         }
@@ -108,17 +111,23 @@ public final class RegionImpl implements Region {
 
     @Override
     public void incOrDecInfectedPeople(final int infected) {
-        if (this.numInfected < popTot && this.status != RegionCureStatus.FINISHED) {
-            final int sum = this.numInfected + infected;
-            if (sum >= this.popTot) {
-                if (sum > this.popTot) {
-                    logger.warn("Too many infected but I add those possible");
+        if (this.status != RegionCureStatus.FINISHED) {
+
+            if(this.numInfected < popTot && (this.numInfected + infected) >= 0) {
+                final int sum = this.numInfected + infected;
+                if (sum >= this.popTot) {
+                    if (sum > this.popTot) {
+                        logger.warn("Too many infected but I add those possible");
+                    }
+                    infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
+                    this.numInfected += popTot - this.numInfected;
+                    System.out.println(this.numInfected);
+                } else {
+                    infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
+                    this.numInfected += infected; 
                 }
-                infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                this.numInfected += popTot - this.numInfected;
-            } else {
-                infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                this.numInfected += infected;
+            } else if((this.numInfected + infected) < 0) {
+                logger.warn("I can't remove this infect");
             }
         } else {
             logger.warn("State is already infected or RegionState is Finished");
@@ -200,7 +209,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void initializeObserver(PropertyChangeListener listener){
+    public void initializeObserver(final PropertyChangeListener listener){
         this.infodataSupport.addPropertyChangeListener(listener);
     }
 

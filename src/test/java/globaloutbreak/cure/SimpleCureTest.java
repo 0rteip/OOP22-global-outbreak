@@ -241,14 +241,14 @@ final class SimpleCureTest {
 
                 @Override
                 public List<TransmissionMean> getTrasmissionMeans() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getTrasmissionMeans'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public void initializeObserver(final PropertyChangeListener listener) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
             };

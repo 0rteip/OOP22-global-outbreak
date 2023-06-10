@@ -219,6 +219,5 @@ public final class ViewImpl implements View {
 
     @Override
     public void render() {
-        Platform.runLater(() -> manager.openMap());
     }
 }
