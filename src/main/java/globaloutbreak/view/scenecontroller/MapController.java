@@ -166,10 +166,6 @@ public final class MapController extends AbstractSceneController implements Scen
             percH = height / oldH;
             percW = width / oldW;
             meansPos.forEach((s, m) -> {
-        if (width != 0 && height != 0) {
-            percH = height / oldH;
-            percW = width / oldW;
-            meansPos.forEach((s, m) -> {
                 path = "";
                 switch (s) {
                     case "areoporti":
