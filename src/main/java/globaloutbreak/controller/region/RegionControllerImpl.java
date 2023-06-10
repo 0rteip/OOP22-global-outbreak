@@ -54,14 +54,14 @@ public final class RegionControllerImpl implements RegionController {
                             color = e.getValue().intValue();
                             break;
                         case "porti":
-                        case "areoporti":
+                        case "aereoporti":
                             means.put(e.getKey(), new Pair<>(e.getValue().intValue(), Optional.empty()));
                             break;
                         case "humid":
                             humid = e.getValue().floatValue();
                             break;
                         case "confini":
-                            reachableState = getTypeOfMeans(k);
+                            reachableState = getTypeOfMeans(e.getValue());
                             means.put("terra", new Pair<>(1, Optional.of(reachableState)));
                             break;
                         case "hot":
@@ -98,11 +98,11 @@ public final class RegionControllerImpl implements RegionController {
 
     private List<String> getTypeOfMeans(final JsonNode node) {
         final List<String> reach = new LinkedList<>();
-        final Iterator<Entry<String, JsonNode>> iterator = node.fields();
-        while (iterator.hasNext()) {
-            final Entry<String, JsonNode> e = iterator.next();
-            if (!reach.contains(e.getValue().textValue())) {
-                reach.add(e.getValue().textValue());
+        if (node.isArray()) {
+            for (final JsonNode n : node) {
+                if (!reach.contains(n.textValue())) {
+                    reach.add(n.textValue());
+                }
             }
         }
         return reach;

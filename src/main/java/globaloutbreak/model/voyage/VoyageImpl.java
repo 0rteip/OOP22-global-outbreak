@@ -3,6 +3,10 @@ package globaloutbreak.model.voyage;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
@@ -15,6 +19,7 @@ import java.util.LinkedList;
  * 
  */
 public final class VoyageImpl implements Voyage {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans;
     private final Random rand = new Random();
 
@@ -27,23 +32,21 @@ public final class VoyageImpl implements Voyage {
     }
 
     @Override
-    public Map<String, Map<Integer, Pair<Integer, Integer>>> extractMeans(final List<Region> regions,
+    public Map<String, Map<Pair<Integer, Integer>, Integer>> extractMeans(final List<Region> regions,
             final Map<String, Float> pot) {
-        final Map<String, Map<Integer, Pair<Integer, Integer>>> extractedMeans = new HashMap<>();
+
+        final Map<String, Map<Pair<Integer, Integer>, Integer>> extractedMeans = new HashMap<>();
         sizeAndNameOfMeans.forEach((means, size) -> {
-            final Map<Integer, Pair<Integer, Integer>> oneMeans = new HashMap<>();
+            final Map<Pair<Integer, Integer>, Integer> oneMeans = new HashMap<>();
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-
             for (int i = 0; i < size.getX(); i++) {
                 final Pair<Integer, Integer> partDest = extractRegion(newRegions, means);
-                final float prob = newRegions
+                final Region part = newRegions
                         .stream()
-                        .filter(k -> k.getColor() == partDest.getX())
-                        .toList()
-                        .get(0).calcPercInfected() + pot.get(means);
-
-                oneMeans.put(numInfected(prob, size.getY()), partDest);
+                        .filter(k -> k.getColor() == partDest.getX()).toList().get(0);
+                final float prob = part.calcPercInfected() + pot.get(means);
+                oneMeans.put(partDest, numInfected(prob, size.getY()));
             }
             extractedMeans.put(means, oneMeans);
         });
@@ -52,7 +55,7 @@ public final class VoyageImpl implements Voyage {
 
     private Pair<Integer, Integer> extractRegion(final List<Region> newRegions, final String type) {
         final Region region = newRegions.get(rand.nextInt(0, newRegions.size()));
-        List<Region> efectieRegions = new LinkedList<>();
+        List<Region> efectieRegions = new LinkedList<>(newRegions);
         switch (type) {
             case "terra":
                 efectieRegions = findRegionsByName(newRegions, region.getTrasmissionMeans()
@@ -61,26 +64,19 @@ public final class VoyageImpl implements Voyage {
                         .findFirst().get()
                         .getReachableStates().get());
                 break;
-            case "porti":
-            case "areoporti":
-                efectieRegions = newRegions.stream()
-                        .filter(k -> k.getTrasmissionMeans()
-                                .stream().filter(i -> i.getType()
-                                        .equals(type))
-                                .count() > 0)
-                        .toList();
             default:
                 break;
         }
-        int dest = rand.nextInt(0, efectieRegions.size());
-        while (dest == region.getColor()) {
-            dest = rand.nextInt(0, efectieRegions.size());
+        Region dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
+        while (dest.getColor() == region.getColor()) {
+            dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
+            efectieRegions.remove(dest);
         }
-        return new Pair<Integer, Integer>(region.getColor(), efectieRegions.get(dest).getColor());
+        return new Pair<Integer, Integer>(region.getColor(), dest.getColor());
     }
 
     private List<Region> findRegionsByName(final List<Region> regions, final List<String> nameRegions) {
-        List<Region> rs = new LinkedList<>();
+        final List<Region> rs = new LinkedList<>();
         regions.forEach(k -> {
             nameRegions.forEach(s -> {
                 if (k.getName().equals(s)) {
@@ -98,8 +94,12 @@ public final class VoyageImpl implements Voyage {
     }
 
     private Integer numInfected(final float prob, final Integer size) {
-        if (rand.nextInt(0, 100) >= prob) {
-            return (int) Math.floor(size * prob);
+        final int prod = Math.round(size * prob);
+        if (prod > size) {
+            logger.warn("too many seatsI'll fill the plane");
+            return size;
+        } else if (rand.nextInt(0, 100) >= (prob * 100)) {
+            return prod;
         }
         return 0;
     }
@@ -108,4 +108,5 @@ public final class VoyageImpl implements Voyage {
     public List<String> getMeans() {
         return new LinkedList<>(sizeAndNameOfMeans.keySet());
     }
+
 }

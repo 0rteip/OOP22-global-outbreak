@@ -134,24 +134,6 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public Map<TypeOfInfo, String> getInfoSingleRegion() {
-        final Map<TypeOfInfo, String> info = new HashMap<>();
-        final Optional<Region> r = this.model.getSelectedRegion();
-        if (r.isPresent()) {
-            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
-            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-            info.put(TypeOfInfo.REGION, r.get().getName());
-        } /*
-           * else {
-           * info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
-           * info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
-           * info.put(TypeOfInfo.REGION, r.get().getName());
-           * }
-           */
-        return info;
-    }
-
-    @Override
     public void setGameSpeed(final GameSpeed gameSpeed) {
         logger.info("Setted game speed to: {}", gameSpeed.toString());
         this.settings.setGameSpeed(gameSpeed);
@@ -270,5 +252,26 @@ public final class ControllerImpl implements Controller {
                 this.lock.unlock();
             }
         }
+    }
+
+    @Override
+    public Map<TypeOfInfo, String> getInfoSingleRegion() {
+        final Map<TypeOfInfo, String> info = new HashMap<>();
+        final Optional<Region> r = this.model.getSelectedRegion();
+        if (r.isPresent()) {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        } /*else {
+            info.put(TypeOfInfo.INFETTI, Integer.toString(model.getInfo()));
+            info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
+            info.put(TypeOfInfo.REGION, r.get().getName());
+        }*/
+        return info;
+    }
+
+    @Override
+    public void setRegions() {
+        this.model.setRegions(regionController.getRegions());
     }
 }

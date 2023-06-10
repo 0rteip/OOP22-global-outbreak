@@ -124,4 +124,8 @@ public interface Controller {
      *         the ifo
      */
     Map<TypeOfInfo, String> getInfoSingleRegion();
+    /**
+     * This method set a list of model.
+     */
+    void setRegions();
 }

@@ -12,9 +12,9 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.MapController">
    <center>
-      <StackPane fx:id="mapPane" onMouseClicked="#selectRegion1" BorderPane.alignment="CENTER">
+      <StackPane fx:id="mapPane" onMouseClicked="#selectRegion" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="mapLab" onMouseClicked="#selectRegion" text="Label" />
+            <Label fx:id="mapLab" text="Label" />
          </children>
       </StackPane>
    </center>
