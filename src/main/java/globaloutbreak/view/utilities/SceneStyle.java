@@ -28,7 +28,15 @@ public enum SceneStyle {
     /**
      * Map Scene.
      */
-    MAP("Map", "layouts/MapGui.fxml");
+    MAP("Map", "layouts/MapGui.fxml"),
+    /**
+     * World Graph Scene.
+     */
+    WORLDGRAPH("World graph", "layouts/worldGraph.fxml"),
+    /**
+     * Cure Graph Scene.
+     */
+    CUREGRAPH("Cure graph", "layouts/cureGraph.fxml");
 
     private final String fxmlFile;
     private final String title;

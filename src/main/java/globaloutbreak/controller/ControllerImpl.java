@@ -26,8 +26,8 @@ import globaloutbreak.model.region.Region;
 import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.voyage.Voyage;
-import globaloutbreak.model.infodata.Infodata;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -76,8 +76,13 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void updateInfo(final Infodata info) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateInfo'");
+    public void updateInfo() {
+        this.model.updateInfoData();
+    }
+
+    @Override
+    public InfoData displayInfo() {
+        return this.model.getInfo();
     }
 
     @Override
@@ -128,8 +133,8 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public Map<TypeOfInfo, String> getInfoSingleRegion() {
-        Map<TypeOfInfo, String> info = new HashMap<>();
-        Optional<Region> r = this.model.getSelectedRegion();
+        final Map<TypeOfInfo, String> info = new HashMap<>();
+        final Optional<Region> r = this.model.getSelectedRegion();
         if (r.isPresent()) {
             info.put(TypeOfInfo.INFETTI, Integer.toString(r.get().getNumInfected()));
             info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));

@@ -7,17 +7,21 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
+import globaloutbreak.model.cure.CureData;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
+import globaloutbreak.model.cure.prioriry.CurePriority;
+import globaloutbreak.model.cure.prioriry.Priority;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
+import globaloutbreak.model.infodata.InfoData;
+import globaloutbreak.model.infodata.InfoDataImpl;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
@@ -26,6 +30,7 @@ import globaloutbreak.model.voyage.VoyageImpl;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -45,6 +50,7 @@ public final class ModelImpl implements Model {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private Optional<Message> newsMessage = Optional.empty();
     private CauseEvent causeEvents;
+    private InfoData infoData;
 
     /**
      * Creates a model.
@@ -104,9 +110,22 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Infodata getInfo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInfo'");
+    public InfoData getInfo() {
+        this.infoData.updateTotalDeathsAndInfected(regions.stream()
+                .filter(region -> region.getNumDeath() > 0)
+                .map(region -> region.getNumDeath())
+                .reduce(0, (m1, m2) -> m1 + m2),
+                regions.stream()
+                        .map(region -> region.getNumInfected())
+                        .reduce(0, (i1, i2) -> i1 + i2));
+
+        if (this.cure.isPresent()) {
+            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
+        }
+
+        System.out.println(infoData);
+
+        return this.infoData;
     }
 
     @Override
@@ -235,6 +254,9 @@ public final class ModelImpl implements Model {
     @Override
     public void setRegions(final List<Region> regions) {
         this.regions = new LinkedList<>(regions);
+        this.infoData = new InfoDataImpl(this.regions.stream()
+                .map(Region::getPopTot)
+                .reduce(0, (e0, e1) -> e0 + e1));
     }
 
     @Override
@@ -255,4 +277,46 @@ public final class ModelImpl implements Model {
         logger.info("No Cure setted, closing game");
         return true;
     }
+
+    @Override
+    public void updateInfoData() {
+        this.infoData.updateTotalDeathsAndInfected(regions.stream()
+                .filter(region -> region.getNumDeath() > 0)
+                .map(region -> region.getNumDeath())
+                .reduce(0, (m1, m2) -> m1 + m2),
+                regions.stream()
+                        .map(region -> region.getNumInfected())
+                        .reduce(0, (i1, i2) -> i1 + i2));
+
+        if (this.cure.isPresent()) {
+            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
+        }
+    }
+
+    // private CureData emptyCureData() {
+    // return new CureData() {
+
+    // @Override
+    // public int getProgress() {
+    // return 0;
+    // }
+
+    // @Override
+    // public int getRemainingDays() {
+    // return -1;
+    // }
+
+    // @Override
+    // public List<Region> getMajorContributors() {
+    // return new ArrayList<>();
+    // }
+
+    // @Override
+    // public Priority gePriority() {
+    // CurePriority.Builder b = new CurePriority.Builder();
+    // return b.build();
+    // }
+
+    // };
+    // }
 }

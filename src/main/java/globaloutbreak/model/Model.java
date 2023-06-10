@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import globaloutbreak.model.api.Infodata;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
@@ -88,7 +88,7 @@ public interface Model {
      *         InfoData of the current focussed Region.
      *         If no region is selected it returns some global Infodata
      */
-    Infodata getInfo();
+    InfoData getInfo();
 
     /**
      * Get rilevant data on the global situations.
@@ -188,4 +188,9 @@ public interface Model {
      *         a copy of event's list
      */
     List<Event> getEvents();
+
+    /**
+     * update all info.
+     */
+    void updateInfoData();
 }

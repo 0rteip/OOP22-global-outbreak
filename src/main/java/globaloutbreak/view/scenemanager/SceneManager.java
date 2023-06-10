@@ -34,9 +34,20 @@ public interface SceneManager {
     void openSettings();
 
     /**
+     * Open last Scene.
+     */
+    void openWorldGraphScene();
+
+    /**
+     * 
+     */
+    void openCureGraphScene();
+
+    /**
      * 
      */
     void openMap();
+
 
     /**
      * 
