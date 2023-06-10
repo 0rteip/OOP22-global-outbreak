@@ -1,0 +1,16 @@
+.root {
+    -fx-background-color: #2e3944;
+    -fx-font-family: "monospace";
+    -fx-font-size: 1.0em;
+}
+
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-style: italic;
+}
+

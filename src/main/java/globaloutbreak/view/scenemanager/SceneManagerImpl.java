@@ -43,6 +43,7 @@ public final class SceneManagerImpl implements SceneManager {
     public void openTutorial() {
         this.openScene(SceneStyle.TUTORIAL);
     }
+
     /**
      * Load the main Scene.
      */
@@ -55,14 +56,14 @@ public final class SceneManagerImpl implements SceneManager {
     public void openDiseaseName() {
         this.openScene(SceneStyle.DISEASENAME);
     }
-    
+
     @Override
-    public void openWorldGraphScene(){
+    public void openWorldGraphScene() {
         this.openScene(SceneStyle.WORLDGRAPH);
     }
 
     @Override
-    public void openCureGraphScene(){
+    public void openCureGraphScene() {
         this.openScene(SceneStyle.CUREGRAPH);
     }
 
