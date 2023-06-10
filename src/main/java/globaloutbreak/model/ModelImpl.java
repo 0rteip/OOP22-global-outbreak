@@ -143,7 +143,7 @@ public final class ModelImpl implements Model {
                     break;
             }
         });
-       
+
         final List<Voyage> voyages = this.voyageC.extractMeans(this.getRegions(), pot);
         this.voyages = List.copyOf(voyages);
         if (!voyages.isEmpty()) {
@@ -208,7 +208,8 @@ public final class ModelImpl implements Model {
     @Override
     public boolean isGameOver() {
         if (this.cure.isPresent()) {
-            return this.cure.get().isCompleted();
+            return this.cure.get().isCompleted()
+                    || this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation();
         }
         logger.info("No Cure setted, closing game");
         return true;

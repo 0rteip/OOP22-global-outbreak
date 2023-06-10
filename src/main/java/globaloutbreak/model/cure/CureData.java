@@ -1,6 +1,7 @@
 package globaloutbreak.model.cure;
 
 import java.util.List;
+import java.util.Optional;
 
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.cure.prioriry.Priority;
@@ -24,7 +25,7 @@ public interface CureData {
      * @return
      *         days
      */
-    int getRemainingDays();
+    Optional<Integer> getRemainingDays();
 
     /**
      * Returns the {@code Region} with the major contribution to the cure.

@@ -1,7 +1,6 @@
 package globaloutbreak.model.mutation;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-//import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.disease.Disease;
 /**
  * class mutation impl.
@@ -14,7 +13,6 @@ public final class MutationImpl implements Mutation {
     private final float increase;
     private final TypeMutation type;
     private final String description;
-    //private final ModelImpl modelImpl;
 
     /**
      * constructor.
@@ -71,7 +69,6 @@ public final class MutationImpl implements Mutation {
         switch (this.type) {
             case TRASMISSION: 
                 disease.updateInfectivity(increment);
-                System.out.println("A");
                 break;
             case AIR: 
                 disease.updateAirInfectivity(increment);

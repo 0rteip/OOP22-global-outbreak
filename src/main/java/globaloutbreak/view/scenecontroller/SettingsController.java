@@ -31,7 +31,7 @@ public final class SettingsController extends AbstractSceneController implements
     }
 
     @FXML
-    private void saveSettings() {
+    public void saveSettings() {
         this.pcs.firePropertyChange("gameSpeed",
                 this.getView().getGameSettings().getGameSpeed(),
                 this.gameSpeedComboBox.getSelectionModel().getSelectedItem());
