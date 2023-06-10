@@ -2,6 +2,7 @@ package globaloutbreak.model.disease;
 /**
  * 
  */
+
 public class DiseaseData {
     private String type;
     private float infectivity;

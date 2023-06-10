@@ -1,34 +1,37 @@
 package globaloutbreak.controller;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
+import globaloutbreak.controller.mutation.MutationController;
+import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.newsobserver.NewsObserver;
 import globaloutbreak.controller.region.RegionController;
 import globaloutbreak.controller.region.RegionControllerImpl;
+import globaloutbreak.controller.voyage.VoyageController;
+import globaloutbreak.controller.voyage.VoyageControllerImpl;
 import globaloutbreak.diseasereader.DiseaseReader;
 import globaloutbreak.diseasereader.DiseaseReaderImpl;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
+import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.api.Mutation;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.cure.SimpleCureReaderImpl;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.infodata.InfoData;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettings;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 import globaloutbreak.settings.gamesettings.GameSettingsImpl;
@@ -41,12 +44,15 @@ import javafx.application.Platform;
 public final class ControllerImpl implements Controller {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final View view;
+
     private final Model model = new ModelImpl();
-    private final GameLoop gameLoop = new GameLoop();
     private final GameSettings settings = new GameSettingsImpl();
-    private final RegionController regionController = new RegionControllerImpl();
+    private final GameLoop gameLoop = new GameLoop();
     private final DiseaseController diseaseController = new DiseaseControllerImpl();
+    private final View view;
+    private final RegionController regionController = new RegionControllerImpl();
+    private final MutationController mutationController;
+    private final VoyageController voyageController = new VoyageControllerImpl();
 
     /**
      * Create a controller.
@@ -61,18 +67,21 @@ public final class ControllerImpl implements Controller {
     )
     // @formatter:on
     public ControllerImpl(final View view) {
+        this.mutationController = new MutationControllerImpl();
         this.view = view;
         this.model.addNewsListener(new NewsObserver(this));
         this.model.setRegions(regionController.getRegions());
+        this.model.setVoyages(voyageController.createVoyage());
     }
 
     @Override
     public void selectedRegion(final Optional<Integer> color) {
-        if(color.isPresent()) {
+        if (color.isPresent()) {
             this.model.selectedRegion(Optional.of(this.regionController.findRegionByColor(color.get())));
         } else {
             this.model.selectedRegion(Optional.empty());
         }
+
     }
 
     @Override
@@ -95,7 +104,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startVoyage(final Voyage voyage) {
+    public void startVoyage(final Voyages voyage) {
         this.view.displayVoyage(voyage);
     }
 
@@ -128,6 +137,7 @@ public final class ControllerImpl implements Controller {
     public void choosenDiseaseName(final String name) {
         this.model.setDiseaseName(name);
         logger.info("Completed creation of the new malattia: " + this.model.getDisease().toString());
+
     }
 
     @Override
@@ -169,6 +179,26 @@ public final class ControllerImpl implements Controller {
     @Override
     public void quit() {
         Platform.exit();
+    }
+    @Override 
+    public void displayMutationsName() {
+        mutationController.displayMutationsName(this);
+    }
+    @Override
+    public void setMutationsName(final List<String> list) {
+        view.setMutationsName(List.copyOf(list));
+    }
+    @Override
+    public void setMutationsDesc(final String description, final boolean activate, final int cost) {
+        view.setMutationsDesc(description, activate, cost);
+    }
+    @Override
+    public void displayMuatationDesc(final String name) {
+        mutationController.displayMutationsDesc(name, this);
+    }
+    @Override
+    public void update(final String name) {
+        mutationController.update(name, model);
     }
 
     private final class GameLoop extends Thread {
@@ -273,8 +303,9 @@ public final class ControllerImpl implements Controller {
             info.put(TypeOfInfo.MORTI, Integer.toString(r.get().getNumDeath()));
             info.put(TypeOfInfo.REGION, r.get().getName());
         } else {
-            info.put(TypeOfInfo.INFETTI, "");
-            info.put(TypeOfInfo.MORTI, "");
+            final InfoData infoData = this.model.getInfo();
+            info.put(TypeOfInfo.INFETTI, Long.toString(infoData.getTotalInfected()));
+            info.put(TypeOfInfo.MORTI, Long.toString(infoData.getTotalDeaths()));
             info.put(TypeOfInfo.REGION, "Mondo");
         }
         return info;

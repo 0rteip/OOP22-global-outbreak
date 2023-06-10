@@ -19,10 +19,10 @@ import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
-import globaloutbreak.model.pair.Pair;
+import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 
 /**
  * Test for Region and Voyages.
@@ -63,7 +63,7 @@ final class RegionVoyagesAndEventsTest {
 
     @Test
     void testVoyages() {
-        final Voyage means = vC.createVoyage();
+        final Voyages means = vC.createVoyage();
         //System.out.println(means.getMeans());
         final Map<String, Float> pot = new HashMap<>();
         final float v = 0;
@@ -80,6 +80,13 @@ final class RegionVoyagesAndEventsTest {
             });
             k.incOrDecInfectedPeople((int) Math.floor(k.getPopTot() * 0.5));
         });
+        regions.forEach(i -> {
+            i.getTrasmissionMeans().forEach(t -> {
+                assertTrue(means.getMeans().contains(t.getType()));
+            });
+            i.incDeathPeople(i.getPopTot());
+        });
+        means.extractMeans(regions, pot);
     }
 
     @Test
@@ -87,7 +94,7 @@ final class RegionVoyagesAndEventsTest {
         final List<Event> events = controller.createEvents();
         final CauseEvent causeEvent = new CauseEventsImpl(events);
         //System.out.println(events);
-        Optional<Pair<String, Pair<Region, Integer>>> cat = causeEvent.causeEvent(regions);
+        Optional<ExtractedEvent> cat = causeEvent.causeEvent(regions);
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);
         }

@@ -1,14 +1,15 @@
 package globaloutbreak.controller;
 
 import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 import globaloutbreak.gamespeed.GameSpeed;
-import globaloutbreak.model.api.Mutation;
-import globaloutbreak.model.disease.Disease;
+import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.infodata.InfoData;
+import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.message.Message;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import globaloutbreak.settings.gamesettings.GameSettingsGetter;
 
 /**
@@ -84,7 +85,7 @@ public interface Controller {
      * @param voyage
      *               to start
      */
-    void startVoyage(Voyage voyage);
+    void startVoyage(Voyages voyage);
 
     /**
      * Quits from application.
@@ -124,6 +125,37 @@ public interface Controller {
      * Read Disease.
      */
     void readDiseasesNames();
+
+    /**
+     * ask mutation name.
+     */
+    void displayMutationsName();
+
+   /**
+    * set mutation name.
+    * @param list list of mutation name
+    */
+    void setMutationsName(List<String> list);
+
+    /**
+     * set mutation information.
+     * @param description description of the mutation
+     * @param activate {@code True} if is active
+     * @param cost cost of the mutation
+     */
+    void setMutationsDesc(String description, boolean activate, int cost);
+
+    /**
+     * displat mutation description.
+     * @param name name of the mutation
+     */
+    void displayMuatationDesc(String name);
+
+    /**
+     * update disease.
+     * @param name name of the mutation
+     */
+    void update(String name);
 
     /**
      * This method find Info of selected region.

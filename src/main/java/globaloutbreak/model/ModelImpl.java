@@ -13,14 +13,16 @@ import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
+import globaloutbreak.model.events.CauseEventsImpl;
 import globaloutbreak.model.events.Event;
+import globaloutbreak.model.events.ExtractedEvent;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.infodata.InfoDataImpl;
-import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
@@ -29,27 +31,28 @@ import java.util.LinkedList;
 /**
  * Impl of Model interface.
  */
-public final class ModelImpl implements Model {
 
+public class ModelImpl implements Model {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Disease disease;
     private List<Region> regions = new LinkedList<>();
     private Optional<Region> selectedRegion = Optional.empty();
-    private Voyage voyage;
+    private Voyages voyageC;
     private Optional<Cure> cure = Optional.empty();
-    private List<Event> events = new LinkedList<>();
     private final DataAnalyzer<Integer> deathAnalyzer;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private Optional<Message> newsMessage = Optional.empty();
+    private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
+    private final static int INITIAL_INC = 1;
+    private boolean isDiseaseSpreading;
 
     /**
      * Creates a model.
      */
     public ModelImpl() {
         this.deathAnalyzer = new DeathNumberAnalyzer((key, value) -> {
-            final Message message = new Message() {
+            final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
                     return MessageType.NEWS;
@@ -60,8 +63,8 @@ public final class ModelImpl implements Model {
                     return disease.getName() + " killed more than: " + key + "\nMore than " + value + " people.";
                 }
             };
-            pcs.firePropertyChange(MessageType.NEWS.getTitle(), newsMessage, message);
-            newsMessage = Optional.of(message);
+            pcs.firePropertyChange(MessageType.NEWS.getTitle(), message, msg);
+            message = Optional.of(msg);
         });
     }
 
@@ -78,6 +81,15 @@ public final class ModelImpl implements Model {
     @Override
     public void selectedRegion(final Optional<Region> region) {
         this.selectedRegion = region;
+        logger.info(region.toString());
+        if (this.selectedRegion.isPresent() && !this.isDiseaseSpreading) {
+            final Region updateR = this.regions.stream()
+                    .filter(k -> k.getColor() == region.get().getColor())
+                    .findFirst().get();
+            this.incOrDecInfectedPeople(INITIAL_INC, updateR);
+            this.isDiseaseSpreading = !this.isDiseaseSpreading;
+            this.logger.info("Disease started spreading");
+        }
     }
 
     @Override
@@ -102,24 +114,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Disease getDisease(){
-        return this.disease;
-    }
-
-    @Override
     public InfoData getInfo() {
-        this.infoData.updateTotalDeathsAndInfected(regions.stream()
-                .filter(region -> region.getNumDeath() > 0)
-                .map(region -> region.getNumDeath())
-                .reduce(0, (m1, m2) -> m1 + m2),
-                regions.stream()
-                        .map(region -> region.getNumInfected())
-                        .reduce(0, (i1, i2) -> i1 + i2));
-
-        if (this.cure.isPresent()) {
-            this.infoData.updateCureData(this.cure.get().getGlobalStatus());
-        }
-
         return this.infoData;
     }
 
@@ -135,14 +130,9 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Voyage getVoyage() {
-        return this.voyage;
-    }
-
-    @Override
     public void extractVoyages() {
         final Map<String, Float> pot = new HashMap<>();
-        voyage.getMeans().forEach(k -> {
+        voyageC.getMeans().forEach(k -> {
             switch (k) {
                 case "terra":
                     pot.put(k, this.disease.getLandInfectivity());
@@ -150,22 +140,18 @@ public final class ModelImpl implements Model {
                 case "porti":
                     pot.put(k, this.disease.getSeaInfectivity());
                     break;
-                case "areporti" : pot.put(k, this.disease.getAirInfectivity());
+                case "areporti":
+                    pot.put(k, this.disease.getAirInfectivity());
                     break;
-                default : 
+                default:
                     break;
             }
-
         });
-        final Map<String, Map<Pair<Integer, Integer>, Integer>> voyages = this.voyage.extractMeans(this.getRegions(), pot);
-        if (voyages.isEmpty()) {
-            voyages.forEach((s, m) -> {
-                m.forEach((p, i) -> {
-                    final Optional<Region> r = getRegionByColor(p.getY());
-                    if (r.isPresent()) {
-                        this.incOrDecInfectedPeople(i.intValue(), r.get());
-                    }
-                });
+        final List<Voyage> voyages = this.voyageC.extractMeans(this.getRegions(), pot);
+        if (!voyages.isEmpty()) {
+            voyages.forEach(k -> {
+                this.incOrDecInfectedPeople(k.getInfected(), getRegionByColor(k.getDest()).get());
+
             });
         }
     }
@@ -196,18 +182,29 @@ public final class ModelImpl implements Model {
 
     @Override
     public void causeEvent() {
-        final Optional<Pair<String, Pair<Region, Integer>>> event = this.causeEvents.causeEvent(this.getRegions()
+        final Optional<ExtractedEvent> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
                 .toList());
         if (event.isPresent()) {
-            this.incDeathPeople(event.get().getY().getY(), event.get().getY().getX());
-        }
-    }
+            final ExtractedEvent exEvent = event.get();
+            final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
+            this.incDeathPeople(exEvent.getDeath(), exRegion);
+            final Message msg = new Message() {
+                @Override
+                public MessageType getType() {
+                    return MessageType.NEWS;
+                }
 
-    @Override
-    public void createCauseEvents() {
-       
+                @Override
+                public String toString() {
+                    return exEvent.getEvent() + " in " + exRegion.getName() + " ha causato  "
+                            + exEvent.getDeath() + " morti.";
+                }
+            };
+            pcs.firePropertyChange(MessageType.CATASTROPHE.getTitle(), message, msg);
+            message = Optional.of(msg);
+        }
     }
 
     @Override
@@ -220,7 +217,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setEvents(final List<Event> events) {
-        this.events = new LinkedList<>(events);
+        this.causeEvents = new CauseEventsImpl(events);
     }
 
     @Override
@@ -238,9 +235,18 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void createVoyage(Map<String, org.apache.commons.lang3.tuple.Pair<Integer, Integer>> sizeAndNameOfMeans) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createVoyage'");
+    public Disease getDisease() {
+        return disease;
+    }
+
+    @Override
+    public Voyages getVoyage() {
+        return this.voyageC;
+    }
+
+    @Override
+    public void setVoyages(final Voyages voyages) {
+        this.voyageC = voyages;
     }
 
     // private CureData emptyCureData() {

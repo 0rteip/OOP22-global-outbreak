@@ -1,6 +1,5 @@
 package globaloutbreak.view.scenecontroller;
 
-
 import globaloutbreak.controller.TypeOfInfo;
 import globaloutbreak.model.pair.Pair;
 import javafx.beans.value.ChangeListener;
@@ -71,6 +70,8 @@ public final class MapController extends AbstractSceneController implements Scen
     private Double percH = 1.0;
     private Double percW = 1.0;
     private String path;
+    private Boolean start = false;
+
     /**
      * Contructor.
      */
@@ -86,30 +87,42 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void selectRegion(final MouseEvent e) {
-        Integer newColor = buf.getImage().getPixelReader().getArgb(
+        final Integer newColor = buf.getImage().getPixelReader().getArgb(
                 (int) Math.floor(e.getX() * (sfondo.getImage().getWidth() / sfondo.getFitWidth())),
                 (int) Math.floor(e.getY() * (sfondo.getImage().getHeight() / sfondo.getFitHeight())));
-        if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
-            if (newColor.equals(Color.WHITE.getIntArgbPre())) {
-                this.color = Color.WHITE.getIntArgbPre();
-                mapLab.setGraphic(sfondo);
-                this.getView().selectRegion(Optional.empty());
-            } if (!newColor.equals(color)) {
-                mapLab.setGraphic(selectedState(newColor));
-                this.color = newColor;
-                this.getView().selectRegion(Optional.of(newColor));
-            }
-            final Map<TypeOfInfo, String> info = this.getView().getInfoSingleRegion();
-            info.forEach((t, s) -> {
-                if (t.equals(TypeOfInfo.INFETTI)) {
-                    infectedText.setText(s);
-                } else if (t.equals(TypeOfInfo.MORTI)) {
-                    deathText.setText(s);
-                } else if (t.equals(TypeOfInfo.REGION)) {
-                    regionText.setText(s);
+        if (start) {
+            if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
+                if (newColor.equals(Color.WHITE.getIntArgbPre())) {
+                    this.color = Color.WHITE.getIntArgbPre();
+                    mapLab.setGraphic(sfondo);
+                    this.getView().selectRegion(Optional.empty());
+                } else if (!newColor.equals(color)) {
+                    mapLab.setGraphic(selectedState(newColor));
+                    this.color = newColor;
+                    this.getView().selectRegion(Optional.of(newColor));
                 }
-            });
+            }
+        } else {
+            if(newColor != Color.WHITE.getIntArgbPre()) {
+                this.getView().selectRegion(Optional.of(newColor));
+                this.getView().startStop();
+                mapLab.setGraphic(selectedState(newColor));
+                start = true;
+            }
         }
+        this.setTextFilds(this.getView().getInfoSingleRegion());
+    }
+
+    private void setTextFilds(final Map<TypeOfInfo, String> info) {
+        info.forEach((t, s) -> {
+            if (t.equals(TypeOfInfo.INFETTI)) {
+                infectedText.setText(s);
+            } else if (t.equals(TypeOfInfo.MORTI)) {
+                deathText.setText(s);
+            } else if (t.equals(TypeOfInfo.REGION)) {
+                regionText.setText(s);
+            }
+        });
     }
 
     private ImageView selectedState(final int color) {
@@ -158,8 +171,8 @@ public final class MapController extends AbstractSceneController implements Scen
      *          Mouse Event (on click)
      */
     @FXML
-    public void goToMutation(final MouseEvent e) {
-
+    public final void goToMutation(MouseEvent e) {
+        this.getSceneManager().openMutationScene();
     }
 
     /**
@@ -201,7 +214,7 @@ public final class MapController extends AbstractSceneController implements Scen
                     case "porti":
                         path = portPath;
                         break;
-                    default :
+                    default:
                         break;
                 }
                 m.forEach((p, l) -> {
@@ -278,6 +291,7 @@ public final class MapController extends AbstractSceneController implements Scen
             visibleMeans.add("porti");
             visibleMeans.add("areoporti");
             setMap();
+            this.setTextFilds(this.getView().getInfoSingleRegion());
         }
         resize(sfondo, (int) Math.floor(borderPane.getWidth()), (int) Math.floor(borderPane.getHeight()));
         mapLab.setGraphic(sfondo);

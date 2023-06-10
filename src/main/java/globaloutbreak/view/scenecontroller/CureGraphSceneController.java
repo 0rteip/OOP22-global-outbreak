@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 public class CureGraphSceneController extends AbstractSceneController implements SceneInitializer {
 
-    @FXML 
+    @FXML
     private ProgressBar progressBar;
     @FXML
     private Button worldButton;
@@ -32,16 +32,16 @@ public class CureGraphSceneController extends AbstractSceneController implements
     }
 
     @FXML
-    public void showWorldInfo(){
+    public void showWorldInfo() {
         this.getSceneManager().openWorldGraphScene();
     }
 
     @FXML
-    public void showCureProgress(){}
+    public void showCureProgress() {
+    }
 
     @FXML
-    public void backScene(){
+    public void backScene() {
         this.getSceneManager().openMap();
     }
 }
-

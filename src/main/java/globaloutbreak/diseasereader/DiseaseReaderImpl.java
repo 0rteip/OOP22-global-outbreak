@@ -14,8 +14,9 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.slf4j.Logger;
 import globaloutbreak.model.disease.DiseaseData;
+
+import org.slf4j.Logger;
 
 /**
  * Class that reads Diseases file.
@@ -31,7 +32,7 @@ public class DiseaseReaderImpl implements DiseaseReader {
      * Constructor.
      * 
      * Read file and create DiseaseDate objects.
-     */
+     */ 
     public DiseaseReaderImpl() {
         try {
             final ObjectMapper mapper = new ObjectMapper();

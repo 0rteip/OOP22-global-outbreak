@@ -1,35 +1,32 @@
 package globaloutbreak.model.voyage;
 
-import java.util.List;
-import java.util.Map;
-
-import globaloutbreak.model.pair.Pair;
-import globaloutbreak.model.region.Region;
-
 /**
- * 
+ * Extracted Voyage.
  */
-
 public interface Voyage {
+    /**
+     * 
+     * @return
+     *          type of means
+     */
+    String getType();
 
     /**
-     * This method extrat voyages.
      * 
-     * @param regions
-     *                a list of regions
-     * @param pot
-     *                extra poten.
      * @return
-     *         the string is the name of mean
-     *         in the second map the integer is the number of new infected
-     *         the pair is the departure and destination expressed with the color of
-     *         the region
+     *          starting region.
      */
-    Map<String, Map<Pair<Integer, Integer>, Integer>> extractMeans(List<Region> regions, Map<String, Float> pot);
+    int getPart();
     /**
      * 
      * @return
-     *         name of means
+     *          destination region
      */
-    List<String> getMeans();
+    int getDest();
+    /**
+     * 
+     * @return
+     *          new infected
+     */
+    int getInfected();
 }

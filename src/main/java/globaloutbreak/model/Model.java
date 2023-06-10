@@ -2,16 +2,13 @@ package globaloutbreak.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import org.apache.commons.lang3.tuple.Pair;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
 import globaloutbreak.model.infodata.InfoData;
 import globaloutbreak.model.region.Region;
-import globaloutbreak.model.voyage.Voyage;
+import globaloutbreak.model.voyage.Voyages;
 
 /**
  * Model for GlobalOutbreak app.
@@ -103,18 +100,11 @@ public interface Model {
     Optional<Region> getSelectedRegion();
 
     /**
-     * This method creates the class Voyage.
-     * 
-     * @param sizeAndNameOfMeans
-     */
-    void createVoyage(Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans);
-
-    /**
      * 
      * @return
      *         class Voyage
      */
-    Voyage getVoyage();
+    Voyages getVoyage();
 
     /**
      * Returns {@code True} if game is over.
@@ -161,11 +151,6 @@ public interface Model {
     void causeEvent();
 
     /**
-     * This method create CauseEvent class.
-     */
-    void createCauseEvents();
-
-    /**
      * 
      * @param regions
      *                regions
@@ -178,4 +163,8 @@ public interface Model {
      *               list of Event
      */
     void setEvents(List<Event> events);
+    /**
+     * Set voyages variable.
+     */
+    void setVoyages(Voyages voyages);
 }

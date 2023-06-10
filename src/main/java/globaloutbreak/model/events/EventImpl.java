@@ -13,12 +13,13 @@ public final class EventImpl implements Event {
     private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
     /**
      * Constractor.
-     * @param name 
-     *              region's name
+     * 
+     * @param name
+     *                    region's name
      * @param probOfHapp
-     *                  likelihood it could happen
+     *                    likelihood it could happen
      * @param percOfDeath
-     *                      percentage of deaths in the total population
+     *                    percentage of deaths in the total population
      */
     public EventImpl(final String name, final float probOfHapp, final float percOfDeath) {
         this.name = name;
