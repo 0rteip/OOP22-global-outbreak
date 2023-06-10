@@ -51,10 +51,6 @@ public interface SceneManager {
 
     /**
      * 
-     */
-    void openMutationScene();
-    /**
-     * 
      * @return
      *         the {@link SceneLoader}.
      */
@@ -67,4 +63,9 @@ public interface SceneManager {
      *                message
      */
     void openMessage(Message message);
+
+    /**
+     * Open Mutation scene
+     */
+    void openMutationScene();
 }

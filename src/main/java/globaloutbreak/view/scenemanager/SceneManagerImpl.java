@@ -39,9 +39,6 @@ public final class SceneManagerImpl implements SceneManager {
         this.openScene(SceneStyle.INITIALMENU);
     }
 
-    /**
-     *Load the tutorial Scene.
-     */
     @Override
     public void openTutorial() {
         this.openScene(SceneStyle.TUTORIAL);
@@ -52,6 +49,10 @@ public final class SceneManagerImpl implements SceneManager {
     @Override
     public void openDiseaseChoice() {
         this.openScene(SceneStyle.CHOOSEDISEASE);
+    }
+    @Override
+    public void openMutationScene(){
+        this.openScene(SceneStyle.MUTATION);
     }
 
     @Override
@@ -68,10 +69,6 @@ public final class SceneManagerImpl implements SceneManager {
     public void openCureGraphScene(){
         this.openScene(SceneStyle.CUREGRAPH);
     }
-    /**
-     * Set the previous scene.
-     */
-    
 
     private void openScene(final SceneStyle sceneStyle) {
         this.sceneLoader.loadScene(sceneStyle, this.stage);

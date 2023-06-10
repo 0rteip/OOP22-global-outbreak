@@ -128,7 +128,7 @@ public final class MapController extends AbstractSceneController implements Scen
 
     @FXML
     public final void goToMutation(MouseEvent e) {
-        
+        this.getSceneManager().openMutationScene();
     }
     
     @FXML

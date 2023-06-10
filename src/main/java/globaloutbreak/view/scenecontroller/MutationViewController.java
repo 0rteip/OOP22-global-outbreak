@@ -87,7 +87,6 @@ package globaloutbreak.view.scenecontroller;
         }
         private void handleActionButtonAction(final int index) {
             this.getView().update(names.get(index));
-            // Logica da eseguire quando il pulsante dell'azione viene premuto per l'oggetto specifico
         }
 
         /**
@@ -97,7 +96,6 @@ package globaloutbreak.view.scenecontroller;
          */
         @FXML
         public final void backScene(final MouseEvent evt) {
-            //scena di luca
-            this.getSceneManager().openDiseaseChoice();
+            this.getSceneManager().openMap();;
         }
     }

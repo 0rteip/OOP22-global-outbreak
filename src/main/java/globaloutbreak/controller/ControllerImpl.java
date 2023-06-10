@@ -1,6 +1,7 @@
 package globaloutbreak.controller;
 
 import java.util.List;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -154,6 +155,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void createDisease(final String type) {
+
     }
 
     @Override
