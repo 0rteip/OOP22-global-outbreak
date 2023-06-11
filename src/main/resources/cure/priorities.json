@@ -3,24 +3,36 @@
         "priority": 0,
         "description": "None",
         "resourcesPercentage": 0.0,
-        "detectionRate": 0.2
+        "detectionRate": 0.00002
     },
     {
         "priority": 1,
         "description": "Low",
-        "resourcesPercentage": 0.33,
-        "detectionRate": 0.4
+        "resourcesPercentage": 0.13,
+        "detectionRate": 0.002
     },
     {
         "priority": 2,
         "description": "Medium",
-        "resourcesPercentage": 0.66,
-        "detectionRate": 0.6
+        "resourcesPercentage": 0.22,
+        "detectionRate": 0.03
     },
     {
         "priority": 3,
+        "description": "Elevated",
+        "resourcesPercentage": 0.52,
+        "detectionRate": 0.08
+    },
+    {
+        "priority": 4,
         "description": "High",
-        "resourcesPercentage": 1.0,
-        "detectionRate": 0.8
+        "resourcesPercentage": 0.8,
+        "detectionRate": 0.1
+    },
+    {
+        "priority": 5,
+        "description": "Extreme",
+        "resourcesPercentage": 1,
+        "detectionRate": 0.3
     }
 ]
