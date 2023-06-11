@@ -95,7 +95,6 @@ package globaloutbreak.view.scenecontroller;
         }
         private void handleActionButtonAction(final int index) {
             this.getView().update(names.get(index));
-            this.getSceneManager().openMap();
         }
 
         /**

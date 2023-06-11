@@ -108,9 +108,9 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         } else {
-            if(newColor != Color.WHITE.getIntArgbPre()) {
+            if (newColor != Color.WHITE.getIntArgbPre()) {
                 this.getView().selectRegion(Optional.of(newColor));
-                this.getView().startStop();
+                this.startStopGame();
                 mapLab.setGraphic(selectedState(newColor));
                 start = true;
             }
@@ -155,6 +155,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void openSettings(final MouseEvent e) {
+        this.stopGame();
         this.getSceneManager().openSettings();
     }
 
@@ -166,6 +167,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void goToGeneralGraph(final MouseEvent e) {
+        this.stopGame();
         this.getSceneManager().openWorldGraphScene();
     }
 
@@ -177,6 +179,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void goToMutation(final MouseEvent e) {
+        this.stopGame();
         this.getSceneManager().openMutationScene();
     }
 
@@ -188,8 +191,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void startStop(final MouseEvent e) {
-        this.getView().startStop();
-        this.setPlayPauseButtonText();
+        this.startStopGame();
     }
 
     private ImageView getImage(final String path) {
@@ -283,7 +285,6 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @Override
     public void initializeScene() {
-        this.setPlayPauseButtonText();
         if (count == 0) {
             color = Color.WHITE.getIntArgbPre();
             this.airportPaths = "configView/aereo2.png";
@@ -330,6 +331,7 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         });
+        this.setPlayPauseButtonText();
     }
 
     @Override
@@ -340,5 +342,28 @@ public final class MapController extends AbstractSceneController implements Scen
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    private void stopGame() {
+        if (this.getView().isGameRunning()) {
+            this.startStopGame();
+        }
+    }
+
+    private void startStopGame() {
+        final boolean status = this.getView().isGameRunning();
+        this.getView().startStop();
+        this.waitForGameToBe(!status);
+    }
+
+    private void waitForGameToBe(final boolean state) {
+        while (this.getView().isGameRunning() != state) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.setPlayPauseButtonText();
     }
 }
