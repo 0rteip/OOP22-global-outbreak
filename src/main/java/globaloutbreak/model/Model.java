@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Optional;
 
-import globaloutbreak.EndCauses;
+import globaloutbreak.model.endcauses.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;

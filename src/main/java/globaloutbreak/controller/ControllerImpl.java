@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import globaloutbreak.EndCauses;
+import globaloutbreak.model.endcauses.EndCauses;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
 import globaloutbreak.controller.event.EventController;

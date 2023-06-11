@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.model.endcauses;
 
 /**
  * Cases for ending the game.
