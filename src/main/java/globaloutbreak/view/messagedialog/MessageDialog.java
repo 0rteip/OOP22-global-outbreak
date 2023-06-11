@@ -53,7 +53,8 @@ public final class MessageDialog {
         root.setCenter(label);
         root.setBottom(closeButton);
         BorderPane.setMargin(closeButton, new Insets(MARGIN));
-        BorderPane.setAlignment(closeButton, Pos.BOTTOM_RIGHT);
+        BorderPane.setMargin(label, new Insets(MARGIN));
+        BorderPane.setAlignment(closeButton, Pos.BOTTOM_CENTER);
 
         final Scene scene = new Scene(root);
         s.setScene(scene);
