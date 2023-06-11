@@ -86,13 +86,22 @@ public final class RegionImpl implements Region {
 
     @Override
     public void incDeathPeople(final long death) {
-
+        if ((this.numInfected - death) <= 0) {
+                this.numInfected = 0;
+                logger.warn("I can't remove this infect");
+            } else {
+                this.numInfected -= death;
+            }
+        if(death == 0) {
+            System.out.println(name + " morti " + death);
+        }
         if (this.numDeath < popTot) {
             if (this.numDeath + death >= popTot) {
                 if (this.numDeath + death > popTot) {
                     logger.warn("Too many death but I add those possible");
                 }
-                this.numDeath += this.popTot - this.numDeath;
+                this.numDeath = this.popTot;
+                System.out.println(name);
                 this.status = RegionCureStatus.FINISHED;
                 this.getTrasmissionMeans().stream().forEach(k -> {
                     k.setState(MeansState.CLOSE);
@@ -100,7 +109,6 @@ public final class RegionImpl implements Region {
             } else {
                 this.numDeath += death;
             }
-            this.incOrDecInfectedPeople(- death);
         } else {
             logger.warn("The state is Finished");
         }
@@ -108,26 +116,26 @@ public final class RegionImpl implements Region {
 
     @Override
     public void incOrDecInfectedPeople(final long infected) {
-        if (this.status != RegionCureStatus.FINISHED) {
-
-            if(this.numInfected < popTot && (this.numInfected + infected) >= 0) {
-                final long sum = this.numInfected + infected;
-                if (sum >= this.popTot) {
-                    if (sum > this.popTot) {
-                        logger.warn("Too many infected but I add those possible");
+        if (infected > 0) {
+            if (!this.status.equals(RegionCureStatus.FINISHED)) {
+                if((this.numInfected+this.numDeath) < popTot) {
+                    final long sum = this.numInfected + infected + this.numDeath;
+                    if (sum >= this.popTot) {
+                        if (sum > this.popTot) {
+                            logger.warn("Too many infected but I add those possible");
+                        }
+                        infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
+                        this.numInfected += popTot - (this.numInfected+this.numDeath);
+                    } else {
+                        infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
+                        this.numInfected += infected; 
                     }
-                    infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                    this.numInfected += popTot - this.numInfected;
-                    System.out.println(this.numInfected);
-                } else {
-                    infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                    this.numInfected += infected; 
-                }
-            } else if((this.numInfected + infected) < 0) {
-                logger.warn("I can't remove this infect");
+                } 
+            } else {
+                logger.warn("State is already infected or RegionState is Finished");
             }
         } else {
-            logger.warn("State is already infected or RegionState is Finished");
+            
         }
     }
 

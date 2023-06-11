@@ -169,6 +169,7 @@ public final class ModelImpl implements Model {
                 .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
                 .toList());
         if (event.isPresent()) {
+            System.out.println("eventoooo");
             final ExtractedEvent exEvent = event.get();
             final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
             exRegion.incDeathPeople(exEvent.getDeath());
@@ -208,6 +209,11 @@ public final class ModelImpl implements Model {
     @Override
     public boolean isGameOver() {
         if (this.cure.isPresent()) {
+            if(this.cure.get().isCompleted()) {
+                System.out.println("compl");
+            } else if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+                System.out.println("info == ");
+            }
             return this.cure.get().isCompleted()
                     || this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation();
         }
@@ -246,14 +252,22 @@ public final class ModelImpl implements Model {
 
     @Override
     public void update() {
+        System.out.println("update");
+        List<String> region = new LinkedList<>();
         this.disease.infectRegions(this.regions);
-        this.extractVoyages();
-        this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
+        /*regions.forEach(k -> {
+            if(k.getCureStatus().equals(RegionCureStatus.FINISHED) && !region.contains(k.getName())) {
+                region.add(k.getName());
+                System.out.println("Regioni " + region);
+            }
+        });*/
+        this.extractVoyages();
+        //this.causeEvent();
         this.infoData.updateTotalDeathsAndInfected(this.regions);
-        this.deathAnalyzer.analyze(this.regions.stream()
+        /*this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
-                .reduce(0L, (e0, e1) -> e0 + e1));
+                .reduce(0L, (e0, e1) -> e0 + e1));*/
         this.cure.ifPresent(cure -> cure.research());
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }

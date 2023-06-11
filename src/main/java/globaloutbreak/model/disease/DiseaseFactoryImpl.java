@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.slf4j.LoggerFactory;
+
+import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.region.Region;
 import org.slf4j.Logger;
 
@@ -199,12 +201,11 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
 
             @Override
             public void killPeopleRegions(final List<Region> regionList) {
-
                 regionList.stream()
                         .filter(region -> region.getNumInfected() > 0)
                         .forEach(region -> {
                             region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
-                            region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
+                            //region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
                         });
             }
 
@@ -245,7 +246,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                 if (this.checkIfPositive(population, "population")
                         && this.checkIfPositive(currentInfected, "currentInfected")
                         && this.checkIfPositive(urban, "urban") && this.checkIfPositive(poor, "poor")) {
-                    return (int) Math.round(population * ((float) currentInfected / population)
+                    return (long) Math.round(population * ((float) currentInfected / population)
                             * this.calculateInfectivity(urban, hot, cold, humid, arid, poor)
                             + random.nextInt(MIN_VALUE, MAX_VALUE));
                 }

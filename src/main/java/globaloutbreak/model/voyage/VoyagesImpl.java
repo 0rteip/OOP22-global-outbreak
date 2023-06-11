@@ -7,6 +7,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
@@ -98,7 +99,7 @@ public final class VoyagesImpl implements Voyages {
     }
 
     private boolean checkIfMeansAreOpen(final List<TransmissionMean> list, final String means) {
-        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN))
+        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN) )
                 .count();
         return open > 0;
     }

@@ -239,6 +239,7 @@ public final class ControllerImpl implements Controller {
                 this.lock.lock();
                 try {
                     if (!this.isRunning) {
+                        System.out.println("not Run");
                         try {
                             this.condition.await();
                         } catch (InterruptedException e) {
@@ -255,7 +256,7 @@ public final class ControllerImpl implements Controller {
 
         void update() {
             model.update();
-            if (model.isGameOver()) {
+           if (model.isGameOver()) {
                 view.quit();
             }
         }
