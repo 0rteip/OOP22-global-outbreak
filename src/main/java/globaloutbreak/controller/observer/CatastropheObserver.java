@@ -1,4 +1,4 @@
-package globaloutbreak.controller.newsobserver;
+package globaloutbreak.controller.observer;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -9,9 +9,9 @@ import globaloutbreak.model.message.Message;
 import globaloutbreak.model.message.MessageType;
 
 /**
- * News observer.
+ * Catastrophe observer.
  */
-public final class NewsObserver implements PropertyChangeListener {
+public final class CatastropheObserver implements PropertyChangeListener {
 
     private final Controller controller;
 
@@ -27,13 +27,13 @@ public final class NewsObserver implements PropertyChangeListener {
         justification = "We need to use the correct instance of the Controller"
     )
     // @formatter:on
-    public NewsObserver(final Controller controller) {
+    public CatastropheObserver(final Controller controller) {
         this.controller = controller;
     }
 
     @Override
     public void propertyChange(final PropertyChangeEvent arg0) {
-        if (MessageType.NEWS.getTitle().equals(arg0.getPropertyName())) {
+        if (MessageType.CATASTROPHE.getTitle().equals(arg0.getPropertyName())) {
             this.controller.displayMessage((Message) arg0.getNewValue());
         }
     }

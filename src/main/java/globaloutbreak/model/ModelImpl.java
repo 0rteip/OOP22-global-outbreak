@@ -80,6 +80,11 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public void addCatastropheListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    @Override
     public List<Region> getRegions() {
         return new LinkedList<>(this.regions);
     }

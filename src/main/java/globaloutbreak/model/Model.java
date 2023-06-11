@@ -118,6 +118,14 @@ public interface Model {
     void addNewsListener(PropertyChangeListener listener);
 
     /**
+     * Add a listener for the Catastrophe.
+     * 
+     * @param listener
+     *                 listener
+     */
+    void addCatastropheListener(PropertyChangeListener listener);
+
+    /**
      * 
      * @param regions
      *                regions
