@@ -118,7 +118,6 @@ public final class RegionImpl implements Region {
                     }
                     infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
                     this.numInfected += popTot - this.numInfected;
-                    System.out.println(this.numInfected);
                 } else {
                     infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
                     this.numInfected += infected;

@@ -33,7 +33,7 @@ public final class CatastropheObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent arg0) {
-        if (MessageType.CATASTROPHE.getTitle().equals(arg0.getPropertyName())) {
+        if (arg0.getPropertyName().equals(MessageType.CATASTROPHE.getTitle())) {
             this.controller.displayMessage((Message) arg0.getNewValue());
         }
     }

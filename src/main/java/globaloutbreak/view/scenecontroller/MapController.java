@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sun.prism.paint.Color;
 
 /**
@@ -62,6 +65,7 @@ public final class MapController extends AbstractSceneController implements Scen
     @FXML
     private BorderPane borderPane;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private int count;
     private int color;
     private ImageView airportsMap;
@@ -361,7 +365,7 @@ public final class MapController extends AbstractSceneController implements Scen
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                this.logger.warn("Error while waiting for Game to start", e);
             }
         }
         this.setPlayPauseButtonText();

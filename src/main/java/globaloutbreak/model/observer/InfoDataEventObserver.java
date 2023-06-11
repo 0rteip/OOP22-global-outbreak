@@ -28,7 +28,7 @@ public class InfoDataEventObserver implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(final PropertyChangeEvent property) {
-        if (property.getPropertyName().equals("eventdeath")) {
+        if ("eventdeath".equals(property.getPropertyName())) {
             this.infoData.updateDeaths((long) property.getNewValue());
         }
     }

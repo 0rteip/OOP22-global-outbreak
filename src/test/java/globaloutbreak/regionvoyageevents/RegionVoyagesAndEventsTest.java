@@ -32,12 +32,11 @@ final class RegionVoyagesAndEventsTest {
     private final VoyageController vC = new VoyageControllerImpl();
     private final EventController controller = new EventControllerImpl();
     private final List<Region> regions = contr.getRegions();
-    private long popTot = 0L;
+    private long popTot;
 
     @Test
     void testRegion() {
         contr.getRegions().forEach(k -> popTot += k.getPopTot());
-        System.out.println(popTot);
         Region r = regions.get(0);
         r.incDeathPeople(r.getPopTot());
         assertEquals(r.getPopTot(), r.getNumDeath());

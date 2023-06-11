@@ -73,10 +73,10 @@ public final class VoyagesImpl implements Voyages {
             default:
                 break;
         }
-        if (efectieRegions.size() > 0) {
+        if (!efectieRegions.isEmpty()) {
             Region dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
             while (dest.getColor() == region.getColor()) {
-                if (efectieRegions.size() > 0) {
+                if (!efectieRegions.isEmpty()) {
                     dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
                     efectieRegions.remove(dest);
                 }
