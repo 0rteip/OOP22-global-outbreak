@@ -146,7 +146,7 @@ public final class ViewImpl implements View {
 
     @Override
     public void setMutationsName(final List<String> mutationsNames, final int points) {
-        this.mutations = mutationsNames;
+        this.mutations = new ArrayList<>(mutationsNames);
         this.points = points;
     }
 
