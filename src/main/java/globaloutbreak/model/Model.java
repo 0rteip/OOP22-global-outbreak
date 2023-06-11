@@ -3,6 +3,8 @@ package globaloutbreak.model;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Optional;
+
+import globaloutbreak.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
@@ -115,7 +117,6 @@ public interface Model {
      */
     void addNewsListener(PropertyChangeListener listener);
 
-
     /**
      * 
      * @param regions
@@ -147,5 +148,13 @@ public interface Model {
      * Update {@link Model}
      */
     void update();
+
+    /**
+     * Returns the {@link EndCauses} for the game if game has ended.
+     * 
+     * @return
+     *         optional od endcauses
+     */
+    Optional<EndCauses> getEndCause();
 
 }

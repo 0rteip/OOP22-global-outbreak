@@ -1,5 +1,7 @@
 package globaloutbreak.view.messagedialog;
 
+import java.util.concurrent.CountDownLatch;
+
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.View;
 import javafx.geometry.Pos;
@@ -31,7 +33,7 @@ public final class MessageDialog {
      * @param view
      *                view
      */
-    public static void showMessageDialog(final Stage owner, final Message message, final View view) {
+    public static void showMessageDialog(final Stage owner, final Message message, final View view, final CountDownLatch latch) {
         final Stage s = new Stage();
         s.initOwner(owner);
         s.initModality(Modality.APPLICATION_MODAL);
@@ -40,6 +42,7 @@ public final class MessageDialog {
         final Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> {
             s.close();
+            latch.countDown();
             view.startStop();
         });
 

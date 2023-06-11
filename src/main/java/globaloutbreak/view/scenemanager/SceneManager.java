@@ -1,5 +1,7 @@
 package globaloutbreak.view.scenemanager;
 
+import java.util.concurrent.CountDownLatch;
+
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.sceneloader.SceneLoader;
 
@@ -48,7 +50,6 @@ public interface SceneManager {
      */
     void openMap();
 
-
     /**
      * 
      * @return
@@ -61,8 +62,10 @@ public interface SceneManager {
      * 
      * @param message
      *                message
+     * @param latch
+     *                CountDownLatch
      */
-    void openMessage(Message message);
+    void openMessage(Message message, CountDownLatch latch);
 
     /**
      * Open Mutation scene

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
@@ -48,8 +49,9 @@ public final class ModelImpl implements Model {
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
-    private final static int INITIAL_INC = 1;
+    private final static long INITIAL_INC = 1;
     private boolean isDiseaseSpreading;
+    private Optional<EndCauses> endCause = Optional.empty();
 
     /**
      * Creates a model.
@@ -89,7 +91,7 @@ public final class ModelImpl implements Model {
             final Region updateR = this.regions.stream()
                     .filter(k -> k.getColor() == region.get().getColor())
                     .findFirst().get();
-            this.incOrDecInfectedPeople(INITIAL_INC, updateR);
+            updateR.incOrDecInfectedPeople(INITIAL_INC);
             this.isDiseaseSpreading = !this.isDiseaseSpreading;
             this.logger.info("Disease started spreading");
         }
@@ -207,15 +209,23 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public Optional<EndCauses> getEndCause() {
+        return this.endCause;
+    }
+
+    @Override
     public boolean isGameOver() {
         if (this.cure.isPresent()) {
-            if(this.cure.get().isCompleted()) {
-                System.out.println("compl");
-            } else if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
-                System.out.println("info == ");
+            if (this.cure.get().isCompleted()) {
+                this.endCause = Optional.of(EndCauses.CURE_DEVELOPED);
             }
-            return this.cure.get().isCompleted()
-                    || this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation();
+            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+                this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
+            }
+            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+                this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
+            }
+            return this.endCause.isPresent() ? true : false;
         }
         logger.info("No Cure setted, closing game");
         return true;
@@ -268,7 +278,7 @@ public final class ModelImpl implements Model {
         /*this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));*/
-        this.cure.ifPresent(cure -> cure.research());
+        this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 
