@@ -3,6 +3,7 @@ package globaloutbreak.view.sceneloader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +117,7 @@ public final class SceneLoaderImpl implements SceneLoader {
     }
 
     @Override
-    public void openDialog(final Stage stage, final Message message) {
-        MessageDialog.showMessageDialog(stage, message, this.view);
+    public void openDialog(final Stage stage, final Message message, final CountDownLatch latch) {
+        MessageDialog.showMessageDialog(stage, message, this.view, latch);
     }
 }

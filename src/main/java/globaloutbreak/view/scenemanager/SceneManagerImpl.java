@@ -1,5 +1,7 @@
 package globaloutbreak.view.scenemanager;
 
+import java.util.concurrent.CountDownLatch;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.utilities.SceneStyle;
@@ -86,8 +88,8 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     @Override
-    public void openMessage(final Message message) {
-        this.sceneLoader.openDialog(this.stage, message);
+    public void openMessage(final Message message, final CountDownLatch latch) {
+        this.sceneLoader.openDialog(this.stage, message, latch);
     }
 
     @Override

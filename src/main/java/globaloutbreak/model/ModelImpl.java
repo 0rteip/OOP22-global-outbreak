@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import globaloutbreak.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
@@ -50,6 +51,7 @@ public final class ModelImpl implements Model {
     private InfoData infoData;
     private final static int INITIAL_INC = 1;
     private boolean isDiseaseSpreading;
+    private Optional<EndCauses> endCause = Optional.empty();
 
     /**
      * Creates a model.
@@ -206,10 +208,23 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public Optional<EndCauses> getEndCause() {
+        return this.endCause;
+    }
+
+    @Override
     public boolean isGameOver() {
         if (this.cure.isPresent()) {
-            return this.cure.get().isCompleted()
-                    || this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation();
+            if (this.cure.get().isCompleted()) {
+                this.endCause = Optional.of(EndCauses.CURE_DEVELOPED);
+            }
+            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+                this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
+            }
+            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+                this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
+            }
+            return this.endCause.isPresent() ? true : false;
         }
         logger.info("No Cure setted, closing game");
         return true;
@@ -254,7 +269,7 @@ public final class ModelImpl implements Model {
         this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));
-        System.out.println(this.cure.get().getGlobalStatus());
+        this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 

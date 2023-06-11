@@ -10,6 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import globaloutbreak.EndCauses;
 import globaloutbreak.controller.disease.DiseaseController;
 import globaloutbreak.controller.disease.DiseaseControllerImpl;
 import globaloutbreak.controller.event.EventController;
@@ -27,6 +28,7 @@ import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.Model;
 import globaloutbreak.model.ModelImpl;
 import globaloutbreak.model.message.Message;
+import globaloutbreak.model.message.MessageType;
 import globaloutbreak.model.mutation.Mutation;
 import globaloutbreak.model.region.Region;
 import globaloutbreak.model.cure.Cure;
@@ -56,6 +58,7 @@ public final class ControllerImpl implements Controller {
     private final MutationController mutationController;
     private final VoyageController voyageController = new VoyageControllerImpl();
     private final EventController eventController = new EventControllerImpl();
+
     /**
      * Create a controller.
      * 
@@ -104,6 +107,20 @@ public final class ControllerImpl implements Controller {
     @Override
     public void displayMessage(final Message message) {
         this.view.displayMessage(message);
+    }
+
+    private void createAndDisplayMessage(final EndCauses cause) {
+        this.displayMessage(new Message() {
+            @Override
+            public MessageType getType() {
+                return MessageType.NEWS;
+            }
+
+            @Override
+            public String toString() {
+                return cause.getExplanation();
+            }
+        });
     }
 
     @Override
@@ -192,7 +209,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void setMutationsName(final List<String> list) {
-        view.setMutationsName(List.copyOf(list),model.getInfo().getPoints());
+        view.setMutationsName(List.copyOf(list), model.getInfo().getPoints());
     }
 
     @Override
@@ -256,6 +273,7 @@ public final class ControllerImpl implements Controller {
         void update() {
             model.update();
             if (model.isGameOver()) {
+                createAndDisplayMessage(model.getEndCause().get());
                 view.quit();
             }
         }

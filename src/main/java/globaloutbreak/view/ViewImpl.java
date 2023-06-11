@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,8 +74,17 @@ public final class ViewImpl implements View {
 
     @Override
     public void displayMessage(final Message message) {
-        Platform.runLater(() -> this.manager.openMessage(message));
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        Platform.runLater(() -> this.manager.openMessage(message, latch));
         this.controller.startStop();
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            this.logger.warn("Latch interrupted", e);
+        }
+
     }
 
     @Override
@@ -118,8 +128,9 @@ public final class ViewImpl implements View {
     public List<String> getMutations() {
         return List.copyOf(mutations);
     }
-    @Override 
-    public String getPoints(){
+
+    @Override
+    public String getPoints() {
         return Integer.toString(points);
     }
 
@@ -135,8 +146,8 @@ public final class ViewImpl implements View {
 
     @Override
     public void setMutationsName(final List<String> mutationsNames, final int points) {
-       this.mutations = mutationsNames;
-       this.points = points;
+        this.mutations = mutationsNames;
+        this.points = points;
     }
 
     @Override
