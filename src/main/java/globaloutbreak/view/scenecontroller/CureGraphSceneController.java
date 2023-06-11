@@ -27,7 +27,7 @@ public final class CureGraphSceneController extends AbstractSceneController impl
     public void initializeScene() {
         final InfoData infoData = this.getView().getInfoData();
         final int percentage = infoData.getCureData().getProgress();
-        this.progressBar.setProgress(percentage / 100);
+        this.progressBar.setProgress(Double.valueOf(percentage) / 100);
         this.progress.setText(Integer.toString(percentage) + " %");
         infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList();
         final String listContributors = String.join(",",
