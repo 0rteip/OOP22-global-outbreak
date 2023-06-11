@@ -43,16 +43,25 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
         }
     }
 
+    /**
+     * Show Cure Progress.
+     */
     @FXML
     public void showCureProgress() {
-        this.getSceneManager().openCureGraphScene();
+        this.getSceneManager().openCureGraph();
     }
 
+    /**
+     * Go back.
+     */
     @FXML
     public void backScene() {
         this.getSceneManager().openMap();
     }
 
+    /**
+     * Show Word info.
+     */
     @FXML
     public void showWorldInfo() {
     }

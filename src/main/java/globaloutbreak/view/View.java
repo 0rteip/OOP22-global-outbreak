@@ -21,7 +21,14 @@ import javafx.scene.control.Button;
  */
 public interface View {
 
+    /**
+     * Returns a list of {@link DiseaseData}.
+     * 
+     * @return
+     *         list of DiseaseData
+     */
     List<DiseaseData> getDiseasesDatas();
+
     /**
      * Start the view.
      * 
@@ -106,10 +113,10 @@ public interface View {
      */
     List<Button> getDiseasesButtons();
 
-     /**
+    /**
      * 
      * @return list of mutation name
-     *         
+     * 
      */
     List<String> getMutations();
 
@@ -119,17 +126,23 @@ public interface View {
      *                      the list of diseases names
      */
     void setDiseasesData(List<DiseaseData> diseasesNames);
+
     /**
      * get points.
+     * 
+     * @return
+     *         points
      */
     String getPoints();
+
     /**
      * 
      * @param mutationsNames the list of mutation names
-     * @param points points
-     *                       
+     * @param points         points
+     * 
      */
     void setMutationsName(List<String> mutationsNames, int points);
+
     /**
      * 
      * @param type
@@ -144,18 +157,18 @@ public interface View {
 
     /**
      * 
-     * @param desc description 
+     * @param desc     description
      * @param activate if the mutation is acrive
-     * @param  cost cost of the mutation
+     * @param cost     cost of the mutation
      */
     void setMutationsDesc(String desc, Boolean activate, int cost);
 
-     /**
+    /**
      *
      * @return description mutation
      *
-    */
-    String  getDescription();
+     */
+    String getDescription();
 
     /**
      * 
@@ -164,9 +177,9 @@ public interface View {
     boolean checkactivate();
 
     /**
-    * 
-    *@return cost of mutation
-    */
+     * 
+     * @return cost of mutation
+     */
     String getCost();
 
     /**
@@ -181,13 +194,15 @@ public interface View {
 
     /**
      * method to display mutation description.
+     * 
      * @param name name of the mutation
      */
     void displayMutationDesc(String name);
 
     /**
      * method for update the disease.
-     * @param name  name of the mutation
+     * 
+     * @param name name of the mutation
      */
     void update(String name);
 

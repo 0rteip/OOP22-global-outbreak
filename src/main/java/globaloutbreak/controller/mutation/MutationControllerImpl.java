@@ -20,6 +20,7 @@ public final class MutationControllerImpl implements MutationController {
 
     private final MutationData mutationData;
     private final MutationManager mutationManager;
+
     /**
      * constructor.
      * 
@@ -32,13 +33,12 @@ public final class MutationControllerImpl implements MutationController {
         mutationReader.readMutation();
     }
 
-
     @Override
     public void displayMutationsName(final Controller controller) {
         final List<Mutation> mutations = mutationData.getMutations();
         final List<String> list = new ArrayList<>();
         for (final Mutation mutation : mutations) {
-                list.add(mutation.getName());
+            list.add(mutation.getName());
         }
         controller.setMutationsName(list);
     }
@@ -48,7 +48,8 @@ public final class MutationControllerImpl implements MutationController {
         final List<Mutation> mutations = mutationData.getMutations();
         for (final Mutation mutation : mutations) {
             if (mutation.getName().equals(name)) {
-                 controller.setMutationsDesc(mutation.getDescription(), mutationManager.isActivate(name), mutation.getCost());
+                controller.setMutationsDesc(mutation.getDescription(), mutationManager.isActivate(name),
+                        mutation.getCost());
             }
         }
     }
@@ -57,19 +58,19 @@ public final class MutationControllerImpl implements MutationController {
     public void update(final String name, final Model model) {
         final List<Mutation> mutations = mutationData.getMutations();
         final Mutation mutationData = mutations.stream()
-                                                .filter(mutation -> mutation.getName().equals(name))
-                                                .findFirst().orElse(null);                           
-        if(model.getInfo().getPoints() >= mutationData.getCost()){
+                .filter(mutation -> mutation.getName().equals(name))
+                .findFirst().orElse(null);
+        if (model.getInfo().getPoints() >= mutationData.getCost()) {
             if (mutationManager.isActivate(name)) {
                 mutationManager.removeToActivate(name);
                 model.getInfo().increasePoints(mutationData.getCost());
                 mutationData.decrease(model.getDisease());
-                } else {
-                     mutationManager.addToActivate(name);
-                     model.getInfo().decreasePoints(mutationData.getCost());
-                     mutationData.increase(model.getDisease());
-                }
+            } else {
+                mutationManager.addToActivate(name);
+                model.getInfo().decreasePoints(mutationData.getCost());
+                mutationData.increase(model.getDisease());
+            }
         }
-      
+
     }
 }

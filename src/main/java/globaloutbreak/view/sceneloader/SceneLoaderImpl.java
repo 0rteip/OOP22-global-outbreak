@@ -101,7 +101,7 @@ public final class SceneLoaderImpl implements SceneLoader {
         controller.setSceneManager(this.view.getSceneManager());
         controller.setView(this.view);
         switch (sceneStyle) {
-            case CHOOSEDISEASE,  MUTATION,  SETTINGS, WORLDGRAPH, CUREGRAPH:
+            case CHOOSEDISEASE, MUTATION, SETTINGS, WORLDGRAPH, CUREGRAPH:
                 final SceneInitializer sceneInitController = (SceneInitializer) controller;
                 sceneInitController.initializeScene();
                 break;
@@ -109,7 +109,8 @@ public final class SceneLoaderImpl implements SceneLoader {
                 final SceneInitializer sceneInitController2 = (SceneInitializer) controller;
                 sceneInitController2.initializeScene();
                 final SceneUpdater sceneUpdater = (SceneUpdater) controller;
-                sceneUpdater.updateScene(view.getGameSettings().getGameSpeeds().stream().min((e1, e2) -> Float.compare(e1.getDuration(), e2.getDuration())).get());
+                sceneUpdater.updateScene(view.getGameSettings().getGameSpeeds().stream()
+                        .min((e1, e2) -> Float.compare(e1.getDuration(), e2.getDuration())).get());
                 break;
             default:
                 break;

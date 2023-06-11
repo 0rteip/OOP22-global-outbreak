@@ -141,6 +141,8 @@ public interface Model {
 
     /**
      * Set voyages variable.
+     * 
+     * @param voyages
      */
     void setVoyages(Voyages voyages);
 
@@ -153,7 +155,7 @@ public interface Model {
     List<Voyage> getVoyages();
 
     /**
-     * Update {@link Model}
+     * Update {@link Model}.
      */
     void update();
 

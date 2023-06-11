@@ -21,8 +21,8 @@ public interface Region {
     /**
      * This method increase(or decrease) the number of infected people.
      * 
-     * @param infected 
-     *                  the number of new infected people.
+     * @param infected
+     *                 the number of new infected people.
      * 
      */
     void incOrDecInfectedPeople(long infected);
@@ -31,91 +31,92 @@ public interface Region {
      * This method calculates the percentage of infected.
      * 
      * @return
-     *          the percentage of infected
+     *         the percentage of infected
      */
     float calcPercInfected();
 
     /**
      * 
      * @return
-     *          the num of infected
+     *         the num of infected
      */
     long getNumInfected();
 
     /**
      * 
      * @return
-     *          the num of death
+     *         the num of death
      */
     long getNumDeath();
-/* 
+
+    /*
+     * /**
+     * 
+     * @return
+     * the num of cared people
+     *//*
+        * int getNumCared();
+        */
     /**
      * 
      * @return
-     *          the num of cared people
-     *//* 
-    int getNumCared();
-    */
-    /**
-     * 
-     * @return
-     *          region Cure status
+     *         region Cure status
      */
     RegionCureStatus getCureStatus();
 
     /**
      * 
      * @return
-     *          the region name
+     *         the region name
      */
     String getName();
 
     /**
      * 
      * @return
-     *          urban percentage
+     *         urban percentage
      */
     float getUrban();
 
     /**
      * 
      * @return
-     *          total population
+     *         total population
      */
     long getPopTot();
 
     /**
      * 
      * @return
-     *          poor perc
+     *         poor perc
      */
     float getPoor();
 
     /**
      * 
      * @return
-     *          the cure facilities
+     *         the cure facilities
      */
     int getFacilities();
 
     /**
      * 
      * @return
-     *          the region color
+     *         the region color
      */
     int getColor();
 
     /**
      * 
      * @return
-     *          climate class
+     *         climate class
      */
     Climate getClimate();
 
     /**
      * 
      * @return
-     *          all means
+     *         all means
      */
     List<TransmissionMean> getTrasmissionMeans();
 
@@ -123,12 +124,15 @@ public interface Region {
      * This method change the status.
      * 
      * @param started
-     *                  new status
+     *                new status
      */
     void setCureStatus(RegionCureStatus started);
 
     /**
      * Add the property change listener for infoData.
+     * 
+     * @param listener
+     *                 PropertyChangeListener
      */
     void initializeObserver(PropertyChangeListener listener);
 }

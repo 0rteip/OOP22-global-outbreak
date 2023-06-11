@@ -58,8 +58,8 @@ public final class DiseaseControllerImpl implements DiseaseController {
         return value;
     }
 
-    private float getIfValidCure(final float value){
-       if (value < 1) {
+    private float getIfValidCure(final float value) {
+        if (value < 1) {
             logger.error("Error parameter: The value of cureResistance less than 1");
             return 1;
         }

@@ -8,19 +8,18 @@ import globaloutbreak.model.Model;
  */
 public interface MutationController {
 
-
     /**
      * Dysplay the name.
      * 
-     *@param controller  controller
+     * @param controller controller
      *
      */
     void displayMutationsName(Controller controller);
 
-     /**
+    /**
      * Display the description.
      * 
-     * @param name mutation
+     * @param name       mutation
      * @param controller controller
      */
     void displayMutationsDesc(String name, Controller controller);
@@ -28,8 +27,8 @@ public interface MutationController {
     /**
      * do the increment of the mutation.
      * 
-     * @param name mutation
-     *  @param model mutation           
+     * @param name  mutation
+     * @param model mutation
      */
     void update(String name, Model model);
 

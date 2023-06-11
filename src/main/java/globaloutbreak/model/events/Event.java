@@ -32,6 +32,9 @@ public interface Event {
 
     /**
      * Add the property change listener for infoData.
+     * 
+     * @param listener
+     *                 PropertyChangeListener
      */
     void initializeObserver(PropertyChangeListener listener);
 }

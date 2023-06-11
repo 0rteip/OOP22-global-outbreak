@@ -33,7 +33,7 @@ public final class NewsObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent arg0) {
-        if (MessageType.NEWS.getTitle().equals(arg0.getPropertyName())) {
+        if (arg0.getPropertyName().equals(MessageType.NEWS.getTitle())) {
             this.controller.displayMessage((Message) arg0.getNewValue());
         }
     }
