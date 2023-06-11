@@ -24,11 +24,17 @@ public final class SettingsController extends AbstractSceneController implements
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Exit settings.
+     */
     @FXML
     private void exitSettings() {
         this.getSceneManager().openMap();
     }
 
+    /**
+     * Save settings before closing.
+     */
     @FXML
     public void saveSettings() {
         this.pcs.firePropertyChange("gameSpeed",

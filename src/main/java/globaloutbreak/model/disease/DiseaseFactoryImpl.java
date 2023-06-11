@@ -3,7 +3,7 @@ package globaloutbreak.model.disease;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
-import java.util.Random;
+import java.util.random.RandomGenerator;
 
 import org.slf4j.LoggerFactory;
 import globaloutbreak.model.region.Region;
@@ -26,8 +26,8 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
 
         return new Disease() {
 
-            private final static int MIN_VALUE = 0;
-            private final static int MAX_VALUE = 5;
+            private static final int MIN_VALUE = 0;
+            private static final int MAX_VALUE = 5;
             private String name;
             private String type = diseaseType;
             private float infectivity = diseaseInfectivity;
@@ -42,7 +42,6 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
             private float aridityInfectivity = diseaseAridityInfectivity;
             private float povertyInfectivity = diseasePovertyInfectivity;
             private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
-            Random random = new Random();
 
             @Override
             public String getName() {
@@ -247,7 +246,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                         && this.checkIfPositive(urban, "urban") && this.checkIfPositive(poor, "poor")) {
                     return (int) Math.round(population * ((float) currentInfected / population)
                             * this.calculateInfectivity(urban, hot, cold, humid, arid, poor)
-                            + random.nextInt(MIN_VALUE, MAX_VALUE));
+                            + RandomGenerator.getDefault().nextInt(MIN_VALUE, MAX_VALUE));
                 }
                 logger.error("The number of population, currentInfected, urban, poor must be at least");
                 return 0;

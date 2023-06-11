@@ -42,13 +42,14 @@ public final class VoyagesImpl implements Voyages {
             if (!newRegions.isEmpty()) {
                 for (int i = 0; i < size.getX(); i++) {
                     final Pair<Region, Region> partDest = extractRegion(newRegions, means);
-                    if(partDest.getX() != null) {
+                    if (partDest.getX() != null) {
                         final Region part = newRegions
                                 .stream()
                                 .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                         final float prob = part.calcPercInfected() + pot.get(means);
                         logger.info("prob " + prob + " infected " + numInfected(prob, size.getY()));
-                        final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(), partDest.getY().getColor(),
+                        final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(),
+                                partDest.getY().getColor(),
                                 numInfected(prob, size.getY()));
                         extractedMeans.add(voyage);
                     }
@@ -72,10 +73,10 @@ public final class VoyagesImpl implements Voyages {
             default:
                 break;
         }
-        if( efectieRegions.size() > 0) {
+        if (efectieRegions.size() > 0) {
             Region dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
             while (dest.getColor() == region.getColor()) {
-                if( efectieRegions.size() > 0) {
+                if (efectieRegions.size() > 0) {
                     dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
                     efectieRegions.remove(dest);
                 }

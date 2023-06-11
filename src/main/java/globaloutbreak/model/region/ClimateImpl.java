@@ -3,7 +3,7 @@ package globaloutbreak.model.region;
 /**
  * Impl. of ClimatInt.
  */
-public class ClimateImpl implements Climate {
+public final class ClimateImpl implements Climate {
     private final float arid;
     private final float humid;
     private final float hot;
@@ -24,10 +24,12 @@ public class ClimateImpl implements Climate {
         this.cold = 1 - hot;
     }
 
-    /*private void compute(final float humid, final float hot) {
-        this.arid = 1 - humid;
-        this.cold = 1 - hot;
-    }*/
+    /*
+     * private void compute(final float humid, final float hot) {
+     * this.arid = 1 - humid;
+     * this.cold = 1 - hot;
+     * }
+     */
 
     @Override
     public float getArid() {

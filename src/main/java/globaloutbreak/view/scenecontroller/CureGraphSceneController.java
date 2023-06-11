@@ -7,7 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
-public class CureGraphSceneController extends AbstractSceneController implements SceneInitializer {
+/**
+ * Controller for CureGraph Scene.
+ */
+public final class CureGraphSceneController extends AbstractSceneController implements SceneInitializer {
 
     @FXML
     private ProgressBar progressBar;
@@ -27,19 +30,29 @@ public class CureGraphSceneController extends AbstractSceneController implements
         this.progressBar.setProgress(percentage / 100);
         this.progress.setText(Integer.toString(percentage) + " %");
         infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList();
-        final String listContributors = String.join(",", infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
+        final String listContributors = String.join(",",
+                infoData.getCureData().getMajorContributors().stream().map(region -> region.getName()).toList());
         this.cureContributors.setText(listContributors);
     }
 
+    /**
+     * Show info.
+     */
     @FXML
     public void showWorldInfo() {
-        this.getSceneManager().openWorldGraphScene();
+        this.getSceneManager().openWorldGraph();
     }
 
+    /**
+     * Show progress.
+     */
     @FXML
     public void showCureProgress() {
     }
 
+    /**
+     * Go back.
+     */
     @FXML
     public void backScene() {
         this.getSceneManager().openMap();

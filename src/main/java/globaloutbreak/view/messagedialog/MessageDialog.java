@@ -32,8 +32,11 @@ public final class MessageDialog {
      *                Message
      * @param view
      *                view
+     * @param latch
+     *                CountDownLatch
      */
-    public static void showMessageDialog(final Stage owner, final Message message, final View view, final CountDownLatch latch) {
+    public static void showMessageDialog(final Stage owner, final Message message, final View view,
+            final CountDownLatch latch) {
         final Stage s = new Stage();
         s.initOwner(owner);
         s.initModality(Modality.APPLICATION_MODAL);

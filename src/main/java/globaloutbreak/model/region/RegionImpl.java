@@ -100,7 +100,7 @@ public final class RegionImpl implements Region {
             } else {
                 this.numDeath += death;
             }
-            this.incOrDecInfectedPeople(- death);
+            this.incOrDecInfectedPeople(-death);
         } else {
             logger.warn("The state is Finished");
         }
@@ -110,7 +110,7 @@ public final class RegionImpl implements Region {
     public void incOrDecInfectedPeople(final long infected) {
         if (this.status != RegionCureStatus.FINISHED) {
 
-            if(this.numInfected < popTot && (this.numInfected + infected) >= 0) {
+            if (this.numInfected < popTot && (this.numInfected + infected) >= 0) {
                 final long sum = this.numInfected + infected;
                 if (sum >= this.popTot) {
                     if (sum > this.popTot) {
@@ -121,9 +121,9 @@ public final class RegionImpl implements Region {
                     System.out.println(this.numInfected);
                 } else {
                     infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                    this.numInfected += infected; 
+                    this.numInfected += infected;
                 }
-            } else if((this.numInfected + infected) < 0) {
+            } else if ((this.numInfected + infected) < 0) {
                 logger.warn("I can't remove this infect");
             }
         } else {
@@ -206,7 +206,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void initializeObserver(final PropertyChangeListener listener){
+    public void initializeObserver(final PropertyChangeListener listener) {
         this.infodataSupport.addPropertyChangeListener(listener);
     }
 

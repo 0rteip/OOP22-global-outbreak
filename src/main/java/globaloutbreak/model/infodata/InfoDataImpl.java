@@ -30,6 +30,9 @@ public final class InfoDataImpl implements InfoData {
 
     /**
      * Constructor.
+     * 
+     * @param totalPopulation
+     *                        population
      */
     public InfoDataImpl(final long totalPopulation) {
         this.dnaPoints = 1;

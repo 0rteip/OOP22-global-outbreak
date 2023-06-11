@@ -168,7 +168,7 @@ public final class MapController extends AbstractSceneController implements Scen
     @FXML
     public void goToGeneralGraph(final MouseEvent e) {
         this.stopGame();
-        this.getSceneManager().openWorldGraphScene();
+        this.getSceneManager().openWorldGraph();
     }
 
     /**
@@ -180,7 +180,7 @@ public final class MapController extends AbstractSceneController implements Scen
     @FXML
     public void goToMutation(final MouseEvent e) {
         this.stopGame();
-        this.getSceneManager().openMutationScene();
+        this.getSceneManager().openMutation();
     }
 
     /**

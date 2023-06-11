@@ -11,59 +11,63 @@ import globaloutbreak.model.region.Region;
 public interface InfoData {
 
     /**
-     * @param 
-     * points
+     * Increase Points.
+     * 
+     * @param points
+     *               points
      */
     void increasePoints(int points);
 
     /**
-     * @param 
-     * points
+     * Decrease Points.
+     * 
+     * @param points
+     *               points
      */
     void decreasePoints(int points);
 
     /**
      * @return
-     * points
+     *         points
      */
     int getPoints();
 
     /**
      * @return
-     * total deaths
+     *         total deaths
      */
     long getTotalDeaths();
 
     /**
      * @return
-     * total infected
+     *         total infected
      */
     long getTotalInfected();
 
     /**
      * 
      * @return
-     * total population
+     *         total population
      */
     long getTotalPopulation();
+
     /**
      * @return
-     * cure data
+     *         cure data
      */
     CureData getCureData();
 
     /**
-     * update total deaths and infected.
-     * @param numDeaths
-     * @param numInfected
+     * Update total deaths and infected.
+     * 
+     * @param regions
      */
     void updateTotalDeathsAndInfected(List<Region> regions);
 
     /**
      * update cure data.
      * 
-     * @param
-     * cureData
+     * @param cureData
      */
     void updateCureData(CureData cureData);
 
@@ -73,4 +77,3 @@ public interface InfoData {
      */
     void updateDeaths(long deaths);
 }
-

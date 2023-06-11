@@ -49,7 +49,7 @@ public final class ModelImpl implements Model {
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
-    private final static int INITIAL_INC = 1;
+    private static final int INITIAL_INC = 1;
     private boolean isDiseaseSpreading;
     private Optional<EndCauses> endCause = Optional.empty();
 
@@ -80,7 +80,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void addCatastropheListener(PropertyChangeListener listener) {
+    public void addCatastropheListener(final PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
@@ -229,7 +229,7 @@ public final class ModelImpl implements Model {
             if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
                 this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
             }
-            return this.endCause.isPresent() ? true : false;
+            return this.endCause.isPresent();
         }
         logger.info("No Cure setted, closing game");
         return true;
