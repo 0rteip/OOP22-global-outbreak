@@ -79,7 +79,6 @@ final class SimpleCureTest {
 
         IntStream.range(0, daysBeforeStartResearch + 1).forEach(w -> {
             cure.research();
-            System.out.println(cure.getGlobalStatus());
         });
         assertEquals(numberOfMajorContributors, cure.getGlobalStatus().getMajorContributors().size());
         assertNotEquals(Optional.empty(), cure.getGlobalStatus().getRemainingDays());
@@ -190,13 +189,14 @@ final class SimpleCureTest {
 
                 @Override
                 public void incDeathPeople(final long dead) {
-                    throw new UnsupportedOperationException("Unimplemented method 'incDeathPeople'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override
                 public void incOrDecInfectedPeople(final long infected) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'incOrDecInfectedPeople'");
+                    logger.warn(logString);
+                    throw new UnsupportedOperationException(errString);
                 }
 
                 @Override

@@ -1,4 +1,4 @@
-package globaloutbreak.controller.newsobserver;
+package globaloutbreak.controller.observer;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -33,7 +33,7 @@ public final class NewsObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent arg0) {
-        if (MessageType.NEWS.getTitle().equals(arg0.getPropertyName())) {
+        if (arg0.getPropertyName().equals(MessageType.NEWS.getTitle())) {
             this.controller.displayMessage((Message) arg0.getNewValue());
         }
     }

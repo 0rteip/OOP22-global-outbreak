@@ -219,7 +219,7 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void initializeObserver(final PropertyChangeListener listener){
+    public void initializeObserver(final PropertyChangeListener listener) {
         this.infodataSupport.addPropertyChangeListener(listener);
     }
 

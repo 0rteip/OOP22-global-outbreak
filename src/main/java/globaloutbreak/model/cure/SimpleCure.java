@@ -109,6 +109,7 @@ public final class SimpleCure implements Cure {
             // if a region has discovered the disease and after the
             // 'daysBeforeStartResearch', each Region starts looking for a cure
             if (this.numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch == 0) {
+                this.logger.info("Start Cure research");
                 this.isStarted = true;
                 this.increasePriority();
                 this.contributions.entrySet().stream()
@@ -121,12 +122,10 @@ public final class SimpleCure implements Cure {
                             .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
                             .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
                 }
-                // if the region's entire population dies in one day, the other regions don't
-                // care
             }
         }
 
-        if (cureProgress() >= 100) {
+        if (this.cureProgress() >= 100) {
             this.isComplete = true;
         }
     }
@@ -144,6 +143,51 @@ public final class SimpleCure implements Cure {
     @Override
     public void reduceResearchProgress(final float changeFactor) {
         this.researchBudget *= changeFactor;
+    }
+
+    private float dailyRegionContribution(final Region region) {
+        return (1 - Float.valueOf(region.getNumDeath()) / region.getPopTot())
+                * region.getFacilities()
+                * this.researchersEfficiency
+                * this.priorities.get(this.currentPriority).getResourcesPercentage()
+                * this.dailyBudget;
+    }
+
+    private int cureProgress() {
+        final int progress = Math.round(this.researchBudget / this.necessaryBudget * 100);
+        if (progress >= 100) {
+            this.researchBudget = this.necessaryBudget;
+            return 100;
+        }
+        return progress;
+    }
+
+    private int numberOfRegionsTahtDiscoveredDisease() {
+        return Math.toIntExact(this.contributions.entrySet().stream()
+                .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.DISCOVERED)
+                .count());
+    }
+
+    private void increasePriority() {
+        this.priorities.stream()
+                .filter(el -> el.getPriority() == this.currentPriority + 1)
+                .findAny().ifPresent(el -> {
+                    this.currentPriority = el.getPriority();
+                    this.logger.info("Research priority: " + this.priorities.get(currentPriority));
+                });
+    }
+
+    private void updateResearchBudget() {
+        this.researchBudget = this.contributions.entrySet().stream()
+                .map(el -> el.getValue())
+                .reduce(Float.valueOf(0), (f0, f1) -> f0 + f1);
+    }
+
+    private Stream<Entry<Region, Float>> highMortalityRateRegions() {
+        return this.contributions.entrySet().stream()
+                .filter(el -> Float.valueOf(el.getKey().getNumDeath())
+                        / el.getKey().getPopTot() > this.priorities.get(this.currentPriority)
+                                .getDetectionRate());
     }
 
     @Override
@@ -177,54 +221,12 @@ public final class SimpleCure implements Cure {
                 && this.checkIfPositive(this.daysBeforeStartResearch, "daysBeforeStartResearch");
     }
 
-    private float dailyRegionContribution(final Region region) {
-        return (1 - Float.valueOf(region.getNumDeath()) / region.getPopTot())
-                * region.getFacilities()
-                * this.researchersEfficiency
-                * this.priorities.get(this.currentPriority).getResourcesPercentage()
-                * this.dailyBudget;
-    }
-
-    private int cureProgress() {
-        final int progress = Math.round(this.researchBudget / this.necessaryBudget * 100);
-        if (progress >= 100) {
-            this.researchBudget = this.necessaryBudget;
-            return 100;
-        }
-        return progress;
-    }
-
     private boolean checkIfPositive(final float number, final String name) {
         if (number < 0) {
             logger.warn("Value {} can't be negative", name);
             return false;
         }
         return true;
-    }
-
-    private int numberOfRegionsTahtDiscoveredDisease() {
-        return Math.toIntExact(this.contributions.entrySet().stream()
-                .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.DISCOVERED)
-                .count());
-    }
-
-    private void increasePriority() {
-        this.priorities.stream()
-                .filter(el -> el.getPriority() == this.currentPriority + 1)
-                .findAny().ifPresent(el -> this.currentPriority = el.getPriority());
-    }
-
-    private void updateResearchBudget() {
-        this.researchBudget = this.contributions.entrySet().stream()
-                .map(el -> el.getValue())
-                .reduce(Float.valueOf(0), (f0, f1) -> f0 + f1);
-    }
-
-    private Stream<Entry<Region, Float>> highMortalityRateRegions() {
-        return this.contributions.entrySet().stream()
-                .filter(el -> Float.valueOf(el.getKey().getNumDeath())
-                        / el.getKey().getPopTot() > this.priorities.get(this.currentPriority)
-                                .getDetectionRate());
     }
 
     /**

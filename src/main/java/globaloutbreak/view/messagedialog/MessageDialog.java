@@ -32,8 +32,11 @@ public final class MessageDialog {
      *                Message
      * @param view
      *                view
+     * @param latch
+     *                CountDownLatch
      */
-    public static void showMessageDialog(final Stage owner, final Message message, final View view, final CountDownLatch latch) {
+    public static void showMessageDialog(final Stage owner, final Message message, final View view,
+            final CountDownLatch latch) {
         final Stage s = new Stage();
         s.initOwner(owner);
         s.initModality(Modality.APPLICATION_MODAL);
@@ -50,7 +53,8 @@ public final class MessageDialog {
         root.setCenter(label);
         root.setBottom(closeButton);
         BorderPane.setMargin(closeButton, new Insets(MARGIN));
-        BorderPane.setAlignment(closeButton, Pos.BOTTOM_RIGHT);
+        BorderPane.setMargin(label, new Insets(MARGIN));
+        BorderPane.setAlignment(closeButton, Pos.BOTTOM_CENTER);
 
         final Scene scene = new Scene(root);
         s.setScene(scene);

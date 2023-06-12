@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import globaloutbreak.EndCauses;
+import globaloutbreak.model.endcauses.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
@@ -76,6 +76,11 @@ public final class ModelImpl implements Model {
 
     @Override
     public void addNewsListener(final PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void addCatastropheListener(final PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
@@ -225,7 +230,7 @@ public final class ModelImpl implements Model {
             if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
                 this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
             }
-            return this.endCause.isPresent() ? true : false;
+            return this.endCause.isPresent();
         }
         logger.info("No Cure setted, closing game");
         return true;

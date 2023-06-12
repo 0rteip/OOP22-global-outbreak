@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sun.prism.paint.Color;
 
 /**
@@ -62,6 +65,7 @@ public final class MapController extends AbstractSceneController implements Scen
     @FXML
     private BorderPane borderPane;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private int count;
     private int color;
     private ImageView airportsMap;
@@ -108,9 +112,9 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         } else {
-            if(newColor != Color.WHITE.getIntArgbPre()) {
+            if (newColor != Color.WHITE.getIntArgbPre()) {
                 this.getView().selectRegion(Optional.of(newColor));
-                this.getView().startStop();
+                this.startStopGame();
                 mapLab.setGraphic(selectedState(newColor));
                 start = true;
             }
@@ -155,6 +159,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void openSettings(final MouseEvent e) {
+        this.stopGame();
         this.getSceneManager().openSettings();
     }
 
@@ -166,7 +171,8 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void goToGeneralGraph(final MouseEvent e) {
-        this.getSceneManager().openWorldGraphScene();
+        this.stopGame();
+        this.getSceneManager().openWorldGraph();
     }
 
     /**
@@ -177,7 +183,8 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void goToMutation(final MouseEvent e) {
-        this.getSceneManager().openMutationScene();
+        this.stopGame();
+        this.getSceneManager().openMutation();
     }
 
     /**
@@ -188,8 +195,7 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @FXML
     public void startStop(final MouseEvent e) {
-        this.getView().startStop();
-        this.setPlayPauseButtonText();
+        this.startStopGame();
     }
 
     private ImageView getImage(final String path) {
@@ -283,7 +289,6 @@ public final class MapController extends AbstractSceneController implements Scen
      */
     @Override
     public void initializeScene() {
-        this.setPlayPauseButtonText();
         if (count == 0) {
             color = Color.WHITE.getIntArgbPre();
             this.airportPaths = "configView/aereo2.png";
@@ -330,6 +335,7 @@ public final class MapController extends AbstractSceneController implements Scen
                 }
             }
         });
+        this.setPlayPauseButtonText();
     }
 
     @Override
@@ -340,5 +346,28 @@ public final class MapController extends AbstractSceneController implements Scen
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    private void stopGame() {
+        if (this.getView().isGameRunning()) {
+            this.startStopGame();
+        }
+    }
+
+    private void startStopGame() {
+        final boolean status = this.getView().isGameRunning();
+        this.getView().startStop();
+        this.waitForGameToBe(!status);
+    }
+
+    private void waitForGameToBe(final boolean state) {
+        while (this.getView().isGameRunning() != state) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                this.logger.warn("Error while waiting for Game to start", e);
+            }
+        }
+        this.setPlayPauseButtonText();
     }
 }

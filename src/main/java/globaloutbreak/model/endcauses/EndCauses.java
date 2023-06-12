@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.model.endcauses;
 
 /**
  * Cases for ending the game.
@@ -17,7 +17,7 @@ public enum EndCauses {
      */
     NO_INFECTED("There are no more people infected, you lose..");
 
-    final String explanation;
+    private final String explanation;
 
     EndCauses(final String explanation) {
         this.explanation = explanation;

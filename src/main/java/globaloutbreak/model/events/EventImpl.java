@@ -11,6 +11,7 @@ public final class EventImpl implements Event {
     private final float percOfDeath;
     private final String name;
     private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+
     /**
      * Constractor.
      * 
@@ -44,7 +45,7 @@ public final class EventImpl implements Event {
     }
 
     @Override
-    public void initializeObserver(final PropertyChangeListener listener){
+    public void initializeObserver(final PropertyChangeListener listener) {
         this.infodataSupport.addPropertyChangeListener(listener);
     }
 }

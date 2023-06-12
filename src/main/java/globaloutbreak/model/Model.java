@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Optional;
 
-import globaloutbreak.EndCauses;
+import globaloutbreak.model.endcauses.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.Event;
@@ -118,6 +118,14 @@ public interface Model {
     void addNewsListener(PropertyChangeListener listener);
 
     /**
+     * Add a listener for the Catastrophe.
+     * 
+     * @param listener
+     *                 listener
+     */
+    void addCatastropheListener(PropertyChangeListener listener);
+
+    /**
      * 
      * @param regions
      *                regions
@@ -133,6 +141,8 @@ public interface Model {
 
     /**
      * Set voyages variable.
+     * 
+     * @param voyages
      */
     void setVoyages(Voyages voyages);
 
@@ -145,7 +155,7 @@ public interface Model {
     List<Voyage> getVoyages();
 
     /**
-     * Update {@link Model}
+     * Update {@link Model}.
      */
     void update();
 

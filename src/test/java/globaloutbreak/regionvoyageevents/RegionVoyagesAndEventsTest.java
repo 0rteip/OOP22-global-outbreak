@@ -32,18 +32,18 @@ final class RegionVoyagesAndEventsTest {
     private final VoyageController vC = new VoyageControllerImpl();
     private final EventController controller = new EventControllerImpl();
     private final List<Region> regions = contr.getRegions();
-    private long popTot = 0L;
+    private long popTot;
+
     @Test
     void testRegion() {
-        contr.getRegions().forEach( k -> popTot += k.getPopTot());
-        System.out.println(popTot);
+        contr.getRegions().forEach(k -> popTot += k.getPopTot());
         Region r = regions.get(0);
         r.incDeathPeople(r.getPopTot());
         assertEquals(r.getPopTot(), r.getNumDeath());
         assertEquals(RegionCureStatus.FINISHED, r.getCureStatus());
         r.getTrasmissionMeans().stream().forEach(k -> {
             assertEquals(MeansState.CLOSE, k.getState());
-            //System.out.println(k.getType());
+            // System.out.println(k.getType());
         });
         final int extra = 2000;
         r = regions.get(0);
@@ -65,7 +65,7 @@ final class RegionVoyagesAndEventsTest {
     @Test
     void testVoyages() {
         final Voyages means = vC.createVoyage();
-        //System.out.println(means.getMeans());
+        // System.out.println(means.getMeans());
         final Map<String, Float> pot = new HashMap<>();
         final float v = 0;
         final float a = (float) 0;
@@ -95,13 +95,15 @@ final class RegionVoyagesAndEventsTest {
     void eventTest() {
         final List<Event> events = controller.createEvents();
         final CauseEvent causeEvent = new CauseEventsImpl(events);
-        //System.out.println(events);
+        // System.out.println(events);
         Optional<ExtractedEvent> cat = causeEvent.causeEvent(regions);
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);
         }
-        /*System.out.println("Name " + cat.get().getX() + " Region " + cat.get().getY().getX().getName() 
-                + " Morti " + cat.get().getY().getY());
-        */
+        /*
+         * System.out.println("Name " + cat.get().getX() + " Region " +
+         * cat.get().getY().getX().getName()
+         * + " Morti " + cat.get().getY().getY());
+         */
     }
 }
