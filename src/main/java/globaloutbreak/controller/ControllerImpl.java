@@ -18,6 +18,7 @@ import globaloutbreak.controller.event.EventControllerImpl;
 import globaloutbreak.controller.mutation.MutationController;
 import globaloutbreak.controller.mutation.MutationControllerImpl;
 import globaloutbreak.controller.observer.CatastropheObserver;
+import globaloutbreak.controller.observer.CureObserver;
 import globaloutbreak.controller.observer.NewsObserver;
 import globaloutbreak.controller.region.RegionController;
 import globaloutbreak.controller.region.RegionControllerImpl;
@@ -75,8 +76,9 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final View view) {
         this.mutationController = new MutationControllerImpl();
         this.view = view;
-        this.model.addNewsListener(new NewsObserver(this));
-        this.model.addNewsListener(new CatastropheObserver(this));
+        this.model.addListener(new NewsObserver(this));
+        this.model.addListener(new CatastropheObserver(this));
+        this.model.addListener(new CureObserver(this));
         this.model.setRegions(regionController.getRegions());
         this.model.setVoyages(voyageController.createVoyage());
         this.model.setEvents(eventController.createEvents());
