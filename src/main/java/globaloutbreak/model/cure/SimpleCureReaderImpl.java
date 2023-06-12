@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import org.slf4j.Logger;
@@ -60,6 +62,16 @@ public final class SimpleCureReaderImpl implements SimpleCureReader {
                         break;
                     case "daysBeforeStartResearch":
                         cureBuilder.setDaysBeforeStartResearch(value.getValue().intValue());
+                        break;
+                    case "rilevantProgress":
+                        final JsonNode progs = value.getValue();
+                        if (progs.isArray()) {
+                            final Set<Integer> ints = new HashSet<>();
+                            for (final JsonNode numberNode : progs) {
+                                ints.add(numberNode.asInt());
+                            }
+                            cureBuilder.setRilevantProgress(ints);
+                        }
                         break;
                     default:
                         logger.warn("Value '{}' not recognized", value);

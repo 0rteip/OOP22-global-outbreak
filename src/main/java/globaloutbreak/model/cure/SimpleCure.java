@@ -2,10 +2,13 @@ package globaloutbreak.model.cure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -22,6 +25,7 @@ public final class SimpleCure implements Cure {
     private final Logger logger = LoggerFactory.getLogger(SimpleCure.class);
 
     private final Map<Region, Float> contributions;
+    private final Set<Integer> rilevantProgress;
     private final List<Priority> priorities;
     private final float researchersEfficiency;
     private final float dailyBudget;
@@ -32,11 +36,12 @@ public final class SimpleCure implements Cure {
     private int currentPriority;
     private boolean isStarted;
     private boolean isComplete;
+    private Consumer<Integer> action;
 
     private SimpleCure(final float dailyBudget, final int numberOfMajorContributors,
             final Map<Region, Float> contributions, final float researchersEfficiency, final List<Priority> priorities,
             final float necessaryBudget, final float researchBudget, final int currentPriority,
-            final int daysBeforeStartResearch) {
+            final int daysBeforeStartResearch, final Set<Integer> rilevantProgress) {
         this.dailyBudget = dailyBudget;
         this.numberOfMajorContributors = numberOfMajorContributors;
         this.contributions = contributions;
@@ -46,8 +51,14 @@ public final class SimpleCure implements Cure {
         this.researchBudget = researchBudget;
         this.currentPriority = currentPriority;
         this.daysBeforeStartResearch = daysBeforeStartResearch;
+        this.rilevantProgress = rilevantProgress;
         this.isStarted = false;
         this.isComplete = false;
+    }
+
+    @Override
+    public void addAction(final Consumer<Integer> action) {
+        this.action = action;
     }
 
     @Override
@@ -125,8 +136,20 @@ public final class SimpleCure implements Cure {
             }
         }
 
+        this.notifyIfNecessary();
+
         if (this.cureProgress() >= 100) {
             this.isComplete = true;
+        }
+    }
+
+    private void notifyIfNecessary() {
+        final Optional<Integer> min = this.rilevantProgress.stream()
+                .min(Integer::compareTo)
+                .filter(el -> el <= this.cureProgress());
+        if (min.isPresent()) {
+            action.accept(min.get());
+            this.rilevantProgress.remove(min.get());
         }
     }
 
@@ -253,6 +276,7 @@ public final class SimpleCure implements Cure {
         private static final float RESEARCH_BUDGET = 0;
         private static final int CURRENT_PRIORITY = 0;
         private static final int DAYS_BEFORE_START_RESEARCH = 10;
+        private static final Set<Integer> RILEVANT_PROGRESS = new HashSet<>();
 
         private float dailyBudget = DAILY_BUDGET;
         private int numberOfMajorContributors = NUMBER_OF_MAJOR_CONTRIBUTORS;
@@ -261,6 +285,7 @@ public final class SimpleCure implements Cure {
         private float researchBudget = RESEARCH_BUDGET;
         private int currentPriority = CURRENT_PRIORITY;
         private int daysBeforeStartResearch = DAYS_BEFORE_START_RESEARCH;
+        private Set<Integer> rilevantProgreass = RILEVANT_PROGRESS;
         private final List<Priority> priorities;
         private final Map<Region, Float> contributions = new HashMap<>();
         private boolean consumed;
@@ -347,6 +372,15 @@ public final class SimpleCure implements Cure {
         }
 
         /**
+         * @param rilevantProgreass progress percentage to notify status
+         * @return this builder, for method chaining
+         */
+        public Builder setRilevantProgress(final Set<Integer> rilevantProgreass) {
+            this.rilevantProgreass = new HashSet<>(rilevantProgreass);
+            return this;
+        }
+
+        /**
          * @return a SimpleCure
          */
         public final SimpleCure build() {
@@ -356,7 +390,8 @@ public final class SimpleCure implements Cure {
             consumed = true;
 
             return new SimpleCure(dailyBudget, numberOfMajorContributors, contributions, researchersEfficiency,
-                    priorities, necessaryBudget, researchBudget, currentPriority, daysBeforeStartResearch);
+                    priorities, necessaryBudget, researchBudget, currentPriority, daysBeforeStartResearch,
+                    rilevantProgreass);
         }
     }
 }

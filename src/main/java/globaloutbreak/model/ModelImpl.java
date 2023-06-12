@@ -75,12 +75,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void addNewsListener(final PropertyChangeListener listener) {
-        this.pcs.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void addCatastropheListener(final PropertyChangeListener listener) {
+    public void addListener(final PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
@@ -210,6 +205,21 @@ public final class ModelImpl implements Model {
     @Override
     public void setCure(final Cure cure) {
         this.cure = Optional.of(cure);
+        this.cure.get().addAction((value) -> {
+            final Message msg = new Message() {
+                @Override
+                public MessageType getType() {
+                    return MessageType.CURE;
+                }
+
+                @Override
+                public String toString() {
+                    return "Cure reach " + value + "%";
+                }
+            };
+            pcs.firePropertyChange(MessageType.CURE.getTitle(), message, msg);
+            message = Optional.of(msg);
+        });
     }
 
     @Override
@@ -277,31 +287,4 @@ public final class ModelImpl implements Model {
         this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
-
-    // private CureData emptyCureData() {
-    // return new CureData() {
-
-    // @Override
-    // public int getProgress() {
-    // return 0;
-    // }
-
-    // @Override
-    // public int getRemainingDays() {
-    // return -1;
-    // }
-
-    // @Override
-    // public List<Region> getMajorContributors() {
-    // return new ArrayList<>();
-    // }
-
-    // @Override
-    // public Priority gePriority() {
-    // CurePriority.Builder b = new CurePriority.Builder();
-    // return b.build();
-    // }
-
-    // };
-    // }
 }

@@ -1,5 +1,7 @@
 package globaloutbreak.model.cure;
 
+import java.util.function.Consumer;
+
 /**
  * Interface for a Cure.
  */
@@ -41,6 +43,14 @@ public interface Cure {
      *                     influence factor
      */
     void reduceResearchProgress(float changeFactor);
+
+    /**
+     * Action to perform if Cure reach rilevant progress.
+     * 
+     * @param action
+     *               action
+     */
+    void addAction(Consumer<Integer> action);
 
     /**
      * @return true if the Cure is consistent

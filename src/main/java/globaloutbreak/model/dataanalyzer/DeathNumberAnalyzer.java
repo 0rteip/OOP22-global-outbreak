@@ -23,11 +23,11 @@ import org.slf4j.LoggerFactory;
  */
 public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
 
-    private static String filePath = "diseases/deaths.csv";
+    private static final String FILE_PATH = "diseases/deaths.csv";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Optional<Map<String, Integer>> causeOfDeahs = Optional.empty();
-    private final BiConsumer<String, Integer> action;
+    private Optional<Map<String, Long>> causeOfDeahs = Optional.empty();
+    private final BiConsumer<String, Long> action;
 
     /**
      * Create an analyzer based on data from deaths.csv.
@@ -37,19 +37,19 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
      *               {@code analyze} method is the lowest, not yet used, number of
      *               death
      */
-    public DeathNumberAnalyzer(final BiConsumer<String, Integer> action) {
+    public DeathNumberAnalyzer(final BiConsumer<String, Long> action) {
         this.action = action;
-        readCsv(filePath);
+        this.readCsv();
     }
 
-    private void readCsv(final String confFile) {
+    private void readCsv() {
         try (var dataFile = new BufferedReader(
-                new InputStreamReader(ClassLoader.getSystemResourceAsStream(confFile), StandardCharsets.UTF_8))) {
+                new InputStreamReader(ClassLoader.getSystemResourceAsStream(FILE_PATH), StandardCharsets.UTF_8))) {
             final List<List<String>> l = dataFile.lines().map(line -> Arrays.asList(line.split(","))).toList();
-            final Map<String, Integer> cause = new HashMap<>();
+            final Map<String, Long> cause = new HashMap<>();
 
             IntStream.range(0, l.get(0).size())
-                    .forEach(i -> cause.put(l.get(0).get(i), Integer.parseInt(l.get(1).get(i))));
+                    .forEach(i -> cause.put(l.get(0).get(i), Long.parseLong(l.get(1).get(i))));
 
             this.causeOfDeahs = Optional.of(cause.entrySet().stream()
                     .collect(Collectors.toMap(
@@ -57,9 +57,9 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
                             Entry::getValue,
                             (oldV, newV) -> oldV, LinkedHashMap::new)));
         } catch (IOException e) {
-            this.logger.warn("Error trying to read {}", filePath, e);
+            this.logger.warn("Error trying to read {}", FILE_PATH, e);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            this.logger.warn("Configuration file {} is malformed", filePath, e);
+            this.logger.warn("Configuration file {} is malformed", FILE_PATH, e);
         }
     }
 
@@ -67,14 +67,14 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
     public void analyze(final Long data) {
         this.causeOfDeahs.ifPresent(e -> e.entrySet().stream()
                 .filter(el -> el.getValue() <= data)
-                .findFirst()
+                .min((e0, e1) -> Long.compare(e0.getValue(), e1.getValue()))
                 .ifPresent(el -> {
                     performAction(el, this.action);
                     this.causeOfDeahs.get().remove(el.getKey());
                 }));
     }
 
-    private void performAction(final Entry<String, Integer> entry, final BiConsumer<String, Integer> c) {
+    private void performAction(final Entry<String, Long> entry, final BiConsumer<String, Long> c) {
         c.accept(entry.getKey(), entry.getValue());
     }
 }

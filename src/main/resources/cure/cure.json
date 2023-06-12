@@ -2,5 +2,6 @@
     "dailyBudget":  1146.56,
     "numberOfMajorContributors": 3,
     "researchBudget": 0,
-    "currentPriority": 0
+    "currentPriority": 0,
+    "rilevantProgress": [1, 25, 50, 90, 95]
 }
