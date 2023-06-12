@@ -272,7 +272,7 @@ public final class ControllerImpl implements Controller {
             quit();
         }
 
-        void update() {
+        private void update() {
             model.update();
             if (model.isGameOver()) {
                 createAndDisplayMessage(model.getEndCause().get());
@@ -280,14 +280,11 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        void render() {
-            // System.out.println(model.getInfo().getTotalInfected());
+        private void render() {
             view.render();
-            // model.getVoyages().forEach(voyage -> view.displayVoyage(voyage));
-
         }
 
-        void remainingTime() {
+        private void remainingTime() {
             final long elapsedTime = System.currentTimeMillis() - this.startTime;
             final int timeUntilNextLoop = Math.round(settings.getGameSpeed().getDuration() * 1000 - elapsedTime);
             if (timeUntilNextLoop > 0) {
@@ -311,7 +308,7 @@ public final class ControllerImpl implements Controller {
             }
         }
 
-        boolean isRunning() {
+        public boolean isRunning() {
             this.lock.lock();
             try {
                 return this.isRunning;
