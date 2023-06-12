@@ -3,6 +3,7 @@ package globaloutbreak.view.scenemanager;
 import java.util.concurrent.CountDownLatch;
 
 import globaloutbreak.model.message.Message;
+import globaloutbreak.view.View;
 
 /**
  * Interface that manage the javaFX scenes.
@@ -63,4 +64,12 @@ public interface SceneManager {
      *                CountDownLatch
      */
     void openMessage(Message message, CountDownLatch latch);
+
+    /**
+     * Update World.
+     * 
+     * @param view
+     *             main View
+     */
+    void updateWorld(View view);
 }

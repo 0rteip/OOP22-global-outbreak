@@ -92,4 +92,9 @@ public final class SceneManagerImpl implements SceneManager {
     public void openMap() {
         this.openScene(SceneStyle.MAP);
     }
+
+    @Override
+    public void updateWorld(View view) {
+        this.sceneLoader.updateMap(view);
+    }
 }
