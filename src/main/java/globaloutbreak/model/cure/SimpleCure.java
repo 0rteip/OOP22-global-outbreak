@@ -36,7 +36,7 @@ public final class SimpleCure implements Cure {
     private int currentPriority;
     private boolean isStarted;
     private boolean isComplete;
-    private Consumer<Integer> action;
+    private Optional<Consumer<Integer>> action;
 
     private SimpleCure(final float dailyBudget, final int numberOfMajorContributors,
             final Map<Region, Float> contributions, final float researchersEfficiency, final List<Priority> priorities,
@@ -58,7 +58,7 @@ public final class SimpleCure implements Cure {
 
     @Override
     public void addAction(final Consumer<Integer> action) {
-        this.action = action;
+        this.action = Optional.of(action);
     }
 
     @Override
@@ -148,7 +148,7 @@ public final class SimpleCure implements Cure {
                 .min(Integer::compareTo)
                 .filter(el -> el <= this.cureProgress());
         if (min.isPresent()) {
-            action.accept(min.get());
+            action.ifPresent(a -> a.accept(min.get()));
             this.rilevantProgress.remove(min.get());
         }
     }
