@@ -375,7 +375,7 @@ public final class SimpleCure implements Cure {
          * @param rilevantProgreass progress percentage to notify status
          * @return this builder, for method chaining
          */
-        public Builder setDaysBeforeStartResearch(final Set<Integer> rilevantProgreass) {
+        public Builder setRilevantProgress(final Set<Integer> rilevantProgreass) {
             this.rilevantProgreass = rilevantProgreass;
             return this;
         }
