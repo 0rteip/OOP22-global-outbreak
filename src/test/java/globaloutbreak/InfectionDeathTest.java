@@ -39,7 +39,7 @@ class InfectionDeathTest {
         }
 
         @Override
-        public void incDeathPeople(final long calculateNewDeaths) {
+        public void incDeathPeople(final long calculateNewDeaths, final Boolean byEvent) {
             this.deaths += calculateNewDeaths;
         }
 

@@ -254,12 +254,13 @@ public final class ControllerImpl implements Controller {
                 this.update();
                 this.render();
                 this.remainingTime();
-
                 this.lock.lock();
+                System.out.println("bh");
                 try {
                     if (!this.isRunning) {
                         System.out.println("not Run");
                         try {
+                            System.out.println("lll");
                             this.condition.await();
                         } catch (InterruptedException e) {
                             logger.warn("Loop problem on await function: ", e);

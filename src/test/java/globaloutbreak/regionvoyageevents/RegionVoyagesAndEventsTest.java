@@ -38,7 +38,7 @@ final class RegionVoyagesAndEventsTest {
     void testRegion() {
         contr.getRegions().forEach(k -> popTot += k.getPopTot());
         Region r = regions.get(0);
-        r.incDeathPeople(r.getPopTot());
+        r.incDeathPeople(r.getPopTot(), false);
         assertEquals(r.getPopTot(), r.getNumDeath());
         assertEquals(RegionCureStatus.FINISHED, r.getCureStatus());
         r.getTrasmissionMeans().stream().forEach(k -> {
@@ -47,7 +47,7 @@ final class RegionVoyagesAndEventsTest {
         });
         final int extra = 2000;
         r = regions.get(0);
-        r.incDeathPeople(r.getPopTot() + extra);
+        r.incDeathPeople(r.getPopTot() + extra, false);
         assertEquals(r.getPopTot(), r.getNumDeath());
         assertEquals(RegionCureStatus.FINISHED, r.getCureStatus());
         r.getTrasmissionMeans().stream().forEach(k -> {
@@ -86,7 +86,7 @@ final class RegionVoyagesAndEventsTest {
             i.getTrasmissionMeans().forEach(t -> {
                 assertTrue(means.getMeans().contains(t.getType()));
             });
-            i.incDeathPeople(i.getPopTot());
+            i.incDeathPeople(i.getPopTot(), false);
         });
         means.extractMeans(regions, pot);
     }
@@ -96,6 +96,7 @@ final class RegionVoyagesAndEventsTest {
         final List<Event> events = controller.createEvents();
         final CauseEvent causeEvent = new CauseEventsImpl(events);
         // System.out.println(events);
+        events.forEach(k -> System.out.println(k.getName() + " " + k.getProbOfHapp()));
         Optional<ExtractedEvent> cat = causeEvent.causeEvent(regions);
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);

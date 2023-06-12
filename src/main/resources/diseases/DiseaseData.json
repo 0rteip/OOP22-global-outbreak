@@ -1,8 +1,8 @@
 [
     {
         "type": "Batteri",
-        "lethality": 0.01,
-        "infectivity": 0.01,
+        "lethality": 0.04,
+        "infectivity": 1.00,
         "airInfectivity": 0.01,
         "seaInfectivity": 0.01,
         "landInfectivity": 0.01,

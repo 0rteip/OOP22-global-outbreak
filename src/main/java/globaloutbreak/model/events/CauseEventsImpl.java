@@ -24,8 +24,11 @@ public final class CauseEventsImpl implements CauseEvent {
     @Override
     public Optional<ExtractedEvent> causeEvent(final List<Region> regions) {
         if (!regions.isEmpty()) {
-            final Event event = events.get(RANDOM.nextInt(0, events.size() - 1));
-            if (RANDOM.nextInt(0, 100) <= event.getProbOfHapp()) {
+            
+            final Event event = events.get(RANDOM.nextInt(0, events.size()));
+            float prob = event.getProbOfHapp();
+            float num = RANDOM.nextFloat(0, 1);
+            if (num <= prob) {
                 final Region r = regions.get(RANDOM.nextInt(0, regions.size() - 1));
                 return Optional.of(new ExtractedEventImpl(r.getColor(), event.getName(), event.calcDeath(r.getPopTot())));
             }

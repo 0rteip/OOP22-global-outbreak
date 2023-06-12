@@ -166,20 +166,19 @@ public final class ModelImpl implements Model {
                 .findFirst();
     }
 
-    private void incOrDecInfectedPeople(final int newinfected, final Region region) {
+    private void incOrDecInfectedPeople(final long newinfected, final Region region) {
         region.incOrDecInfectedPeople(newinfected);
     }
 
     private void causeEvent() {
         final Optional<ExtractedEvent> event = this.causeEvents.causeEvent(this.getRegions()
                 .stream()
-                .filter(k -> k.getCureStatus() != RegionCureStatus.FINISHED)
+                .filter(k -> !k.getCureStatus().equals(RegionCureStatus.FINISHED))
                 .toList());
         if (event.isPresent()) {
-            System.out.println("eventoooo");
             final ExtractedEvent exEvent = event.get();
             final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
-            exRegion.incDeathPeople(exEvent.getDeath());
+            exRegion.incDeathPeople(exEvent.getDeath(), true);
             final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
@@ -267,23 +266,15 @@ public final class ModelImpl implements Model {
 
     @Override
     public void update() {
-        System.out.println("update");
-        List<String> region = new LinkedList<>();
-        this.disease.infectRegions(this.regions);
-        this.disease.killPeopleRegions(this.regions);
-        /*regions.forEach(k -> {
-            if(k.getCureStatus().equals(RegionCureStatus.FINISHED) && !region.contains(k.getName())) {
-                region.add(k.getName());
-                System.out.println("Regioni " + region);
-            }
-        });*/
-        this.extractVoyages();
-        this.causeEvent();
         this.infoData.updateTotalDeathsAndInfected(this.regions);
-        /*this.deathAnalyzer.analyze(this.regions.stream()
+        this.extractVoyages();
+        this.disease.killPeopleRegions(this.regions);
+        this.disease.infectRegions(this.regions);
+        this.causeEvent();
+        this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
-                .reduce(0L, (e0, e1) -> e0 + e1));*/
-        //this.cure.get().research();
+                .reduce(0L, (e0, e1) -> e0 + e1));
+        this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 

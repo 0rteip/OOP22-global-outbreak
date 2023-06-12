@@ -4,10 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
 import java.util.random.RandomGenerator;
-
 import org.slf4j.LoggerFactory;
-
-import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.region.Region;
 import org.slf4j.Logger;
 
@@ -203,8 +200,8 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                 regionList.stream()
                         .filter(region -> region.getNumInfected() > 0)
                         .forEach(region -> {
-                            region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
-                            region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
+                            region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()), false);
+                            //region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
                         });
             }
 
@@ -245,7 +242,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                 if (this.checkIfPositive(population, "population")
                         && this.checkIfPositive(currentInfected, "currentInfected")
                         && this.checkIfPositive(urban, "urban") && this.checkIfPositive(poor, "poor")) {
-                    return (long) Math.round(population * ((float) currentInfected / population)
+                    return  Math.round(population * ((float) currentInfected / population)
                             * this.calculateInfectivity(urban, hot, cold, humid, arid, poor)
                             + RandomGenerator.getDefault().nextInt(MIN_VALUE, MAX_VALUE));
                 }

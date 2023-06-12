@@ -28,5 +28,5 @@ public interface Voyage {
      * @return
      *          new infected
      */
-    int getInfected();
+    long getInfected();
 }

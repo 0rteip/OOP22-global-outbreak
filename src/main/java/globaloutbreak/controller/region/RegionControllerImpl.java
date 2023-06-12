@@ -42,7 +42,7 @@ public final class RegionControllerImpl implements RegionController {
                 List<String> reachableState;
                 final Map<String, Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
                 int color = 0;
-                Integer facilities = 0;
+                int facilities = 0;
                 final Iterator<Entry<String, JsonNode>> iterator = k.fields();
                 while (iterator.hasNext()) {
                     final Entry<String, JsonNode> e = iterator.next();

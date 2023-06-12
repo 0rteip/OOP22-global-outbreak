@@ -72,6 +72,7 @@ public final class MapController extends AbstractSceneController implements Scen
     private ImageView portsMap;
     private ImageView sfondo;
     private ImageView buf;
+    private ImageView effectifeImage;
     private String airportPaths;
     private String portPath;
     private Map<String, Map<Pair<Integer, Integer>, Label>> meansPos = new HashMap<>();
@@ -103,10 +104,12 @@ public final class MapController extends AbstractSceneController implements Scen
             if (!newColor.equals(Color.BLACK.getIntArgbPre())) {
                 if (newColor.equals(Color.WHITE.getIntArgbPre())) {
                     this.color = Color.WHITE.getIntArgbPre();
-                    mapLab.setGraphic(sfondo);
+                    effectifeImage = sfondo;
+                    mapLab.setGraphic(effectifeImage);
                     this.getView().selectRegion(Optional.empty());
                 } else if (!newColor.equals(color)) {
-                    mapLab.setGraphic(selectedState(newColor));
+                    selectedState(newColor);
+                    mapLab.setGraphic(effectifeImage);
                     this.color = newColor;
                     this.getView().selectRegion(Optional.of(newColor));
                 }
@@ -115,7 +118,8 @@ public final class MapController extends AbstractSceneController implements Scen
             if (newColor != Color.WHITE.getIntArgbPre()) {
                 this.getView().selectRegion(Optional.of(newColor));
                 this.startStopGame();
-                mapLab.setGraphic(selectedState(newColor));
+                selectedState(newColor);
+                mapLab.setGraphic(effectifeImage);
                 start = true;
             }
         }
@@ -134,7 +138,7 @@ public final class MapController extends AbstractSceneController implements Scen
         });
     }
 
-    private ImageView selectedState(final int color) {
+    private void selectedState(final int color) {
         final WritableImage sfonW = new WritableImage(sfondo.getImage().getPixelReader(),
                 (int) Math.floor(sfondo.getImage().getWidth()),
                 (int) Math.floor(sfondo.getImage().getHeight()));
@@ -148,7 +152,7 @@ public final class MapController extends AbstractSceneController implements Scen
         }
         final ImageView i = new ImageView(sfonW);
         resize(i, (int) Math.floor(sfondo.getFitWidth()), (int) Math.floor(sfondo.getFitHeight()));
-        return i;
+        effectifeImage = i;
     }
 
     /**
@@ -297,6 +301,7 @@ public final class MapController extends AbstractSceneController implements Scen
             this.portsMap = getImage("configView/ports.png");
             this.buf = getImage("configView/checkRegion.png");
             this.sfondo = getImage("configView/sfon.png");
+            this.effectifeImage = sfondo;
             visibleMeans = new LinkedList<>();
             visibleMeans.add("porti");
             visibleMeans.add("areoporti");
@@ -316,7 +321,8 @@ public final class MapController extends AbstractSceneController implements Scen
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
                     resize(buf, width, height);
-                    mapLab.setGraphic(sfondo);
+                    resize(effectifeImage, width, height);
+                    mapLab.setGraphic(effectifeImage);
                 }
             }
         });
@@ -331,7 +337,7 @@ public final class MapController extends AbstractSceneController implements Scen
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
                     resize(buf, width, height);
-                    mapLab.setGraphic(sfondo);
+                    mapLab.setGraphic(effectifeImage);
                 }
             }
         });

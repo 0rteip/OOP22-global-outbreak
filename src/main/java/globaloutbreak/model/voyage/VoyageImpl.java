@@ -7,7 +7,7 @@ public final class VoyageImpl implements Voyage {
     private final String type;
     private final int part;
     private final int dest;
-    private final int infected;
+    private final long infected;
 
     /**
      * 
@@ -21,7 +21,7 @@ public final class VoyageImpl implements Voyage {
      *                 new infect
      */
     public VoyageImpl(final String type, final int part,
-            final int dest, final int infected) {
+            final int dest, final long infected) {
         this.type = type;
         this.part = part;
         this.dest = dest;
@@ -44,7 +44,7 @@ public final class VoyageImpl implements Voyage {
     }
 
     @Override
-    public int getInfected() {
+    public long getInfected() {
         return this.infected;
     }
 

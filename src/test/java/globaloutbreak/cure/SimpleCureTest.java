@@ -188,7 +188,7 @@ final class SimpleCureTest {
                 }
 
                 @Override
-                public void incDeathPeople(final long dead) {
+                public void incDeathPeople(final long dead, final Boolean byEvent) {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
                 }
@@ -251,6 +251,12 @@ final class SimpleCureTest {
                 public void initializeObserver(final PropertyChangeListener listener) {
                     logger.warn(logString);
                     throw new UnsupportedOperationException(errString);
+                }
+
+                @Override
+                public long getDeathByVirus() {
+                    
+                    throw new UnsupportedOperationException("Unimplemented method 'getDeathByVirus'");
                 }
 
             };

@@ -3,11 +3,6 @@ package globaloutbreak.model.voyage;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import globaloutbreak.model.cure.RegionCureStatus;
 import globaloutbreak.model.pair.Pair;
 import globaloutbreak.model.region.MeansState;
 import globaloutbreak.model.region.Region;
@@ -17,10 +12,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * 
+ * Implement. of Vogyages.
  */
 public final class VoyagesImpl implements Voyages {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Map<String, Pair<Integer, Integer>> sizeAndNameOfMeans;
     private final Random rand = new Random();
 
@@ -48,7 +42,6 @@ public final class VoyagesImpl implements Voyages {
                                 .stream()
                                 .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                         final float prob = part.calcPercInfected() + pot.get(means);
-                        logger.info("prob " + prob + " infected " + numInfected(prob, size.getY()));
                         final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(),
                                 partDest.getY().getColor(),
                                 numInfected(prob, size.getY()));
@@ -105,10 +98,10 @@ public final class VoyagesImpl implements Voyages {
         return open > 0;
     }
 
-    private Integer numInfected(final float prob, final Integer size) {
-        final int prod = Math.round(size * prob);
+    private long numInfected(final float prob, final int size) {
+        final long prod = Math.round(size * prob);
         if (prod > size) {
-            logger.warn("too many seatsI'll fill the plane");
+            //logger.warn("too many seatsI'll fill the plane");
             return size;
         } else if (rand.nextInt(0, 100) >= (prob * 100)) {
             return prod;

@@ -19,6 +19,7 @@ public final class RegionImpl implements Region {
     private long numInfected;
     private long numDeath;
     // private final int numCared;
+    private long deathByEvents;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final long popTot;
     private final String name;
@@ -66,6 +67,7 @@ public final class RegionImpl implements Region {
         this.color = color;
         this.facilities = facilities;
         this.climate = new ClimateImpl(humid, hot);
+        this.deathByEvents = 0;
         createMeans(reachableRegion);
         // this.statusCure = State.NEUTRO;
     }
@@ -85,15 +87,12 @@ public final class RegionImpl implements Region {
     }
 
     @Override
-    public void incDeathPeople(final long death) {
+    public void incDeathPeople(final long death, final Boolean byEvent) {
         if ((this.numInfected - death) <= 0) {
-                this.numInfected = 0;
-                logger.warn("I can't remove this infect");
-            } else {
-                this.numInfected -= death;
-            }
-        if(death == 0) {
-            System.out.println(name + " morti " + death);
+            this.numInfected = 0;
+            logger.warn("I can't remove this infect");
+        } else {
+            this.numInfected -= death;
         }
         if (this.numDeath < popTot) {
             if (this.numDeath + death >= popTot) {
@@ -110,7 +109,10 @@ public final class RegionImpl implements Region {
                 this.numDeath += death;
             }
         } else {
-            logger.warn("The state is Finished");
+            logger.info("The state" + name + "is Finished");
+        }
+        if(byEvent) {
+            this.deathByEvents += death;
         }
     }
 
@@ -133,13 +135,6 @@ public final class RegionImpl implements Region {
                 } 
             } else {
                 logger.warn("State is already infected or RegionState is Finished");
-            }
-        } else {
-            if ((this.numInfected + infected) <= 0) {
-                this.numInfected = 0;
-                logger.warn("I can't remove this infect");
-            } else {
-                this.numInfected += infected;
             }
         }
     }
@@ -187,7 +182,10 @@ public final class RegionImpl implements Region {
     public float getPoor() {
         return poor;
     }
-
+    @Override 
+    public long getDeathByVirus() {
+        return this.numDeath - this.deathByEvents;
+    }
     @Override
     public int getFacilities() {
         return facilities;
