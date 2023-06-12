@@ -178,7 +178,7 @@ public final class ModelImpl implements Model {
             final Message msg = new Message() {
                 @Override
                 public MessageType getType() {
-                    return MessageType.NEWS;
+                    return MessageType.CATASTROPHE;
                 }
 
                 @Override
@@ -273,12 +273,12 @@ public final class ModelImpl implements Model {
             }
         });*/
         this.extractVoyages();
-        //this.causeEvent();
+        this.causeEvent();
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         /*this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));*/
-        this.cure.get().research();
+        //this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 

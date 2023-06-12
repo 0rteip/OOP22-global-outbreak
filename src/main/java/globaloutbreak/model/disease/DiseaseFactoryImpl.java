@@ -205,7 +205,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                         .filter(region -> region.getNumInfected() > 0)
                         .forEach(region -> {
                             region.incDeathPeople(this.calculateNewDeaths(region.getNumInfected()));
-                            //region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
+                            region.incOrDecInfectedPeople(-this.calculateNewDeaths(region.getNumInfected()));
                         });
             }
 

@@ -135,7 +135,12 @@ public final class RegionImpl implements Region {
                 logger.warn("State is already infected or RegionState is Finished");
             }
         } else {
-            
+            if ((this.numInfected + infected) <= 0) {
+                this.numInfected = 0;
+                logger.warn("I can't remove this infect");
+            } else {
+                this.numInfected += infected;
+            }
         }
     }
 
