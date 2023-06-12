@@ -94,7 +94,7 @@ public final class SceneManagerImpl implements SceneManager {
     }
 
     @Override
-    public void updateWorld(View view) {
+    public void updateWorld(final View view) {
         this.sceneLoader.updateMap(view);
     }
 }

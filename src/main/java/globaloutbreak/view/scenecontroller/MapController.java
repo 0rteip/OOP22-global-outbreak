@@ -341,7 +341,7 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     @Override
-    public void setText(Map<TypeOfInfo, String> infoSingleRegion) {
+    public void setText(final Map<TypeOfInfo, String> infoSingleRegion) {
         this.setTextFilds(infoSingleRegion);
     }
 
