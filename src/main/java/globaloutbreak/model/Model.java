@@ -61,16 +61,6 @@ public interface Model {
     void selectedRegion(Optional<Region> region);
 
     /**
-     * Pass the selected mutation.
-     * 
-     * @param mutation
-     *                 mutation selected
-     * @return
-     *         {@code True} if is active, {@code False} otherwise
-     */
-    boolean selectedMutation(String mutation);
-
-    /**
      * List of all the possible Regions.
      * 
      * @return

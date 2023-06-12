@@ -98,12 +98,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public boolean selectedMutation(final String mutation) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
-    }
-
-    @Override
     public void setDisease(final Disease disease) {
         this.disease = disease;
     }
