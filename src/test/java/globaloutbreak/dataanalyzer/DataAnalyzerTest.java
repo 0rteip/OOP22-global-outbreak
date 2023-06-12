@@ -33,29 +33,29 @@ class DataAnalyzerTest {
     @Test
     void testOrderedDeathValues() {
         logger.info("Starting testOrderedDeathValues()");
-        final List<Integer> numberOfDeaths = new LinkedList<>(this.getOrderedNumberOfDeaths());
-        final List<Integer> results = new LinkedList<>();
-        final DataAnalyzer<Long> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Integer>() {
+        final List<Long> numberOfDeaths = new LinkedList<>(this.getOrderedNumberOfDeaths());
+        final List<Long> results = new LinkedList<>();
+        final DataAnalyzer<Long> analyzer = new DeathNumberAnalyzer(new BiConsumer<String, Long>() {
             @Override
-            public void accept(final String key, final Integer value) {
+            public void accept(final String key, final Long value) {
                 results.add(value);
             }
         });
         numberOfDeaths.stream()
                 .sorted()
-                .forEach(deaths -> analyzer.analyze(Long.valueOf(deaths)));
+                .forEach(deaths -> analyzer.analyze(deaths));
         assertIterableEquals(numberOfDeaths, results, "Death values are not returned in order");
         logger.info("testOrderedDeathValues() gone well");
     }
 
-    private List<Integer> getOrderedNumberOfDeaths() {
+    private List<Long> getOrderedNumberOfDeaths() {
         try (var dataFile = new BufferedReader(
                 new InputStreamReader(ClassLoader.getSystemResourceAsStream(filePath), StandardCharsets.UTF_8))) {
             return dataFile.lines()
                     .skip(1)
                     .map(line -> Arrays.asList(line.split(",")))
                     .flatMap(el -> el.stream()
-                            .map(Integer::parseInt))
+                            .map(Long::parseLong))
                     .sorted()
                     .toList();
         } catch (IOException e) {
