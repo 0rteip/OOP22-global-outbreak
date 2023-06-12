@@ -3,6 +3,7 @@ package globaloutbreak.model.cure.observer;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.cure.Cure;
 
 /**
@@ -19,6 +20,12 @@ public final class DiseaseObserver implements PropertyChangeListener {
      * @param cure
      *             notified
      */
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "We need to use the correct instance of the Cure"
+    )
+    // @formatter:on
     public DiseaseObserver(final Cure cure) {
         this.cure = cure;
     }

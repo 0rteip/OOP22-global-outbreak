@@ -57,7 +57,7 @@ public final class SimpleCure implements Cure {
     }
 
     @Override
-    public void addAction(Consumer<Integer> action) {
+    public void addAction(final Consumer<Integer> action) {
         this.action = action;
     }
 
@@ -146,10 +146,10 @@ public final class SimpleCure implements Cure {
     private void notifyIfNecessary() {
         final Optional<Integer> min = this.rilevantProgress.stream()
                 .min(Integer::compareTo)
-                .filter(el -> el >= this.cureProgress());
-
+                .filter(el -> el <= this.cureProgress());
         if (min.isPresent()) {
             action.accept(min.get());
+            this.rilevantProgress.remove(min.get());
         }
     }
 
@@ -376,7 +376,7 @@ public final class SimpleCure implements Cure {
          * @return this builder, for method chaining
          */
         public Builder setRilevantProgress(final Set<Integer> rilevantProgreass) {
-            this.rilevantProgreass = rilevantProgreass;
+            this.rilevantProgreass = new HashSet<>(rilevantProgreass);
             return this;
         }
 

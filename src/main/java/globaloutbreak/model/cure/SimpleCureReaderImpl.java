@@ -67,7 +67,7 @@ public final class SimpleCureReaderImpl implements SimpleCureReader {
                         final JsonNode progs = value.getValue();
                         if (progs.isArray()) {
                             final Set<Integer> ints = new HashSet<>();
-                            for (JsonNode numberNode : progs) {
+                            for (final JsonNode numberNode : progs) {
                                 ints.add(numberNode.asInt());
                             }
                             cureBuilder.setRilevantProgress(ints);
