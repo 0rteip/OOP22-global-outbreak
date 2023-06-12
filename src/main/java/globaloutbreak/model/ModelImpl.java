@@ -49,7 +49,7 @@ public final class ModelImpl implements Model {
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
-    private final static long INITIAL_INC = 1;
+    private static final long INITIAL_INC = 1;
     private boolean isDiseaseSpreading;
     private Optional<EndCauses> endCause = Optional.empty();
 

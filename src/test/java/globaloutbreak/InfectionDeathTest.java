@@ -146,6 +146,13 @@ class InfectionDeathTest {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'initializeObserver'");
         }
+
+        @Override
+        public long getDeathByVirus() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getDeathByVirus'");
+        }
+
     };
 
     /**

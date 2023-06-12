@@ -93,7 +93,7 @@ public final class VoyagesImpl implements Voyages {
     }
 
     private boolean checkIfMeansAreOpen(final List<TransmissionMean> list, final String means) {
-        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN) )
+        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN))
                 .count();
         return open > 0;
     }
@@ -101,7 +101,7 @@ public final class VoyagesImpl implements Voyages {
     private long numInfected(final float prob, final int size) {
         final long prod = Math.round(size * prob);
         if (prod > size) {
-            //logger.warn("too many seatsI'll fill the plane");
+            // logger.warn("too many seatsI'll fill the plane");
             return size;
         } else if (rand.nextInt(0, 100) >= (prob * 100)) {
             return prod;

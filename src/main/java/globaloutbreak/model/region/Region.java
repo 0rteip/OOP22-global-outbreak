@@ -15,14 +15,18 @@ public interface Region {
      * 
      * @param dead the number of new death people.
      * 
+     * @param byEvent event
+     * 
      */
     void incDeathPeople(long dead, Boolean byEvent);
+
     /**
      * 
      * @return
-     *          the death people by the Virus
+     *         the death people by the Virus
      */
     long getDeathByVirus();
+
     /**
      * This method increase(or decrease) the number of infected people.
      * 
