@@ -67,7 +67,7 @@ public final class DeathNumberAnalyzer implements DataAnalyzer<Long> {
     public void analyze(final Long data) {
         this.causeOfDeahs.ifPresent(e -> e.entrySet().stream()
                 .filter(el -> el.getValue() <= data)
-                .findFirst()
+                .min((e0, e1) -> Long.compare(e0.getValue(), e1.getValue()))
                 .ifPresent(el -> {
                     performAction(el, this.action);
                     this.causeOfDeahs.get().remove(el.getKey());
