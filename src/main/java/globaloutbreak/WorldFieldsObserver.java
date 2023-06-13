@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import globaloutbreak.controller.TypeOfInfo;
+import globaloutbreak.controller.region.TypeOfInfo;
 
 /**
  * WorldFields observer.

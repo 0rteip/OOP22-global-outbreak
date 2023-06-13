@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.Controller;
-import globaloutbreak.controller.TypeOfInfo;
+import globaloutbreak.controller.region.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.voyage.Voyage;

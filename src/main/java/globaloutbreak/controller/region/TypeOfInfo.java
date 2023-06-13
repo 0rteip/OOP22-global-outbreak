@@ -1,4 +1,4 @@
-package globaloutbreak.controller;
+package globaloutbreak.controller.region;
 /**
  * Enum.
  */

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import globaloutbreak.controller.Controller;
-import globaloutbreak.controller.TypeOfInfo;
+import globaloutbreak.controller.region.TypeOfInfo;
 import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.model.disease.DiseaseData;

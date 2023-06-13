@@ -22,6 +22,7 @@ import globaloutbreak.controller.observer.CureObserver;
 import globaloutbreak.controller.observer.NewsObserver;
 import globaloutbreak.controller.region.RegionController;
 import globaloutbreak.controller.region.RegionControllerImpl;
+import globaloutbreak.controller.region.TypeOfInfo;
 import globaloutbreak.controller.voyage.VoyageController;
 import globaloutbreak.controller.voyage.VoyageControllerImpl;
 import globaloutbreak.diseasereader.DiseaseReader;
