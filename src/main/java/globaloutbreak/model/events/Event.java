@@ -1,20 +1,9 @@
 package globaloutbreak.model.events;
 
-import java.beans.PropertyChangeListener;
-
 /**
  * The interface of Event.
  */
 public interface Event {
-
-    /**
-     * 
-     * @param popTot
-     *               total population
-     * @return
-     *         the number of death
-     */
-    long calcDeath(long popTot);
 
     /**
      * 
@@ -31,10 +20,9 @@ public interface Event {
     String getName();
 
     /**
-     * Add the property change listener for infoData.
      * 
-     * @param listener
-     *                 PropertyChangeListener
+     * @return
+     *         percentage of death
      */
-    void initializeObserver(PropertyChangeListener listener);
+    float getPercOfDeath();
 }

@@ -1,8 +1,5 @@
 package globaloutbreak.model.events;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 /**
  * Implement. of EventInt.
  */
@@ -10,7 +7,6 @@ public final class EventImpl implements Event {
     private final float probOfHapp;
     private final float percOfDeath;
     private final String name;
-    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * Constractor.
@@ -29,12 +25,6 @@ public final class EventImpl implements Event {
     }
 
     @Override
-    public long calcDeath(final long popTot) {
-        infodataSupport.firePropertyChange("eventdeath", 0, (int) Math.floor(popTot * percOfDeath));
-        return (long) Math.floor(popTot * percOfDeath);
-    }
-
-    @Override
     public float getProbOfHapp() {
         return this.probOfHapp;
     }
@@ -43,9 +33,9 @@ public final class EventImpl implements Event {
     public String getName() {
         return name;
     }
-
     @Override
-    public void initializeObserver(final PropertyChangeListener listener) {
-        this.infodataSupport.addPropertyChangeListener(listener);
+    public float getPercOfDeath() {
+        return percOfDeath;
     }
+
 }

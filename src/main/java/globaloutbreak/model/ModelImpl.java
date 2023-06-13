@@ -49,7 +49,7 @@ public final class ModelImpl implements Model {
     private Optional<Message> message = Optional.empty();
     private CauseEvent causeEvents;
     private InfoData infoData;
-    private final static long INITIAL_INC = 1;
+    private static final long INITIAL_INC = 1;
     private boolean isDiseaseSpreading;
     private Optional<EndCauses> endCause = Optional.empty();
 
@@ -271,16 +271,16 @@ public final class ModelImpl implements Model {
 
     @Override
     public List<Voyage> getVoyages() {
-        return this.voyages;
+        return new LinkedList<>(this.voyages);
     }
 
     @Override
     public void update() {
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.extractVoyages();
+        this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.disease.infectRegions(this.regions);
-        this.causeEvent();
         this.deathAnalyzer.analyze(this.regions.stream()
                 .map(el -> Long.valueOf(el.getNumDeath()))
                 .reduce(0L, (e0, e1) -> e0 + e1));

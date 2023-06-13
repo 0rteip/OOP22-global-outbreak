@@ -99,20 +99,22 @@ public final class RegionImpl implements Region {
                 if (this.numDeath + death > popTot) {
                     logger.warn("Too many death but I add those possible");
                 }
+                if (byEvent) {
+                    this.deathByEvents += this.popTot - this.numDeath;
+                }
                 this.numDeath = this.popTot;
-                System.out.println(name);
                 this.status = RegionCureStatus.FINISHED;
                 this.getTrasmissionMeans().stream().forEach(k -> {
                     k.setState(MeansState.CLOSE);
                 });
             } else {
+                if (byEvent) {
+                    this.deathByEvents += death;
+                }
                 this.numDeath += death;
             }
         } else {
             logger.info("The state" + name + "is Finished");
-        }
-        if(byEvent) {
-            this.deathByEvents += death;
         }
     }
 
@@ -120,19 +122,19 @@ public final class RegionImpl implements Region {
     public void incOrDecInfectedPeople(final long infected) {
         if (infected > 0) {
             if (!this.status.equals(RegionCureStatus.FINISHED)) {
-                if((this.numInfected+this.numDeath) < popTot) {
+                if ((this.numInfected + this.numDeath) < popTot) {
                     final long sum = this.numInfected + infected + this.numDeath;
                     if (sum >= this.popTot) {
                         if (sum > this.popTot) {
                             logger.warn("Too many infected but I add those possible");
                         }
                         infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                        this.numInfected += popTot - (this.numInfected+this.numDeath);
+                        this.numInfected += popTot - (this.numInfected + this.numDeath);
                     } else {
                         infodataSupport.firePropertyChange("infectedRegion", this.numInfected, sum);
-                        this.numInfected += infected; 
+                        this.numInfected += infected;
                     }
-                } 
+                }
             } else {
                 logger.warn("State is already infected or RegionState is Finished");
             }
@@ -182,10 +184,12 @@ public final class RegionImpl implements Region {
     public float getPoor() {
         return poor;
     }
-    @Override 
+
+    @Override
     public long getDeathByVirus() {
         return this.numDeath - this.deathByEvents;
     }
+
     @Override
     public int getFacilities() {
         return facilities;

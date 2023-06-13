@@ -1,5 +1,6 @@
 package globaloutbreak.model.events;
 
+import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import globaloutbreak.model.region.Region;
 public final class CauseEventsImpl implements CauseEvent {
     private final List<Event> events;
     private static final Random RANDOM = new Random();
+    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * 
@@ -24,16 +26,25 @@ public final class CauseEventsImpl implements CauseEvent {
     @Override
     public Optional<ExtractedEvent> causeEvent(final List<Region> regions) {
         if (!regions.isEmpty()) {
-            
             final Event event = events.get(RANDOM.nextInt(0, events.size()));
-            float prob = event.getProbOfHapp();
-            float num = RANDOM.nextFloat(0, 1);
+            final float prob = event.getProbOfHapp();
+            final float num = RANDOM.nextFloat(0, 1);
             if (num <= prob) {
                 final Region r = regions.get(RANDOM.nextInt(0, regions.size() - 1));
-                return Optional.of(new ExtractedEventImpl(r.getColor(), event.getName(), event.calcDeath(r.getPopTot())));
+                return Optional.of(
+                        new ExtractedEventImpl(r.getColor(), event.getName(), calcDeath(r, event.getPercOfDeath())));
             }
         }
         return Optional.empty();
+    }
+
+    private long calcDeath(final Region region, final float percOfDeath) {
+        long death = (long) Math.floor(region.getPopTot() * percOfDeath);
+        if (region.getNumDeath() + region.getNumInfected() + death > region.getPopTot()) {
+            death = region.getPopTot() - region.getNumDeath();
+        }
+        infodataSupport.firePropertyChange("eventdeath", 0, death);
+        return death;
     }
 
 }

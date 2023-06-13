@@ -29,12 +29,11 @@ public final class VoyagesImpl implements Voyages {
     @Override
     public List<Voyage> extractMeans(final List<Region> regions,
             final Map<String, Float> pot) {
-
         final List<Voyage> extractedMeans = new LinkedList<>();
         sizeAndNameOfMeans.forEach((means, size) -> {
             final List<Region> newRegions = regions.stream()
                     .filter(k -> checkIfMeansAreOpen(k.getTrasmissionMeans(), means)).toList();
-            if (!newRegions.isEmpty()) {
+            if (newRegions.size() > 2) {
                 for (int i = 0; i < size.getX(); i++) {
                     final Pair<Region, Region> partDest = extractRegion(newRegions, means);
                     if (partDest.getX() != null) {
@@ -56,6 +55,7 @@ public final class VoyagesImpl implements Voyages {
     private Pair<Region, Region> extractRegion(final List<Region> newRegions, final String type) {
         final Region region = newRegions.get(rand.nextInt(0, newRegions.size()));
         List<Region> efectieRegions = new LinkedList<>(newRegions);
+        efectieRegions.remove(region);
         switch (type) {
             case "terra":
                 efectieRegions = findRegionsByName(newRegions, region.getTrasmissionMeans()
@@ -68,13 +68,7 @@ public final class VoyagesImpl implements Voyages {
                 break;
         }
         if (!efectieRegions.isEmpty()) {
-            Region dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
-            while (dest.getColor() == region.getColor()) {
-                if (!efectieRegions.isEmpty()) {
-                    dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
-                    efectieRegions.remove(dest);
-                }
-            }
+            final Region dest = efectieRegions.get(rand.nextInt(0, efectieRegions.size()));
             return new Pair<>(region, dest);
         }
         return new Pair<>(null, null);
@@ -93,7 +87,7 @@ public final class VoyagesImpl implements Voyages {
     }
 
     private boolean checkIfMeansAreOpen(final List<TransmissionMean> list, final String means) {
-        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN) )
+        final Long open = list.stream().filter(k -> k.getType().equals(means) && k.getState().equals(MeansState.OPEN))
                 .count();
         return open > 0;
     }
