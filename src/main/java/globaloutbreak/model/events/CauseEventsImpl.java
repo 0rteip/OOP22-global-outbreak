@@ -40,7 +40,7 @@ public final class CauseEventsImpl implements CauseEvent {
 
     private long calcDeath(final Region region, final float percOfDeath) {
         long death = (long) Math.floor(region.getPopTot() * percOfDeath);
-        if (region.getNumDeath() + region.getNumInfected() + death > region.getPopTot()) {
+        if ((region.getNumDeath() + death) > region.getPopTot()) {
             death = region.getPopTot() - region.getNumDeath();
         }
         infodataSupport.firePropertyChange("eventdeath", 0, death);

@@ -108,7 +108,7 @@ public final class MutationViewController extends AbstractSceneController implem
 
     private void handleActionButtonAction(final int index) {
         this.getView().update(names.get(index));
-        this.getSceneManager().openMap();
+        //this.getSceneManager().openMap();
     }
 
     /**
