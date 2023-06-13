@@ -1,6 +1,5 @@
 package globaloutbreak.view.scenecontroller;
 
-import globaloutbreak.TextFieldSceneSetter;
 import globaloutbreak.controller.region.TypeOfInfo;
 import globaloutbreak.model.pair.Pair;
 import javafx.beans.value.ChangeListener;

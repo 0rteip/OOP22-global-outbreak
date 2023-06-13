@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.view.scenecontroller.observer;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.controller.region.TypeOfInfo;
+import globaloutbreak.view.scenecontroller.TextFieldSceneSetter;
 
 /**
  * WorldFields observer.
@@ -35,7 +36,7 @@ public final class WorldFieldsObserver implements PropertyChangeListener {
         final Object newValue = arg0.getNewValue();
         if (newValue instanceof Map) {
             for (final Map.Entry<?, ?> entry : ((Map<?, ?>) newValue).entrySet()) {
-                if (!(entry.getKey() instanceof TypeOfInfo) || !(entry.getKey() instanceof String)) {
+                if (!(entry.getKey() instanceof TypeOfInfo) || !(entry.getValue() instanceof String)) {
                     // Is not a correct instace
                     return;
                 }
