@@ -230,6 +230,6 @@ public final class ViewImpl implements View {
 
     @Override
     public void render() {
-        this.getSceneManager().updateWorld(this);
+        this.manager.updateWorld(this);
     }
 }
