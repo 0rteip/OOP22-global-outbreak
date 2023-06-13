@@ -26,8 +26,8 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
         final ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Morti", infodata.getTotalDeaths()),
                 new PieChart.Data("Infetti", infodata.getTotalInfected()),
-                new PieChart.Data("Sani", infodata.getTotalPopulation() - infodata.getTotalDeaths()
-                        - infodata.getTotalInfected()));
+                new PieChart.Data("Sani",
+                        infodata.getTotalPopulation() - infodata.getTotalDeaths() - infodata.getTotalInfected()));
         pieChart.setData(pieChartData);
         /*
          * ObservableList<PieChart.Data> pieChartData =

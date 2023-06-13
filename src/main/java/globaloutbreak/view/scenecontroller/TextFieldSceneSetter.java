@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.view.scenecontroller;
 
 import java.util.Map;
 
