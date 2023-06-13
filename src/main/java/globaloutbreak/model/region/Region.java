@@ -18,8 +18,6 @@ public interface Region {
      * @param byEvent 
      *                 true if the cause of death is natural
      * 
-     * @param byEvent event
-     * 
      */
     void incDeathPeople(long dead, Boolean byEvent);
 
