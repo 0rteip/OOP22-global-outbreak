@@ -99,7 +99,6 @@ public final class ModelImpl implements Model {
         }
     }
 
-
     // @formatter:off
     @SuppressFBWarnings(
         value = "EI_EXPOSE_REP",
@@ -236,11 +235,9 @@ public final class ModelImpl implements Model {
         if (this.cure.isPresent()) {
             if (this.cure.get().isCompleted()) {
                 this.endCause = Optional.of(EndCauses.CURE_DEVELOPED);
-            }
-            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
+            } else if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
                 this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
-            }
-            if (this.infoData.getTotalInfected() == 0 && this.infoData.getTotalDeaths() > 0) {
+            } else if (this.infoData.getTotalInfected() == 0 && this.infoData.getTotalDeaths() > 0) {
                 this.endCause = Optional.of(EndCauses.NO_INFECTED);
             }
             return this.endCause.isPresent();
