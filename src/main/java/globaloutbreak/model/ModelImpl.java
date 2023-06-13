@@ -12,6 +12,7 @@ import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
 import globaloutbreak.model.dataanalyzer.DeathNumberAnalyzer;
 import globaloutbreak.model.cure.RegionCureStatus;
+import globaloutbreak.model.cure.observer.DiseaseObserver;
 import globaloutbreak.model.disease.Disease;
 import globaloutbreak.model.events.CauseEvent;
 import globaloutbreak.model.events.CauseEventsImpl;
@@ -100,6 +101,7 @@ public final class ModelImpl implements Model {
     @Override
     public void setDisease(final Disease disease) {
         this.disease = disease;
+        this.cure.ifPresent(cure -> this.disease.initializeCureObserver(new DiseaseObserver(cure)));
     }
 
     @Override
@@ -271,12 +273,11 @@ public final class ModelImpl implements Model {
     @Override
     public void update() {
         this.extractVoyages();
-        this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.disease.infectRegions(this.regions);
         this.causeEvent();
         this.deathAnalyzer.analyze(this.infoData.getTotalDeaths());
-        this.cure.get().research();
+        this.cure.ifPresent(cure -> cure.research());
         this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
