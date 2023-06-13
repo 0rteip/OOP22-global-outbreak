@@ -1,5 +1,7 @@
 package globaloutbreak.model.events;
 
+import globaloutbreak.model.region.Region;
+
 /**
  * Interface of extrated event.
  */
@@ -7,9 +9,9 @@ public interface ExtractedEvent {
     /**
      * 
      * @return
-     *         return region's color
+     *         return region
      */
-    int getRegion();
+    Region getRegion();
 
     /**
      * 

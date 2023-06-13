@@ -332,6 +332,7 @@ public final class MapController extends AbstractSceneController implements Scen
                     resizeIconMeans(width, height);
                     resize(sfondo, width, height);
                     resize(buf, width, height);
+                    resize(effectifeImage, width, height);
                     mapLab.setGraphic(effectifeImage);
                 }
             }

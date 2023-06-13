@@ -13,10 +13,10 @@ public interface Region {
     /**
      * This method increase the number of death people.
      * 
-     * @param dead 
-     *              the number of new death people.
-     * @param byEvent 
-     *                 true if the cause of death is natural
+     * @param dead
+     *                the number of new death people.
+     * @param byEvent
+     *                true if the cause of death is natural
      * 
      */
     void incDeathPeople(long dead, Boolean byEvent);
@@ -145,4 +145,5 @@ public interface Region {
      *                 PropertyChangeListener
      */
     void initializeObserver(PropertyChangeListener listener);
+
 }
