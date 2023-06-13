@@ -34,6 +34,7 @@ public final class WorldFieldsObserver implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent arg0) {
         final Object newValue = arg0.getNewValue();
         if (newValue instanceof Map) {
+            @SuppressWarnings("unchecked")
             final Map<TypeOfInfo, String> valueMap = (Map<TypeOfInfo, String>) newValue;
             this.textFieldSceneSetter.setText(valueMap);
         }
