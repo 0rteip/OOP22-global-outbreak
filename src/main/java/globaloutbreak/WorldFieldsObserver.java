@@ -34,9 +34,16 @@ public final class WorldFieldsObserver implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent arg0) {
         final Object newValue = arg0.getNewValue();
         if (newValue instanceof Map) {
+            for (final Map.Entry<?, ?> entry : ((Map<?, ?>) newValue).entrySet()) {
+                if (!(entry.getKey() instanceof TypeOfInfo) || !(entry.getKey() instanceof String)) {
+                    // Is not a correct instace
+                    return;
+                }
+            }
+            // I am sure it is correct
             @SuppressWarnings("unchecked")
-            final Map<TypeOfInfo, String> valueMap = (Map<TypeOfInfo, String>) newValue;
-            this.textFieldSceneSetter.setText(valueMap);
+            final Map<TypeOfInfo, String> typedMap = (Map<TypeOfInfo, String>) newValue;
+            this.textFieldSceneSetter.setText(typedMap);
         }
     }
 
