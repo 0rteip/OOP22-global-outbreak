@@ -43,6 +43,7 @@ public final class ViewImpl implements View {
     private Boolean active;
     private int cost;
     private int points;
+    private float increase;
 
     /**
      * Creates a VIewImpl.
@@ -145,16 +146,24 @@ public final class ViewImpl implements View {
     }
 
     @Override
-    public void setMutationsName(final List<String> mutationsNames, final int points) {
+    public String getIncrease() {
+        return String.valueOf(increase);
+    }
+    @Override
+    public void setMutationsName(final List<String> mutationsNames) {
         this.mutations = new ArrayList<>(mutationsNames);
-        this.points = points;
     }
 
     @Override
-    public void setMutationsDesc(final String desc, final Boolean activate, final int cost) {
+    public void  setPoints(final int points) {
+        this.points = points;
+    }
+    @Override
+    public void setMutationsDesc(final String desc, final Boolean activate, final int cost, final float increase) {
         this.desc = desc;
         this.active = activate;
         this.cost = cost;
+        this.increase = increase;
     }
 
     @Override
@@ -205,7 +214,12 @@ public final class ViewImpl implements View {
 
     @Override
     public void displayMutation() {
-        controller.displayMutationsName();
+        this.controller.displayMutationsName();
+    }
+
+    @Override
+    public void displayPoints() {
+        this.controller.displayPoints();
     }
 
     @Override
@@ -215,7 +229,7 @@ public final class ViewImpl implements View {
 
     @Override
     public void update(final String name) {
-        controller.update(name);
+        this.controller.update(name);
     }
 
     @Override

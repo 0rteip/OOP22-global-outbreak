@@ -138,10 +138,9 @@ public interface View {
     /**
      * 
      * @param mutationsNames the list of mutation names
-     * @param points         points
      * 
      */
-    void setMutationsName(List<String> mutationsNames, int points);
+    void setMutationsName(List<String> mutationsNames);
 
     /**
      * 
@@ -160,8 +159,9 @@ public interface View {
      * @param desc     description
      * @param activate if the mutation is acrive
      * @param cost     cost of the mutation
+     * @param increase increase of the mutation
      */
-    void setMutationsDesc(String desc, Boolean activate, int cost);
+    void setMutationsDesc(String desc, Boolean activate, int cost, float increase);
 
     /**
      *
@@ -181,7 +181,11 @@ public interface View {
      * @return cost of mutation
      */
     String getCost();
-
+    /**
+     * 
+     * @return increment
+     */
+    String getIncrease();
     /**
      * 
      */
@@ -224,4 +228,13 @@ public interface View {
      */
     void render();
 
+    /**
+     * Display points.
+     */
+    void displayPoints();
+    /**
+     * set points.
+     * @param points points
+     */
+    void setPoints(int points);
 }

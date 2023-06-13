@@ -211,15 +211,19 @@ public final class ControllerImpl implements Controller {
     public void displayMutationsName() {
         mutationController.displayMutationsName(this);
     }
-
-    @Override
-    public void setMutationsName(final List<String> list) {
-        view.setMutationsName(List.copyOf(list), model.getInfo().getPoints());
+    @Override 
+    public void displayPoints() {
+       view.setPoints(model.getInfo().getPoints());
     }
 
     @Override
-    public void setMutationsDesc(final String description, final boolean activate, final int cost) {
-        view.setMutationsDesc(description, activate, cost);
+    public void setMutationsName(final List<String> list) {
+        view.setMutationsName(List.copyOf(list));
+    }
+
+    @Override
+    public void setMutationsDesc(final String description, final boolean activate, final int cost, final float increase) {
+        view.setMutationsDesc(description, activate, cost, increase);
     }
 
     @Override

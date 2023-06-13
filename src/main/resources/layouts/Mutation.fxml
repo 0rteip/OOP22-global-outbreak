@@ -29,6 +29,8 @@ fx:controller="globaloutbreak.view.scenecontroller.MutationViewController" style
                 <Label fx:id="descriptionLabel" textFill="WHITE" />
                 <Text text="COSTO" /> 
                 <Label fx:id="pointLabel"  />
+                <Text text="INCREMENTO" />
+                <Label fx:id="incrementLabel"  />
                 <GridPane fx:id="buttonGridPanell" ></GridPane>
                 
 	</children>
