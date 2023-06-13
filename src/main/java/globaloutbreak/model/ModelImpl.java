@@ -281,4 +281,5 @@ public final class ModelImpl implements Model {
         this.cure.get().research();
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
+
 }

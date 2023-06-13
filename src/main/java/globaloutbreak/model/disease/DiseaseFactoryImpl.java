@@ -40,7 +40,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
             private float humidityInfectivity = diseaseHumidityInfectivity;
             private float aridityInfectivity = diseaseAridityInfectivity;
             private float povertyInfectivity = diseasePovertyInfectivity;
-            private PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+            private PropertyChangeSupport cureListener = new PropertyChangeSupport(this);
 
             @Override
             public String getName() {
@@ -183,16 +183,12 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
                         + ", diseasePovertyInfectivity: " + this.getPovertyInfectivity() + "]";
             }
 
+            /**
+             * Add a new observer to class.
+             */
             @Override
-            public void initializeObserver(final String name, final PropertyChangeListener listener) {
-                switch (name) {
-                    case "infodata":
-                        infodataSupport.addPropertyChangeListener(listener);
-                        break;
-                    default:
-                        logger.warn("ProeprtyChangeSupport for the name {} not found.", name);
-                        break;
-                }
+            public void initializeCureObserver(final PropertyChangeListener listener) {
+                cureListener.addPropertyChangeListener(listener);
             }
 
             @Override
