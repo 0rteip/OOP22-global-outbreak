@@ -244,27 +244,26 @@ public final class ControllerImpl implements Controller {
 
         @Override
         public void run() {
+            logger.info("Start GameLoop");
             this.lock.lock();
             try {
                 this.isRunning = true;
             } finally {
                 this.lock.unlock();
             }
-            logger.info("Start GameLoop");
-            while (this.isRunning() && !model.isGameOver()) {
+            while (!model.isGameOver()) {
                 this.startTime = System.currentTimeMillis();
-                this.update();
                 this.render();
+                this.update();
                 this.remainingTime();
+
                 this.lock.lock();
                 try {
-                    if (!this.isRunning) {
-                        try {
-                            this.condition.await();
-                        } catch (InterruptedException e) {
-                            logger.warn("Loop problem on await function: ", e);
-                        }
+                    while (!this.isRunning) {
+                        this.condition.await();
                     }
+                } catch (InterruptedException e) {
+                    logger.warn("Loop problem on await function: ", e);
                 } finally {
                     this.lock.unlock();
                 }
@@ -275,14 +274,14 @@ public final class ControllerImpl implements Controller {
 
         private void update() {
             model.update();
-            if (model.isGameOver()) {
-                createAndDisplayMessage(model.getEndCause().get());
-                view.quit();
-            }
         }
 
         private void render() {
             view.render();
+            if (model.isGameOver()) {
+                createAndDisplayMessage(model.getEndCause().get());
+                view.quit();
+            }
         }
 
         private void remainingTime() {

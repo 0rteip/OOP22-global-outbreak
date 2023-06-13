@@ -255,8 +255,7 @@ final class SimpleCureTest {
 
                 @Override
                 public long getDeathByVirus() {
-                    logger.warn(logString);
-                    throw new UnsupportedOperationException("Unimplemented method 'getDeathByVirus'");
+                    return this.getNumDeath();
                 }
 
             };

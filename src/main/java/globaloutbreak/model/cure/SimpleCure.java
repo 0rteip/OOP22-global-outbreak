@@ -36,7 +36,7 @@ public final class SimpleCure implements Cure {
     private int currentPriority;
     private boolean isStarted;
     private boolean isComplete;
-    private Consumer<Integer> action;
+    private Optional<Consumer<Integer>> action;
 
     private SimpleCure(final float dailyBudget, final int numberOfMajorContributors,
             final Map<Region, Float> contributions, final float researchersEfficiency, final List<Priority> priorities,
@@ -58,7 +58,7 @@ public final class SimpleCure implements Cure {
 
     @Override
     public void addAction(final Consumer<Integer> action) {
-        this.action = action;
+        this.action = Optional.of(action);
     }
 
     @Override
@@ -124,13 +124,13 @@ public final class SimpleCure implements Cure {
                 this.isStarted = true;
                 this.increasePriority();
                 this.contributions.entrySet().stream()
-                        .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
+                        .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
                         .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
             } else {
                 if (this.highMortalityRateRegions().count() > 0) {
                     this.daysBeforeStartResearch--;
                     this.highMortalityRateRegions()
-                            .filter(el -> el.getKey().getNumDeath() != el.getKey().getPopTot())
+                            .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
                             .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
                 }
             }
@@ -148,7 +148,7 @@ public final class SimpleCure implements Cure {
                 .min(Integer::compareTo)
                 .filter(el -> el <= this.cureProgress());
         if (min.isPresent()) {
-            action.accept(min.get());
+            action.ifPresent(a -> a.accept(min.get()));
             this.rilevantProgress.remove(min.get());
         }
     }
@@ -169,7 +169,7 @@ public final class SimpleCure implements Cure {
     }
 
     private float dailyRegionContribution(final Region region) {
-        return (1 - Float.valueOf(region.getNumDeath()) / region.getPopTot())
+        return (1 - Float.valueOf(region.getDeathByVirus()) / region.getPopTot())
                 * region.getFacilities()
                 * this.researchersEfficiency
                 * this.priorities.get(this.currentPriority).getResourcesPercentage()
@@ -208,7 +208,7 @@ public final class SimpleCure implements Cure {
 
     private Stream<Entry<Region, Float>> highMortalityRateRegions() {
         return this.contributions.entrySet().stream()
-                .filter(el -> Float.valueOf(el.getKey().getNumDeath())
+                .filter(el -> Float.valueOf(el.getKey().getDeathByVirus())
                         / el.getKey().getPopTot() > this.priorities.get(this.currentPriority)
                                 .getDetectionRate());
     }

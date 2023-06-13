@@ -1,10 +1,8 @@
 package globaloutbreak.view.scenecontroller;
 
+import globaloutbreak.TextFieldSceneSetter;
 import globaloutbreak.controller.TypeOfInfo;
-import globaloutbreak.gamespeed.GameSpeed;
 import globaloutbreak.model.pair.Pair;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -17,7 +15,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 import javafx.beans.value.ObservableValue;
 
 import java.util.HashMap;
@@ -25,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +30,7 @@ import com.sun.prism.paint.Color;
 /**
  * Map Controller.
  */
-public final class MapController extends AbstractSceneController implements SceneInitializer, SceneUpdater {
+public final class MapController extends AbstractSceneController implements SceneInitializer, TextFieldSceneSetter {
     @FXML
     private StackPane mapPane;
 
@@ -345,13 +341,8 @@ public final class MapController extends AbstractSceneController implements Scen
     }
 
     @Override
-    public void updateScene(final GameSpeed gameSpeed) {
-        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(gameSpeed.getDuration()), event -> {
-            // Logica per aggiornare la label
-            this.setTextFilds(this.getView().getInfoSingleRegion());
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+    public void setText(final Map<TypeOfInfo, String> infoSingleRegion) {
+        this.setTextFilds(infoSingleRegion);
     }
 
     private void stopGame() {

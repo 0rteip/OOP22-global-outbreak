@@ -95,7 +95,7 @@ public final class VoyagesImpl implements Voyages {
     private long numInfected(final float prob, final int size) {
         final long prod = Math.round(size * prob);
         if (prod > size) {
-            //logger.warn("too many seatsI'll fill the plane");
+            // logger.warn("too many seatsI'll fill the plane");
             return size;
         } else if (rand.nextInt(0, 100) >= (prob * 100)) {
             return prod;

@@ -3,6 +3,7 @@ package globaloutbreak.view.sceneloader;
 import java.util.concurrent.CountDownLatch;
 
 import globaloutbreak.model.message.Message;
+import globaloutbreak.view.View;
 import globaloutbreak.view.utilities.SceneStyle;
 import javafx.stage.Stage;
 
@@ -30,4 +31,12 @@ public interface SceneLoader {
      *                CountDownLatch
      */
     void openDialog(Stage stage, Message message, CountDownLatch latch);
+
+    /**
+     * Updates Map.
+     *
+     * @param view
+     *             curretn View
+     */
+    void updateMap(View view);
 }

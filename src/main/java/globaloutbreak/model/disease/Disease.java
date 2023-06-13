@@ -193,12 +193,10 @@ public interface Disease {
     /**
      * Initialize Observers.
      * 
-     * @param name
-     * 
      * @param listener
      * 
      */
-    void initializeObserver(String name, PropertyChangeListener listener);
+    void initializeCureObserver(PropertyChangeListener listener);
 
     /**
      * 

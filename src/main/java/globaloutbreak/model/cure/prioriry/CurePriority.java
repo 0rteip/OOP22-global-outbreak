@@ -61,8 +61,8 @@ public final class CurePriority implements Priority {
 
         private static final int PRIORITY = 0;
         private static final String DESCRIPTION = "None";
-        private static final float RESOURCES_PERCENTAGE = 0;
-        private static final float DETECTION_RATE = 0.2f;
+        private static final float RESOURCES_PERCENTAGE = 0.12f;
+        private static final float DETECTION_RATE = 0.000_02f;
 
         private int priority = PRIORITY;
         private String description = DESCRIPTION;

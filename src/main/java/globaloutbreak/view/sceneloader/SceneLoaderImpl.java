@@ -1,5 +1,6 @@
 package globaloutbreak.view.sceneloader;
 
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,13 +11,14 @@ import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.layout.Region;
+import globaloutbreak.TextFieldSceneSetter;
+import globaloutbreak.WorldFieldsObserver;
 import globaloutbreak.model.message.Message;
 import globaloutbreak.view.utilities.SceneStyle;
 import globaloutbreak.view.View;
 import globaloutbreak.view.messagedialog.MessageDialog;
 import globaloutbreak.view.scenecontroller.SceneController;
 import globaloutbreak.view.scenecontroller.SceneInitializer;
-import globaloutbreak.view.scenecontroller.SceneUpdater;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
  */
 public final class SceneLoaderImpl implements SceneLoader {
 
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private FXMLLoader loader;
     private final View view;
@@ -108,13 +111,19 @@ public final class SceneLoaderImpl implements SceneLoader {
             case MAP:
                 final SceneInitializer sceneInitController2 = (SceneInitializer) controller;
                 sceneInitController2.initializeScene();
-                final SceneUpdater sceneUpdater = (SceneUpdater) controller;
-                sceneUpdater.updateScene(view.getGameSettings().getGameSpeeds().stream()
-                        .min((e1, e2) -> Float.compare(e1.getDuration(), e2.getDuration())).get());
+                if (!this.pcs.hasListeners("update")) {
+                    final TextFieldSceneSetter sceneSetter = (TextFieldSceneSetter) controller;
+                    this.pcs.addPropertyChangeListener("update", new WorldFieldsObserver(sceneSetter));
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void updateMap(final View view) {
+        this.pcs.firePropertyChange("update", null, view.getInfoSingleRegion());
     }
 
     @Override

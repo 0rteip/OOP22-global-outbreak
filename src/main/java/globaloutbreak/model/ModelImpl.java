@@ -98,12 +98,6 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public boolean selectedMutation(final String mutation) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectedMutation'");
-    }
-
-    @Override
     public void setDisease(final Disease disease) {
         this.disease = disease;
     }
@@ -276,15 +270,15 @@ public final class ModelImpl implements Model {
 
     @Override
     public void update() {
-        this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.extractVoyages();
         this.causeEvent();
         this.disease.killPeopleRegions(this.regions);
         this.disease.infectRegions(this.regions);
-        this.deathAnalyzer.analyze(this.regions.stream()
-                .map(el -> Long.valueOf(el.getNumDeath()))
-                .reduce(0L, (e0, e1) -> e0 + e1));
+        this.causeEvent();
+        this.deathAnalyzer.analyze(this.infoData.getTotalDeaths());
         this.cure.get().research();
+        this.infoData.updateTotalDeathsAndInfected(this.regions);
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
+
 }

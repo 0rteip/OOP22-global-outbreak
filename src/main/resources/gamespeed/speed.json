@@ -13,11 +13,7 @@
         "name": "Slow"
     },
     {
-        "duration": 0.1,
+        "duration": 0.6,
         "name": "Really fast"
-    },
-    {
-        "duration": 0.05,
-        "name": "Insane"
     }
 ]

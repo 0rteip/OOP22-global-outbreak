@@ -30,6 +30,7 @@ public final class SimpleCureReaderImpl implements SimpleCureReader {
     @Override
     public SimpleCure getSimpleCure(final List<Region> regions) {
         final List<Priority> priorities = new CurePriorityReaderImpl().getPriorities();
+        SimpleCure cure;
         try {
             final SimpleCure.Builder cureBuilder = new SimpleCure.Builder(regions, priorities);
 
@@ -78,11 +79,12 @@ public final class SimpleCureReaderImpl implements SimpleCureReader {
                         break;
                 }
             }
-            return cureBuilder.build();
+            cure = cureBuilder.build();
         } catch (IOException e) {
             logger.warn("Unable to read {}:", FILE_PATH, e);
-            return new SimpleCure.Builder(regions, priorities).build();
+            cure = new SimpleCure.Builder(regions, priorities).build();
         }
+        return cure;
     }
 
 }

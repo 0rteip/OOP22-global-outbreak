@@ -60,6 +60,8 @@ public final class CurePriorityReaderImpl implements CurePriorityReader {
             });
         } catch (IOException e) {
             logger.warn("Unable to read {}:", FILE_PATH, e);
+        }
+        if (priorities.isEmpty()) {
             priorities.add(new CurePriority.Builder().build());
         }
         return priorities;
