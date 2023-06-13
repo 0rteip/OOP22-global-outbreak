@@ -41,7 +41,7 @@ public final class VoyagesImpl implements Voyages {
                                 .stream()
                                 .filter(k -> k.getColor() == partDest.getX().getColor()).toList().get(0);
                         float prob = 0;
-                        if(part.calcPercInfected() > 0) {
+                        if (part.calcPercInfected() > 0) {
                             prob = part.calcPercInfected() + pot.get(means);
                         }
                         final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(),
