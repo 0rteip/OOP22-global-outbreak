@@ -57,6 +57,9 @@ public final class RegionImpl implements Region {
      * @param humid
      *                        percentage of humidity
      * 
+     * @param closeMeans
+     *                       percentage of close borders
+     * 
      */
     public RegionImpl(final long popTot, final String name,
             final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban,
@@ -121,9 +124,9 @@ public final class RegionImpl implements Region {
     }
 
     private void checkAndCloseMeans() {
-        float deathT = this.numDeath;
-        float popT = this.popTot;
-        float deathE = this.deathByEvents;
+        final float deathT = this.numDeath;
+        final float popT = this.popTot;
+        final float deathE = this.deathByEvents;
         if (((deathT - deathE) / popT) >= closeMeans && this.trasmissionMeans.get(0).getState() != MeansState.CLOSE) {
             this.getTrasmissionMeans().stream().forEach(k -> {
                 k.setState(MeansState.CLOSE);

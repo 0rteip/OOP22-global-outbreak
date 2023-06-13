@@ -32,7 +32,7 @@ public final class CauseEventsImpl implements CauseEvent {
             if (num <= prob) {
                 final Region r = regions.get(RANDOM.nextInt(0, regions.size()));
                 return Optional.of(
-                        new ExtractedEventImpl(r, event.getName(), calcDeath(r, event.getPercOfDeath())));
+                        new ExtractedEventImpl(r.getColor(), event.getName(), calcDeath(r, event.getPercOfDeath())));
             }
         }
         return Optional.empty();

@@ -151,9 +151,9 @@ public final class ModelImpl implements Model {
         }
     }
 
-    private Optional<Region> getUpdateRegion(final Region region) {
+    private Optional<Region> getUpdateRegion(final int region) {
         return this.getRegions().stream()
-                .filter(k -> k.getColor() == region.getColor())
+                .filter(k -> k.getColor() == region)
                 .findFirst();
     }
 
@@ -190,7 +190,6 @@ public final class ModelImpl implements Model {
     @Override
     public void setRegions(final List<Region> regions) {
         this.regions = new LinkedList<>(regions);
-        System.out.println(regions.size());
         this.initializeInfoData();
     }
 

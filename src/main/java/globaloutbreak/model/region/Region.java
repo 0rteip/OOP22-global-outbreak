@@ -8,7 +8,7 @@ import globaloutbreak.model.cure.RegionCureStatus;
 /**
  * Interface of RegionImpl.
  */
-public interface Region {
+public interface Region extends Cloneable {
 
     /**
      * This method increase the number of death people.

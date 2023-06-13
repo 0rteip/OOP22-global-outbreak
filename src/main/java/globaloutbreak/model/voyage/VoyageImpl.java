@@ -1,14 +1,12 @@
 package globaloutbreak.model.voyage;
 
-import globaloutbreak.model.region.Region;
-
 /**
  * Implement. of Voyage.
  */
 public final class VoyageImpl implements Voyage {
     private final String type;
-    private final Region part;
-    private final Region dest;
+    private final int part;
+    private final int dest;
     private final long infected;
 
     /**
@@ -22,8 +20,8 @@ public final class VoyageImpl implements Voyage {
      * @param infected
      *                 new infect
      */
-    public VoyageImpl(final String type, final Region part,
-            final Region dest, final long infected) {
+    public VoyageImpl(final String type, final int part,
+            final int dest, final long infected) {
         this.type = type;
         this.part = part;
         this.dest = dest;
@@ -36,12 +34,12 @@ public final class VoyageImpl implements Voyage {
     }
 
     @Override
-    public Region getPart() {
+    public int getPart() {
         return this.part;
     }
 
     @Override
-    public Region getDest() {
+    public int getDest() {
         return this.dest;
     }
 

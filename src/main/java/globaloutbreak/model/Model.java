@@ -138,6 +138,7 @@ public interface Model {
 
     /**
      * Update {@link Model}.
+     * 
      */
     void update();
 

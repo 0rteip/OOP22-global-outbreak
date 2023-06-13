@@ -58,6 +58,7 @@ public interface View {
      * 
      * @param voyage
      *               voyage to display
+     *
      */
     void displayVoyage(Voyage voyage);
 

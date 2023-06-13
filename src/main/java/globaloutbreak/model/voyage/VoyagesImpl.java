@@ -44,8 +44,8 @@ public final class VoyagesImpl implements Voyages {
                         if (part.calcPercInfected() > 0) {
                             prob = part.calcPercInfected() + pot.get(means);
                         }
-                        final Voyage voyage = new VoyageImpl(means, partDest.getX(),
-                                partDest.getY(),
+                        final Voyage voyage = new VoyageImpl(means, partDest.getX().getColor(),
+                                partDest.getY().getColor(),
                                 numInfected(prob, size.getY()));
                         extractedMeans.add(voyage);
                     }

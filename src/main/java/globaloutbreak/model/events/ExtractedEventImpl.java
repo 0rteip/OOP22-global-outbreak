@@ -1,12 +1,10 @@
 package globaloutbreak.model.events;
 
-import globaloutbreak.model.region.Region;
-
 /**
  * Implementation of ExtractedMeans.
  */
 public final class ExtractedEventImpl implements ExtractedEvent {
-    private final Region region;
+    private final int region;
     private final String event;
     private final long death;
 
@@ -19,14 +17,14 @@ public final class ExtractedEventImpl implements ExtractedEvent {
      * @param death
      *               new death
      */
-    public ExtractedEventImpl(final Region region, final String event, final long death) {
+    public ExtractedEventImpl(final int region, final String event, final long death) {
         this.region = region;
         this.event = event;
         this.death = death;
     }
 
     @Override
-    public Region getRegion() {
+    public int getRegion() {
         return this.region;
     }
 

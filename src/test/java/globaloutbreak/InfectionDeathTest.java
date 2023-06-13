@@ -152,6 +152,7 @@ class InfectionDeathTest {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getDeathByVirus'");
         }
+
     };
 
     /**
