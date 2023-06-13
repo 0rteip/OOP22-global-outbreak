@@ -38,7 +38,7 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
          */
 
         for (final PieChart.Data data : pieChartData) {
-            final String label = data.getName() + ": " + (int) data.getPieValue();
+            final String label = data.getName() + ": " + (long) data.getPieValue();
             data.setName(label);
         }
     }
