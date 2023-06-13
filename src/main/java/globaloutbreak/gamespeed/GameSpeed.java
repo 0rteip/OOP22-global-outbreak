@@ -48,7 +48,7 @@ public final class GameSpeed {
     @SuppressWarnings("PMD.LinguisticNaming")
     public static class Builder {
 
-        private static final float DURATION = 2;
+        private static final float DURATION = 1;
         private static final String NAME = "DEFAULT";
         private static final boolean IS_DEFAULT = false;
 
