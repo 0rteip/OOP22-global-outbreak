@@ -31,6 +31,8 @@ public final class MutationViewController extends AbstractSceneController implem
     private Button actionButton;
     @FXML
     private Label pointsText;
+    @FXML
+    private Label incrementLabel;
     private List<String> names;
 
     /**
@@ -39,6 +41,7 @@ public final class MutationViewController extends AbstractSceneController implem
     @Override
     public void initializeScene() {
         this.getView().displayMutation();
+        this.getView().displayPoints();
         displayButton(this.getView().getMutations());
         displayPoints();
         clearLayout();
@@ -50,6 +53,7 @@ public final class MutationViewController extends AbstractSceneController implem
     private void clearLayout() {
         descriptionLabel.setText("");
         pointLabel.setText("");
+        incrementLabel.setText("");
         buttonGridPanell.getChildren().removeIf(node -> node instanceof Button);
     }
 
@@ -96,6 +100,7 @@ public final class MutationViewController extends AbstractSceneController implem
         this.getView().displayMutationDesc(name);
         descriptionLabel.setText(this.getView().getDescription());
         pointLabel.setText(this.getView().getCost());
+        incrementLabel.setText(this.getView().getIncrease());
         if (!this.getView().checkactivate()) {
             final Button button = createButtonActivate("Evolvi", index);
             buttonGridPanell.add(button, 0, 0);
@@ -108,7 +113,9 @@ public final class MutationViewController extends AbstractSceneController implem
 
     private void handleActionButtonAction(final int index) {
         this.getView().update(names.get(index));
-        this.getSceneManager().openMap();
+        this.getView().displayPoints();
+        displayPoints();
+        clearLayout();
     }
 
     /**

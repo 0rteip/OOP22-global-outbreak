@@ -143,8 +143,9 @@ public interface Controller {
      * @param description description of the mutation
      * @param activate {@code True} if is active
      * @param cost cost of the mutation
+     * @param increase increase of the mutation
      */
-    void setMutationsDesc(String description, boolean activate, int cost);
+    void setMutationsDesc(String description, boolean activate, int cost, float increase);
 
     /**
      * displat mutation description.
@@ -169,4 +170,9 @@ public interface Controller {
      * This method set a list of model.
      */
     void setRegions();
+    /**
+     * display points.
+     */
+    void displayPoints();
+
 }

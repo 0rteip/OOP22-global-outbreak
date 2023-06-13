@@ -49,7 +49,7 @@ public final class MutationControllerImpl implements MutationController {
         for (final Mutation mutation : mutations) {
             if (mutation.getName().equals(name)) {
                 controller.setMutationsDesc(mutation.getDescription(), mutationManager.isActivate(name),
-                        mutation.getCost());
+                        mutation.getCost(), mutation.getIncrease());
             }
         }
     }
