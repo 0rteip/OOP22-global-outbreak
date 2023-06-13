@@ -10,10 +10,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0"
+<BorderPane prefHeight="768.0" prefWidth="1366.0" stylesheets="css/settings.css"
    xmlns="http://javafx.com/javafx/15"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.SettingsController" stylesheets="css/settings.css">
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="globaloutbreak.view.scenecontroller.SettingsController">
    <top>
       <VBox id="top" BorderPane.alignment="CENTER">
          <children>
@@ -48,6 +49,14 @@
          <children>
             <VBox>
                <children>
+                  <Label text="With a slow computer you have to be careful">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                   <GridPane hgap="20.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -55,12 +64,14 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
                      </rowConstraints>
                      <children>
                         <Label text="Game Speed" />
                         <ComboBox fx:id="gameSpeedComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
                      </children>
+                     <VBox.margin>
+                        <Insets left="12.0" top="12.0" />
+                     </VBox.margin>
                   </GridPane>
                </children>
             </VBox>
