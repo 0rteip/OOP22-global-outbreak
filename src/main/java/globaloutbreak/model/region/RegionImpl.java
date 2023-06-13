@@ -104,6 +104,7 @@ public final class RegionImpl implements Region {
                 }
                 this.numDeath = this.popTot;
                 this.status = RegionCureStatus.FINISHED;
+                System.out.println("Pop tot " + this.popTot + " infect death " + this.getDeathByVirus() + " event " + this.deathByEvents);
                 this.getTrasmissionMeans().stream().forEach(k -> {
                     k.setState(MeansState.CLOSE);
                 });
