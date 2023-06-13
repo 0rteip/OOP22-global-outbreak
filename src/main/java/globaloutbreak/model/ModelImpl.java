@@ -230,8 +230,8 @@ public final class ModelImpl implements Model {
             if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
                 this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
             }
-            if (this.infoData.getTotalDeaths() == this.infoData.getTotalPopulation()) {
-                this.endCause = Optional.of(EndCauses.POPULATION_ANNIHILATED);
+            if (this.infoData.getTotalInfected() == 0 && this.infoData.getTotalDeaths() > 0) {
+                this.endCause = Optional.of(EndCauses.NO_INFECTED);
             }
             return this.endCause.isPresent();
         }

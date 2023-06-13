@@ -252,7 +252,7 @@ public final class ControllerImpl implements Controller {
             } finally {
                 this.lock.unlock();
             }
-            while (!model.isGameOver()) {
+            while (this.isRunning()) {
                 this.startTime = System.currentTimeMillis();
                 this.render();
                 this.update();
