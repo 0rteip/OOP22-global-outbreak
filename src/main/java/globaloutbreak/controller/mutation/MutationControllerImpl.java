@@ -60,7 +60,7 @@ public final class MutationControllerImpl implements MutationController {
         final Mutation mutationData = mutations.stream()
                 .filter(mutation -> mutation.getName().equals(name))
                 .findFirst().orElse(null);
-        if (model.getInfo().getPoints() >= mutationData.getCost()) {
+        if (model.getInfo().getPoints() >= mutationData.getCost()|| mutationManager.isActivate(name)) {
             if (mutationManager.isActivate(name)) {
                 mutationManager.removeToActivate(name);
                 model.getInfo().increasePoints(mutationData.getCost());
