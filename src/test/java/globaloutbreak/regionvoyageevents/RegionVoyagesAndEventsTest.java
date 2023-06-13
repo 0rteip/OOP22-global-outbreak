@@ -84,8 +84,11 @@ final class RegionVoyagesAndEventsTest {
             });
             i.incDeathPeople(i.getPopTot(), false);
         });
-       /*List<Voyage> vo =  means.extractMeans(regions, pot);
-       vo.forEach(k -> System.out.println("part " + k.getPart() + " dest " + k.getDest()));*/
+        /*
+         * List<Voyage> vo = means.extractMeans(regions, pot);
+         * vo.forEach(k -> System.out.println("part " + k.getPart() + " dest " +
+         * k.getDest()));
+         */
 
     }
 
@@ -94,13 +97,11 @@ final class RegionVoyagesAndEventsTest {
         final List<Event> events = controller.createEvents();
         final CauseEvent causeEvent = new CauseEventsImpl(events);
         // System.out.println(events);
-       // events.forEach(k -> System.out.println(k.getName() + " " + k.getProbOfHapp()));
+        // events.forEach(k -> System.out.println(k.getName() + " " +
+        // k.getProbOfHapp()));
         Optional<ExtractedEvent> cat = causeEvent.causeEvent(regions);
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);
         }
-        System.out.println("Name " + cat.get().getEvent() + " Region " +
-        cat.get().getRegion()
-        + " Morti " + cat.get().getDeath());
     }
 }

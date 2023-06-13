@@ -101,10 +101,6 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void updateInfo() {
-    }
-
-    @Override
     public InfoData displayInfo() {
         return this.model.getInfo();
     }

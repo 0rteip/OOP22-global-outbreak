@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import globaloutbreak.model.endcauses.EndCauses;
 import globaloutbreak.model.cure.Cure;
 import globaloutbreak.model.dataanalyzer.DataAnalyzer;
@@ -98,6 +99,13 @@ public final class ModelImpl implements Model {
         }
     }
 
+
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "We need to use the correct instance of Disease"
+    )
+    // @formatter:on
     @Override
     public void setDisease(final Disease disease) {
         this.disease = disease;
@@ -241,9 +249,15 @@ public final class ModelImpl implements Model {
         return true;
     }
 
+    // @formatter:off
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "We need to use the correct instance of Disease"
+    )
+    // @formatter:on
     @Override
     public Disease getDisease() {
-        return disease;
+        return this.disease;
     }
 
     @Override

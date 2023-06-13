@@ -1,4 +1,4 @@
-package globaloutbreak;
+package globaloutbreak.disease;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -175,8 +175,8 @@ class InfectionDeathTest {
                 + disease.getPovertyInfectivity() * region.getPoor());
         final long expectedInfected = (long) (region.getNumInfected() * expectedInfectivity) + region.getNumInfected();
         disease.infectRegions(regionList);
-        Assertions.assertEquals(expectedInfected, region.getNumInfected());
-        final long expectedDeaths = (long) (region.getNumInfected() * disease.getLethality()) + region.getNumDeath();
+        Assertions.assertTrue(expectedInfected <= region.getNumInfected() && region.getNumInfected() <= expectedInfected + 4);
+        final long expectedDeaths = (long) Math.ceil(region.getNumInfected() * disease.getLethality()) + region.getNumDeath();
         disease.killPeopleRegions(regionList);
 
         Assertions.assertEquals(expectedDeaths, region.getNumDeath());

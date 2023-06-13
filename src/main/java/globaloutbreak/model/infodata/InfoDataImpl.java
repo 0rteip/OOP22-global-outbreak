@@ -14,8 +14,9 @@ import globaloutbreak.model.region.Region;
  */
 public final class InfoDataImpl implements InfoData {
 
-    private static final int BASE_DEATHS_RANGE = 500_000;
-    private static final int BASE_INFECTED_RANGE = 500_000;
+    private static final int BASE_DEATHS_RANGE = 10_500_000;
+    private static final int BASE_INFECTED_RANGE = 10_500_000;
+    private static final int INITIAL_POINTS = 1;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -35,7 +36,7 @@ public final class InfoDataImpl implements InfoData {
      *                        population
      */
     public InfoDataImpl(final long totalPopulation) {
-        this.dnaPoints = 1;
+        this.dnaPoints = INITIAL_POINTS;
         this.infectedLimit = BASE_INFECTED_RANGE;
         this.deathsLimit = BASE_DEATHS_RANGE;
         this.totalPopulation = totalPopulation;
@@ -129,7 +130,7 @@ public final class InfoDataImpl implements InfoData {
                 .map(Region::getNumInfected)
                 .reduce(0L, (e0, e1) -> e0 + e1);
         if (this.totalInfected > this.infectedLimit) {
-            this.increasePoints(random.nextInt(3) + 1);
+            this.increasePoints(INITIAL_POINTS);
             this.infectedLimit += BASE_INFECTED_RANGE;
         }
     }
