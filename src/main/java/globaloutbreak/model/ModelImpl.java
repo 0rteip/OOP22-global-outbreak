@@ -146,14 +146,14 @@ public final class ModelImpl implements Model {
         this.voyages = List.copyOf(voyages);
         if (!voyages.isEmpty()) {
             voyages.forEach(k -> {
-                this.incOrDecInfectedPeople(k.getInfected(), this.getRegionByColor(k.getDest()).get());
+                this.incOrDecInfectedPeople(k.getInfected(), this.getUpdateRegion(k.getDest()).get());
             });
         }
     }
 
-    private Optional<Region> getRegionByColor(final int color) {
+    private Optional<Region> getUpdateRegion(final Region region) {
         return this.getRegions().stream()
-                .filter(k -> k.getColor() == color)
+                .filter(k -> k.getColor() == region.getColor())
                 .findFirst();
     }
 
@@ -168,7 +168,7 @@ public final class ModelImpl implements Model {
                 .toList());
         if (event.isPresent()) {
             final ExtractedEvent exEvent = event.get();
-            final Region exRegion = getRegionByColor(exEvent.getRegion()).get();
+            final Region exRegion = getUpdateRegion(exEvent.getRegion()).get();
             exRegion.incDeathPeople(exEvent.getDeath(), true);
             final Message msg = new Message() {
                 @Override
@@ -190,6 +190,7 @@ public final class ModelImpl implements Model {
     @Override
     public void setRegions(final List<Region> regions) {
         this.regions = new LinkedList<>(regions);
+        System.out.println(regions.size());
         this.initializeInfoData();
     }
 

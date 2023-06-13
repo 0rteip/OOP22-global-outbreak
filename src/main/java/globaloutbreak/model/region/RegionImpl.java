@@ -25,13 +25,14 @@ public final class RegionImpl implements Region {
     private final String name;
     private final float urban;
     private final float poor;
-    private final Integer facilities;
-    private final Integer color;
+    private final int facilities;
+    private final int color;
     private final Climate climate;
     private RegionCureStatus status = RegionCureStatus.NONE;
     // private State statusCure;
     private final List<TransmissionMean> trasmissionMeans = new LinkedList<>();
     private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
+    private final float closeMeans;
 
     /**
      * This is the constructor.
@@ -59,7 +60,8 @@ public final class RegionImpl implements Region {
      */
     public RegionImpl(final long popTot, final String name,
             final Map<String, Pair<Integer, Optional<List<String>>>> reachableRegion, final float urban,
-            final float poor, final int color, final int facilities, final float hot, final float humid) {
+            final float poor, final int color, final int facilities, final float hot, final float humid,
+            final float closeMeans) {
         this.popTot = popTot;
         this.name = name;
         this.urban = urban;
@@ -68,6 +70,7 @@ public final class RegionImpl implements Region {
         this.facilities = facilities;
         this.climate = new ClimateImpl(humid, hot);
         this.deathByEvents = 0;
+        this.closeMeans = closeMeans;
         createMeans(reachableRegion);
         // this.statusCure = State.NEUTRO;
     }
@@ -104,17 +107,28 @@ public final class RegionImpl implements Region {
                 }
                 this.numDeath = this.popTot;
                 this.status = RegionCureStatus.FINISHED;
-                this.getTrasmissionMeans().stream().forEach(k -> {
-                    k.setState(MeansState.CLOSE);
-                });
+
             } else {
                 if (byEvent) {
                     this.deathByEvents += death;
                 }
                 this.numDeath += death;
             }
+            checkAndCloseMeans();
         } else {
             logger.info("The state" + name + "is Finished");
+        }
+    }
+
+    private void checkAndCloseMeans() {
+        float deathT = this.numDeath;
+        float popT = this.popTot;
+        float deathE = this.deathByEvents;
+        if (((deathT - deathE) / popT) >= closeMeans && this.trasmissionMeans.get(0).getState() != MeansState.CLOSE) {
+            this.getTrasmissionMeans().stream().forEach(k -> {
+                k.setState(MeansState.CLOSE);
+            });
+            logger.info("Close " + this.name + " borders " + (deathT - deathE));
         }
     }
 

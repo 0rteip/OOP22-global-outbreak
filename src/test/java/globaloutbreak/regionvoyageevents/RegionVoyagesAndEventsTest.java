@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
-
 import globaloutbreak.controller.event.EventController;
 import globaloutbreak.controller.event.EventControllerImpl;
 import globaloutbreak.controller.region.RegionController;
@@ -32,11 +30,9 @@ final class RegionVoyagesAndEventsTest {
     private final VoyageController vC = new VoyageControllerImpl();
     private final EventController controller = new EventControllerImpl();
     private final List<Region> regions = contr.getRegions();
-    private long popTot;
 
     @Test
     void testRegion() {
-        contr.getRegions().forEach(k -> popTot += k.getPopTot());
         Region r = regions.get(0);
         r.incDeathPeople(r.getPopTot(), false);
         assertEquals(r.getPopTot(), r.getNumDeath());

@@ -43,6 +43,7 @@ public final class RegionControllerImpl implements RegionController {
                 final Map<String, Pair<Integer, Optional<List<String>>>> means = new HashMap<>();
                 int color = 0;
                 int facilities = 0;
+                float closeMeans = 0;
                 final Iterator<Entry<String, JsonNode>> iterator = k.fields();
                 while (iterator.hasNext()) {
                     final Entry<String, JsonNode> e = iterator.next();
@@ -59,6 +60,9 @@ public final class RegionControllerImpl implements RegionController {
                             break;
                         case "humid":
                             humid = e.getValue().floatValue();
+                            break;
+                        case "closeMeans":
+                            closeMeans = e.getValue().floatValue();
                             break;
                         case "confini":
                             reachableState = getTypeOfMeans(e.getValue());
@@ -83,7 +87,8 @@ public final class RegionControllerImpl implements RegionController {
                             break;
                     }
                 }
-                regions.add(new RegionImpl(popTot, name, means, urban, poor, color, facilities, hot, humid));
+                regions.add(
+                        new RegionImpl(popTot, name, means, urban, poor, color, facilities, hot, humid, closeMeans));
             });
         } catch (IOException e) {
             logger.error("Failed creation of events", e);
