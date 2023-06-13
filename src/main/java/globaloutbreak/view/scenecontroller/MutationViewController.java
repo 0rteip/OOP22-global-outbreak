@@ -41,6 +41,16 @@ public final class MutationViewController extends AbstractSceneController implem
         this.getView().displayMutation();
         displayButton(this.getView().getMutations());
         displayPoints();
+        clearLayout();
+    }
+
+    /**
+     * clear layout.
+     */
+    private void clearLayout() {
+        descriptionLabel.setText("");
+        pointLabel.setText("");
+        buttonGridPanell.getChildren().removeIf(node -> node instanceof Button);
     }
 
     /**
