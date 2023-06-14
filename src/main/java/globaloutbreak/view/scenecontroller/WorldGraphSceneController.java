@@ -61,7 +61,7 @@ public final class WorldGraphSceneController extends AbstractSceneController imp
     }
 
     /**
-     * Show Word info.
+     * Show World info.
      */
     @FXML
     public void showWorldInfo() {
