@@ -150,6 +150,7 @@ public final class DiseaseFactoryImpl implements DiseaseFactory {
 
             @Override
             public void updateCureResistance(final float cureResistance) {
+                this.cureListener.firePropertyChange("resist", this.cureResistance, this.cureResistance + cureResistance);
                 this.cureResistance += cureResistance;
             }
 
