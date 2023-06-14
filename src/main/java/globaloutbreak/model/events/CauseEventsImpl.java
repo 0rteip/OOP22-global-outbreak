@@ -1,6 +1,5 @@
 package globaloutbreak.model.events;
 
-import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,6 @@ import globaloutbreak.model.region.Region;
 public final class CauseEventsImpl implements CauseEvent {
     private final List<Event> events;
     private static final Random RANDOM = new Random();
-    private final PropertyChangeSupport infodataSupport = new PropertyChangeSupport(this);
 
     /**
      * 
@@ -43,7 +41,6 @@ public final class CauseEventsImpl implements CauseEvent {
         if ((region.getNumDeath() + death) > region.getPopTot()) {
             death = region.getPopTot() - region.getNumDeath();
         }
-        infodataSupport.firePropertyChange("eventdeath", 0, death);
         return death;
     }
 

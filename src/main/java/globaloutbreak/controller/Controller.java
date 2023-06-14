@@ -59,12 +59,6 @@ public interface Controller {
     void selectedMutation(Mutation mutation);
 
     /**
-     * Update DNA points, cure status, general info.
-     * 
-     */
-    void updateInfo();
-
-    /**
      * Display info in general charts.
      * 
      * @return

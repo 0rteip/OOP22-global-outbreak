@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Polygon?>
 <?import java.lang.Double?>
@@ -18,7 +19,19 @@ fx:controller="globaloutbreak.view.scenecontroller.TutorialController" styleshee
         <HBox styleClass="hbox-title" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <Button fx:id="backButton" onMouseClicked="#backScene" text="">
             </Button>
-            <Text styleClass="tutorial-title" text="Come si gioca" />
+            <TextFlow>
+            <children>
+            <Text styleClass="tutorial-text" text="1) L'obiettivo del gioco è riuscire ad infettare e uccidere tutto le persone del mondo con una malattia, prima che il mondo stesso sviluppi una cura. La prima azione da eseguire è la scelta della malattia." />
+                <Text styleClass="tutorial-text" text="2) In questo momento è presente solo un tipo di Malattia, il batterio." />
+                <Text styleClass="tutorial-text" text="3) Successivamente, ti viene chiesto di nominare la tua malattia e da questo momento ha inizio la partita. Per cominciare ad infettare il mondo devi scegliere uno stato sulla mappa nel quale apparirà il primo infetto." />
+                <Text styleClass="tutorial-text" text="4) D'ora in poi l'infezione di altre persone è automatica e può avvenire attraverso viaggi tra stati confinanti o dentro lo stato stesso."/>
+                <Text styleClass="tutorial-text" text="5) Cliccando su ogni singolo stato si potrà verificare il numero di infetti e di morti, mentre cliccando su qualsiasi altra parte della mappa viene visualizzata la situazione generale." />
+                <Text styleClass="tutorial-text" text="6) Il giocatore ha anche la possibilità di effettuare investimenti, guadagnando punti attraverso l'infezione di nuovi stati e l'uccisione di certe soglie di persone. " />
+                <Text styleClass="tutorial-text" text="7) I potenziamenti possono essere raggiunti tramite il pulsante inbase a sinistra nella schermata della mappa e cliccando su ogni potenziamento si può verificare il costo in punti e una descrizione del potenziamento." />
+                <Text styleClass="tutorial-text" text="8) Nel pulsante in basso a destra della mappa, invece, si possono consultare il grafico dell'andamento della malattia e il grafico dell'andamento della cura. "/>
+                <Text styleClass="tutorial-text" text="9) Ora puoi cominciare a giocare, Buona Partita! :D"/>
+            </children>
+            </TextFlow>
         </HBox>
         <Text styleClass="tutorial-text" text="**Guida del gioco**" />
 	</children>
