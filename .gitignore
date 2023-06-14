@@ -10,5 +10,7 @@ bin/
 
 .settings
 
+.vscode
+
 # Ignore .log file
 *.log
