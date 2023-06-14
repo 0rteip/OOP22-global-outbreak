@@ -160,12 +160,12 @@ public final class SimpleCure implements Cure {
 
     @Override
     public void increaseResearchDifficulty(final float changeFactor) {
-        this.necessaryBudget *= (1 + changeFactor);
+        this.necessaryBudget *= 1 + changeFactor;
     }
 
     @Override
     public void reduceResearchProgress(final float changeFactor) {
-        this.researchBudget *= (1 + changeFactor);
+        this.researchBudget *= 1 + changeFactor;
     }
 
     private float dailyRegionContribution(final Region region) {

@@ -284,9 +284,9 @@ public final class MapController extends AbstractSceneController implements Scen
     }
     private void setMeans() {
         this.visibleMeans = new LinkedList<>();
-        List<String> means = new LinkedList<>(this.getView().getMeans());
+        final List<String> means = new LinkedList<>(this.getView().getMeans());
         means.forEach(mean -> {
-            if (mean.equals("aereoporti") || mean.equals("porti")) {
+            if ("aereoporti".equals(mean) || "porti".equals(mean)) {
                 visibleMeans.add(mean);
             }
         });
