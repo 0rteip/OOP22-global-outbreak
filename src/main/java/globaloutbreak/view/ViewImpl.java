@@ -1,6 +1,7 @@
 package globaloutbreak.view;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -245,5 +246,10 @@ public final class ViewImpl implements View {
     @Override
     public void render() {
         this.manager.updateWorld(this);
+    }
+
+    @Override
+    public List<String> getMeans() {
+       return new LinkedList<>(this.controller.getMeans());
     }
 }

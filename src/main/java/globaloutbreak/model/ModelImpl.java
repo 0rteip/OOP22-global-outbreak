@@ -282,4 +282,8 @@ public final class ModelImpl implements Model {
         this.infoData.updateCureData(this.cure.get().getGlobalStatus());
     }
 
+    @Override
+    public List<String> getMeans() {
+       return new LinkedList<>(voyageC.getMeans());
+    }
 }

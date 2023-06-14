@@ -238,4 +238,10 @@ public interface View {
      * @param points points
      */
     void setPoints(int points);
+    /**
+     * 
+     * @return
+     *          the name of means
+     */
+    List<String> getMeans();
 }

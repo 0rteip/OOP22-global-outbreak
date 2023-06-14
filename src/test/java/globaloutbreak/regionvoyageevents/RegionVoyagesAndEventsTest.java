@@ -99,8 +99,8 @@ final class RegionVoyagesAndEventsTest {
         while (cat.isEmpty()) {
             cat = causeEvent.causeEvent(regions);
         }
-        System.out.println("Name " + cat.get().getEvent() + " Region " +
+        /*System.out.println("Name " + cat.get().getEvent() + " Region " +
         cat.get().getRegion()
-        + " Morti " + cat.get().getDeath());
+        + " Morti " + cat.get().getDeath());*/
     }
 }

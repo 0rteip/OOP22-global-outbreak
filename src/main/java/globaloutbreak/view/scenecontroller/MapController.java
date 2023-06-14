@@ -218,7 +218,7 @@ public final class MapController extends AbstractSceneController implements Scen
             meansPos.forEach((s, m) -> {
                 path = "";
                 switch (s) {
-                    case "areoporti":
+                    case "aereoporti":
                         path = airportPaths;
                         break;
                     case "porti":
@@ -263,7 +263,7 @@ public final class MapController extends AbstractSceneController implements Scen
         meansPos = new HashMap<>();
         this.visibleMeans.forEach(k -> {
             switch (k) {
-                case "areoporti":
+                case "aereoporti":
                     meansPos.put(k, extractPos(airportsMap));
                     break;
                 case "porti":
@@ -282,7 +282,15 @@ public final class MapController extends AbstractSceneController implements Scen
             this.playPausaBut.setText("Play");
         }
     }
-
+    private void setMeans() {
+        this.visibleMeans = new LinkedList<>();
+        List<String> means = new LinkedList<>(this.getView().getMeans());
+        means.forEach(mean -> {
+            if (mean.equals("aereoporti") || mean.equals("porti")) {
+                visibleMeans.add(mean);
+            }
+        });
+    }
     /**
      * This method initialize the scene.
      */
@@ -297,10 +305,8 @@ public final class MapController extends AbstractSceneController implements Scen
             this.buf = getImage("configView/checkRegion.png");
             this.sfondo = getImage("configView/sfon.png");
             this.effectifeImage = sfondo;
-            visibleMeans = new LinkedList<>();
-            visibleMeans.add("porti");
-            visibleMeans.add("areoporti");
-            setMap();
+            this.setMeans();
+            this.setMap();
             this.setTextFilds(this.getView().getInfoSingleRegion());
         }
         resize(sfondo, (int) Math.floor(borderPane.getWidth()), (int) Math.floor(borderPane.getHeight()));

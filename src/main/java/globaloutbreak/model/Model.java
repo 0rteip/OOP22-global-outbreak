@@ -150,4 +150,11 @@ public interface Model {
      */
     Optional<EndCauses> getEndCause();
 
+    /**
+     * 
+     * @return
+     *          the name of means
+     */
+    List<String> getMeans();
+
 }

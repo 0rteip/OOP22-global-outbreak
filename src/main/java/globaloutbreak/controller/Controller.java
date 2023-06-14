@@ -174,5 +174,11 @@ public interface Controller {
      * display points.
      */
     void displayPoints();
+    /**
+     * 
+     * @return
+     *          the name of means
+     */
+    List<String> getMeans();
 
 }

@@ -2,6 +2,7 @@ package globaloutbreak.controller;
 
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Condition;
@@ -343,5 +344,10 @@ public final class ControllerImpl implements Controller {
     @Override
     public void setRegions() {
         this.model.setRegions(regionController.getRegions());
+    }
+
+    @Override
+    public List<String> getMeans() {
+        return new LinkedList<>(this.model.getMeans());
     }
 }
