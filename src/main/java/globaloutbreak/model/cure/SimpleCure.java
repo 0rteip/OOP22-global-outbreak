@@ -106,40 +106,56 @@ public final class SimpleCure implements Cure {
     @Override
     public void research() {
         if (this.isStarted) {
-            // if the research has started every region contributes to the research
-            this.contributions.entrySet().stream()
-                    .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.STARTED)
-                    .forEach(el -> this.contributions.compute(
-                            el.getKey(),
-                            (key, val) -> val + this.dailyRegionContribution(key)));
-            this.updateResearchBudget();
-            if (this.highMortalityRateRegions().count() > 0) {
-                this.increasePriority();
-            }
+            this.updateResearch();
         } else {
-            // if a region has discovered the disease and after the
-            // 'daysBeforeStartResearch', each Region starts looking for a cure
-            if (this.numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch == 0) {
-                this.logger.info("Start Cure research");
-                this.isStarted = true;
-                this.increasePriority();
-                this.contributions.entrySet().stream()
-                        .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
-                        .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
-            } else {
-                if (this.highMortalityRateRegions().count() > 0) {
-                    this.daysBeforeStartResearch--;
-                    this.highMortalityRateRegions()
-                            .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
-                            .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
-                }
-            }
+            this.checkForDisease();
         }
 
         this.notifyIfNecessary();
 
         if (this.cureProgress() >= 100) {
             this.isComplete = true;
+        }
+    }
+
+    private void updateResearch() {
+        // if the research has started every region contributes to the research
+        this.contributions.entrySet().stream()
+                .filter(el -> el.getKey().getCureStatus() == RegionCureStatus.STARTED)
+                .forEach(el -> this.contributions.compute(
+                        el.getKey(),
+                        (key, val) -> val + this.dailyRegionContribution(key)));
+        this.updateResearchBudget();
+        if (this.highMortalityRateRegions().count() > 0) {
+            this.increasePriority();
+        }
+    }
+
+    private void checkForDisease() {
+        // if a region has discovered the disease and after the
+        // 'daysBeforeStartResearch', each Region starts looking for a cure
+        if (this.numberOfRegionsTahtDiscoveredDisease() > 0 && this.daysBeforeStartResearch == 0) {
+            this.startCureResearch();
+        } else {
+            this.checkRegionStatus();
+        }
+    }
+
+    private void startCureResearch() {
+        this.logger.info("Start Cure research");
+        this.isStarted = true;
+        this.increasePriority();
+        this.contributions.entrySet().stream()
+                .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
+                .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.STARTED));
+    }
+
+    private void checkRegionStatus() {
+        if (this.highMortalityRateRegions().count() > 0) {
+            this.daysBeforeStartResearch--;
+            this.highMortalityRateRegions()
+                    .filter(el -> el.getKey().getDeathByVirus() != el.getKey().getPopTot())
+                    .forEach(el -> el.getKey().setCureStatus(RegionCureStatus.DISCOVERED));
         }
     }
 
